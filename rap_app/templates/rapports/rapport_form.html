@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">📋 Générer un Nouveau Rapport</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="formation" class="form-label">🏫 Choisir une formation (optionnel) :</label>
+            <select name="formation" id="formation" class="form-control">
+                <option value="">🌍 Rapport Global</option>
+                {% for formation in formations %}
+                    <option value="{{ formation.id }}">{{ formation.nom }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">✅ Générer le Rapport</button>
+        <a href="{% url 'list_rapports' %}" class="btn btn-secondary">🔙 Retour</a>
+    </form>
+</div>
+{% endblock %}
