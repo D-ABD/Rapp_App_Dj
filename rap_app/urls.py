@@ -1,12 +1,14 @@
 from django.urls import path
-from django.urls import path
 
-from .views.users_views import (UserDeleteView, UserDetailView, UserListView, UserUpdateView, user_login, register, user_logout, user_profile, change_password,
-reset_password, 
+from .views.parametres_views import parametres
+
+
+from .views.users_views import (UserDeleteView, UserDetailView, UserListView, UserUpdateView, 
+user_login, register, user_logout, user_profile, change_password,reset_password, 
 )
 
 from .views import (
-    home_views, dashboard_views, centres_views, statuts_views, types_offre_views,
+    home_views, DashboardView, centres_views, statuts_views, types_offre_views,
     commentaires_views, documents_views, partenaires_views, evenements_views, formations_views
 )  # Import des vues
 
@@ -14,7 +16,7 @@ urlpatterns = [
     # Page d'accueil
     path('', home_views.home, name='home'),
 
-    # AUTH
+    # USERS
     path("register/", register, name="register"),
     path("login/", user_login, name="login"),
     path("logout/", user_logout, name="logout"),
@@ -29,8 +31,7 @@ urlpatterns = [
 
 
     # Dashboard
-    path('dashboad/', dashboard_views.DashboardView.as_view(), name='dashboard'),
-    path("stats-api/", dashboard_views.StatsAPIView.as_view(), name="stats_api"),  # ✅ Ajout de cette ligne
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
 
 
     # Centres de formation
@@ -96,5 +97,9 @@ urlpatterns = [
     path('formations/<int:pk>/supprimer/', formations_views.FormationDeleteView.as_view(), name='formation-delete'),
     path('formations/<int:pk>/commentaire/', formations_views.FormationAddCommentView.as_view(), name='formation-add-comment'),
     path("formations/export-excel/", formations_views.ExportFormationsExcelView.as_view(), name="export-formations-excel"),
+   
+    # Paramètres
+    path('parametres/', parametres, name='parametres'),
+
 
 ]

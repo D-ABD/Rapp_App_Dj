@@ -3,6 +3,8 @@
 {% block title %}{{ titre }}{% endblock %}
 
 {% block content %}
+{% include "composants/bouton_retour.html" %}
+
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1><i class="fas fa-user-friends me-2"></i> {{ titre }}</h1>

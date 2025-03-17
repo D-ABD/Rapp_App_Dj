@@ -83,8 +83,7 @@ DATABASES = {
     }
 }
 
-LOGIN_REDIRECT_URL = "profile"
-LOGOUT_REDIRECT_URL = "login"
+
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"  # Temporaire, affiche l'email en console
 
@@ -179,3 +178,6 @@ LOGGING = {
         },
     },
 }
+LOGIN_REDIRECT_URL = "profile"
+LOGOUT_REDIRECT_URL = "login"
+LOGIN_URL = '/login/'  # Remplacez par l'URL de votre page de connexion

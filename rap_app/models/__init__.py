@@ -7,7 +7,6 @@ from .commentaires import Commentaire
 from .evenements import Evenement
 from .documents import Document
 from .historique_formations import HistoriqueFormation
-from .parametres import Parametre
 from .recherches import Recherche
 
 __all__ = [
@@ -22,6 +21,5 @@ __all__ = [
     'Evenement',
     'Document',
     'HistoriqueFormation',
-    'Parametre',
     'Recherche',
 ]

@@ -1,14 +1,14 @@
+{% load static %}
+
 <!-- templates/composants/navbar.html -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <!-- Bouton pour ouvrir/fermer la sidebar -->
-        <button class="btn btn-sm btn-secondary me-3" id="sidebarToggle" onclick="toggleSidebar()">
-            <i class="fas fa-bars"></i>
-        </button>
-
+       
         <!-- Logo ou nom de l'application -->
-        <a class="navbar-brand" href="{% url 'home' %}">Mon Application</a>
-
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Logo Rap App" style="height: 80px;">
+        </a>
+        
         <!-- Bouton pour les écrans mobiles -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,24 +26,9 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'centre-list' %}">Centres</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'statut-list' %}">Statuts</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'type-offre-list' %}">Types offres</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'admin:index' %}">Admin</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'commentaire-list' %}">Commentaires</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="{% url 'evenement-list' %}">Evenements</a>
                 </li>
+                
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'partenaire-list' %}">Partenaires</a>
                 </li>
@@ -53,14 +38,46 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'document-list' %}">Documents</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'parametres' %}">Paramètres</a>
+                </li>
             </ul>
 
-            <!-- Section utilisateur (optionnelle) -->
+            <!-- Section utilisateur -->
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Connexion</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <!-- Si l'utilisateur est connecté, afficher le lien vers le profil et la déconnexion -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user-profile' %}">
+                            <i class="fas fa-user"></i> Profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout' %}">
+                            <i class="fas fa-sign-out-alt"></i> Déconnexion
+                        </a>
+                    </li>
+                {% else %}
+                    <!-- Si l'utilisateur n'est pas connecté, afficher le lien de connexion -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">
+                            <i class="fas fa-sign-in-alt"></i> Connexion
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
+<style>
+
+.navbar-logo {
+    height: 60px; /* Hauteur souhaitée */
+    width: auto; /* Largeur ajustée automatiquement */
+    max-height: 100%; /* Empêche le logo de dépasser la hauteur de la barre de navigation */
+}
+
+.navbar {
+    min-height: 80px; /* Ajustez cette valeur selon vos besoins */
+}
+</style>

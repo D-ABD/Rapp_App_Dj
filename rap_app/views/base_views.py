@@ -1,21 +1,30 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.contrib import messages
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
-class BaseListView(LoginRequiredMixin, ListView):
+class CustomLoginRequiredMixin(LoginRequiredMixin):
+    """Mixin personnalisé pour gérer les utilisateurs non connectés"""
+    def handle_no_permission(self):
+        # Ajouter un message d'erreur
+        messages.error(self.request, "Vous devez être connecté pour accéder à cette page.")
+        # Rediriger vers la page de connexion
+        return redirect('login')  # Remplacez 'login' par le nom de votre URL de connexion
+
+class BaseListView(CustomLoginRequiredMixin, ListView):
     """Vue de base pour les listes avec pagination"""
     paginate_by = 20
     template_name_suffix = '_list'
 
 
-class BaseDetailView(LoginRequiredMixin, DetailView):
+class BaseDetailView(CustomLoginRequiredMixin, DetailView):
     """Vue de base pour afficher un détail"""
     template_name_suffix = '_detail'
 
 
-class BaseCreateView(LoginRequiredMixin, CreateView):
+class BaseCreateView(CustomLoginRequiredMixin, CreateView):
     """Vue de base pour créer un objet"""
 
     def form_valid(self, form):
@@ -25,7 +34,7 @@ class BaseCreateView(LoginRequiredMixin, CreateView):
         return response
 
 
-class BaseUpdateView(LoginRequiredMixin, UpdateView):
+class BaseUpdateView(CustomLoginRequiredMixin, UpdateView):
     """Vue de base pour modifier un objet"""
 
     def form_valid(self, form):
@@ -35,7 +44,7 @@ class BaseUpdateView(LoginRequiredMixin, UpdateView):
         return response
 
 
-class BaseDeleteView(LoginRequiredMixin, DeleteView):
+class BaseDeleteView(CustomLoginRequiredMixin, DeleteView):
     """Vue de base pour supprimer un objet"""
     success_url = reverse_lazy('dashboard')
 

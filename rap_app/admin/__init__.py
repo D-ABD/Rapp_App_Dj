@@ -8,7 +8,6 @@ from .statuts_admin import StatutAdmin
 from .types_offre_admin import TypeOffreAdmin
 from .formations_admin import FormationAdmin
 from .commentaires_admin import CommentaireAdmin
-from .parametres_admin import ParametreAdmin
 from .recherches_admin import RechercheAdmin
 from .partenaires_admin import PartenaireAdmin  # Nouveau
 from .evenements_admin import EvenementAdmin    # Nouveau

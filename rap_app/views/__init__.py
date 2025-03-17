@@ -58,6 +58,3 @@ from .documents_views import DocumentDownloadView
 
 
 
-from .parametres_views import (
-    ParametreListView, ParametreUpdateView
-)

@@ -1,7 +1,6 @@
 from django.http import HttpRequest  # ✅ Import correct de HttpRequest
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic import TemplateView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, Sum, Avg, F, Q, Case, When, IntegerField, Value
 from django.utils import timezone
 from datetime import timedelta
@@ -11,6 +10,8 @@ from django.views import View
 from django.db.models import Count, Avg, F, Value, Sum, FloatField
 from django.db.models.functions import Coalesce, TruncMonth
 from django.db import models
+
+from ..views.base_views import BaseListView
 
 from ..models.partenaires import Partenaire
 
@@ -22,11 +23,14 @@ from ..models import Formation, Statut
 
 from ..models import Formation, Centre, Commentaire, TypeOffre, Statut, Evenement, HistoriqueFormation
 
-class DashboardView(LoginRequiredMixin, TemplateView):
-    """Vue du tableau de bord principal"""
-    template_name = 'dashboard.html'
+
+class DashboardView(BaseListView):
+    model = Formation  # Spécifiez le modèle à afficher
+    template_name = 'dashboard.html'  # Spécifiez le template
+    context_object_name = 'formations'  # Nom de la variable dans le template
 
     def get_context_data(self, **kwargs):
+        # Appelez la méthode parente pour obtenir le contexte de base
         context = super().get_context_data(**kwargs)
 
         # ✅ Nombre total de formations par centre
@@ -110,7 +114,6 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             .order_by('-created_at')[:5]
         )
 
-
         # ✅ Candidats et Entretiens par Centre
         candidats_par_centre = (
             Centre.objects.annotate(
@@ -167,14 +170,13 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
         # ✅ Préparation des stats pour l'affichage en haut du tableau de bord
         context['stats'] = [
-        (context['total_formations'], "Formations", "primary", "fa-graduation-cap"),
-        (context['total_candidats'], "Candidats", "secondary", "fa-users"),
-        (context['total_entretiens'], "Entretiens", "warning", "fa-handshake"),
-        (context['total_inscrits'], "Inscrits", "success", "fa-user-check"),
-        (context['total_places_prevues'], "Places prévues", "info", "fa-calendar-alt"),
-        (context['total_places_restantes'], "Places restantes", "danger", "fa-calendar-times"),
+            (context['total_formations'], "Formations", "primary", "fa-graduation-cap"),
+            (context['total_candidats'], "Candidats", "secondary", "fa-users"),
+            (context['total_entretiens'], "Entretiens", "warning", "fa-handshake"),
+            (context['total_inscrits'], "Inscrits", "success", "fa-user-check"),
+            (context['total_places_prevues'], "Places prévues", "info", "fa-calendar-alt"),
+            (context['total_places_restantes'], "Places restantes", "danger", "fa-calendar-times"),
         ]
-
 
         # ✅ Événements par type
         context['evenements_par_type'] = (
@@ -214,8 +216,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 
 
-
-class StatsAPIView(LoginRequiredMixin, View):
+class StatsAPIView(View):
     """API pour récupérer les statistiques du Dashboard"""
 
     def get(self, request, *args, **kwargs):
