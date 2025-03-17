@@ -1,9 +1,5 @@
 import datetime
-from pyexpat.errors import messages
-from xml.dom.minidom import Document
 from django.db import models
-from django.http import HttpResponseBadRequest
-from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 from django.utils import timezone
@@ -14,7 +10,7 @@ from .partenaires import Partenaire
 from .centres import Centre
 from .types_offre import TypeOffre
 from .base import BaseModel
-from .statut import Statut
+from .statut import Statut, get_default_color
 
 User = get_user_model()  # Récupère le modèle User
 
@@ -210,6 +206,13 @@ class Formation(BaseModel):
 
     ### ✅ Autres méthodes utiles
 
+    def get_status_color(self):
+        """
+        Retourne la couleur associée au statut de la formation.
+        Si le statut n’a pas de couleur définie, il prend une couleur par défaut.
+        """
+        return self.statut.couleur if self.statut.couleur else get_default_color(self.statut.nom)
+    
     def get_absolute_url(self):
         """Retourne l'URL de détail de la formation."""
         return reverse('formation-detail', kwargs={'pk': self.pk})

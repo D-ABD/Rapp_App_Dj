@@ -29,10 +29,14 @@ from .documents_views import (
     DocumentUpdateView, DocumentDeleteView, DocumentDownloadView
 )
 
+from .partenaires_views import (
+    PartenaireListView, PartenaireDetailView, PartenaireCreateView, 
+    PartenaireUpdateView, PartenaireDeleteView    
+)
 
 
 from .dashboard_views import (
-    DashboardView, StatsAPIView
+    DashboardView, 
 )
 
 from .statuts_views import (

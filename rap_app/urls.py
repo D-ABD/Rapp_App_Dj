@@ -1,13 +1,37 @@
 from django.urls import path
+from django.urls import path
+
+from .views.users_views import (UserDeleteView, UserDetailView, UserListView, UserUpdateView, user_login, register, user_logout, user_profile, change_password,
+reset_password, 
+)
 
 from .views import (
-    home_views, centres_views, statuts_views, types_offre_views,
+    home_views, dashboard_views, centres_views, statuts_views, types_offre_views,
     commentaires_views, documents_views, partenaires_views, evenements_views, formations_views
 )  # Import des vues
 
 urlpatterns = [
     # Page d'accueil
     path('', home_views.home, name='home'),
+
+    # AUTH
+    path("register/", register, name="register"),
+    path("login/", user_login, name="login"),
+    path("logout/", user_logout, name="logout"),
+    path("profile/", user_profile, name="user-profile"),
+    path("password_change/", change_password, name="password_change"),
+    path("password_reset/", reset_password, name="password_reset"),
+    
+    path("users/", UserListView.as_view(), name="user-list"),
+    path("users/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
+    path("users/<int:pk>/update/", UserUpdateView.as_view(), name="user-update"),
+    path("users/<int:pk>/delete/", UserDeleteView.as_view(), name="user-delete"),
+
+
+    # Dashboard
+    path('dashboad/', dashboard_views.DashboardView.as_view(), name='dashboard'),
+    path("stats-api/", dashboard_views.StatsAPIView.as_view(), name="stats_api"),  # ✅ Ajout de cette ligne
+
 
     # Centres de formation
     path('centres/', centres_views.CentreListView.as_view(), name='centre-list'),
@@ -36,7 +60,9 @@ urlpatterns = [
     path('commentaires/ajouter/', commentaires_views.CommentaireCreateView.as_view(), name='commentaire-create'),
     path('commentaires/<int:pk>/modifier/', commentaires_views.CommentaireUpdateView.as_view(), name='commentaire-update'),
     path('commentaires/<int:pk>/supprimer/', commentaires_views.CommentaireDeleteView.as_view(), name='commentaire-delete'),
-    
+    path('commentaires_all/', commentaires_views.AllCommentairesView.as_view(), name='all-commentaires'),
+    path('export-commentaires/', commentaires_views.ExportCommentairesView.as_view(), name='export-commentaires'),
+
     # Documents
     path('documents/', documents_views.DocumentListView.as_view(), name='document-list'),
     path('documents/<int:pk>/', documents_views.DocumentDetailView.as_view(), name='document-detail'),
@@ -63,9 +89,12 @@ urlpatterns = [
     
     # Formations
     path('formations/', formations_views.FormationListView.as_view(), name='formation-list'),
+    path('formations/modifier-inscrits/<int:formation_id>/', formations_views.ModifierInscritsView.as_view(), name='modifier-inscrits'),
     path('formations/<int:pk>/', formations_views.FormationDetailView.as_view(), name='formation-detail'),
     path('formations/ajouter/', formations_views.FormationCreateView.as_view(), name='formation-create'),
     path('formations/<int:pk>/modifier/', formations_views.FormationUpdateView.as_view(), name='formation-update'),
     path('formations/<int:pk>/supprimer/', formations_views.FormationDeleteView.as_view(), name='formation-delete'),
     path('formations/<int:pk>/commentaire/', formations_views.FormationAddCommentView.as_view(), name='formation-add-comment'),
+    path("formations/export-excel/", formations_views.ExportFormationsExcelView.as_view(), name="export-formations-excel"),
+
 ]

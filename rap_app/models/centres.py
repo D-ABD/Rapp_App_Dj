@@ -63,9 +63,11 @@ class Centre(BaseModel):
     def full_address(self):
         """
         Retourne une version complète de l'adresse (utile si d'autres champs d'adresse sont ajoutés).
-        Exemple d'usage : affichage dans une liste ou recherche avancée.
         """
-        return f"{self.nom} ({self.code_postal})" if self.code_postal else self.nom
+        address = self.nom
+        if self.code_postal:
+            address += f" ({self.code_postal})"
+        return address
 
     class Meta:
         verbose_name = "Centre"

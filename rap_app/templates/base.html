@@ -76,19 +76,20 @@
     <script>
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
-            const sidebarToggle = document.getElementById('sidebarToggle');
             const mainContent = document.querySelector('.main-content');
-
-            if (sidebar.style.display === 'none' || sidebar.style.display === '') {
-                sidebar.style.display = 'block'; // Ouvrir la sidebar
-                mainContent.style.marginLeft = '250px'; // Décaler le contenu principal
-                sidebarToggle.innerHTML = '<i class="fas fa-times"></i>'; // Changer l'icône en "fermer"
-            } else {
-                sidebar.style.display = 'none'; // Fermer la sidebar
-                mainContent.style.marginLeft = '0'; // Réinitialiser le contenu principal
-                sidebarToggle.innerHTML = '<i class="fas fa-bars"></i>'; // Changer l'icône en "ouvrir"
-            }
+            const sidebarToggle = document.getElementById('sidebarToggle');
+    
+            // Utilisation de `classList.toggle()` pour éviter les erreurs de `display: none`
+            sidebar.classList.toggle('d-none');
+            mainContent.classList.toggle('ml-250'); // Ajoute une classe CSS qui gère l'animation
+            sidebarToggle.innerHTML = sidebar.classList.contains('d-none') ? '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
         }
     </script>
-</body>
+    
+    <style>
+        .ml-250 {
+            margin-left: 250px !important;
+        }
+    </style>
+    </body>
 </html>

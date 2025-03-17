@@ -1,11 +1,21 @@
-from urllib import request
+import csv
+from django.contrib.auth import get_user_model
+from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.db.models import Q, F, ExpressionWrapper, IntegerField, FloatField
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.utils import timezone
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
-
+from datetime import datetime, date  # ✅ Ajoute cette ligne en haut du fichier
+from django.http import HttpResponse, JsonResponse
+from django.views import View
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+import json
+from django.views import View
+from django.views.decorators.http import require_POST
+from datetime import datetime
 
 from django.contrib import messages
 from django.http import HttpResponseBadRequest
@@ -18,9 +28,11 @@ from ..models.centres import Centre
 from ..models.statut import Statut
 from ..models.types_offre import TypeOffre
 
-from ..models.commentaires import Commentaire
+from ..models.commentaires import Commentaire, User
 from ..models import Formation, HistoriqueFormation
 from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
+
+User = get_user_model()
 
 
 class FormationListView(BaseListView):
@@ -51,11 +63,13 @@ class FormationListView(BaseListView):
                 100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
                 (F('prevus_crif') + F('prevus_mp')), output_field=FloatField()
             ),
+            taux_transformation=ExpressionWrapper(
+                100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
+                (F('nombre_candidats') + 0.0001), output_field=FloatField()
+            ),
         )
 
-        print("Formations récupérées avant filtrage :", queryset)  # ✅ Debug
-
-        # 🔍 Ajout de la recherche par mots-clés
+        # 🔍 Recherche et filtres
         mot_cle = self.request.GET.get('q', '').strip()
         if mot_cle:
             queryset = queryset.filter(
@@ -66,7 +80,6 @@ class FormationListView(BaseListView):
                 Q(statut__nom__icontains=mot_cle)
             )
 
-        # 🔍 Application des filtres SEULEMENT si une valeur est sélectionnée
         centre_id = self.request.GET.get('centre', '').strip()
         type_offre_id = self.request.GET.get('type_offre', '').strip()
         statut_id = self.request.GET.get('statut', '').strip()
@@ -88,8 +101,6 @@ class FormationListView(BaseListView):
             elif periode == 'a_recruter':
                 queryset = queryset.filter(total_places__gt=F('total_inscrits'))
 
-        print("Formations après filtrage :", queryset)  # ✅ Debug
-
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -97,44 +108,62 @@ class FormationListView(BaseListView):
         context = super().get_context_data(**kwargs)
 
         context['stats'] = [
-            (Formation.objects.count(), "Total", "primary"),
-            (Formation.objects.formations_actives().count(), "Actives", "success"),
-            (Formation.objects.formations_a_venir().count(), "À venir", "info"),
-            (Formation.objects.formations_terminees().count(), "Terminées", "secondary"),
-            (Formation.objects.formations_a_recruter().count(), "À recruter", "warning"),
+            (Formation.objects.count(), "Total formations", "primary", "fa-graduation-cap"),
+            (Formation.objects.formations_actives().count(), "Formations Actives", "success", "fa-check-circle"),
+            (Formation.objects.formations_a_venir().count(), "Formations À venir", "info", "fa-clock"),
+            (Formation.objects.formations_terminees().count(), "Formations Terminées", "secondary", "fa-times-circle"),
+            (Formation.objects.formations_a_recruter().count(), "Formations À recruter", "warning", "fa-users"),
         ]
 
-        # ✅ Ajout des données pour les filtres
         context['centres'] = Centre.objects.all()
         context['types_offre'] = TypeOffre.objects.all()
         context['statuts'] = Statut.objects.all()
 
-        # ✅ Ajout des filtres actifs pour ne pas les perdre après soumission
         context['filters'] = {
             'centre': self.request.GET.get('centre', ''),
             'type_offre': self.request.GET.get('type_offre', ''),
             'statut': self.request.GET.get('statut', ''),
             'periode': self.request.GET.get('periode', ''),
-            'q': self.request.GET.get('q', ''),  # ✅ Ajout de la recherche au contexte
+            'q': self.request.GET.get('q', ''),
         }
 
-        # ✅ Ajout des noms de colonnes pour l'affichage
-        context['colonnes'] = [
-            {'nom': 'Nom', 'field': 'nom'},
-            {'nom': 'Centre', 'field': 'centre__nom'},
-            {'nom': 'Type', 'field': 'type_offre__nom'},
-            {'nom': 'Statut', 'field': 'statut__nom'},
-            {'nom': 'N° Offre', 'field': 'num_offre'},
-            {'nom': 'Début', 'field': 'start_date'},
-            {'nom': 'Fin', 'field': 'end_date'},
-            {'nom': 'Places CRIF', 'field': 'places_restantes_crif'},
-            {'nom': 'Places MP', 'field': 'places_restantes_mp'},
-            {'nom': 'Total places', 'field': 'total_places'},
-            {'nom': 'Disponibles', 'field': 'places_disponibles'},
-            {'nom': 'Saturation (%)', 'field': 'taux_saturation'},
-        ]
         return context
+        
 
+
+
+
+class ModifierInscritsView(View):
+    """Vue pour modifier les inscrits CRIF, MP, nombre de candidats, entretiens et prévus CRIF/MP via AJAX."""
+
+    def post(self, request, formation_id, *args, **kwargs):  
+        try:
+            data = json.loads(request.body)
+            field = data.get("field")
+            value = data.get("value")
+
+            # ✅ Ajout des nouveaux champs autorisés
+            if field not in ["inscrits_crif", "inscrits_mp", "nombre_candidats", "nombre_entretiens", "prevus_crif", "prevus_mp"]:
+                return JsonResponse({"success": False, "error": "Champ invalide"}, status=400)
+
+            formation = Formation.objects.get(pk=formation_id)
+
+            # ✅ Vérifier la permission de modification
+            if not request.user.has_perm("rap_app.change_formation"):
+                return JsonResponse({"success": False, "error": "Permission refusée"}, status=403)
+
+            # ✅ Mettre à jour la valeur du champ
+            setattr(formation, field, int(value))
+            formation.save()
+
+            return JsonResponse({"success": True, "message": "Mise à jour réussie", "new_value": value})
+
+        except Formation.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Formation non trouvée"}, status=404)
+        except json.JSONDecodeError:
+            return JsonResponse({"success": False, "error": "Format JSON invalide"}, status=400)
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)}, status=500)
 
 class FormationDetailView(BaseDetailView):
     """Vue affichant les détails d'une formation"""
@@ -203,6 +232,7 @@ class FormationDetailView(BaseDetailView):
         formation.add_commentaire(request.user, contenu)
         messages.success(request, "Commentaire ajouté avec succès.")
         return redirect(self.request.path)
+        
 
     def add_evenement(self, request, formation):
         """Ajoute un événement à la formation"""
@@ -286,6 +316,14 @@ class FormationUpdateView(PermissionRequiredMixin, BaseUpdateView):
             changes = {}
             for field in self.fields:
                 old_value, new_value = getattr(old_obj, field), getattr(self.object, field)
+
+                # 🔹 Si la valeur est une date, la convertir en string au format ISO
+                # ✅ Correction de la conversion des dates dans form_valid()
+                if isinstance(old_value, (datetime, date)):  
+                    old_value = old_value.isoformat() if old_value else None
+                if isinstance(new_value, (datetime, date)):  
+                    new_value = new_value.isoformat() if new_value else None
+
                 if old_value != new_value:
                     changes[field] = {'ancien': old_value, 'nouveau': new_value}
 
@@ -331,3 +369,46 @@ class FormationAddCommentView(BaseCreateView):
 
     def get_success_url(self):
         return reverse_lazy('formation-detail', kwargs={'pk': self.formation.pk})
+
+class ExportFormationsExcelView(View):
+    def get(self, request, *args, **kwargs):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="formations_export.csv"'
+
+        writer = csv.writer(response)
+        writer.writerow([
+            "Nom", "Centre", "num_offre", "Type d'offre", "Statut", "N° Kairos", 
+            "Dates", "Assistante", "Candidats", "Entretiens",
+            "Prévus CRIF", "Prévus MP", "Inscrits CRIF", "Inscrits MP",
+            "Places restantes CRIF", "Places restantes MP",
+            "Transformation", "Saturation"
+        ])
+
+        formations = Formation.objects.all()
+        for formation in formations:
+            writer.writerow([
+                formation.nom, 
+                formation.centre.nom if formation.centre else "-",
+                formation.num_offre if formation.num_offre else "-",
+                formation.type_offre.nom if formation.type_offre else "-",
+                formation.statut.nom if formation.statut else "-",
+                formation.num_kairos if formation.num_kairos else "-",
+                f"{formation.start_date} - {formation.end_date}",
+                formation.assistante if formation.assistante else "-",
+                formation.nombre_candidats,
+                formation.nombre_entretiens,
+                formation.prevus_crif,
+                formation.prevus_mp,
+                formation.inscrits_crif,
+                formation.inscrits_mp,
+                formation.get_places_restantes_crif(),  # ✅ Appel correct
+                formation.get_places_restantes_mp(),  # ✅ Appel correct
+                formation.get_taux_saturation(),  # ✅ Ajout du taux de saturation
+                formation.get_taux_saturation()  # ✅ Transformation (ajuster si différent)
+            ])
+
+        return response
+    
+
+
+

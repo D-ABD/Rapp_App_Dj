@@ -1,0 +1,103 @@
+<div class="card shadow-sm mb-3">
+    <div class="card-header bg-light d-flex justify-content-between align-items-center py-2">
+        <h5 class="mb-0"><i class="fas fa-database me-2"></i> Suivi Complet des Centres</h5>
+        <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSuiviComplet">
+            <i class="fas fa-chevron-down"></i>
+        </button>
+    </div>
+    <div class="collapse show" id="collapseSuiviComplet">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-sm table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Centre</th>
+                            <th class="text-center">Formations</th>
+                            <th class="text-center">Candidats</th>
+                            <th class="text-center">Entretiens</th>
+                            <th class="text-center">Places CRIF</th>
+                            <th class="text-center">Inscrits CRIF</th>
+                            <th class="text-center">Places MP</th>
+                            <th class="text-center">Inscrits MP</th>
+                            <th class="text-center">Transformation</th>
+                            <th class="text-center">Saturation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for centre in taux_par_centre %}
+                        <tr>
+                            <td>{{ centre.nom }}</td>
+                            <td class="text-center"><span class="badge bg-primary">{{ centre.total_formations }}</span></td>
+                            <td class="text-center"><span class="badge bg-warning text-dark">{{ centre.total_candidats }}</span></td>
+                            <td class="text-center"><span class="badge bg-info">{{ centre.total_entretiens }}</span></td>
+                            <td class="text-center"><span class="badge bg-secondary">{{ centre.places_prevues_crif }}</span></td>
+                            <td class="text-center"><span class="badge bg-success">{{ centre.inscrits_crif }}</span></td>
+                            <td class="text-center"><span class="badge bg-secondary">{{ centre.places_prevues_mp }}</span></td>
+                            <td class="text-center"><span class="badge bg-success">{{ centre.inscrits_mp }}</span></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                        <div class="progress-bar bg-purple" role="progressbar" style="width: {{ centre.taux_transformation|floatformat:0 }}%"></div>
+                                    </div>
+                                    <span class="small">{{ centre.taux_transformation|floatformat:1 }}%</span>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="progress flex-grow-1 me-2" style="height: 6px;">
+                                        <div class="progress-bar 
+                                            {% if centre.taux_saturation >= 100 %} bg-success 
+                                            {% elif centre.taux_saturation >= 75 %} bg-primary 
+                                            {% elif centre.taux_saturation >= 50 %} bg-warning 
+                                            {% else %} bg-danger {% endif %}" 
+                                            role="progressbar" style="width: {{ centre.taux_saturation|floatformat:0 }}%"></div>
+                                    </div>
+                                    <span class="small">{{ centre.taux_saturation|floatformat:1 }}%</span>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr><td colspan="10" class="text-center text-muted">Aucune donnée disponible</td></tr>
+                        {% endfor %}
+                        
+                        <!-- Ligne des Totaux -->
+                        <tr class="table-light fw-bold">
+                            <td>Total</td>
+                            <td class="text-center">{{ total_formations }}</td>
+                            <td class="text-center">{{ total_candidats }}</td>
+                            <td class="text-center">{{ total_entretiens }}</td>
+                            <td class="text-center">{{ total_places_prevues_crif }}</td>
+                            <td class="text-center">{{ total_inscrits_crif }}</td>
+                            <td class="text-center">{{ total_places_prevues_mp }}</td>
+                            <td class="text-center">{{ total_inscrits_mp }}</td>
+                            <td class="text-center">
+                                <div class="d-flex align-items-center">
+                                    <span class="badge bg-info me-1" title="Total places">{{ total_places_prevues }} places au total</span>
+                                    <span class="badge bg-primary" title="Total inscrits">{{ total_inscrits }} inscrits au total</span>
+                                    <div class="progress ms-2" style="width: 40px; height: 6px;" title="Taux global: {{ taux_transformation_moyen|floatformat:0 }}%">
+                                        <div class="progress-bar bg-primary" role="progressbar" 
+                                            style="width: {% widthratio total_inscrits total_places_prevues 100 %}%"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <div class="d-flex align-items-center">
+                                    <div class="progress flex-grow-1" style="height: 6px;">
+                                        <div class="progress-bar 
+                                            {% if taux_saturation_moyen >= 100 %} bg-success 
+                                            {% elif taux_saturation_moyen >= 75 %} bg-primary 
+                                            {% elif taux_saturation_moyen >= 50 %} bg-warning 
+                                            {% else %} bg-danger {% endif %}" 
+                                            role="progressbar" style="width: {{ taux_saturation_moyen|floatformat:0 }}%"></div>
+                                    </div>
+                                    <span class="small">{{ taux_saturation_moyen|floatformat:1 }}%</span>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

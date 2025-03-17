@@ -1,15 +1,33 @@
 {% extends "base.html" %}
 
 {% block content %}
-{% include "composants/bouton_retour.html" %}
+<div class="container mt-4">
+    <!-- ✅ Bouton Retour Réutilisable -->
+    {% include "composants/bouton_retour.html" %}
 
-<h2>{{ titre }}</h2>
+    <!-- ✅ Titre -->
+    <h2 class="text-primary text-center mb-4"><i class="fas fa-tags me-2"></i> {{ titre }}</h2>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Enregistrer</button>
-</form>
+    <!-- ✅ Carte contenant le formulaire -->
+    <div class="card shadow p-4">
+        <form method="POST">
+            {% csrf_token %}
 
-<a href="{% url 'type-offre-list' %}">Annuler</a>
+            <!-- ✅ Champs du formulaire bien espacés -->
+            <div class="mb-3">
+                {{ form.as_p }}
+            </div>
+
+            <!-- ✅ Boutons d'action -->
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i> Enregistrer
+                </button>
+                <a href="{% url 'type-offre-list' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Annuler
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

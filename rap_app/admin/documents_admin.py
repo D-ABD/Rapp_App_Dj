@@ -78,11 +78,9 @@ class DocumentAdmin(admin.ModelAdmin):
         """
         Affiche la taille du fichier en Ko pour plus d'informations.
         """
-        if obj.fichier and obj.fichier.size:
-            return f"{obj.fichier.size / 1024:.2f} Ko"
+        if obj.taille_fichier:
+            return f"{obj.taille_fichier:.2f} Ko"
         return "-"
-    
-    taille_fichier.short_description = "Taille du fichier"
 
     
     # Ajout de fonctionnalités supplémentaires à l'admin

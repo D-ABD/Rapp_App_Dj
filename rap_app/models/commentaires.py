@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models import Q
+
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 from .base import BaseModel
@@ -33,36 +35,51 @@ class Commentaire(BaseModel):
         ]
 
 
+    @classmethod
+    def get_all_commentaires(cls, formation_id=None, utilisateur_id=None, search_query=None, order_by="-created_at"):
+        """
+        Récupère tous les commentaires avec options de filtres.
+        """
+        queryset = cls.objects.select_related('formation', 'utilisateur').order_by(order_by)
+
+        filters = Q()
+        if formation_id:
+            filters &= Q(formation_id=formation_id)
+        if utilisateur_id:
+            filters &= Q(utilisateur_id=utilisateur_id)
+        if search_query:
+            filters &= Q(contenu__icontains=search_query)
+
+        queryset = queryset.filter(filters)
+        return queryset if queryset.exists() else cls.objects.none()  # ✅ Évite l'erreur avec un queryset vide
+
+
+
+
 @receiver(post_save, sender=Commentaire)
 def update_formation_saturation(sender, instance, **kwargs):
     """
-    Met à jour la `saturation` de la formation avec la dernière valeur de saturation du commentaire.
-    Met également à jour le `dernier_commentaire` pour un affichage rapide.
+    Met à jour la saturation et le dernier commentaire après un ajout.
     """
     if instance.formation:
-        # Mise à jour directe via update() pour court-circuiter les méthodes save()
         updates = {}
-        
+
         if instance.saturation is not None:
             updates['saturation'] = instance.saturation
-        
-        # Récupérer le dernier commentaire
+
         dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
-        updates['dernier_commentaire'] = dernier_commentaire.contenu if dernier_commentaire else None
-        
-        # Appliquer toutes les mises à jour en une seule opération
+        updates['dernier_commentaire'] = dernier_commentaire.contenu if dernier_commentaire else ""
+
         if updates:
             Formation.objects.filter(id=instance.formation.id).update(**updates)
 
 @receiver(post_delete, sender=Commentaire)
 def handle_commentaire_delete(sender, instance, **kwargs):
     """
-    Met à jour la formation après la suppression d'un commentaire :
-    - Met à jour le `dernier_commentaire` avec le commentaire précédent s'il en reste un.
+    Met à jour la formation après la suppression d'un commentaire.
     """
     if instance.formation:
-        # Récupérer directement le dernier commentaire à partir du modèle
         dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
         Formation.objects.filter(id=instance.formation.id).update(
-            dernier_commentaire=dernier_commentaire.contenu if dernier_commentaire else None
+            dernier_commentaire=dernier_commentaire.contenu if dernier_commentaire else ""
         )

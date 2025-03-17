@@ -6,7 +6,7 @@
 {% block content %}
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>{{ titre }}</h1>
+        <h1><i class="fas fa-comment-dots me-2"></i> {{ titre }}</h1>
         <div>
             {% if commentaire.id %}
                 <a href="{% url 'commentaire-detail' commentaire.id %}" class="btn btn-outline-secondary">
@@ -20,65 +20,53 @@
         </div>
     </div>
 
-    <div class="card">
+    <div class="card shadow">
         <div class="card-header bg-light">
-            <h5 class="mb-0">Formulaire</h5>
+            <h5 class="mb-0"><i class="fas fa-edit"></i> Formulaire de Commentaire</h5>
         </div>
         <div class="card-body">
-            <form method="post">
+            <form method="post" id="commentaire-form">
                 {% csrf_token %}
-                
+
+                <!-- ✅ Affichage des erreurs générales -->
                 {% if form.non_field_errors %}
                 <div class="alert alert-danger">
                     {% for error in form.non_field_errors %}
-                        {{ error }}
+                        <i class="fas fa-exclamation-circle"></i> {{ error }}
                     {% endfor %}
                 </div>
                 {% endif %}
 
-                <!-- Formation -->
+                <!-- ✅ Sélection de la Formation -->
                 <div class="mb-3">
-                    <label for="{{ form.formation.id_for_label }}" class="form-label">Formation</label>
+                    <label for="{{ form.formation.id_for_label }}" class="form-label fw-bold">Formation</label>
                     {{ form.formation }}
                     {% if form.formation.errors %}
                     <div class="invalid-feedback d-block">
                         {% for error in form.formation.errors %}
-                            {{ error }}
+                            <i class="fas fa-exclamation-circle"></i> {{ error }}
                         {% endfor %}
                     </div>
                     {% endif %}
                 </div>
 
-                <!-- Contenu -->
+                <!-- ✅ Contenu du Commentaire -->
                 <div class="mb-3">
-                    <label for="{{ form.contenu.id_for_label }}" class="form-label">Contenu du commentaire</label>
+                    <label for="{{ form.contenu.id_for_label }}" class="form-label fw-bold">Contenu du commentaire</label>
                     {{ form.contenu }}
                     {% if form.contenu.errors %}
                     <div class="invalid-feedback d-block">
                         {% for error in form.contenu.errors %}
-                            {{ error }}
+                            <i class="fas fa-exclamation-circle"></i> {{ error }}
                         {% endfor %}
                     </div>
                     {% endif %}
-                    <small class="form-text text-muted">Décrivez votre commentaire concernant cette formation.</small>
+                    <small class="form-text text-muted"><i class="fas fa-info-circle"></i> Décrivez votre commentaire sur cette formation.</small>
                 </div>
 
-                <!-- Saturation -->
-                <div class="mb-3">
-                    <label for="{{ form.saturation.id_for_label }}" class="form-label">Niveau de saturation (%)</label>
-                    {{ form.saturation }}
-                    {% if form.saturation.errors %}
-                    <div class="invalid-feedback d-block">
-                        {% for error in form.saturation.errors %}
-                            {{ error }}
-                        {% endfor %}
-                    </div>
-                    {% endif %}
-                    <small class="form-text text-muted">Indiquez le niveau de saturation actuel (0-100).</small>
-                </div>
-
+                <!-- ✅ Boutons de soumission -->
                 <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="button" id="confirm-submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Enregistrer
                     </button>
                 </div>
@@ -90,29 +78,23 @@
 
 {% block extra_js %}
 <script>
-    // Ajouter les classes Bootstrap aux champs du formulaire
+    // ✅ Appliquer Bootstrap aux champs du formulaire
     document.addEventListener('DOMContentLoaded', function() {
-        // Ajouter la classe form-select au champ formation
         var formationField = document.getElementById('{{ form.formation.id_for_label }}');
-        if(formationField) {
-            formationField.classList.add('form-select');
-        }
-        
-        // Ajouter la classe form-control au champ contenu
+        if(formationField) formationField.classList.add('form-select');
+
         var contenuField = document.getElementById('{{ form.contenu.id_for_label }}');
         if(contenuField) {
             contenuField.classList.add('form-control');
             contenuField.rows = 5;
         }
-        
-        // Ajouter la classe form-control au champ saturation
-        var saturationField = document.getElementById('{{ form.saturation.id_for_label }}');
-        if(saturationField) {
-            saturationField.classList.add('form-control');
-            saturationField.type = 'number';
-            saturationField.min = 0;
-            saturationField.max = 100;
-        }
+
+        // ✅ Ajouter une confirmation avant soumission
+        document.getElementById('confirm-submit').addEventListener('click', function() {
+            if (confirm("Êtes-vous sûr de vouloir enregistrer ce commentaire ?")) {
+                document.getElementById('commentaire-form').submit();
+            }
+        });
     });
 </script>
 {% endblock %}

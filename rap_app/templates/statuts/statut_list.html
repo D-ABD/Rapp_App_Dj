@@ -1,49 +1,77 @@
 {% extends "base.html" %}
 
 {% block content %}
- <!-- Bouton Retour réutilisable -->
- {% include "composants/bouton_retour.html" %}
-<h2>Liste des Statuts</h2>
+<div class="container mt-4">
+    <!-- ✅ Bouton Retour Réutilisable -->
+    {% include "composants/bouton_retour.html" %}
 
-<form method="get">
-    <input type="text" name="q" placeholder="Rechercher un statut" value="{{ filters.q }}">
-    <button type="submit">Rechercher</button>
-</form>
+    <!-- ✅ Titre -->
+    <h2 class="text-primary text-center mb-4"><i class="fas fa-tags me-2"></i> Liste des Statuts</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Couleur</th>
-            <th>Nombre de formations</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for statut in statuts %}
-        <tr>
-            {# ✅ Affichage du nom ou de la description si "Autre" #}
-            <td>{{ statut.get_nom_display }}</td>
+    <!-- ✅ Formulaire de recherche -->
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Rechercher un statut..." value="{{ filters.q }}">
+            <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Rechercher</button>
+        </div>
+    </form>
 
-            {# ✅ Affichage de la couleur avec un fond coloré #}
-            <td style="background-color: {{ statut.couleur }}; color: white; padding: 5px; text-align: center;">
-                {{ statut.couleur }}
-            </td>
+    <!-- ✅ Tableau des statuts -->
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Couleur</th>
+                    <th>Nombre de Formations</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for statut in statuts %}
+                <tr>
+                    <!-- ✅ Affichage du nom -->
+                    <td>{{ statut.get_nom_display }}</td>
 
-            <td>{{ statut.nb_formations }}</td>
+                    <!-- ✅ Affichage de la couleur sous forme de pastille -->
+                    <td>
+                        <span class="badge rounded-pill text-white" style="background-color: {{ statut.couleur }};">
+                            {{ statut.couleur }}
+                        </span>
+                    </td>
 
-            <td>
-                <a href="{% url 'statut-detail' statut.pk %}">Voir</a> |
-                <a href="{% url 'statut-update' statut.pk %}">Modifier</a> |
-                <a href="{% url 'statut-delete' statut.pk %}">Supprimer</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr><td colspan="4">Aucun statut trouvé.</td></tr>
-        {% endfor %}
-    </tbody>
-</table>
+                    <!-- ✅ Nombre de formations associées -->
+                    <td>{{ statut.nb_formations }}</td>
 
-<a href="{% url 'statut-create' %}">Ajouter un statut</a>
+                    <!-- ✅ Actions -->
+                    <td>
+                        <a href="{% url 'statut-detail' statut.pk %}" class="btn btn-outline-info btn-sm">
+                            <i class="fas fa-eye"></i> Voir
+                        </a>
+                        <a href="{% url 'statut-update' statut.pk %}" class="btn btn-outline-warning btn-sm">
+                            <i class="fas fa-edit"></i> Modifier
+                        </a>
+                        <a href="{% url 'statut-delete' statut.pk %}" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash-alt"></i> Supprimer
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">
+                        <i class="fas fa-info-circle"></i> Aucun statut trouvé.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
+    <!-- ✅ Bouton Ajouter un statut -->
+    <div class="text-center mt-4">
+        <a href="{% url 'statut-create' %}" class="btn btn-success">
+            <i class="fas fa-plus"></i> Ajouter un Statut
+        </a>
+    </div>
+</div>
 {% endblock %}
