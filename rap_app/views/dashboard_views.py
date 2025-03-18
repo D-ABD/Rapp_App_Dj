@@ -328,3 +328,6 @@ class StatsAPIView(View):
         
         print(f"Données d'évolution réelles: {len(evolution_list)} périodes trouvées pour {periode}")
         return JsonResponse({'evolution': evolution_list})
+
+
+        

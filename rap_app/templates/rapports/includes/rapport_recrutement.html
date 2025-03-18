@@ -1,0 +1,19 @@
+<h2>🎯 Rapport de Recrutement</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Formation</th>
+            <th>Objectif</th>
+            <th>Atteint</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for rec in donnees %}
+        <tr>
+            <td>{{ rec.nom }}</td>
+            <td>{{ rec.objectif }}</td>
+            <td>{{ rec.recrutes }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

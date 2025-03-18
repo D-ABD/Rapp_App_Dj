@@ -1,0 +1,6 @@
+<h2>📆 Suivi des Événements</h2>
+<ul>
+    {% for event in donnees %}
+        <li>{{ event.nom }} - {{ event.nombre_participants }} participants</li>
+    {% endfor %}
+</ul>

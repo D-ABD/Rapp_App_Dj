@@ -5,8 +5,10 @@
 
 {% block content %}
 <!-- Section Hero -->
-<section class="hero-section bg-primary text-white text-center py-5">
-    <div class="container">
+<section class="hero-section text-white text-center py-5 bg-image position-relative" 
+         style="background-image: url('{% static 'images/logo2_Rapp_App.png' %}');">
+    <div class="overlay position-absolute top-0 start-0 w-100 h-100 bg-dark opacity-50"></div>
+    <div class="container position-relative z-1">
         <h1 class="display-4 fw-bold">Bienvenue sur Rap App</h1>
         <p class="lead">Votre plateforme de gestion des formations, des événements et des partenaires.</p>
         <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg">
@@ -14,6 +16,20 @@
         </a>
     </div>
 </section>
+
+<style>
+    .bg-image {
+        background-size: cover; /* Ajuste l'image pour couvrir toute la section */
+        background-position: center; /* Centre l'image */
+        background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    }
+    .overlay {
+        z-index: 1; /* Place l'overlay au-dessus de l'image de fond */
+    }
+    .z-1 {
+        z-index: 2; /* Place le contenu au-dessus de l'overlay */
+    }
+</style>
 
 <!-- Section Fonctionnalités -->
 <section class="features-section py-5">

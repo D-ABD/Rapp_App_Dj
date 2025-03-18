@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}📊 Rapport Détail{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="fw-bold text-primary">📊 Rapport: {{ rapport.nom }}</h1>
+    <p><strong>Type :</strong> {{ rapport.get_type_rapport_display }}</p>
+    <p><strong>Période :</strong> {{ rapport.date_debut }} - {{ rapport.date_fin }}</p>
+    <p><strong>Généré par :</strong> {{ rapport.utilisateur }}</p>
+
+    <!-- 📊 Statistiques du rapport -->
+    {% include "rapports/includes/stats_rapport.html" with donnees=rapport.donnees %}
+
+    <!-- 📥 Boutons d'exportation -->
+    {% include "rapports/includes/rapport_export_buttons.html" with rapport=rapport %}
+    <h3>🛠 Debug JSON</h3>
+    <pre>{{ donnees|safe }}</pre>
+    <!-- 📋 Liste détaillée des formations -->
+    {% include "rapports/includes/rapport_table.html" with donnees=rapport.donnees %}
+</div>
+{% endblock %}

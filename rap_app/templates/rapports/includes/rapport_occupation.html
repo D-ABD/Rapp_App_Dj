@@ -1,0 +1,40 @@
+<h2>📈 Rapport d'Occupation des Formations</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Formation</th>
+            <th>Centre</th>
+            <th>Type d'Offre</th>
+            <th>Statut</th>
+            <th>Taux Remplissage</th>
+            <th>Inscrits (CRIF/MP)</th>
+            <th>Places (CRIF/MP)</th>
+            <th>Places Disponibles</th>
+            <th>Candidats</th>
+            <th>Entretiens</th>
+            <th>Événements</th>
+            <th>Partenaires</th>
+            <th>Plans d'Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for formation in donnees.formations %}
+        <tr>
+            <td>{{ formation.nom }}</td>
+            <td>{{ formation.centre }}</td>
+            <td>{{ formation.type_offre }}</td>
+            <td style="background-color: {{ formation.statut_couleur }}">{{ formation.statut }}</td>
+            <td>{{ formation.taux_remplissage }}%</td>
+            <td>{{ formation.inscrits_crif }}/{{ formation.inscrits_mp }}</td>
+            <td>{{ formation.places_prevues_crif }}/{{ formation.places_prevues_mp }}</td>
+            <td>{{ formation.places_disponibles }}</td>
+            <td>{{ formation.nombre_candidats }}</td>
+            <td>{{ formation.nombre_entretiens }}</td>
+            <td>{{ formation.nombre_evenements }}</td>
+            <td>{{ formation.partenaires|join:", " }}</td>
+            <td>{{ formation.dernier_commentaire }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

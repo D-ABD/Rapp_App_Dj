@@ -1,0 +1,19 @@
+<h2>📊 Performance par Centre</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Centre</th>
+            <th>Total Formations</th>
+            <th>Total Inscrits</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in donnees.data %}
+        <tr>
+            <td>{{ data.centre }}</td>
+            <td>{{ data.total_formations }}</td>
+            <td>{{ data.total_inscrits }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

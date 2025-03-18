@@ -1,5 +1,8 @@
 from django.urls import path
 
+from .views.rapport_views import RapportCreationView, RapportDeleteView, RapportDetailView, RapportExportView, RapportListView
+
+
 from .views.parametres_views import parametres
 
 
@@ -15,6 +18,15 @@ from .views import (
 urlpatterns = [
     # Page d'accueil
     path('', home_views.home, name='home'),
+
+    # Rapports
+    # Liste des rapports
+    path('rapports/', RapportListView.as_view(), name='rapport-list'),
+    path('rapports/<int:pk>/', RapportDetailView.as_view(), name='rapport-detail'),
+    path('rapports/nouveau/', RapportCreationView.as_view(), name='rapport-create'),
+    path('rapports/<int:pk>/supprimer/', RapportDeleteView.as_view(), name='rapport-delete'),
+    path('rapports/<int:pk>/export/', RapportExportView.as_view(), name='rapport-export'),
+
 
     # USERS
     path("register/", register, name="register"),
