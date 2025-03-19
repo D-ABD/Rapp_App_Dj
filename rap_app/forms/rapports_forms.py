@@ -27,26 +27,25 @@ class RapportCreationForm(forms.Form):
     date_debut = forms.DateField(
         label="Date de début",
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-        initial=timezone.now().date() - timedelta(days=30),
         help_text="La date de début de la période du rapport."
     )
     
     date_fin = forms.DateField(
         label="Date de fin",
         widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-        initial=timezone.now().date(),
         help_text="La date de fin de la période du rapport."
     )
     
     centre = forms.ModelChoiceField(
-    queryset=Centre.objects.all(),  # ✅ Prend tous les centres
-    label="Centre (optionnel)",
-    required=False,
-    widget=forms.Select(attrs={'class': 'form-select'}) 
+        queryset=Centre.objects.none(),
+        label="Centre (optionnel)",
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-select'}),
+        help_text="Filtrer par centre (optionnel)."
     )
 
     type_offre = forms.ModelChoiceField(
-        queryset=TypeOffre.objects.all(),
+        queryset=TypeOffre.objects.none(),
         label="Type d'offre (optionnel)",
         required=False,
         widget=forms.Select(attrs={'class': 'form-select'}),
@@ -54,7 +53,7 @@ class RapportCreationForm(forms.Form):
     )
     
     statut = forms.ModelChoiceField(
-        queryset=Statut.objects.all(),
+        queryset=Statut.objects.none(),
         label="Statut (optionnel)",
         required=False,
         widget=forms.Select(attrs={'class': 'form-select'}),
@@ -76,18 +75,32 @@ class RapportCreationForm(forms.Form):
         help_text="Ajoutez une description pour ce rapport (optionnel)."
     )
 
+    def __init__(self, *args, **kwargs):
+        """Initialisation dynamique des choix de centres, types d'offres et statuts."""
+        super().__init__(*args, **kwargs)
+
+        # Récupérer les données dynamiquement
+        self.fields['centre'].queryset = Centre.objects.all().order_by('nom')
+        self.fields['type_offre'].queryset = TypeOffre.objects.all().order_by('nom')
+        self.fields['statut'].queryset = Statut.objects.all().order_by('nom')
+
+        # Initialisation des dates
+        self.fields['date_debut'].initial = timezone.now().date() - timedelta(days=30)
+        self.fields['date_fin'].initial = timezone.now().date()
+
     def clean(self):
         """Validation des dates et autres champs."""
         cleaned_data = super().clean()
         date_debut = cleaned_data.get('date_debut')
         date_fin = cleaned_data.get('date_fin')
 
-        # Vérification que la date de début est bien avant la date de fin
+        # Vérifier que la date de début est bien avant la date de fin
         if date_debut and date_fin:
             if date_debut > date_fin:
-                raise forms.ValidationError("⚠ La date de début doit être antérieure à la date de fin.")
+                self.add_error('date_debut', "⚠ La date de début doit être antérieure à la date de fin.")
+                self.add_error('date_fin', "⚠ La date de fin doit être postérieure à la date de début.")
 
             if date_fin > timezone.now().date():
-                raise forms.ValidationError("⚠ La date de fin ne peut pas être dans le futur.")
+                self.add_error('date_fin', "⚠ La date de fin ne peut pas être dans le futur.")
 
         return cleaned_data

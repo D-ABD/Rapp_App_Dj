@@ -22,11 +22,10 @@ urlpatterns = [
     # Rapports
     # Liste des rapports
     path('rapports/', RapportListView.as_view(), name='rapport-list'),
+    path('rapports/creer/', RapportCreationView.as_view(), name='rapport-create'),
     path('rapports/<int:pk>/', RapportDetailView.as_view(), name='rapport-detail'),
-    path('rapports/nouveau/', RapportCreationView.as_view(), name='rapport-create'),
     path('rapports/<int:pk>/supprimer/', RapportDeleteView.as_view(), name='rapport-delete'),
     path('rapports/<int:pk>/export/', RapportExportView.as_view(), name='rapport-export'),
-
 
     # USERS
     path("register/", register, name="register"),

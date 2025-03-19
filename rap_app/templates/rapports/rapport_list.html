@@ -19,7 +19,7 @@
         </div>
         <div class="card-body">
             <form method="get" class="row g-3">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label for="type_rapport" class="form-label">Type de rapport</label>
                     <select name="type_rapport" id="type_rapport" class="form-select">
                         <option value="">Tous les types</option>
@@ -30,7 +30,8 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-md-4">
+
+                <div class="col-md-3">
                     <label for="periode" class="form-label">Périodicité</label>
                     <select name="periode" id="periode" class="form-select">
                         <option value="">Toutes les périodes</option>
@@ -41,6 +42,64 @@
                         {% endfor %}
                     </select>
                 </div>
+
+                <div class="col-md-3">
+                    <label for="centre" class="form-label">Centre</label>
+                    <select name="centre" id="centre" class="form-select">
+                        <option value="">Tous les centres</option>
+                        {% for centre in centres %}
+                            <option value="{{ centre.id }}" {% if request.GET.centre == centre.id|stringformat:"s" %}selected{% endif %}>
+                                {{ centre.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="type_offre" class="form-label">Type d'offre</label>
+                    <select name="type_offre" id="type_offre" class="form-select">
+                        <option value="">Tous les types d'offre</option>
+                        {% for type_offre in types_offres %}
+                            <option value="{{ type_offre.id }}" {% if request.GET.type_offre == type_offre.id|stringformat:"s" %}selected{% endif %}>
+                                {{ type_offre.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="statut" class="form-label">Statut</label>
+                    <select name="statut" id="statut" class="form-select">
+                        <option value="">Tous les statuts</option>
+                        {% for statut in statuts %}
+                            <option value="{{ statut.id }}" {% if request.GET.statut == statut.id|stringformat:"s" %}selected{% endif %}>
+                                {{ statut.nom }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label for="date_debut" class="form-label">Date de début</label>
+                    <input type="date" name="date_debut" id="date_debut" class="form-control" value="{{ request.GET.date_debut }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="date_fin" class="form-label">Date de fin</label>
+                    <input type="date" name="date_fin" id="date_fin" class="form-control" value="{{ request.GET.date_fin }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label for="format" class="form-label">Format d'export</label>
+                    <select name="format" id="format" class="form-select">
+                        {% for value, label in format_choices %}
+                            <option value="{{ value }}" {% if request.GET.format == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
                 <div class="col-12 text-end">
                     <button type="submit" class="btn btn-primary">Filtrer</button>
                     <a href="{% url 'rapport-list' %}" class="btn btn-outline-secondary">Réinitialiser</a>
@@ -52,9 +111,7 @@
     <!-- Liste des rapports -->
     <div class="card">
         <div class="card-header bg-light">
-            <div class="d-flex justify-content-between align-items-center">
-                <h5 class="mb-0">Rapports générés ({{ rapports|length }})</h5>
-            </div>
+            <h5 class="mb-0">Rapports générés ({{ rapports|length }})</h5>
         </div>
         <div class="card-body p-0">
             {% if rapports %}
@@ -65,6 +122,9 @@
                                 <th>Nom</th>
                                 <th>Type</th>
                                 <th>Période</th>
+                                <th>Centre</th>
+                                <th>Type d'offre</th>
+                                <th>Statut</th>
                                 <th>Date début</th>
                                 <th>Date fin</th>
                                 <th>Généré le</th>
@@ -77,6 +137,9 @@
                                     <td>{{ rapport.nom }}</td>
                                     <td>{{ rapport.get_type_rapport_display }}</td>
                                     <td>{{ rapport.get_periode_display }}</td>
+                                    <td>{{ rapport.centre.nom|default:"-" }}</td>
+                                    <td>{{ rapport.type_offre.nom|default:"-" }}</td>
+                                    <td>{{ rapport.statut.nom|default:"-" }}</td>
                                     <td>{{ rapport.date_debut|date:"d/m/Y" }}</td>
                                     <td>{{ rapport.date_fin|date:"d/m/Y" }}</td>
                                     <td>{{ rapport.date_generation|date:"d/m/Y H:i" }}</td>
@@ -112,7 +175,6 @@
         </div>
     </div>
 
-    <!-- Pagination -->
     {% if is_paginated %}
         {% include "includes/pagination.html" with page_obj=page_obj %}
     {% endif %}

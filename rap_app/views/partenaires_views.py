@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 
 from ..models.partenaires import Partenaire
 
@@ -99,6 +100,11 @@ class PartenaireCreateView(PermissionRequiredMixin, BaseCreateView):
               'contact_telephone', 'contact_email', 'description']
     success_url = reverse_lazy('partenaire-list')
     template_name = 'partenaires/partenaire_form.html'
+
+    def form_valid(self, form):
+        partenaire = form.save()
+        messages.success(self.request, "✅ Partenaire ajouté avec succès.")
+        return redirect('partenaire-list')  # 🔹 Rediriger après succès
     
     def get_context_data(self, **kwargs):
         """
@@ -117,17 +123,24 @@ class PartenaireCreateViewFormation(PermissionRequiredMixin, BaseCreateView):
     template_name = 'partenaires/partenaire_formation_form.html'
 
     def form_valid(self, form):
-        """Associe le partenaire créé à la formation spécifiée dans l'URL"""
+        print("✅ form_valid exécuté")  # Vérifie si cette ligne s'affiche dans la console
         formation_id = self.kwargs.get('formation_id')
+
+        if not formation_id:
+            print("❌ Aucun ID de formation fourni !")
+            messages.error(self.request, "❌ Erreur : Aucun ID de formation fourni.")
+            return HttpResponseRedirect(reverse_lazy('formation-list'))  
+
         formation = get_object_or_404(Formation, pk=formation_id)
-        
-        # Sauvegarde de l'partenaire
+        print(f"📌 Formation trouvée : {formation.nom} (ID: {formation.id})")
+
         self.object = form.save()
-        
-        # Ajout le partenaire à la formation
+        print(f"✅ Partenaire créé : {self.object.nom}")
+
         formation.partenaires.add(self.object)
         formation.save()
-        
+        print("✅ Partenaire ajouté à la formation avec succès !")
+
         messages.success(self.request, "Le partenaire a été créé et associé à la formation avec succès.")
         return HttpResponseRedirect(reverse_lazy('formation-detail', kwargs={'pk': formation_id}))
 

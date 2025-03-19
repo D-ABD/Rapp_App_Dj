@@ -46,9 +46,9 @@
                     <a href="{% url 'partenaire-list' %}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i> Retour à la liste
                     </a>
-                    <button type="button" id="confirm-submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Enregistrer
-                    </button>
+                    <button type="submit" id="confirm-submit" class="btn btn-primary">
+    <i class="fas fa-save"></i> Enregistrer
+</button>
                 </div>
             </form>
         </div>
@@ -64,11 +64,11 @@
         document.querySelectorAll('input, textarea, select').forEach(field => {
             field.classList.add('form-control');
         });
-
+    
         // ✅ Confirmation avant soumission
-        document.getElementById('confirm-submit').addEventListener('click', function() {
-            if (confirm("Confirmez-vous l'enregistrement de ce partenaire ?")) {
-                document.getElementById('form-partenaire').submit();
+        document.getElementById('form-partenaire').addEventListener('submit', function(event) {
+            if (!confirm("Confirmez-vous l'enregistrement de ce partenaire ?")) {
+                event.preventDefault(); // Annule la soumission si l'utilisateur annule la confirmation
             }
         });
     });
