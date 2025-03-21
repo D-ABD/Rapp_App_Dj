@@ -24,7 +24,17 @@
                                     <span class="fw-bold text-dark">{{ commentaire.utilisateur.username }}</span>
                                     <small class="text-muted">{{ commentaire.created_at|date:"d/m/Y H:i" }}</small>
                                 </div>
-                                <small class="text-primary">{{ commentaire.formation.nom }}</small>
+                                <small class="text-primary">
+                                    {% if commentaire.formation %}
+                                        {{ commentaire.formation.nom }} 
+                                        {% if commentaire.formation.num_offre %}
+                                            (offre : {{ commentaire.formation.num_offre }})
+                                        {% endif %}
+                                    {% else %}
+                                        Formation inconnue
+                                    {% endif %}
+                                </small>
+
                                 <p class="mb-0 small text-secondary">{{ commentaire.contenu }}</p>
                             </div>
                         </div>

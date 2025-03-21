@@ -1,5 +1,11 @@
 from django.urls import path
 
+from .views.historique_formation_views import HistoriqueFormationDeleteView, HistoriqueFormationDetailView, HistoriqueFormationListView
+
+from .views.prospection_views import HistoriqueProspectionDetailView, HistoriqueProspectionListView, ProspectionCreateView, ProspectionDeleteView, ProspectionDetailView, ProspectionHomeView, ProspectionListView, ProspectionUpdateView
+
+from .views.company_views import CompanyCreateView, CompanyDeleteView, CompanyDetailView, CompanyListView, CompanyUpdateView
+
 from .views.rapport_views import RapportCreationView, RapportDeleteView, RapportDetailView, RapportExportView, RapportListView
 
 
@@ -80,7 +86,6 @@ urlpatterns = [
     path('documents/<int:pk>/', documents_views.DocumentDetailView.as_view(), name='document-detail'),
     path('documents/ajouter/', documents_views.DocumentCreateView.as_view(), name='document-create'),
     path('documents/ajouter/<int:formation_id>/', documents_views.DocumentCreateView.as_view(), name='document-create-formation'),
-
     path('documents/<int:pk>/modifier/', documents_views.DocumentUpdateView.as_view(), name='document-update'),
     path('documents/<int:pk>/supprimer/', documents_views.DocumentDeleteView.as_view(), name='document-delete'),
     
@@ -108,9 +113,29 @@ urlpatterns = [
     path('formations/<int:pk>/supprimer/', formations_views.FormationDeleteView.as_view(), name='formation-delete'),
     path('formations/<int:pk>/commentaire/', formations_views.FormationAddCommentView.as_view(), name='formation-add-comment'),
     path("formations/export-excel/", formations_views.ExportFormationsExcelView.as_view(), name="export-formations-excel"),
-   
+    
+        # Historique des Formations
+    path('historique-formations/', HistoriqueFormationListView.as_view(), name='historique-formation-list'),
+    path('historique-formations/<int:pk>/', HistoriqueFormationDetailView.as_view(), name='historique-formation-detail'),
+    path("historique-formations/<int:pk>/delete/", HistoriqueFormationDeleteView.as_view(), name="historique-formation-delete"),
+
+    # Company
+    path('companies/', CompanyListView.as_view(), name='company-list'),
+    path('companies/<int:pk>/', CompanyDetailView.as_view(), name='company-detail'),
+    path('companies/add/', CompanyCreateView.as_view(), name='company-create'),
+    path('companies/<int:pk>/edit/', CompanyUpdateView.as_view(), name='company-update'),
+    path('companies/<int:pk>/delete/', CompanyDeleteView.as_view(), name='company-delete'),
+
     # Paramètres
     path('parametres/', parametres, name='parametres'),
 
-
+    # Prospections
+    path('prospection_home', ProspectionHomeView, name='prospection-home'),
+    path('prospections/', ProspectionListView.as_view(), name='prospection-list'),
+    path('prospections/<int:pk>/', ProspectionDetailView.as_view(), name='prospection-detail'),
+    path('prospections/add/', ProspectionCreateView.as_view(), name='prospection-add'),
+    path('prospections/<int:pk>/edit/', ProspectionUpdateView.as_view(), name='prospection-update'),
+    path('prospections/<int:pk>/delete/', ProspectionDeleteView.as_view(), name='prospection-delete'),
+    path('historique-prospections/', HistoriqueProspectionListView.as_view(), name='historique-prospection-list'),
+    path('historique-prospections/<int:pk>/', HistoriqueProspectionDetailView.as_view(), name='historique-prospection-detail'),
 ]

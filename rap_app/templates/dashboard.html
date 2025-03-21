@@ -30,16 +30,22 @@
         <div class="col-lg-8">
             <!-- Événements par type et par centre -->
             {% include "dashboard_composants/events_by_type_and_center.html" %}
+
+            <!-- Prospections -->
+            {% include "dashboard_composants/propections_par_statuts.html" %}  
             
         </div>
+        
         
         <!-- Colonne droite -->
         <div class="col-lg-4">
             <!-- Derniers commentaires -->
             {% include "dashboard_composants/comments_list.html" %}
 
-           
-            
+             
+
+              <!-- Entreprises -->
+              {% include "dashboard_composants/entreprises_par_prospections.html" %}  
             
         </div>
     </div>

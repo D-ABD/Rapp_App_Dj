@@ -7,21 +7,28 @@ from datetime import timedelta
 from django.db.models.functions import TruncMonth
 from django.http import JsonResponse
 from django.views import View
+from django import template
 from django.db.models import Count, Avg, F, Value, Sum, FloatField
 from django.db.models.functions import Coalesce, TruncMonth
 from django.db import models
+
+from ..models.company import Company
+
+from ..models.prospection import PROSPECTION_STATUS_CHOICES, Prospection
+
+from ..models.formations import HistoriqueFormation
 
 from ..views.base_views import BaseListView
 
 from ..models.partenaires import Partenaire
 
 
-from ..models import Formation, Centre, Commentaire, TypeOffre, Statut, Evenement, HistoriqueFormation, Recherche
+from ..models import Formation, Centre, Commentaire, TypeOffre, Statut, Evenement, Recherche
 
 
 from ..models import Formation, Statut
 
-from ..models import Formation, Centre, Commentaire, TypeOffre, Statut, Evenement, HistoriqueFormation
+from ..models import Formation, Centre, Commentaire, TypeOffre, Statut, Evenement
 
 
 class DashboardView(BaseListView):
@@ -168,15 +175,30 @@ class DashboardView(BaseListView):
         )
         context['taux_par_centre'] = taux_par_centre
 
-        # ✅ Préparation des stats pour l'affichage en haut du tableau de bord
+        # ✅ Prospections par statut (d'abord on stocke les valeurs)
+        context['nb_prospections_en_cours'] = Prospection.objects.filter(statut='en_cours').count()
+        context['nb_prospections_acceptees'] = Prospection.objects.filter(statut='acceptee').count()
+        context['nb_prospections_a_faire'] = Prospection.objects.filter(statut='a_faire').count()
+        context['nb_prospections_a_relancer'] = Prospection.objects.filter(statut='a_relancer').count()
+
+        # ✅ Ensuite, les stats classiques pour les cartes du haut
         context['stats'] = [
-            (context['total_formations'], "Formations", "primary", "fa-graduation-cap"),
-            (context['total_candidats'], "Candidats", "secondary", "fa-users"),
-            (context['total_entretiens'], "Entretiens", "warning", "fa-handshake"),
-            (context['total_inscrits'], "Inscrits", "success", "fa-user-check"),
-            (context['total_places_prevues'], "Places prévues", "info", "fa-calendar-alt"),
-            (context['total_places_restantes'], "Places restantes", "danger", "fa-calendar-times"),
-        ]
+        (context['total_formations'], "Formations", "primary", "fa-graduation-cap"),
+        (context['total_candidats'], "Candidats", "secondary", "fa-users"),
+        (context['total_entretiens'], "Entretiens", "warning", "fa-handshake"),
+        (context['total_inscrits'], "Inscrits", "success", "fa-user-check"),
+        (context['total_places_prevues'], "Places prévues", "info", "fa-calendar-alt"),
+        (context['total_places_restantes'], "Places restantes", "danger", "fa-calendar-times"),
+    ]
+
+        total_prospections = Prospection.objects.count()
+        prospections_acceptees = Prospection.objects.filter(statut='acceptee').count()
+
+        context['taux_transformation_prospections'] = (
+            (prospections_acceptees / total_prospections) * 100
+            if total_prospections > 0 else 0
+        )
+
 
         # ✅ Événements par type
         context['evenements_par_type'] = (
@@ -210,10 +232,57 @@ class DashboardView(BaseListView):
         # ✅ Ajout au contexte
         context['evenements_par_centre'] = details_evenements_par_centre
 
+        # Nombre total de prospections
+        context['total_prospections'] = Prospection.objects.count()
+
+        # Prospections par statut
+        context['prospections_par_statut'] = (
+            Prospection.objects.values('statut')
+            .annotate(total=Count('id'))
+            .order_by('-total')
+        )
+
+        # Prospections par objectif
+        context['prospections_par_objectif'] = (
+            Prospection.objects.values('objectif')
+            .annotate(total=Count('id'))
+            .order_by('-total')
+        )
+
+        # Nombre total d'entreprises
+        context['total_entreprises'] = Company.objects.count()
+
+        # Entreprises avec au moins une prospection
+        context['entreprises_avec_prospections'] = (
+            Company.objects.annotate(nb_prospections=Count('prospections'))
+            .filter(nb_prospections__gt=0)
+            .order_by('-nb_prospections')[:10]
+        )
+
+        context['prospections_par_statut'] = (
+            Prospection.objects.values('statut')
+            .annotate(total=Count('id'))
+        )
+        # Statuts existants avec leurs totaux
+        statuts_db = {
+            item['statut']: item['total']
+            for item in Prospection.objects.values('statut').annotate(total=Count('id'))
+        }
+
+        # Ajoute tous les statuts possibles, même ceux absents
+        prospections_par_statut_complet = []
+        for key, label in PROSPECTION_STATUS_CHOICES:
+            prospections_par_statut_complet.append({
+                'statut': key,
+                'label': label,
+                'total': statuts_db.get(key, 0)
+            })
+
+        context['prospections_par_statut_complet'] = prospections_par_statut_complet
+
+
+
         return context  # ✅ Retourne correctement le contexte sans écrasement
-
-
-
 
 
 class StatsAPIView(View):

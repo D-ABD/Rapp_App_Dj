@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>🏢 Détails de {{ company.name }}</h1>
+    <p><strong>Contact :</strong> {{ company.contact_name }}</p>
+    <p><strong>Email :</strong> {{ company.contact_email }}</p>
+    <p><strong>Téléphone :</strong> {{ company.contact_phone_number }}</p>
+    <p><strong>Ville :</strong> {{ company.city }}</p>
+    <p><strong>Secteur :</strong> {{ company.sector_name }}</p>
+
+    <a href="{% url 'company-update' company.pk %}" class="btn btn-warning">Modifier</a>
+    <a href="{% url 'company-delete' company.pk %}" class="btn btn-danger">Supprimer</a>
+    <a href="{% url 'company-list' %}" class="btn btn-secondary">Retour</a>
+</div>
+{% endblock %}

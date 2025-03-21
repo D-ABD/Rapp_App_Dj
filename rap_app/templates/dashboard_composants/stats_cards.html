@@ -13,9 +13,10 @@
             <div id="collapseStats" class="accordion-collapse collapse show" data-bs-parent="#accordionStats">
                 <div class="accordion-body">
                     <div class="row g-3">
+                        
                         <!-- Formations -->
                         <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-primary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+                            <div class="stat-card bg-success text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
                                 <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-primary p-3">
                                     <i class="fas fa-graduation-cap fa-2x"></i>
                                 </div>
@@ -44,20 +45,18 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Entretiens -->
-                        <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-dark text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-warning p-3">
-                                    <i class="fas fa-handshake fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h3 class="fw-bold mb-0">{{ total_entretiens }}</h3>
-                                    <p class="mb-1">Total Entretiens</p>
-                                </div>
-                            </div>
-                        </div>
-
+<!-- Entretiens -->
+<div class="col-xl-3 col-lg-6 col-md-6">
+    <div class="stat-card bg-info text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+        <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-warning p-3">
+            <i class="fas fa-handshake fa-2x"></i>
+        </div>
+        <div>
+            <h3 class="fw-bold mb-0">{{ total_entretiens }}</h3>
+            <p class="mb-1">Total Entretiens</p>
+        </div>
+    </div>
+</div>
                         <!-- Inscrits -->
                         <div class="col-xl-3 col-lg-6 col-md-6">
                             <div class="stat-card bg-success text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
@@ -86,7 +85,7 @@
 
                         <!-- Places restantes -->
                         <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-danger text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+                            <div class="stat-card bg-primary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
                                 <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-danger p-3">
                                     <i class="fas fa-calendar-times fa-2x"></i>
                                 </div>
@@ -96,16 +95,48 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Taux de transformation -->
+                        <!-- Prospections -->
                         <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-dark text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+                            <div class="stat-card bg-secondary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-secondary p-3">
+                                    <i class="fas fa-bullseye fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="fw-bold mb-0">{{ total_prospections }}</h3>
+                                    <p class="mb-1">Total Prospections</p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-light text-secondary">🟡 En cours: {{ nb_prospections_en_cours }}</span>
+                                        <span class="badge bg-light text-secondary">🟢 Acceptées: {{ nb_prospections_acceptees }}</span>
+                                        <span class="badge bg-light text-secondary">🔵 À faire: {{ nb_prospections_a_faire }}</span>
+                                        <span class="badge bg-light text-secondary">🔁 À relancer: {{ nb_prospections_a_relancer }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Entreprises -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                            <div class="stat-card bg-secondary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-warning p-3">
+                                    <i class="fas fa-building fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="fw-bold mb-0">{{ total_entreprises }}</h3>
+                                    <p class="mb-1">Total Entreprises</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Taux de transformation candidats -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                            <div class="stat-card bg-warning text-black shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
                                 <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
                                     <i class="fas fa-chart-line fa-2x"></i>
                                 </div>
                                 <div class="w-100">
                                     <h3 class="fw-bold mb-0">{{ taux_transformation_moyen|floatformat:1 }}%</h3>
-                                    <p class="mb-1">Taux de transformation</p>
+                                    <p class="mb-1">Taux de transformation Candidats</p>
                                     <div class="progress mt-1" style="height: 6px;">
                                         <div class="progress-bar bg-light" role="progressbar" 
                                             style="width: {{ taux_transformation_moyen }}%"></div>
@@ -114,18 +145,36 @@
                             </div>
                         </div>
 
-                        <!-- Taux de saturation -->
+                        <!-- Taux de saturation formations-->
                         <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-success text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+                            <div class="stat-card bg-warning text-black shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
                                 <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-indigo p-3">
                                     <i class="fas fa-tachometer-alt fa-2x"></i>
                                 </div>
                                 <div class="w-100">
                                     <h3 class="fw-bold mb-0">{{ taux_saturation_moyen|floatformat:1 }}%</h3>
-                                    <p class="mb-1">Taux de saturation</p>
+                                    <p class="mb-1">Taux de saturation des formations</p>
                                     <div class="progress mt-1" style="height: 6px;">
                                         <div class="progress-bar bg-light" role="progressbar" 
                                             style="width: {{ taux_saturation_moyen }}%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <!-- Taux de transformation Prospections -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                            <div class="stat-card bg-warning text-black shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
+                                    <i class="fas fa-chart-line fa-2x"></i>
+                                </div>
+                                <div class="w-100">
+                                    <h3 class="fw-bold mb-0">{{ taux_transformation_prospections|floatformat:1 }}%</h3>
+                                    <p class="mb-1">Taux de transformation Prospections</p>
+                                    <div class="progress mt-1" style="height: 6px;">
+                                        <div class="progress-bar bg-light" role="progressbar" 
+                                            style="width: {{ taux_transformation_prospections}}%"></div>
                                     </div>
                                 </div>
                             </div>
@@ -136,3 +185,4 @@
         </div>
     </div>
 </div>
+

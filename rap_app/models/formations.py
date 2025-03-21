@@ -110,7 +110,43 @@ class Formation(BaseModel):
     # Manager personnalisé
     objects = FormationManager()
 
- ### ✅ Méthode pour sérialiser les données avant enregistrement dans JSONField
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        old_instance = None
+
+        if not is_new:
+            try:
+                old_instance = Formation.objects.get(pk=self.pk)
+            except Formation.DoesNotExist:
+                pass
+
+        super().save(*args, **kwargs)  # Sauvegarde classique
+
+        if old_instance:
+            fields_to_track = [
+                'nom', 'centre', 'type_offre', 'statut',
+                'start_date', 'end_date', 'num_kairos',
+                'num_offre', 'num_produit', 'prevus_crif',
+                'prevus_mp', 'inscrits_crif', 'inscrits_mp',
+                'assistante', 'cap', 'convocation_envoie',
+                'entresformation', 'nombre_candidats', 'nombre_entretiens',
+                'dernier_commentaire'
+            ]
+
+            for field in fields_to_track:
+                old_value = getattr(old_instance, field)
+                new_value = getattr(self, field)
+
+                if old_value != new_value:
+                    HistoriqueFormation.objects.create(
+                        formation=self,
+                        champ_modifie=field,
+                        ancienne_valeur=str(old_value),
+                        nouvelle_valeur=str(new_value),
+                        modifie_par=self.utilisateur  # ou `kwargs.get('user')` selon ton besoin
+                    )
+
+    ### ✅ Méthode pour sérialiser les données avant enregistrement dans JSONField
     def to_serializable_dict(self):
         """
         Retourne un dictionnaire JSON-sérialisable des valeurs de la formation,
@@ -247,3 +283,19 @@ class Formation(BaseModel):
             models.Index(fields=['end_date']),
             models.Index(fields=['nom']),
         ]
+
+class HistoriqueFormation(models.Model):
+    formation = models.ForeignKey('Formation', on_delete=models.CASCADE, related_name="historiques")
+    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='historiques_utilisateur')
+    action = models.CharField(max_length=100, default='modification')
+    details = models.JSONField(default=dict, blank=True)
+    date_modification = models.DateTimeField(default=timezone.now)
+    champ_modifie = models.CharField(max_length=100, default="non_specifié" , verbose_name="Champ modifié")
+    ancienne_valeur = models.TextField(null=True, blank=True)
+    nouvelle_valeur = models.TextField(null=True, blank=True)
+    modifie_par = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
+    commentaire = models.TextField(null=True, blank=True, verbose_name="Commentaire lié à la modification")
+
+    class Meta:
+        ordering = ['-date_modification']
+        verbose_name = "Historique de modification de formation"

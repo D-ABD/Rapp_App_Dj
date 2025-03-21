@@ -12,4 +12,4 @@ from .recherches_admin import RechercheAdmin
 from .partenaires_admin import PartenaireAdmin  # Nouveau
 from .evenements_admin import EvenementAdmin    # Nouveau
 from .documents_admin import DocumentAdmin      # Nouveau
-
+from .prospection_admin import ProspectionAdmin

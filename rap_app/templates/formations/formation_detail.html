@@ -114,10 +114,19 @@
     <!-- 🏢 Partenaires -->
     {% include 'formations/includes/partenaires_formation.html' %}
 
+    <!-- 📄 Entreprises -->
+    {% include 'formations/includes/entreprises_formation.html' %}
+
+    <!-- 📄 Prospection -->
+    {% include 'formations/includes/prospections_formation.html' %}
+
     <!-- 📄 Documents -->
     {% include 'formations/includes/documents_formation.html' %}
 
-        
+    <a href="{% url 'historique-formation-list' %}?formation={{ formation.id }}" class="btn btn-outline-info mt-2">
+        🕓 Voir l’historique des modifications de cette formation
+    </a>
+    
 
         
     </div>

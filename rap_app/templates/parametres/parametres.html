@@ -140,6 +140,36 @@
             </div>
         </div>
 
+        <!-- Bouton pour accéder à l'historique des formations -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-center hover-shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Historique des formations</h5>
+                    <p class="card-text">
+                        Consulter l'historique des formations.
+                    </p>
+                    <a href="{% url 'historique-formation-list' %}" class="btn btn-primary">
+                        <i class="fas fa-file"></i> Accéder
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bouton pour accéder à l'historique des prospections -->
+        <div class="col-md-4 mb-4">
+            <div class="card text-center hover-shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Historique des Prospections</h5>
+                    <p class="card-text">
+                        Consulter l'historique des prospections.
+                    </p>
+                    <a href="{% url 'historique-prospection-list' %}" class="btn btn-primary">
+                        <i class="fas fa-file"></i> Accéder
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- Bouton pour accéder à l'interface d'administration -->
         {% if request.user.is_staff %}
         <div class="col-md-4 mb-4">
@@ -159,3 +189,5 @@
     </div>
 </div>
 {% endblock %}
+
+

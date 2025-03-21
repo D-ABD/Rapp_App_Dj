@@ -6,10 +6,12 @@ from .formations import Formation, FormationManager
 from .commentaires import Commentaire
 from .evenements import Evenement
 from .documents import Document
-from .historique_formations import HistoriqueFormation
 from .recherches import Recherche
 from .partenaires import Partenaire
-from .rapports import Rapport  # Ajoutez cette ligne
+from .rapports import Rapport  
+from .company import Company
+from .prospection import Prospection
+from .formations import HistoriqueFormation
 
 __all__ = [
     'BaseModel',
@@ -24,5 +26,7 @@ __all__ = [
     'Document',
     'HistoriqueFormation',
     'Recherche',
-    'Rapport',  # Ajoutez cette ligne
+    'Rapport',  
+    'Prospection',
+    'Company',
 ]

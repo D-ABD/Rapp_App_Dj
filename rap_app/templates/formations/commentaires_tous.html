@@ -16,7 +16,7 @@
                 <option value="">Toutes les formations</option>
                 {% for formation in formations %}
                     <option value="{{ formation.id }}" {% if request.GET.formation == formation.id|stringformat:"s" %}selected{% endif %}>
-                        {{ formation.nom }}
+                        {{ formation.nom }} offre: {{ formation.num_offre }}
                     </option>
                 {% endfor %}
             </select>

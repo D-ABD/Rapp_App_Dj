@@ -20,6 +20,10 @@ from datetime import datetime
 from django.contrib import messages
 from django.http import HttpResponseBadRequest
 
+from ..models.company import Company
+
+from ..models.formations import HistoriqueFormation
+
 from ..models.partenaires import Partenaire
 from ..models import Formation
 
@@ -29,7 +33,7 @@ from ..models.statut import Statut
 from ..models.types_offre import TypeOffre
 
 from ..models.commentaires import Commentaire, User
-from ..models import Formation, HistoriqueFormation
+from ..models import Formation
 from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
 
 User = get_user_model()
@@ -102,6 +106,8 @@ class FormationListView(BaseListView):
                 queryset = queryset.filter(total_places__gt=F('total_inscrits'))
 
         return queryset
+    
+    
 
     def get_context_data(self, **kwargs):
         """Ajoute les statistiques, les centres, types d'offres et statuts au contexte pour le template."""
@@ -112,7 +118,8 @@ class FormationListView(BaseListView):
             (Formation.objects.formations_actives().count(), "Formations Actives", "success", "fa-check-circle"),
             (Formation.objects.formations_a_venir().count(), "Formations À venir", "info", "fa-clock"),
             (Formation.objects.formations_terminees().count(), "Formations Terminées", "secondary", "fa-times-circle"),
-            (Formation.objects.formations_a_recruter().count(), "Formations À recruter", "warning", "fa-users"),
+            (Formation.objects.formations_a_recruter().count(), "Formations À recruter", "danger", "fa-users"),
+
         ]
 
         context['centres'] = Centre.objects.all()
@@ -129,6 +136,42 @@ class FormationListView(BaseListView):
 
         return context
         
+def post(self, request, *args, **kwargs):
+    formation = self.get_object()
+    action = request.POST.get("action")
+
+    if action == "add_company":
+        return self.add_company(request, formation)
+    elif action == "add_prospection":
+        return self.add_prospection(request, formation)
+
+    return super().post(request, *args, **kwargs)
+
+def add_company(self, request, formation):
+    from ..forms.company_form import CompanyForm
+    form = CompanyForm(request.POST)
+    if form.is_valid():
+        company = form.save(commit=False)
+        company.created_by = request.user
+        company.save()
+        messages.success(request, "✅ Entreprise ajoutée avec succès.")
+    else:
+        messages.error(request, "❌ Erreur lors de l'ajout de l'entreprise.")
+    return redirect(request.path)
+
+def add_prospection(self, request, formation):
+    from ..forms.ProspectionForm import ProspectionForm
+    form = ProspectionForm(request.POST)
+    if form.is_valid():
+        prospection = form.save(commit=False)
+        prospection.formation = formation
+        prospection.responsable = request.user
+        prospection.save()
+        messages.success(request, "✅ Prospection ajoutée avec succès.")
+    else:
+        messages.error(request, "❌ Erreur lors de l'ajout de la prospection.")
+    return redirect(request.path)
+
 
 
 
@@ -188,18 +231,30 @@ class FormationDetailView(BaseDetailView):
 
         context['dernier_commentaire'] = dernier_commentaire  # ✅ Ajout du dernier commentaire complet
         context['commentaires'] = formation.get_commentaires().order_by('-created_at')
+        context['derniers_commentaires'] = ( Commentaire.objects.select_related('formation', 'utilisateur').order_by('-created_at')[:5])
         context['evenements'] = formation.get_evenements().order_by('-event_date')
         context['documents'] = formation.documents.all().order_by('-created_at')
         context['partenaires'] = formation.get_partenaires()
-        context['historique'] = formation.historique_formations.order_by('-created_at')[:10]
+        context['historique'] = formation.historiques.order_by('-date_modification')[:10]
 
         # ✅ Ajout des valeurs calculées pour affichage
         context['places_restantes_crif'] = formation.get_places_restantes_crif()
         context['places_restantes_mp'] = formation.get_places_restantes_mp()
         context['taux_saturation'] = formation.get_taux_saturation()
 
-        return context
-    
+    # Récupérer toutes les prospections liées à cette formation
+        context['prospections'] = formation.prospections.select_related('company', 'responsable')
+
+        # Afficher les entreprises (distinctes) liées par prospection
+        context['entreprises'] = Company.objects.filter(prospections__formation=formation).distinct()
+
+        # Formulaires vides pour création rapide
+        from ..forms.company_form import CompanyForm
+        from ..forms.ProspectionForm import ProspectionForm
+        context['company_form'] = CompanyForm()
+        context['prospection_form'] = ProspectionForm(initial={'formation': formation})
+
+        return context    
     def post(self, request, *args, **kwargs):
             """
             Gère l'ajout de commentaires, événements, documents et partenaires via POST.
