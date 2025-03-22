@@ -1,90 +1,154 @@
 {% load static %}
-
 <!-- templates/composants/navbar.html -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-       
-        <!-- Logo ou nom de l'application -->
-        <a class="navbar-brand" href="{% url 'home' %}">
-            <img src="{% static 'images/logo.png' %}" alt="Logo Rap App" style="height: 80px;">
-        </a>
-        
-        <!-- Bouton pour les écrans mobiles -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm sticky-top" id="mainNavbar">
+  <div class="container-fluid">
 
-        <!-- Liens de navigation -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'home' %}">Accueil</a>
-                </li>
+    <!-- Logo ou nom de l'application -->
+    <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+      <img src="{% static 'images/logo.png' %}" alt="Logo Rap App" class="navbar-logo me-2">
+      <span class="fw-bold">Rap App</span>
+    </a>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-                </li>
+    <!-- Bouton pour les écrans mobiles -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'evenement-list' %}">Evenements</a>
-                </li>
-                
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'partenaire-list' %}">Partenaires</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'formation-list' %}">Formations</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'document-list' %}">Documents</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'company-list' %}">Entreprises</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'prospection-list' %}">prospection</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'parametres' %}">Paramètres</a>
-                </li>
+    <!-- Liens de navigation -->
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}"><i class="fas fa-home me-1"></i> Accueil</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}"><i class="fas fa-chart-line me-1"></i> Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'evenement-list' %}"><i class="fas fa-calendar-alt me-1"></i> Événements</a></li>
 
-            </ul>
+        <!-- Menu Prospection -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="prospectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-search me-1"></i> Prospection
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="prospectionDropdown">
+            <li><a class="dropdown-item" href="{% url 'company-list' %}"><i class="fas fa-building me-2"></i> Entreprises</a></li>
+            <li><a class="dropdown-item" href="{% url 'partenaire-list' %}"><i class="fas fa-handshake me-2"></i> Partenaires</a></li>
+          </ul>
+        </li>
 
-            <!-- Section utilisateur -->
-            <ul class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
-                    <!-- Si l'utilisateur est connecté, afficher le lien vers le profil et la déconnexion -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'user-profile' %}">
-                            <i class="fas fa-user"></i> Profil
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">
-                            <i class="fas fa-sign-out-alt"></i> Déconnexion
-                        </a>
-                    </li>
-                {% else %}
-                    <!-- Si l'utilisateur n'est pas connecté, afficher le lien de connexion -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">
-                            <i class="fas fa-sign-in-alt"></i> Connexion
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
+        <!-- Menu Revue d'offres -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="revueOffresDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-file-alt me-1"></i> Revue d'offres
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="revueOffresDropdown">
+            <li><a class="dropdown-item" href="{% url 'formation-list' %}"><i class="fas fa-graduation-cap me-2"></i> Formations</a></li>
+            <li><a class="dropdown-item" href="{% url 'commentaire-list' %}"><i class="fas fa-comments me-2"></i> Commentaires</a></li>
+            <li><a class="dropdown-item" href="{% url 'document-list' %}"><i class="fas fa-file-alt me-2"></i> Documents</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" href="{% url 'parametres' %}"><i class="fas fa-cog me-1"></i> Paramètres</a></li>
+      </ul>
+
+      <!-- Section utilisateur -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'user-profile' %}"><i class="fas fa-user me-1"></i> {{ user.username }}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt me-1"></i> Déconnexion</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt me-1"></i> Connexion</a>
+          </li>
+        {% endif %}
+      </ul>
     </div>
+  </div>
 </nav>
-<style>
 
+<!-- Styles personnalisés -->
+<style>
 .navbar-logo {
-    height: 60px; /* Hauteur souhaitée */
-    width: auto; /* Largeur ajustée automatiquement */
-    max-height: 100%; /* Empêche le logo de dépasser la hauteur de la barre de navigation */
+  height: 50px;
+  width: auto;
+  max-height: 100%;
 }
 
 .navbar {
-    min-height: 80px; /* Ajustez cette valeur selon vos besoins */
+  min-height: 80px;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background-color: rgba(13, 110, 253, 0.9) !important; /* Fond semi-transparent */
+}
+
+.navbar.scrolled {
+  background-color: #0d6efd !important; /* Fond opaque au défilement */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav-link {
+  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+  position: relative;
+}
+
+.navbar .nav-link:hover {
+  color: #ffd !important;
+  transform: translateY(-2px);
+}
+
+.navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #ffd;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.navbar .nav-link:hover::after {
+  width: 100%;
+}
+
+.navbar .nav-link.active::after {
+  width: 100%;
+}
+
+/* Styles pour les sous-menus */
+.dropdown-menu {
+  background-color: rgba(13, 110, 253, 0.95);
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+  color: #fff !important;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.dropdown-item i {
+  width: 20px;
+  text-align: center;
 }
 </style>
+
+<!-- Script pour l'effet de défilement -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const navbar = document.getElementById("mainNavbar");
+  window.addEventListener("scroll", function () {
+    if (window.scrollY > 50) {
+      navbar.classList.add("scrolled");
+    } else {
+      navbar.classList.remove("scrolled");
+    }
+  });
+});
+</script>

@@ -8,7 +8,7 @@ def get_default_color(statut_nom):
     Retourne une couleur prédéfinie selon le type de statut.
     """
     COULEURS_PREDEFINIES = {
-        'non_defini': "#A0A0A0",         # Gris
+        'non_defini': "#FFEB3B",  # 🟡 Jaune (texte noir lisible)
         'recrutement_en_cours': "#4CAF50", # Vert
         'formation_en_cours': "#2196F3",  # Bleu
         'formation_a_annuler': "#FF9800", # Orange
@@ -106,6 +106,9 @@ class Statut(BaseModel):
         if self.nom == self.AUTRE and self.description_autre:
             return self.description_autre  # ✅ Retourne la description si le statut est "Autre"
         return dict(self.STATUT_CHOICES).get(self.nom, self.nom)  # ✅ Sinon, retourne le nom normal
+
+    def get_badge_html(self):
+        return f'<span class="badge" style="background-color:{self.couleur}">{self.get_nom_display()}</span>'
 
     def save(self, *args, **kwargs):
         """

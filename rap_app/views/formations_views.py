@@ -363,6 +363,13 @@ class FormationUpdateView(PermissionRequiredMixin, BaseUpdateView):
 
     def form_valid(self, form):
         """Détecte les modifications et met à jour l'historique"""
+        def serialize(value):
+            if isinstance(value, (datetime, date)):
+                return value.isoformat()
+            elif hasattr(value, '__str__'):
+                return str(value)
+            return value
+
         with transaction.atomic():
             old_obj = Formation.objects.get(pk=self.object.pk)
             response = super().form_valid(form)
@@ -370,17 +377,15 @@ class FormationUpdateView(PermissionRequiredMixin, BaseUpdateView):
             # ✅ Comparaison des champs modifiés
             changes = {}
             for field in self.fields:
-                old_value, new_value = getattr(old_obj, field), getattr(self.object, field)
+                old_value = getattr(old_obj, field)
+                new_value = getattr(self.object, field)
 
-                # 🔹 Si la valeur est une date, la convertir en string au format ISO
-                # ✅ Correction de la conversion des dates dans form_valid()
-                if isinstance(old_value, (datetime, date)):  
-                    old_value = old_value.isoformat() if old_value else None
-                if isinstance(new_value, (datetime, date)):  
-                    new_value = new_value.isoformat() if new_value else None
-
-                if old_value != new_value:
-                    changes[field] = {'ancien': old_value, 'nouveau': new_value}
+                # ✅ Sérialise les valeurs avant comparaison
+                if serialize(old_value) != serialize(new_value):
+                    changes[field] = {
+                        'ancien': serialize(old_value),
+                        'nouveau': serialize(new_value)
+                    }
 
             # 📌 Enregistre l'historique si des changements ont été détectés
             if changes:
@@ -392,6 +397,7 @@ class FormationUpdateView(PermissionRequiredMixin, BaseUpdateView):
                 )
 
             return response
+
 
     def get_success_url(self):
         return reverse_lazy('formation-detail', kwargs={'pk': self.object.pk})

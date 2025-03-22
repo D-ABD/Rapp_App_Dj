@@ -1,6 +1,7 @@
 {% load static %}
-
-<div class="card shadow border-0 rounded-3 overflow-hidden">
+<!-- Pour que les toasts fonctionnent -->
+<div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+<div class="card shadow-lg border-0 rounded-3 overflow-hidden">
     <!-- En-tête de la carte -->
     <div class="card-header bg-gradient-primary-to-secondary d-flex justify-content-between align-items-center py-3">
         <h5 class="mb-0 text-white">
@@ -13,9 +14,8 @@
             </button>
             <button class="btn btn-sm btn-light ms-1" title="Exporter en Excel"
         onclick="window.location.href='{% url 'export-formations-excel' %}'">
-    <i class="fas fa-file-excel"></i>
-</button>
-
+                <i class="fas fa-file-excel"></i>
+            </button>
         </div>
     </div>
 
@@ -32,36 +32,37 @@
                                     <span class="text-muted small">N° d'offre</span>
                                 </div>
                             </th>
-                            
-                            <th class="fw-bold border-bottom">Centre</th>
+                            <th class="fw-bold border-bottom d-none d-md-table-cell">Centre</th>
                             <th class="fw-bold border-bottom text-center">
                                 <div class="d-flex flex-column">
                                     <span>Type d'offre</span>
                                     <span class="text-muted small">Statut</span>
                                 </div>
                             </th>                            
-                            <th class="fw-bold border-bottom">N° Kairos</th>
-                            <th class="fw-bold border-bottom">Dates</th>
-                            <th class="fw-bold border-bottom">Asst</th>
-                            <th class="fw-bold border-bottom text-center">Candidats</th>
-                            <th class="fw-bold border-bottom text-center">Entretiens</th>
+                            <th class="fw-bold border-bottom d-none d-lg-table-cell">N° Kairos</th>
+                            <th class="fw-bold border-bottom d-none d-md-table-cell">Dates</th>
+                            <th class="fw-bold border-bottom d-none d-lg-table-cell">Asst</th>
                             <th class="fw-bold border-bottom text-center">
                                 <div class="d-flex flex-column">
-                                    <span class="badge bg-secondary text-white px-2 py-1">Prévus CRIF</span>
-                                    <span class="badge bg-success text-white px-2 py-1">Prévus MP</span>
+                                    <span class="badge bg-info text-white px-2 py-1">Candidats</span>
+                                    <span class="badge bg-secondary text-black px-2 py-1">Entretiens</span>
                                 </div>
                             </th>
-                            <th class="fw-bold border-bottom text-center">
+                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">
                                 <div class="d-flex flex-column">
-                                    <span class="badge bg-secondary text-white px-2 py-1">Inscrits CRIF</span>
-                                    <span class="badge bg-success text-white px-2 py-1">Inscrits MP</span>
+                                    <span class="badge bg-primary text-white px-2 py-1">Prévus CRIF</span>
+                                    <span class="badge bg-success text-black px-2 py-1">Prévus MP</span>
                                 </div>
                             </th>
-                            
-                            <th class="fw-bold border-bottom text-center">Places restantes</th>
-                            <th class="fw-bold border-bottom text-center">Transformation</th>
-                            <th class="fw-bold border-bottom text-center">Saturation</th>
-                            <th class="fw-bold border-bottom text-center">Actions</th>
+                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">
+                                <div class="d-flex flex-column">
+                                    <span class="badge bg-primary text-white px-2 py-1">Inscrits CRIF</span>
+                                    <span class="badge bg-success text-black px-2 py-1">Inscrits MP</span>
+                                </div>
+                            </th>
+                            <th class="fw-bold border-bottom text-center d-none d-md-table-cell">Places restantes</th>
+                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">Transformation</th>
+                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">Saturation</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -76,21 +77,27 @@
                             </td>
 
                             <!-- Centre -->
-                            <td class="text-center">{{ formation.centre.nom }}</td>
+                            <td class="text-center d-none d-md-table-cell">{{ formation.centre.nom }}</td>
 
                             <!-- Type & Statut -->
                             <td class="text-center">
                                 <span class="badge bg-primary d-block mb-1">{{ formation.type_offre.nom }}</span>
-                                <span class="badge text-white px-2" style="background-color: {{ formation.statut.couleur }};">
-                                    {{ formation.statut }}
-                                </span>
+                                <span class="badge px-2 
+    {% if formation.statut.nom == 'non_defini' %}
+        text-black
+    {% else %}
+        text-white
+    {% endif %}" 
+    style="background-color: {{ formation.statut.couleur|default:'#FFEB3B' }};">
+    {{ formation.statut.get_nom_display }}
+</span>
                             </td>
 
                             <!-- N° Kairos -->
-                            <td>{{ formation.num_kairos|default_if_none:"-" }}</td>
+                            <td class="d-none d-lg-table-cell">{{ formation.num_kairos|default_if_none:"-" }}</td>
 
                             <!-- Dates -->
-                            <td class="text-center">
+                            <td class="text-center d-none d-md-table-cell">
                                 <small>
                                     <i class="fas fa-calendar-day text-primary"></i> {{ formation.start_date|date:"d/m/Y"|default:"-" }}<br>
                                     <i class="fas fa-calendar-check text-danger"></i> {{ formation.end_date|date:"d/m/Y"|default:"-" }}
@@ -98,34 +105,38 @@
                             </td>
 
                             <!-- Asst -->
-                            <td>{{ formation.assistante|default_if_none:"-" }}</td>
-
-                            <!-- Candidats -->
-                            <td class="text-center">
-                                <input type="number" class="form-control update-inscrits"
-                                       data-formation-id="{{ formation.id }}"
-                                       data-field="nombre_candidats"
-                                       value="{{ formation.nombre_candidats }}"
-                                       min="0" title="Candidats">
-                            </td>
-
-                            <!-- Entretiens -->
-                            <td class="text-center">
-                                <input type="number" class="form-control update-inscrits"
-                                       data-formation-id="{{ formation.id }}"
-                                       data-field="nombre_entretiens"
-                                       value="{{ formation.nombre_entretiens }}"
-                                       min="0" title="Entretiens">
-                            </td>
+                            <td class="d-none d-lg-table-cell">{{ formation.assistante|default_if_none:"-" }}</td>
+                          
+                            <!-- Cndidats et entretiens -->
+                            <td>
+                                <div class="d-flex flex-column gap-1">
+                                  <input type="number" class="form-control form-control-sm text-white bg-info update-inscrits"
+                                         data-formation-id="{{ formation.id }}"
+                                         data-field="nombre_candidats"
+                                         value="{{ formation.nombre_candidats }}"
+                                         min="0"
+                                         title="Nombre de candidats"
+                                         aria-label="Nombre de candidats">
+                              
+                                  <input type="number" class="form-control form-control-sm text-black bg-secondary update-inscrits"
+                                         data-formation-id="{{ formation.id }}"
+                                         data-field="nombre_entretiens"
+                                         value="{{ formation.nombre_entretiens }}"
+                                         min="0"
+                                         title="Nombre d'entretiens"
+                                         aria-label="Nombre d'entretiens">
+                                </div>
+                              </td>
+                              
 
                             <!-- Prévus CRIF/MP -->
-                            <td class="text-center">
-                                <input type="number" class="form-control update-inscrits text-white bg-secondary"
+                            <td class="text-center d-none d-lg-table-cell">
+                                <input type="number" class="form-control update-inscrits text-white bg-primary"
                                        data-formation-id="{{ formation.id }}"
                                        data-field="prevus_crif"
                                        value="{{ formation.prevus_crif }}"
                                        min="0" title="Prévus CRIF">
-                                <input type="number" class="form-control update-inscrits text-white bg-success"
+                                <input type="number" class="form-control update-inscrits text-black bg-success"
                                        data-formation-id="{{ formation.id }}"
                                        data-field="prevus_mp"
                                        value="{{ formation.prevus_mp }}"
@@ -133,13 +144,13 @@
                             </td>
 
                             <!-- Inscrits CRIF/MP -->
-                            <td class="text-center">
-                                <input type="number" class="form-control update-inscrits text-white bg-secondary"
+                            <td class="text-center d-none d-lg-table-cell">
+                                <input type="number" class="form-control update-inscrits text-white bg-primary"
                                        data-formation-id="{{ formation.id }}"
                                        data-field="inscrits_crif"
                                        value="{{ formation.inscrits_crif }}"
                                        min="0" title="Inscrits CRIF">
-                                <input type="number" class="form-control update-inscrits text-white bg-success"
+                                <input type="number" class="form-control update-inscrits text-black bg-success"
                                        data-formation-id="{{ formation.id }}"
                                        data-field="inscrits_mp"
                                        value="{{ formation.inscrits_mp }}"
@@ -147,18 +158,18 @@
                             </td>
 
                             <!-- Places restantes -->
-                            <td class="text-center">
+                            <td class="text-center d-none d-md-table-cell">
                                 <span class="badge bg-secondary px-2">CRIF: {{ formation.places_restantes_crif|default:"0" }}</span>
                                 <span class="badge bg-success px-2">MP: {{ formation.places_restantes_mp|default:"0" }}</span>
                             </td>
 
                             <!-- Transformation -->
-                            <td class="text-center">
+                            <td class="text-center d-none d-lg-table-cell">
                                 <span class="fw-bold text-purple">{{ formation.taux_transformation|floatformat:0 }}%</span>
                             </td>
 
                             <!-- Saturation -->
-                            <td class="text-center">
+                            <td class="text-center d-none d-lg-table-cell">
                                 <div class="progress" style="height: 8px;">
                                     <div class="progress-bar 
                                         {% if formation.get_taux_saturation >= 100 %} bg-success 
@@ -172,24 +183,6 @@
                             </td>
 
                             
-
-                            <!-- Actions -->
-                            <td class="text-center">
-                                <div class="btn-group">
-                                    <a href="{% url 'formation-detail' formation.id %}" class="btn btn-sm btn-outline-primary" title="Voir les détails">
-                                        <i class="fas fa-eye"></i>
-                                    </a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <span class="visually-hidden">Plus d'options</span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-edit me-2"></i>Modifier</a></li>
-                                        <li><a class="dropdown-item" href="#"><i class="fas fa-users me-2"></i>Voir les stagiaires</a></li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-trash-alt me-2"></i>Supprimer</a></li>
-                                    </ul>
-                                </div>
-                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -295,8 +288,6 @@
             width: 70px;
         }
     }
-    
-    
 </style>
 
 <!-- Scripts -->

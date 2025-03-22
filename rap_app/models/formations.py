@@ -267,8 +267,8 @@ class Formation(BaseModel):
         return self.documents.all()
 
     def get_partenaires(self):
-        """Retourne les partenaires associées."""
-        return self.partenaires.all()
+        """Retourne les partenaires associés (optimisé avec prefetch)."""
+        return self.partenaires.all().prefetch_related()
 
     def __str__(self):
         """Affiche une représentation textuelle de la formation."""
