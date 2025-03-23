@@ -4,6 +4,9 @@
 
 {% block content %}
 <div class="container mt-4">
+    <a href="{% url 'prospection-export' %}?{{ request.GET.urlencode }}" class="btn btn-outline-success mb-3 float-end">
+        <i class="fas fa-file-csv"></i> Exporter CSV
+    </a>    
     <h1>📋 Liste des Prospections</h1>
     <a href="{% url 'prospection-add' %}" class="btn btn-primary mb-3">➕ Ajouter une prospection</a>
 

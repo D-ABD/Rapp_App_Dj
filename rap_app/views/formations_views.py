@@ -4,6 +4,10 @@ from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.db.models import Q, F, ExpressionWrapper, IntegerField, FloatField
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.decorators import login_required
+
 from django.utils import timezone
 from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect
@@ -37,6 +41,8 @@ from ..models import Formation
 from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
 
 User = get_user_model()
+import logging
+logger = logging.getLogger(__name__)
 
 
 class FormationListView(BaseListView):
@@ -173,41 +179,6 @@ def add_prospection(self, request, formation):
     return redirect(request.path)
 
 
-
-
-
-class ModifierInscritsView(View):
-    """Vue pour modifier les inscrits CRIF, MP, nombre de candidats, entretiens et prévus CRIF/MP via AJAX."""
-
-    def post(self, request, formation_id, *args, **kwargs):  
-        try:
-            data = json.loads(request.body)
-            field = data.get("field")
-            value = data.get("value")
-
-            # ✅ Ajout des nouveaux champs autorisés
-            if field not in ["inscrits_crif", "inscrits_mp", "nombre_candidats", "nombre_entretiens", "prevus_crif", "prevus_mp"]:
-                return JsonResponse({"success": False, "error": "Champ invalide"}, status=400)
-
-            formation = Formation.objects.get(pk=formation_id)
-
-            # ✅ Vérifier la permission de modification
-            if not request.user.has_perm("rap_app.change_formation"):
-                return JsonResponse({"success": False, "error": "Permission refusée"}, status=403)
-
-            # ✅ Mettre à jour la valeur du champ
-            setattr(formation, field, int(value))
-            formation.save()
-
-            return JsonResponse({"success": True, "message": "Mise à jour réussie", "new_value": value})
-
-        except Formation.DoesNotExist:
-            return JsonResponse({"success": False, "error": "Formation non trouvée"}, status=404)
-        except json.JSONDecodeError:
-            return JsonResponse({"success": False, "error": "Format JSON invalide"}, status=400)
-        except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)}, status=500)
-
 class FormationDetailView(BaseDetailView):
     """Vue affichant les détails d'une formation"""
     model = Formation
@@ -337,18 +308,22 @@ class FormationCreateView(PermissionRequiredMixin, BaseCreateView):
     def form_valid(self, form):
         """Associe l'utilisateur connecté à la formation et crée un historique"""
         with transaction.atomic():
+            # ✅ Associe l'utilisateur à la formation créée
             form.instance.utilisateur = self.request.user
+
+            # ✅ Enregistre la formation
             response = super().form_valid(form)
 
-            # 📌 Création d'un historique
+            # ✅ Création d'un historique lié à la création
             HistoriqueFormation.objects.create(
                 formation=self.object,
-                utilisateur=self.request.user,
+                modifie_par=self.request.user,  # 🔁 correction ici (anciennement `utilisateur=`)
                 action='création',
                 details={'nom': self.object.nom}
             )
 
             return response
+
 
     def get_success_url(self):
         return reverse_lazy('formation-detail', kwargs={'pk': self.object.pk})
@@ -362,8 +337,10 @@ class FormationUpdateView(PermissionRequiredMixin, BaseUpdateView):
     fields = FormationCreateView.fields  # ✅ Réutilisation des champs
 
     def form_valid(self, form):
-        """Détecte les modifications et met à jour l'historique"""
+        """Détecte les modifications et enregistre un historique si nécessaire"""
+
         def serialize(value):
+            """Convertit les valeurs en chaînes pour comparaison"""
             if isinstance(value, (datetime, date)):
                 return value.isoformat()
             elif hasattr(value, '__str__'):
@@ -371,32 +348,36 @@ class FormationUpdateView(PermissionRequiredMixin, BaseUpdateView):
             return value
 
         with transaction.atomic():
+            # ✅ On récupère l'ancienne version de l'objet
             old_obj = Formation.objects.get(pk=self.object.pk)
+
+            # ✅ On sauvegarde la nouvelle version via la méthode parent
             response = super().form_valid(form)
 
-            # ✅ Comparaison des champs modifiés
+            # 🔍 Détection des champs modifiés
             changes = {}
             for field in self.fields:
                 old_value = getattr(old_obj, field)
                 new_value = getattr(self.object, field)
 
-                # ✅ Sérialise les valeurs avant comparaison
                 if serialize(old_value) != serialize(new_value):
                     changes[field] = {
                         'ancien': serialize(old_value),
                         'nouveau': serialize(new_value)
                     }
 
-            # 📌 Enregistre l'historique si des changements ont été détectés
+            # 📝 Création d’un historique si des modifications ont été faites
             if changes:
                 HistoriqueFormation.objects.create(
                     formation=self.object,
-                    utilisateur=self.request.user,
+                    modifie_par=self.request.user,  # ✅ champ correct
                     action='modification',
                     details=changes
                 )
+                # logger.debug(f"📚 Historique enregistré pour la formation {self.object.id} : {changes}")
 
             return response
+
 
 
     def get_success_url(self):
@@ -473,3 +454,47 @@ class ExportFormationsExcelView(View):
 
 
 
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UpdateFormationFieldView(View):
+    def post(self, request, id):
+        try:
+            data = json.loads(request.body)
+            field = data.get("field")
+            value = data.get("value")
+
+            formation = Formation.objects.get(pk=id)
+
+            if field in ["start_date", "end_date"]:
+                from datetime import datetime
+                if value == "":
+                    setattr(formation, field, None)
+                else:
+                    setattr(formation, field, datetime.strptime(value, "%Y-%m-%d").date())
+
+            elif field in ["nombre_candidats", "nombre_entretiens", "prevus_crif", "prevus_mp", "inscrits_crif", "inscrits_mp"]:
+                if value == "" or value is None:
+                    setattr(formation, field, 0)
+                else:
+                    setattr(formation, field, int(value))
+
+            elif field == "statut":
+                from ..models import Statut
+                formation.statut = Statut.objects.get(pk=value)
+
+            else:
+                setattr(formation, field, value)
+
+            formation.save()
+
+            return JsonResponse({
+                "success": True,
+                "taux_saturation": formation.get_taux_saturation(),
+                "taux_transformation": formation.get_taux_transformation(),
+                "places_restantes_crif": formation.get_places_restantes_crif(),
+                "places_restantes_mp": formation.get_places_restantes_mp(),
+            })
+
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)}, status=400)

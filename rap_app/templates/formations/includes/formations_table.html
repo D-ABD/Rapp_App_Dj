@@ -1,294 +1,255 @@
 {% load static %}
-<!-- Pour que les toasts fonctionnent -->
+
+<!-- Conteneur pour les toasts de notification -->
 <div id="toastContainer" class="toast-container position-fixed bottom-0 end-0 p-3"></div>
-<div class="card shadow-lg border-0 rounded-3 overflow-hidden">
-    <!-- En-tête de la carte -->
-    <div class="card-header bg-gradient-primary-to-secondary d-flex justify-content-between align-items-center py-3">
-        <h5 class="mb-0 text-white">
-            <i class="fas fa-list-ul me-2"></i> Résultats 
-            <span class="badge bg-white text-primary rounded-pill ms-2">{{ formations.paginator.count }}</span>
-        </h5>
-        <div>
-            <button class="btn btn-sm btn-light" id="toggleColumns" title="Afficher/Masquer les colonnes">
+
+<!-- Carte principale contenant la table des formations -->
+<div class="card shadow border-0 rounded-4 overflow-hidden formation-card">
+
+    <!-- 🔹 En-tête de la carte -->
+    <div class="card-header bg-gradient-primary d-flex justify-content-between align-items-center py-3">
+        
+        <!-- ◀️ Partie gauche : titre et compteur -->
+        <div class="d-flex align-items-center">
+            <!-- Icône animée -->
+            <i class="fas fa-list-ul me-2 pulse-icon animate__animated animate__pulse animate__infinite"></i>
+            <!-- Titre -->
+            <h5 class="mb-0 text-white">Résultats</h5>
+            <!-- Badge du nombre de résultats -->
+            <span class="badge bg-white text-primary rounded-pill ms-2 animate__animated animate__fadeIn animate__delay-1s">
+                {{ formations.paginator.count }}
+            </span>
+        </div>
+
+        <!-- ▶️ Partie droite : boutons d'action -->
+        <div class="action-buttons d-flex align-items-center">
+            <!-- Bouton : afficher / masquer les colonnes -->
+            <button class="btn btn-light btn-icon hover-scale" id="toggleColumns" title="Afficher/Masquer les colonnes" data-bs-toggle="tooltip" data-bs-placement="bottom">
                 <i class="fas fa-columns"></i>
             </button>
-            <button class="btn btn-sm btn-light ms-1" title="Exporter en Excel"
-        onclick="window.location.href='{% url 'export-formations-excel' %}'">
+            <!-- Bouton : exporter en Excel -->
+            <button class="btn btn-light btn-icon hover-scale ms-2" title="Exporter en Excel" onclick="window.location.href='{% url 'export-formations-excel' %}'" data-bs-toggle="tooltip" data-bs-placement="bottom">
                 <i class="fas fa-file-excel"></i>
             </button>
         </div>
     </div>
 
-    <!-- Corps de la carte -->
+    <!-- 🧩 Corps de la carte -->
     <div class="card-body p-0">
+
         {% if formations %}
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0 formation-table">
-                    <thead class="bg-light">
-                        <tr>
-                            <th class="fw-bold border-bottom text-center">
-                                <div class="d-flex flex-column">
-                                    <span>Nom & </span>
-                                    <span class="text-muted small">N° d'offre</span>
+        <!-- Tableau des formations -->
+        <div class="table-container">
+            <table class="table table-hover align-middle mb-0 formation-table">
+
+                <!-- En-têtes de colonnes -->
+                <thead class="sticky-top bg-light">
+                    <tr>
+                        <th class="text-uppercase fw-bold p-2 text-center">
+                            <div class="d-flex flex-column">
+                                <span>Nom</span>
+                                <small>N° d'offre</small>
+                            </div>
+                        </th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-md-table-cell">Centre</th>
+                        <th class="text-uppercase fw-bold p-2 text-center">
+                            <div class="d-flex flex-column">
+                                <span>Type</span>
+                                <small>Statut</small>
+                            </div>
+                        </th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-md-table-cell" data-column="dates">Dates</th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-lg-table-cell" data-column="kairos">N° Kairos</th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-lg-table-cell" data-column="assistante">Asst</th>
+                        <th class="text-uppercase fw-bold p-2 text-center" data-column="candidats">
+                            <div class="d-flex flex-column align-items-center">
+                                <div class="label-with-icon">
+                                    <span class="dot-indicator bg-info"></span>
+                                    <span>Candidats</span>
                                 </div>
-                            </th>
-                            <th class="fw-bold border-bottom d-none d-md-table-cell">Centre</th>
-                            <th class="fw-bold border-bottom text-center">
-                                <div class="d-flex flex-column">
-                                    <span>Type d'offre</span>
-                                    <span class="text-muted small">Statut</span>
+                                <div class="label-with-icon mt-1">
+                                    <span class="dot-indicator bg-secondary"></span>
+                                    <span>Entretiens</span>
                                 </div>
-                            </th>                            
-                            <th class="fw-bold border-bottom d-none d-lg-table-cell">N° Kairos</th>
-                            <th class="fw-bold border-bottom d-none d-md-table-cell">Dates</th>
-                            <th class="fw-bold border-bottom d-none d-lg-table-cell">Asst</th>
-                            <th class="fw-bold border-bottom text-center">
-                                <div class="d-flex flex-column">
-                                    <span class="badge bg-info text-white px-2 py-1">Candidats</span>
-                                    <span class="badge bg-secondary text-black px-2 py-1">Entretiens</span>
-                                </div>
-                            </th>
-                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">
-                                <div class="d-flex flex-column">
-                                    <span class="badge bg-primary text-white px-2 py-1">Prévus CRIF</span>
-                                    <span class="badge bg-success text-black px-2 py-1">Prévus MP</span>
-                                </div>
-                            </th>
-                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">
-                                <div class="d-flex flex-column">
-                                    <span class="badge bg-primary text-white px-2 py-1">Inscrits CRIF</span>
-                                    <span class="badge bg-success text-black px-2 py-1">Inscrits MP</span>
-                                </div>
-                            </th>
-                            <th class="fw-bold border-bottom text-center d-none d-md-table-cell">Places restantes</th>
-                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">Transformation</th>
-                            <th class="fw-bold border-bottom text-center d-none d-lg-table-cell">Saturation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for formation in formations %}
-                        <tr class="formation-row">
-                            <!-- Nom et N° d'offre -->
-                            <td>
-                                <a href="{% url 'formation-detail' formation.id %}" class="fw-bold text-primary text-decoration-none d-block">
-                                    {{ formation.nom }}
-                                </a>
-                                <small class="text-muted">{{ formation.num_offre|default_if_none:"-" }}</small>
-                            </td>
-
-                            <!-- Centre -->
-                            <td class="text-center d-none d-md-table-cell">{{ formation.centre.nom }}</td>
-
-                            <!-- Type & Statut -->
-                            <td class="text-center">
-                                <span class="badge bg-primary d-block mb-1">{{ formation.type_offre.nom }}</span>
-                                <span class="badge px-2 
-    {% if formation.statut.nom == 'non_defini' %}
-        text-black
-    {% else %}
-        text-white
-    {% endif %}" 
-    style="background-color: {{ formation.statut.couleur|default:'#FFEB3B' }};">
-    {{ formation.statut.get_nom_display }}
-</span>
-                            </td>
-
-                            <!-- N° Kairos -->
-                            <td class="d-none d-lg-table-cell">{{ formation.num_kairos|default_if_none:"-" }}</td>
-
-                            <!-- Dates -->
-                            <td class="text-center d-none d-md-table-cell">
-                                <small>
-                                    <i class="fas fa-calendar-day text-primary"></i> {{ formation.start_date|date:"d/m/Y"|default:"-" }}<br>
-                                    <i class="fas fa-calendar-check text-danger"></i> {{ formation.end_date|date:"d/m/Y"|default:"-" }}
-                                </small>
-                            </td>
-
-                            <!-- Asst -->
-                            <td class="d-none d-lg-table-cell">{{ formation.assistante|default_if_none:"-" }}</td>
-                          
-                            <!-- Cndidats et entretiens -->
-                            <td>
-                                <div class="d-flex flex-column gap-1">
-                                  <input type="number" class="form-control form-control-sm text-white bg-info update-inscrits"
-                                         data-formation-id="{{ formation.id }}"
-                                         data-field="nombre_candidats"
-                                         value="{{ formation.nombre_candidats }}"
-                                         min="0"
-                                         title="Nombre de candidats"
-                                         aria-label="Nombre de candidats">
-                              
-                                  <input type="number" class="form-control form-control-sm text-black bg-secondary update-inscrits"
-                                         data-formation-id="{{ formation.id }}"
-                                         data-field="nombre_entretiens"
-                                         value="{{ formation.nombre_entretiens }}"
-                                         min="0"
-                                         title="Nombre d'entretiens"
-                                         aria-label="Nombre d'entretiens">
-                                </div>
-                              </td>
-                              
-
-                            <!-- Prévus CRIF/MP -->
-                            <td class="text-center d-none d-lg-table-cell">
-                                <input type="number" class="form-control update-inscrits text-white bg-primary"
-                                       data-formation-id="{{ formation.id }}"
-                                       data-field="prevus_crif"
-                                       value="{{ formation.prevus_crif }}"
-                                       min="0" title="Prévus CRIF">
-                                <input type="number" class="form-control update-inscrits text-black bg-success"
-                                       data-formation-id="{{ formation.id }}"
-                                       data-field="prevus_mp"
-                                       value="{{ formation.prevus_mp }}"
-                                       min="0" title="Prévus MP">
-                            </td>
-
-                            <!-- Inscrits CRIF/MP -->
-                            <td class="text-center d-none d-lg-table-cell">
-                                <input type="number" class="form-control update-inscrits text-white bg-primary"
-                                       data-formation-id="{{ formation.id }}"
-                                       data-field="inscrits_crif"
-                                       value="{{ formation.inscrits_crif }}"
-                                       min="0" title="Inscrits CRIF">
-                                <input type="number" class="form-control update-inscrits text-black bg-success"
-                                       data-formation-id="{{ formation.id }}"
-                                       data-field="inscrits_mp"
-                                       value="{{ formation.inscrits_mp }}"
-                                       min="0" title="Inscrits MP">
-                            </td>
-
-                            <!-- Places restantes -->
-                            <td class="text-center d-none d-md-table-cell">
-                                <span class="badge bg-secondary px-2">CRIF: {{ formation.places_restantes_crif|default:"0" }}</span>
-                                <span class="badge bg-success px-2">MP: {{ formation.places_restantes_mp|default:"0" }}</span>
-                            </td>
-
-                            <!-- Transformation -->
-                            <td class="text-center d-none d-lg-table-cell">
-                                <span class="fw-bold text-purple">{{ formation.taux_transformation|floatformat:0 }}%</span>
-                            </td>
-
-                            <!-- Saturation -->
-                            <td class="text-center d-none d-lg-table-cell">
-                                <div class="progress" style="height: 8px;">
-                                    <div class="progress-bar 
-                                        {% if formation.get_taux_saturation >= 100 %} bg-success 
-                                        {% elif formation.get_taux_saturation >= 80 %} bg-primary 
-                                        {% elif formation.get_taux_saturation >= 50 %} bg-warning 
-                                        {% else %} bg-danger {% endif %}" 
-                                        role="progressbar" style="width: {{ formation.get_taux_saturation }}%">
+                            </div>
+                        </th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-lg-table-cell" data-column="prevus">
+                            <div class="d-flex flex-column align-items-center">
+                                <span>Prévus</span>
+                                <div class="d-flex mt-1 justify-content-center">
+                                    <div class="label-with-icon me-2">
+                                        <span class="dot-indicator bg-primary"></span>
+                                        <span>CRIF</span>
+                                    </div>
+                                    <div class="label-with-icon">
+                                        <span class="dot-indicator bg-success"></span>
+                                        <span>MP</span>
                                     </div>
                                 </div>
-                                <span class="fw-bold d-block mt-1">{{ formation.get_taux_saturation|floatformat:0 }}%</span>
-                            </td>
+                            </div>
+                        </th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-lg-table-cell" data-column="inscrits">
+                            <div class="d-flex flex-column align-items-center">
+                                <span>Inscrits</span>
+                                <div class="d-flex mt-1 justify-content-center">
+                                    <div class="label-with-icon me-2">
+                                        <span class="dot-indicator bg-primary"></span>
+                                        <span>CRIF</span>
+                                    </div>
+                                    <div class="label-with-icon">
+                                        <span class="dot-indicator bg-success"></span>
+                                        <span>MP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-md-table-cell" data-column="places">
+                            <div class="d-flex flex-column align-items-center">
+                                <span>Places</span>
+                                <div class="d-flex mt-1 justify-content-center">
+                                    <div class="label-with-icon me-2">
+                                        <span class="dot-indicator bg-secondary"></span>
+                                        <span>CRIF</span>
+                                    </div>
+                                    <div class="label-with-icon">
+                                        <span class="dot-indicator bg-success"></span>
+                                        <span>MP</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-lg-table-cell" data-column="transformation">Transfo</th>
+                        <th class="text-uppercase fw-bold p-2 text-center d-none d-lg-table-cell" data-column="saturation">Saturation</th>
+                    </tr>
+                </thead>
 
-                            
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                <!-- Corps du tableau -->
+                <tbody>
+                    {% for formation in formations %}
+                    <tr class="formation-row">
+                        <!-- Colonne : Nom + N° offre -->
+                        <td class="p-2 text-center">
+                            <a href="{% url 'formation-detail' formation.id %}" class="fw-bold text-primary formation-link">{{ formation.nom }}</a>
+                            <small class="text-muted d-block">{{ formation.num_offre|default_if_none:"-" }}</small>
+                        </td>
+
+                        <!-- Centre -->
+                        <td class="p-2 text-center d-none d-md-table-cell">{{ formation.centre.nom }}</td>
+
+                        <!-- Type et Statut -->
+                        <td class="p-2 text-center">
+                            <span class="badge d-block mb-1 text-white type-badge" style="background-color: {{ formation.type_offre.couleur }}">{{ formation.type_offre.nom }}</span>
+
+                            <!-- Select modifiable pour le statut (avec couleur dynamique) -->
+                            <select class="form-select form-select-sm editable status-select text-white"
+                                    style="background-color: {{ formation.statut.couleur }};"
+                                    data-id="{{ formation.id }}" data-field="statut">
+                                {% for s in statuts %}
+                                    <option value="{{ s.id }}"
+                                            data-color="{{ s.couleur }}"
+                                            {% if s.id == formation.statut.id %}selected{% endif %}>
+                                        {{ s.nom }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </td>
+
+                        <!-- Dates début / fin -->
+                        <td class="p-2 text-center d-none d-md-table-cell w-25" data-column="dates">
+                            <div class="d-flex flex-column gap-1 align-items-center">
+                                <!-- Date de début -->
+                                <div class="input-group input-group-sm w-auto">
+                                    <span class="input-group-text bg-light border-0 fw-semibold">📅</span>
+                                    <input type="date"
+                                           class="form-control editable date-input text-center"
+                                           data-id="{{ formation.id }}"
+                                           data-field="start_date"
+                                           value="{{ formation.start_date|date:'Y-m-d' }}">
+                                </div>
+                        
+                                <!-- Date de fin -->
+                                <div class="input-group input-group-sm w-auto">
+                                    <span class="input-group-text bg-light border-0 fw-semibold">🏁</span>
+                                    <input type="date"
+                                           class="form-control editable date-input text-center"
+                                           data-id="{{ formation.id }}"
+                                           data-field="end_date"
+                                           value="{{ formation.end_date|date:'Y-m-d' }}">
+                                </div>
+                            </div>
+                        </td>
+                        
+
+                        <!-- Numéro Kairos -->
+                        <td class="p-2 text-center d-none d-lg-table-cell flex-wrap" data-column="kairos" style="white-space: normal;">
+                            <input type="text" class="form-control form-control-sm editable kairos-input bg-light border text-center mx-auto"
+                                   data-id="{{ formation.id }}" data-field="num_kairos"
+                                   value="{{ formation.num_kairos|default_if_none:'' }}" />
+                        </td>
+                        
+
+                        <!-- Assistante -->
+                        <td class="p-2 text-center d-none d-lg-table-cell" data-column="assistante">
+                            {{ formation.assistante|default_if_none:"-" }}
+                        </td>
+
+                        <!-- Candidats et entretiens -->
+                        <td class="p-2 text-center" data-column="candidats">
+                            <input type="number" min="0" class="form-control form-control-sm editable number-input text-white bg-info mx-auto" data-id="{{ formation.id }}" data-field="nombre_candidats" value="{{ formation.nombre_candidats }}" />
+                            <input type="number" min="0" class="form-control form-control-sm editable number-input mt-1 text-black bg-secondary mx-auto" data-id="{{ formation.id }}" data-field="nombre_entretiens" value="{{ formation.nombre_entretiens }}" />
+                        </td>
+
+                        <!-- Prévus (CRIF + MP) -->
+                        <td class="p-2 text-center d-none d-lg-table-cell" data-column="prevus">
+                            <input type="number" min="0" class="form-control form-control-sm editable number-input text-white bg-primary mx-auto" data-id="{{ formation.id }}" data-field="prevus_crif" value="{{ formation.prevus_crif }}" />
+                            <input type="number" min="0" class="form-control form-control-sm editable number-input mt-1 text-black bg-success mx-auto" data-id="{{ formation.id }}" data-field="prevus_mp" value="{{ formation.prevus_mp }}" />
+                        </td>
+
+                        <!-- Inscrits (CRIF + MP) -->
+                        <td class="p-2 text-center d-none d-lg-table-cell" data-column="inscrits">
+                            <input type="number" min="0" class="form-control form-control-sm editable number-input text-white bg-primary mx-auto" data-id="{{ formation.id }}" data-field="inscrits_crif" value="{{ formation.inscrits_crif }}" />
+                            <input type="number" min="0" class="form-control form-control-sm editable number-input mt-1 text-black bg-success mx-auto" data-id="{{ formation.id }}" data-field="inscrits_mp" value="{{ formation.inscrits_mp }}" />
+                        </td>
+
+                        <!-- Places restantes -->
+                        <td class="p-2 text-center d-none d-md-table-cell" data-column="places">
+                            <div class="badge-container">
+                                <span class="badge bg-primary px-2 custom-badge" id="crif-{{ formation.id }}">CRIF: {{ formation.places_restantes_crif|default:"0" }}</span>
+                                <span class="badge bg-success px-2 custom-badge mt-1" id="mp-{{ formation.id }}">MP: {{ formation.places_restantes_mp|default:"0" }}</span>
+                            </div>
+                        </td>
+
+                        <!-- Taux de transformation -->
+                        <td class="p-2 text-center d-none d-lg-table-cell" data-column="transformation">
+                            <span class="fw-bold text-primary transformation-value" id="transfo-{{ formation.id }}">{{ formation.taux_transformation|floatformat:0 }}%</span>
+                        </td>
+
+                        <!-- Taux de saturation avec barre de progression -->
+                        <td class="p-2 text-center d-none d-lg-table-cell" data-column="saturation">
+                            <div class="progress custom-progress mx-auto">
+                                <div class="progress-bar {% if formation.taux_saturation >= 100 %} bg-success {% elif formation.taux_saturation >= 80 %} bg-primary {% elif formation.taux_saturation >= 50 %} bg-warning {% else %} bg-danger {% endif %}"
+                                    id="progress-{{ formation.id }}" role="progressbar" style="width: {{ formation.taux_saturation }}%">
+                                </div>
+                            </div>
+                            <span class="fw-bold d-block mt-1 saturation-value" id="saturation-{{ formation.id }}">{{ formation.taux_saturation|floatformat:0 }}%</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% else %}
-            <div class="text-center py-5">
-                <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                <p class="text-muted">Aucune formation trouvée.</p>
-            </div>
+        <!-- Message en cas d'absence de résultats -->
+        <div class="text-center py-5 empty-state">
+            <i class="fas fa-search fa-3x text-muted mb-3 pulse-icon"></i>
+            <p class="text-muted">Aucune formation trouvée.</p>
+        </div>
         {% endif %}
     </div>
 </div>
 
-<!-- Styles personnalisés -->
-<style>
-    /* 🎨 Amélioration générale */
-    .bg-gradient-primary-to-secondary {
-        background: linear-gradient(135deg, #4e73df 0%, #224abe 100%);
-    }
-    
-    .formation-table th {
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        white-space: nowrap; /* Évite le retour à la ligne */
-        padding: 8px;
-        text-align: center;
-    }
-    
-    /* 📌 Taille uniforme des cellules */
-    .formation-table td {
-        padding: 6px 8px;
-        vertical-align: middle;
-        text-align: center;
-    }
-    
-    /* ✅ Harmonisation des champs modifiables */
-    .formation-table input {
-        width: 75px;
-        text-align: center;
-        font-size: 0.9rem;
-        padding: 4px;
-        border-radius: 5px;
-    }
-    
-    /* ✅ Couleurs CRIF (Gris) et MP (Vert) */
-    .badge-crif {
-        background-color: #6c757d; /* Gris Secondary */
-        color: white;
-        font-size: 0.75rem;
-        padding: 6px 8px;
-    }
-    
-    .badge-mp {
-        background-color: #28a745; /* Vert Success */
-        color: white;
-        font-size: 0.75rem;
-        padding: 6px 8px;
-    }
-    
-    /* 🎨 Progress bar ajustée */
-    .progress-bar {
-        transition: width 0.4s ease;
-    }
-    
-    /* ✅ Alignement des progress bars */
-    .progress {
-        height: 8px;
-        width: 90px;
-        margin: auto;
-    }
-    
-    /* ✅ Pagination compacte */
-    .page-item.active .page-link {
-        background-color: #4e73df;
-        border-color: #4e73df;
-    }
-    
-    .page-link {
-        color: #4e73df;
-        padding: 6px 12px;
-    }
-    
-    /* 📱 Optimisation mobile */
-    @media (max-width: 992px) {
-        .table-responsive {
-            overflow-x: auto;
-        }
-    
-        .formation-table th, 
-        .formation-table td {
-            font-size: 0.75rem;
-            padding: 5px;
-        }
-    
-        .formation-table input {
-            width: 60px;
-            font-size: 0.8rem;
-        }
-    
-        .progress {
-            width: 70px;
-        }
-    }
-</style>
-
-<!-- Scripts -->
+<!-- 📦 Fichiers CSS et JS liés -->
+<!-- Style spécifique aux formations -->
+<link rel="stylesheet" href="{% static 'css/formation.css' %}">
+<!-- Script dynamique pour le comportement AJAX, toast, etc. -->
 <script src="{% static 'js/formation.js' %}"></script>

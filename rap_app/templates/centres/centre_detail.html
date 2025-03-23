@@ -19,8 +19,8 @@
             <select name="type_offre" class="form-select">
                 <option value="">-- Tous --</option>
                 {% for type in type_offres %}
-                    <option value="{{ type.0 }}" {% if request.GET.type_offre == type.0|stringformat:"s" %}selected{% endif %}>
-                        {{ type.1 }}
+                    <option value="{{ type.id }}" {% if request.GET.type_offre == type.id|stringformat:"s" %}selected{% endif %}>
+                        {{ type.nom }}
                     </option>
                 {% endfor %}
             </select>
@@ -31,8 +31,8 @@
             <select name="statut" class="form-select">
                 <option value="">-- Tous --</option>
                 {% for statut in statuts %}
-                    <option value="{{ statut.0 }}" {% if request.GET.statut == statut.0|stringformat:"s" %}selected{% endif %}>
-                        {{ statut.1 }}
+                    <option value="{{ statut.id }}" {% if request.GET.statut == statut.id|stringformat:"s" %}selected{% endif %}>
+                        {{ statut.nom }}
                     </option>
                 {% endfor %}
             </select>
@@ -70,7 +70,11 @@
                         </td>
                         <td>{{ formation.start_date|date:"d/m/Y" }}</td>
                         <td>{{ formation.end_date|date:"d/m/Y" }}</td>
-                        <td><span class="badge bg-success">{{ formation.inscrits_total }}</span></td>
+                        <td>
+                            <span class="badge bg-success">
+                                {{ formation.inscrits_crif|default:0|add:formation.inscrits_mp|default:0 }}
+                            </span>
+                        </td>
                     </tr>
                 {% empty %}
                     <tr>

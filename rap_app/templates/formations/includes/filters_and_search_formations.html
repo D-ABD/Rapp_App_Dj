@@ -1,69 +1,80 @@
 {% load custom_filters %}
 
-<!-- ✅ Filtres actifs avec animations -->
+<!-- ✅ Filtres actifs -->
 {% if filters.centre or filters.type_offre or filters.statut or filters.periode or filters.q %}
-<div class="alert alert-info d-flex align-items-center shadow-sm flex-wrap animate__animated animate__fadeIn">
+<div class="alert alert-info d-flex align-items-center flex-wrap shadow-sm animate__animated animate__fadeIn">
   <i class="fas fa-filter me-2"></i>
   <div class="d-flex flex-wrap gap-2">
     <strong class="me-2">Filtres appliqués :</strong>
+
     {% if filters.q %}
-      <span class="badge bg-secondary me-1 pulse">
-        🔍 {{ filters.q }} <a href="{{ request.GET|remove_filter:'q' }}" class="text-white ms-1"><i class="fas fa-times"></i></a>
+      <span class="badge bg-secondary pulse">
+        🔍 {{ filters.q }}
+        <a href="{{ request.GET|remove_filter:'q' }}" class="text-white ms-1"><i class="fas fa-times"></i></a>
       </span>
     {% endif %}
+
     {% if filters.centre %}
-      <span class="badge bg-gradient-primary me-1 pulse">
-        📍 {{ centres|get_value:filters.centre }} <a href="{{ request.GET|remove_filter:'centre' }}" class="text-white ms-1"><i class="fas fa-times"></i></a>
+      <span class="badge bg-primary pulse">
+        📍 {{ centres|get_value:filters.centre }}
+        <a href="{{ request.GET|remove_filter:'centre' }}" class="text-white ms-1"><i class="fas fa-times"></i></a>
       </span>
     {% endif %}
+
     {% if filters.type_offre %}
-      <span class="badge bg-gradient-success me-1 pulse">
-        💼 {{ types_offre|get_value:filters.type_offre }} <a href="{{ request.GET|remove_filter:'type_offre' }}" class="text-white ms-1"><i class="fas fa-times"></i></a>
+      {% with color=types_offre|get_type_offre_color:filters.type_offre %}
+      <span class="badge pulse text-white" style="background-color: {{ color }};">
+        💼 {{ types_offre|get_value:filters.type_offre }}
+        <a href="{{ request.GET|remove_filter:'type_offre' }}" class="ms-2 text-reset"><i class="fas fa-times"></i></a>
       </span>
+      {% endwith %}
     {% endif %}
+
     {% if filters.statut %}
       {% with color=statuts|get_statut_color:filters.statut %}
-      <span class="badge d-inline-flex align-items-center me-1 pulse" style="background-color: {{ color }}; color: {% if color == '#FFEB3B' or color == '#FFFF00' %}black{% else %}white{% endif %};">
-        <span class="me-1" style="width: 10px; height: 10px; border-radius: 50%; background-color: white; display: inline-block;"></span>
+      <span class="badge pulse text-white" style="background-color: {{ color }};">
         📌 {{ statuts|get_value:filters.statut }}
         <a href="{{ request.GET|remove_filter:'statut' }}" class="ms-2 text-reset"><i class="fas fa-times"></i></a>
       </span>
       {% endwith %}
     {% endif %}
+
     {% if filters.periode %}
-      <span class="badge bg-gradient-info text-dark me-1 pulse">
-        📅 {{ filters.periode }} <a href="{{ request.GET|remove_filter:'periode' }}" class="text-dark ms-1"><i class="fas fa-times"></i></a>
+      <span class="badge bg-info text-dark pulse">
+        📅 {{ filters.periode }}
+        <a href="{{ request.GET|remove_filter:'periode' }}" class="text-dark ms-1"><i class="fas fa-times"></i></a>
       </span>
     {% endif %}
   </div>
 </div>
 {% endif %}
 
-<!-- 🔍 Barre de recherche avec ombre et animation -->
+<!-- 🔍 Barre de recherche -->
 <div class="card shadow-lg mb-3 animate__animated animate__fadeIn">
   <div class="card-body">
     <form method="GET" class="input-group">
-      <input type="text" name="q" class="form-control" value="{{ request.GET.q }}" placeholder="🔍 Rechercher une formation..." aria-label="Rechercher une formation" />
-      <button type="submit" class="btn btn-primary btn-gradient">
-        <i class="fas fa-search"></i> <span class="d-none d-md-inline">Rechercher</span>
+      <input type="text" name="q" class="form-control" value="{{ request.GET.q }}" placeholder="🔍 Rechercher une formation..." aria-label="Rechercher une formation">
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-search"></i>
+        <span class="d-none d-md-inline">Rechercher</span>
       </button>
     </form>
   </div>
 </div>
 
-<!-- 📦 Filtres avancés responsives avec accordéon -->
+<!-- 🧩 Filtres avancés -->
 <div class="card shadow-lg mb-4 animate__animated animate__fadeIn">
   <div class="card-header bg-light d-flex justify-content-between align-items-center">
     <h5 class="mb-0 d-flex align-items-center gap-2">
       <i class="fas fa-sliders-h"></i> Filtres avancés
     </h5>
     <div class="d-md-none">
-      <button class="btn btn-sm btn-outline-primary btn-gradient" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiltres" aria-expanded="false" aria-controls="collapseFiltres">
+      <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFiltres" aria-expanded="false" aria-controls="collapseFiltres">
         <i class="fas fa-filter"></i> Afficher les filtres
       </button>
     </div>
     <div class="d-none d-md-block">
-      <a href="{% url 'formation-list' %}" class="btn btn-sm btn-outline-danger btn-gradient">
+      <a href="{% url 'formation-list' %}" class="btn btn-sm btn-outline-danger">
         <i class="fas fa-redo"></i> Réinitialiser
       </a>
     </div>
@@ -72,6 +83,7 @@
   <div class="collapse show d-md-block" id="collapseFiltres">
     <div class="card-body">
       <form method="get" class="row g-3">
+        <!-- Centre -->
         <div class="col-md-3">
           <label for="centre" class="form-label"><i class="fas fa-map-marker-alt"></i> Centre</label>
           <select name="centre" id="centre" class="form-select">
@@ -82,16 +94,23 @@
           </select>
         </div>
 
+        <!-- Type d'offre -->
         <div class="col-md-3">
           <label for="type_offre" class="form-label"><i class="fas fa-briefcase"></i> Type d'offre</label>
-          <select name="type_offre" id="type_offre" class="form-select">
+          <select name="type_offre" id="type_offre" class="form-select" onchange="setTypeOffreColor(this)">
             <option value="">Tous</option>
             {% for type_offre in types_offre %}
-              <option value="{{ type_offre.id }}" {% if filters.type_offre == type_offre.id|stringformat:"s" %}selected{% endif %}>{{ type_offre.nom }}</option>
+              <option value="{{ type_offre.id }}"
+                      data-color="{{ type_offre.couleur }}"
+                      style="background-color: {{ type_offre.couleur }}; color: {% if type_offre.couleur == '#FFEB3B' or type_offre.couleur == '#FFFF00' %}black{% else %}white{% endif %};"
+                      {% if filters.type_offre == type_offre.id|stringformat:"s" %}selected{% endif %}>
+                {{ type_offre.nom }}
+              </option>
             {% endfor %}
           </select>
         </div>
 
+        <!-- Statut -->
         <div class="col-md-3">
           <label for="statut" class="form-label"><i class="fas fa-tasks"></i> Statut</label>
           <select name="statut" id="statut" class="form-select" onchange="setStatutColor(this)">
@@ -106,6 +125,7 @@
           </select>
         </div>
 
+        <!-- Période -->
         <div class="col-md-3">
           <label for="periode" class="form-label"><i class="fas fa-calendar-alt"></i> Période</label>
           <select name="periode" id="periode" class="form-select">
@@ -117,11 +137,12 @@
           </select>
         </div>
 
+        <!-- Boutons -->
         <div class="col-12 text-end mt-3">
-          <button type="submit" class="btn btn-success btn-gradient">
+          <button type="submit" class="btn btn-success">
             <i class="fas fa-filter"></i> Appliquer les filtres
           </button>
-          <a href="{% url 'formation-list' %}" class="btn btn-outline-danger btn-gradient ms-2 d-md-none">
+          <a href="{% url 'formation-list' %}" class="btn btn-outline-danger ms-2 d-md-none">
             <i class="fas fa-redo"></i> Réinitialiser
           </a>
         </div>
@@ -130,58 +151,45 @@
   </div>
 </div>
 
-<!-- 🎨 Styles personnalisés -->
-<style>
-  /* Animation pulse pour les badges */
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-  .pulse {
-    animation: pulse 1.5s infinite;
-  }
+<Style> 
+  /* Animation pulse pour badges */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+.pulse {
+  animation: pulse 1.5s infinite;
+}
 
-  /* Gradient pour les boutons */
-  .btn-gradient {
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: white;
-    border: none;
-    transition: transform 0.3s ease;
-  }
-  .btn-gradient:hover {
-    transform: translateY(-2px);
-  }
-
-  /* Gradient pour les badges */
-  .bg-gradient-primary {
-    background: linear-gradient(135deg, #4e73df, #224abe);
-  }
-  .bg-gradient-success {
-    background: linear-gradient(135deg, #28a745, #218838);
-  }
-  .bg-gradient-info {
-    background: linear-gradient(135deg, #17a2b8, #138496);
-  }
 </style>
 
-<!-- 🎨 JS : couleur dynamique du champ statut -->
-<script>
+<Script>  
   function setStatutColor(select) {
     const selected = select.options[select.selectedIndex];
-    if (selected && selected.dataset.color) {
+    if (selected?.dataset.color) {
       select.style.backgroundColor = selected.dataset.color;
-      select.style.color = (selected.dataset.color === "#FFEB3B" || selected.dataset.color === "#FFFF00") ? "black" : "white";
+      select.style.color = ['#FFEB3B', '#FFFF00'].includes(selected.dataset.color) ? 'black' : 'white';
     } else {
-      select.style.backgroundColor = "";
-      select.style.color = "";
+      select.style.backgroundColor = '';
+      select.style.color = '';
     }
   }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    const selectStatut = document.getElementById("statut");
-    if (selectStatut) {
-      setStatutColor(selectStatut);
+  function setTypeOffreColor(select) {
+    const selected = select.options[select.selectedIndex];
+    if (selected?.dataset.color) {
+      select.style.backgroundColor = selected.dataset.color;
+      select.style.color = ['#FFEB3B', '#FFFF00'].includes(selected.dataset.color) ? 'black' : 'white';
+    } else {
+      select.style.backgroundColor = '';
+      select.style.color = '';
     }
+  }
+  document.addEventListener("DOMContentLoaded", () => {
+    const selectStatut = document.getElementById("statut");
+    const selectTypeOffre = document.getElementById("type_offre");
+    if (selectStatut) setStatutColor(selectStatut);
+    if (selectTypeOffre) setTypeOffreColor(selectTypeOffre);
   });
+  
 </script>

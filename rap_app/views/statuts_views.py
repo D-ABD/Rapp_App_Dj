@@ -16,53 +16,45 @@ def generate_random_color():
 
 
 class StatutListView(BaseListView):
-    """Liste des statuts de formation"""
+    """🔵 Vue listant tous les statuts de formation, avec recherche et nombre de formations associées."""
     model = Statut
     context_object_name = 'statuts'
-    template_name = 'statuts/statut_list.html'  # ✅ Ajout du chemin du template
-    
+    template_name = 'statuts/statut_list.html'
+
     def get_queryset(self):
         """
-        Récupère les statuts de formation avec un comptage des formations associées.
+        Récupère tous les statuts avec un nombre de formations associées.
+        Permet aussi la recherche par nom.
         """
-        queryset = super().get_queryset().annotate(
-            nb_formations=Count('formations')
-        )
-        
-        # 🔍 Recherche par nom
+        queryset = super().get_queryset().annotate(nb_formations=Count('formations'))
+
+        # 🔍 Recherche textuelle par nom (GET ?q=...)
         q = self.request.GET.get('q')
         if q:
             queryset = queryset.filter(nom__icontains=q)
-            
+
         return queryset.order_by('nom')
-    
+
     def get_context_data(self, **kwargs):
         """
-        Ajoute les filtres appliqués au contexte pour les afficher dans le template.
+        Ajoute les filtres actuellement appliqués au contexte (utile pour les formulaires de recherche).
         """
         context = super().get_context_data(**kwargs)
         context['filters'] = {
             'q': self.request.GET.get('q', ''),
         }
         return context
-    def get_nom_display(self):
-        """
-        Retourne le nom du statut. Si le statut est 'Autre', affiche la description à la place.
-        """
-        if self.nom == self.AUTRE and self.description_autre:
-            return self.description_autre
-        return dict(self.STATUT_CHOICES).get(self.nom, self.nom)  # Retourne le nom du statut normal
 
 
 class StatutDetailView(BaseDetailView):
-    """Détail d'un statut de formation"""
+    """🔵 Vue affichant le détail d'un statut et les formations liées à ce statut."""
     model = Statut
     context_object_name = 'statut'
-    template_name = 'statuts/statut_detail.html'  # ✅ Ajout du chemin du template
-    
+    template_name = 'statuts/statut_detail.html'
+
     def get_context_data(self, **kwargs):
         """
-        Ajoute les formations associées au statut dans le contexte.
+        Ajoute la liste des formations qui utilisent ce statut.
         """
         context = super().get_context_data(**kwargs)
         context['formations'] = Formation.objects.filter(
@@ -72,16 +64,16 @@ class StatutDetailView(BaseDetailView):
 
 
 class StatutCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Création d'un statut de formation"""
+    """🟢 Vue de création d'un nouveau statut de formation."""
     model = Statut
     permission_required = 'rap_app.add_statut'
     fields = ['nom', 'couleur', 'description_autre']
     success_url = reverse_lazy('statut-list')
-    template_name = 'statuts/statut_form.html'  # ✅ Ajout du chemin du template
-    
+    template_name = 'statuts/statut_form.html'
+
     def form_valid(self, form):
         """
-        Vérifie si une couleur est fournie, sinon assigne une couleur aléatoire.
+        Si aucune couleur n'est fournie, une couleur aléatoire est automatiquement générée.
         """
         statut = form.save(commit=False)
         if not statut.couleur:
@@ -91,7 +83,7 @@ class StatutCreateView(PermissionRequiredMixin, BaseCreateView):
 
     def get_context_data(self, **kwargs):
         """
-        Ajoute un titre dynamique au contexte du template.
+        Ajoute un titre dynamique au contexte (utilisé dans le template pour les titres).
         """
         context = super().get_context_data(**kwargs)
         context['titre'] = "Ajouter un statut de formation"
@@ -99,15 +91,15 @@ class StatutCreateView(PermissionRequiredMixin, BaseCreateView):
 
 
 class StatutUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Mise à jour d'un statut de formation"""
+    """📝 Vue de modification d'un statut existant."""
     model = Statut
     permission_required = 'rap_app.change_statut'
     fields = ['nom', 'couleur', 'description_autre']
-    template_name = 'statuts/statut_form.html'  # ✅ Même template que pour la création
-    
+    template_name = 'statuts/statut_form.html'
+
     def form_valid(self, form):
         """
-        Vérifie que la couleur est définie, sinon génère une couleur automatique.
+        Assure qu'une couleur est présente ; sinon en génère une automatiquement.
         """
         statut = form.save(commit=False)
         if not statut.couleur:
@@ -117,7 +109,7 @@ class StatutUpdateView(PermissionRequiredMixin, BaseUpdateView):
 
     def get_context_data(self, **kwargs):
         """
-        Ajoute un titre dynamique au contexte.
+        Ajoute un titre personnalisé à afficher dans le template.
         """
         context = super().get_context_data(**kwargs)
         context['titre'] = f"Modifier le statut : {self.object.get_nom_display()}"
@@ -125,8 +117,8 @@ class StatutUpdateView(PermissionRequiredMixin, BaseUpdateView):
 
 
 class StatutDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Suppression d'un statut de formation"""
+    """❌ Vue de suppression d'un statut de formation."""
     model = Statut
     permission_required = 'rap_app.delete_statut'
     success_url = reverse_lazy('statut-list')
-    template_name = 'statuts/statut_confirm_delete.html'  # ✅ Ajout du chemin du template
+    template_name = 'statuts/statut_confirm_delete.html'

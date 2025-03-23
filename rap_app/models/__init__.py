@@ -6,7 +6,6 @@ from .formations import Formation, FormationManager
 from .commentaires import Commentaire
 from .evenements import Evenement
 from .documents import Document
-from .recherches import Recherche
 from .partenaires import Partenaire
 from .rapports import Rapport  
 from .company import Company
@@ -25,7 +24,6 @@ __all__ = [
     'Evenement',
     'Document',
     'HistoriqueFormation',
-    'Recherche',
     'Rapport',  
     'Prospection',
     'Company',

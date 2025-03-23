@@ -1,9 +1,11 @@
-# models/centres.py
+import logging
 from django.db import models
 from django.core.validators import RegexValidator
 from django.urls import reverse
 from .base import BaseModel
 
+# Configuration du logger pour ce module
+logger = logging.getLogger(__name__)
 
 class Centre(BaseModel):
     """
@@ -32,15 +34,17 @@ class Centre(BaseModel):
 
     nom = models.CharField(
         max_length=255,
-        unique=True,  # 🔹 Garantit qu'un centre a un nom unique
-        verbose_name="Nom du centre"
+        unique=True,
+        verbose_name="Nom du centre",
+        help_text="Nom complet du centre de formation (doit être unique)"
     )
 
     code_postal = models.CharField(
-        max_length=5,  # 🔹 Limité à 5 caractères au lieu de 10
+        max_length=5,
         null=True,
         blank=True,
         verbose_name="Code postal",
+        help_text="Code postal à 5 chiffres du centre",
         validators=[
             RegexValidator(
                 regex=r'^\d{5}$',
@@ -68,12 +72,43 @@ class Centre(BaseModel):
         if self.code_postal:
             address += f" ({self.code_postal})"
         return address
+        
+    def save(self, *args, **kwargs):
+        """
+        Surcharge de la méthode save pour inclure des validations supplémentaires
+        et journaliser les opérations sur les centres.
+        """
+        is_new = self.pk is None
+        
+        # Création
+        if is_new:
+            logger.info(f"Création d'un nouveau centre: {self.nom}")
+        # Modification
+        else:
+            old_centre = Centre.objects.get(pk=self.pk)
+            modifications = []
+            
+            if old_centre.nom != self.nom:
+                modifications.append(f"nom: '{old_centre.nom}' → '{self.nom}'")
+            
+            if old_centre.code_postal != self.code_postal:
+                modifications.append(f"code_postal: '{old_centre.code_postal}' → '{self.code_postal}'")
+                
+            if modifications:
+                logger.info(f"Modification du centre #{self.pk}: {', '.join(modifications)}")
+        
+        # Appel à la méthode parente
+        super().save(*args, **kwargs)
+        
+        # Log après sauvegarde
+        if is_new:
+            logger.info(f"Centre #{self.pk} '{self.nom}' créé avec succès")
 
     class Meta:
         verbose_name = "Centre"
         verbose_name_plural = "Centres"
         ordering = ['nom']
         indexes = [
-            models.Index(fields=['nom']),  # 🔹 Index pour optimiser les recherches par nom
-            models.Index(fields=['code_postal']),  # 🔹 Index pour les recherches par code postal
+            models.Index(fields=['nom']),
+            models.Index(fields=['code_postal']),
         ]

@@ -37,7 +37,7 @@
                 </div>
                 {% endif %}
 
-                <!-- ✅ Sélection de la Formation -->
+                <!-- ✅ Formation -->
                 <div class="mb-3">
                     <label for="{{ form.formation.id_for_label }}" class="form-label fw-bold">Formation</label>
                     {{ form.formation }}
@@ -50,7 +50,7 @@
                     {% endif %}
                 </div>
 
-                <!-- ✅ Contenu du Commentaire -->
+                <!-- ✅ Contenu -->
                 <div class="mb-3">
                     <label for="{{ form.contenu.id_for_label }}" class="form-label fw-bold">Contenu du commentaire</label>
                     {{ form.contenu }}
@@ -64,7 +64,21 @@
                     <small class="form-text text-muted"><i class="fas fa-info-circle"></i> Décrivez votre commentaire sur cette formation.</small>
                 </div>
 
-                <!-- ✅ Boutons de soumission -->
+                <!-- ✅ Saturation -->
+                <div class="mb-3">
+                    <label for="{{ form.saturation.id_for_label }}" class="form-label fw-bold">Saturation (%)</label>
+                    {{ form.saturation }}
+                    {% if form.saturation.errors %}
+                    <div class="invalid-feedback d-block">
+                        {% for error in form.saturation.errors %}
+                            <i class="fas fa-exclamation-circle"></i> {{ error }}
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    <small class="form-text text-muted">Valeur entre 0 et 100 si applicable.</small>
+                </div>
+
+                <!-- ✅ Boutons -->
                 <div class="d-flex justify-content-end mt-4">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Enregistrer
@@ -78,19 +92,19 @@
 
 {% block extra_js %}
 <script>
-    // ✅ Appliquer Bootstrap aux champs du formulaire
+    // ✅ Appliquer les classes Bootstrap aux champs
     document.addEventListener('DOMContentLoaded', function() {
-        var formationField = document.getElementById('{{ form.formation.id_for_label }}');
-        if(formationField) formationField.classList.add('form-select');
+        let fields = ['{{ form.formation.id_for_label }}', '{{ form.contenu.id_for_label }}', '{{ form.saturation.id_for_label }}'];
+        fields.forEach(id => {
+            let field = document.getElementById(id);
+            if (field) field.classList.add('form-control');
+        });
 
-        var contenuField = document.getElementById('{{ form.contenu.id_for_label }}');
-        if(contenuField) {
-            contenuField.classList.add('form-control');
-            contenuField.rows = 5;
-        }
+        let contenuField = document.getElementById('{{ form.contenu.id_for_label }}');
+        if (contenuField) contenuField.rows = 5;
     });
 
-    // ✅ Fonction de confirmation avant soumission
+    // ✅ Confirmation avant soumission
     function confirmSubmit() {
         return confirm("Êtes-vous sûr de vouloir enregistrer ce commentaire ?");
     }

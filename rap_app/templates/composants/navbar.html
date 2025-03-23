@@ -24,9 +24,10 @@
         <!-- Menu Prospection -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="prospectionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-search me-1"></i> Prospection
+            <i class="fas fa-search me-1"></i> CRM
           </a>
           <ul class="dropdown-menu" aria-labelledby="prospectionDropdown">
+            <li><a class="dropdown-item" href="{% url 'prospection-list' %}"><i class="fas fa-building me-2"></i> Prospections</a></li>
             <li><a class="dropdown-item" href="{% url 'company-list' %}"><i class="fas fa-building me-2"></i> Entreprises</a></li>
             <li><a class="dropdown-item" href="{% url 'partenaire-list' %}"><i class="fas fa-handshake me-2"></i> Partenaires</a></li>
           </ul>

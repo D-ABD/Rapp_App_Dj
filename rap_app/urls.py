@@ -1,16 +1,19 @@
 from django.urls import path
 
+from .views.prepa_comp_views import AnneeDetailView, CandidatCreateView, CandidatDeleteView, CandidatListView, DepartementStatsView, EntreeCreateView, EntreeListView, MoisDetailView, ObjectifAnnuelUpdateView, SemaineDetailView, TableauDeBordView
+from . import views
+
 from .views.historique_formation_views import HistoriqueFormationDeleteView, HistoriqueFormationDetailView, HistoriqueFormationListView
 
-from .views.prospection_views import HistoriqueProspectionDetailView, HistoriqueProspectionListView, ProspectionCreateView, ProspectionDeleteView, ProspectionDetailView, ProspectionHomeView, ProspectionListView, ProspectionUpdateView
+from .views.prospection_views import HistoriqueProspectionDetailView, HistoriqueProspectionListView, ProspectionCreateView, ProspectionDeleteView, ProspectionDetailView, ProspectionHomeView, ProspectionListView, ProspectionUpdateView, export_prospections_csv
 
-from .views.company_views import CompanyCreateView, CompanyDeleteView, CompanyDetailView, CompanyListView, CompanyUpdateView
+from .views.company_views import CompanyCreateView, CompanyDeleteView, CompanyDetailView, CompanyListView, CompanyUpdateView, export_companies_csv
 
 from .views.rapport_views import RapportCreationView, RapportDeleteView, RapportDetailView, RapportExportView, RapportListView
 
 
 from .views.parametres_views import parametres
-
+from .views.formations_views import UpdateFormationFieldView
 
 from .views.users_views import (UserDeleteView, UserDetailView, UserListView, UserUpdateView, 
 user_login, register, user_logout, user_profile, change_password,reset_password, 
@@ -96,6 +99,7 @@ urlpatterns = [
     path('partenaires/<int:pk>/modifier/', partenaires_views.PartenaireUpdateView.as_view(), name='partenaire-update'),
     path('partenaires/<int:pk>/supprimer/', partenaires_views.PartenaireDeleteView.as_view(), name='partenaire-delete'),
     path('partenaires/ajouter/formation/<int:formation_id>/', partenaires_views.PartenaireCreateViewFormation.as_view(), name='partenaire-add-formation'),
+    path('partenaires/export-csv/', partenaires_views.ExportPartenairesCSVView.as_view(), name='export-partenaires-csv'),
 
     # Événements
     path('evenements/', evenements_views.EvenementListView.as_view(), name='evenement-list'),
@@ -106,14 +110,14 @@ urlpatterns = [
     
     # Formations
     path('formations/', formations_views.FormationListView.as_view(), name='formation-list'),
-    path('formations/modifier-inscrits/<int:formation_id>/', formations_views.ModifierInscritsView.as_view(), name='modifier-inscrits'),
     path('formations/<int:pk>/', formations_views.FormationDetailView.as_view(), name='formation-detail'),
     path('formations/ajouter/', formations_views.FormationCreateView.as_view(), name='formation-create'),
     path('formations/<int:pk>/modifier/', formations_views.FormationUpdateView.as_view(), name='formation-update'),
     path('formations/<int:pk>/supprimer/', formations_views.FormationDeleteView.as_view(), name='formation-delete'),
     path('formations/<int:pk>/commentaire/', formations_views.FormationAddCommentView.as_view(), name='formation-add-comment'),
     path("formations/export-excel/", formations_views.ExportFormationsExcelView.as_view(), name="export-formations-excel"),
-    
+    path("formations/update-champ/<int:id>/", UpdateFormationFieldView.as_view(), name="update_formation_field"),
+
         # Historique des Formations
     path('historique-formations/', HistoriqueFormationListView.as_view(), name='historique-formation-list'),
     path('historique-formations/<int:pk>/', HistoriqueFormationDetailView.as_view(), name='historique-formation-detail'),
@@ -125,6 +129,7 @@ urlpatterns = [
     path('companies/add/', CompanyCreateView.as_view(), name='company-create'),
     path('companies/<int:pk>/edit/', CompanyUpdateView.as_view(), name='company-update'),
     path('companies/<int:pk>/delete/', CompanyDeleteView.as_view(), name='company-delete'),
+    path('companies/export/', export_companies_csv, name='company-export'),
 
     # Paramètres
     path('parametres/', parametres, name='parametres'),
@@ -138,4 +143,29 @@ urlpatterns = [
     path('prospections/<int:pk>/delete/', ProspectionDeleteView.as_view(), name='prospection-delete'),
     path('historique-prospections/', HistoriqueProspectionListView.as_view(), name='historique-prospection-list'),
     path('historique-prospections/<int:pk>/', HistoriqueProspectionDetailView.as_view(), name='historique-prospection-detail'),
-]
+    path("prospections/export/", export_prospections_csv, name="prospection-export"),
+
+ # Prepa_Comp
+
+    path('prepa_comp',TableauDeBordView.as_view(), name='tableau_de_bord'),
+
+# Détail des périodes
+    path('semaine/<int:pk>/', SemaineDetailView.as_view(), name='semaine_detail'),
+    path('mois/<int:pk>/', MoisDetailView.as_view(), name='mois_detail'),
+    path('annee/<int:annee>/', AnneeDetailView.as_view(), name='annee_detail'),
+    
+    # Gestion des candidats
+    path('candidats/', CandidatListView.as_view(), name='candidat_list'),
+    path('candidat/ajouter/', CandidatCreateView.as_view(), name='candidat_create'),
+    path('candidat/<int:pk>/supprimer/', CandidatDeleteView.as_view(), name='candidat_delete'),
+    
+    # Gestion des entrées
+    path('entrees/', EntreeListView.as_view(), name='entree_list'),
+    path('entree/ajouter/', EntreeCreateView.as_view(), name='entree_create'),
+    
+    # Statistiques par département
+    path('departement/<int:pk>/stats/', DepartementStatsView.as_view(), name='departement_stats'),
+    
+    # Gestion des objectifs
+    path('objectif/<int:annee>/modifier/', ObjectifAnnuelUpdateView.as_view(), name='objectif_update'),
+    ]

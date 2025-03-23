@@ -166,7 +166,6 @@ class Formation(BaseModel):
         ]}
 
     ### ✅ Méthodes calculées (remplaçant `@property`)
-
     def get_total_places(self):
         """Retourne le nombre total de places prévues (CRIF + MP)."""
         return self.prevus_crif + self.prevus_mp
@@ -175,13 +174,27 @@ class Formation(BaseModel):
         """Retourne le nombre total d'inscrits (CRIF + MP)."""
         return self.inscrits_crif + self.inscrits_mp
 
+    def get_taux_transformation(self):
+        total_candidats = self.nombre_candidats or 0
+        total_inscrits = (self.inscrits_crif or 0) + (self.inscrits_mp or 0)
+
+        if total_candidats == 0:
+            return 0.0
+        return round(100.0 * total_inscrits / total_candidats, 2)
+
+    def get_taux_saturation(self):
+        total_prevus = (self.prevus_crif or 0) + (self.prevus_mp or 0)
+        total_inscrits = (self.inscrits_crif or 0) + (self.inscrits_mp or 0)
+
+        if total_prevus == 0:
+            return 0.0
+        return round(100.0 * total_inscrits / total_prevus, 2)
+
     def get_places_restantes_crif(self):
-        """Retourne le nombre de places restantes pour CRIF."""
-        return max(0, self.prevus_crif - self.inscrits_crif)
+        return max((self.prevus_crif or 0) - (self.inscrits_crif or 0), 0)
 
     def get_places_restantes_mp(self):
-        """Retourne le nombre de places restantes pour MP."""
-        return max(0, self.prevus_mp - self.inscrits_mp)
+        return max((self.prevus_mp or 0) - (self.inscrits_mp or 0), 0)
 
     def get_places_disponibles(self):
         """Retourne le nombre de places encore disponibles pour la formation."""
@@ -191,15 +204,10 @@ class Formation(BaseModel):
         """Retourne le nombre de places encore disponibles pour le recrutement."""
         return self.get_places_disponibles()
 
-    def get_taux_saturation(self):
-        """Calcule le taux de saturation de la formation en fonction des inscriptions."""
-        total_places = self.get_total_places()
-        return (self.get_total_inscrits() / total_places) * 100 if total_places > 0 else 0
-
     def is_a_recruter(self):
         """Renvoie `True` si la formation a encore des places disponibles, sinon `False`."""
         return self.get_a_recruter() > 0
-    
+        
 
 ### ✅ Méthodes d'ajout d'éléments associés
 
@@ -286,7 +294,6 @@ class Formation(BaseModel):
 
 class HistoriqueFormation(models.Model):
     formation = models.ForeignKey('Formation', on_delete=models.CASCADE, related_name="historiques")
-    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='historiques_utilisateur')
     action = models.CharField(max_length=100, default='modification')
     details = models.JSONField(default=dict, blank=True)
     date_modification = models.DateTimeField(default=timezone.now)
