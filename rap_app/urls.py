@@ -1,6 +1,11 @@
 from django.urls import path
 
-from .views.prepa_comp_views import AnneeDetailView, CandidatCreateView, CandidatDeleteView, CandidatListView, DepartementStatsView, EntreeCreateView, EntreeListView, MoisDetailView, ObjectifAnnuelUpdateView, SemaineDetailView, TableauDeBordView
+from .views.prepa_views import (PrepaGlobalCreateView, PrepaGlobalDetailView, PrepaGlobalListView, 
+                                PrepaHomeView, PrepaObjectifsView,  
+                                PrepaSemaineCreateView, PrepaSemaineDeleteView, PrepaSemaineDetailView, 
+                                PrepaSemaineListView, PrepaSemaineUpdateView )
+
+
 from . import views
 
 from .views.historique_formation_views import HistoriqueFormationDeleteView, HistoriqueFormationDetailView, HistoriqueFormationListView
@@ -146,26 +151,22 @@ urlpatterns = [
     path("prospections/export/", export_prospections_csv, name="prospection-export"),
 
  # Prepa_Comp
+    path('prepa/', PrepaHomeView.as_view(), name='prepa_home'),
+    path('prepa/objectifs/', PrepaObjectifsView.as_view(), name='prepa_objectifs'),
+    path('prepa/objectifs/<int:annee>/', PrepaObjectifsView.as_view(), name='prepa_objectifs_annee'),
 
-    path('prepa_comp',TableauDeBordView.as_view(), name='tableau_de_bord'),
 
-# Détail des périodes
-    path('semaine/<int:pk>/', SemaineDetailView.as_view(), name='semaine_detail'),
-    path('mois/<int:pk>/', MoisDetailView.as_view(), name='mois_detail'),
-    path('annee/<int:annee>/', AnneeDetailView.as_view(), name='annee_detail'),
-    
-    # Gestion des candidats
-    path('candidats/', CandidatListView.as_view(), name='candidat_list'),
-    path('candidat/ajouter/', CandidatCreateView.as_view(), name='candidat_create'),
-    path('candidat/<int:pk>/supprimer/', CandidatDeleteView.as_view(), name='candidat_delete'),
-    
-    # Gestion des entrées
-    path('entrees/', EntreeListView.as_view(), name='entree_list'),
-    path('entree/ajouter/', EntreeCreateView.as_view(), name='entree_create'),
-    
-    # Statistiques par département
-    path('departement/<int:pk>/stats/', DepartementStatsView.as_view(), name='departement_stats'),
-    
-    # Gestion des objectifs
-    path('objectif/<int:annee>/modifier/', ObjectifAnnuelUpdateView.as_view(), name='objectif_update'),
+    # ---- Semaines ----
+    path('prepa/semaines/', PrepaSemaineListView.as_view(), name='prepa_semaine_list'),
+    path('prepa/semaines/ajouter/', PrepaSemaineCreateView.as_view(), name='prepa_semaine_create'),
+    path('prepa/semaines/<int:pk>/', PrepaSemaineDetailView.as_view(), name='prepa_semaine_detail'),
+    path('prepa/semaines/<int:pk>/modifier/', PrepaSemaineUpdateView.as_view(), name='prepa_semaine_update'),
+    path('prepa/semaines/<int:pk>/supprimer/', PrepaSemaineDeleteView.as_view(), name='prepa_semaine_delete'),
+
+
+    # ---- Global annuel ----
+    path('prepa/global/', PrepaGlobalListView.as_view(), name='prepa_global_list'),
+    path('prepa/global/<int:pk>/', PrepaGlobalDetailView.as_view(), name='prepa_global_detail'),
+    path('prepa/global/ajouter/', PrepaGlobalCreateView.as_view(), name='prepa_global_create'),
+
     ]

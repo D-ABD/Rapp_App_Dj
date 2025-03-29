@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load form_filters %}  <!-- ← cette ligne est obligatoire -->
+
+<div class="container my-4">
+  <h2>📚 Prépa Compétences – Tableau de bord</h2>
+
+  {% if messages %}
+  <div class="messages mb-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="alert alert-light border-start border-4 border-primary shadow-sm mb-4">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-1">🎯 Objectif global annuel</h5>
+        <p class="mb-0">
+          Objectif : <strong>{{ objectif_annuel_global }}</strong><br>
+          Adhésions réalisées : <strong>{{ adhesions_globales }}</strong><br>
+          Taux de réalisation :
+          <span class="badge 
+            {% if taux_objectif_global >= 100 %}
+              bg-success
+            {% elif taux_objectif_global >= 50 %}
+              bg-warning text-dark
+            {% else %}
+              bg-danger
+            {% endif %}
+          ">
+            {{ taux_objectif_global }}%
+          </span>
+        </p>
+      </div>
+      <div class="w-50 ms-3">
+        <div class="progress" style="height: 20px;">
+          <div class="progress-bar 
+            {% if taux_objectif_global >= 100 %}
+              bg-success
+            {% elif taux_objectif_global >= 50 %}
+              bg-warning
+            {% else %}
+              bg-danger
+            {% endif %}
+          " role="progressbar"
+          style="width: {{ taux_objectif_global }}%;"
+          aria-valuenow="{{ taux_objectif_global }}" aria-valuemin="0" aria-valuemax="100">
+            {{ taux_objectif_global }}%
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row g-3 mt-3">
+    <div class="col-md-4">
+      {% include "prepa/components/semaine_card.html" with semaine=semaine_courante %}
+    </div>
+    <div class="col-md-4">
+      {% with mois=mois_annee|last %}
+      <div class="card border-info h-100">
+        <div class="card-body">
+          <h5 class="card-title">📆 Mois actuel</h5>
+          {% if mois %}
+          <p class="card-text">
+            <strong>{{ mois.mois_nom }}</strong><br>
+            Places ouvertes : {{ mois.places|default:0 }}<br>
+            Prescriptions : {{ mois.prescriptions|default:0 }}<br>
+            Présents : {{ mois.presents|default:0 }}<br>
+            Adhésions : {{ mois.adhesions|default:0 }}<br>
+            Taux transformation : {{ mois.taux_transformation|floatformat:1 }}%
+          </p>
+          {% else %}
+          <p class="card-text text-muted">Aucune donnée mensuelle disponible</p>
+          {% endif %}
+        </div>
+      </div>
+      {% endwith %}
+    </div>
+    <div class="col-md-4">
+      <div class="card border-warning h-100">
+        <div class="card-body">
+          <h5 class="card-title">⚡ Actions rapides</h5>
+          <div class="d-grid gap-2">
+            <a href="{% url 'prepa_objectifs' %}" class="btn btn-outline-primary btn-sm">🎯 Gérer les objectifs</a>
+            <a href="{% url 'prepa_semaine_create' %}" class="btn btn-outline-success btn-sm">➕ Ajouter une semaine</a>
+            {% if not bilan_global %}
+            <a href="{% url 'prepa_global_create' %}" class="btn btn-outline-info btn-sm">📊 Créer bilan annuel</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "prepa/components/objectifs_centre.html" with objectifs=objectifs_par_centre annee=bilan_global.annee|default:annee_courante %}
+
+  {% if stats_ateliers|length > 0 %}
+  <hr class="my-4">
+  {% include "prepa/components/stats_ateliers.html" with ateliers=stats_ateliers annee=bilan_global.annee|default:annee_courante %}
+  {% endif %}
+
+  {% if mois_annee|length > 0 and objectifs_par_centre|length > 0 %}
+  <hr class="my-4">
+  
+  <h4>📊 Historique mensuel par centre – {{ bilan_global.annee|default:annee_courante }}</h4>
+  
+  {% for o in objectifs_par_centre %}
+    <div class="mb-4">
+      {% include "prepa/components/stats_mensuel.html" with stats=mois_annee centre_nom=o.centre_nom centre_id=o.centre_id %}
+    </div>
+  {% endfor %}
+  {% endif %}
+          
+{% include 'prepa/composant_url.html' %}
+{% endblock %}

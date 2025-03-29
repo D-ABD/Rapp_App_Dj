@@ -53,6 +53,11 @@ class Centre(BaseModel):
         ]
     )
 
+    """Champs pour le model prepa."""
+    objectif_annuel_prepa = models.PositiveIntegerField(null=True, blank=True)
+    objectif_hebdomadaire_prepa = models.PositiveIntegerField(default=0, blank=True, null=True)
+
+
     def __str__(self):
         """Retourne le nom du centre pour une meilleure lisibilité."""
         return self.nom
@@ -97,6 +102,10 @@ class Centre(BaseModel):
             if modifications:
                 logger.info(f"Modification du centre #{self.pk}: {', '.join(modifications)}")
         
+            # Calculer automatiquement l'objectif hebdomadaire si non défini
+            if self.objectif_annuel_prepa and not self.objectif_hebdomadaire_prepa:
+                self.objectif_hebdomadaire_prepa = self.objectif_annuel_prepa // 52
+
         # Appel à la méthode parente
         super().save(*args, **kwargs)
         

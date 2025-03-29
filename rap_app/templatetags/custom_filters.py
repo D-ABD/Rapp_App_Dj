@@ -57,3 +57,10 @@ def get_type_offre_color(types_offre, type_offre_id):
         return type_offre.couleur if type_offre and type_offre.couleur else "#6c757d"
     except (ValueError, AttributeError):
         return "#6c757d"
+    
+@register.filter
+def abs(value):
+    try:
+        return abs(value)
+    except (TypeError, ValueError):
+        return value    

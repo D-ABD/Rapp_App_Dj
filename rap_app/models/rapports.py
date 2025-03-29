@@ -1,6 +1,8 @@
 # models/rapports.py
 from django.db import models
 from django.utils import timezone
+
+from ..models.formations import Formation
 from .base import BaseModel
 
 class Rapport(BaseModel):
@@ -71,7 +73,7 @@ class Rapport(BaseModel):
     centre = models.ForeignKey('Centre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Centre")
     type_offre = models.ForeignKey('TypeOffre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Type d'offre")
     statut = models.ForeignKey('Statut', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Statut")
-    
+    formation = models.ForeignKey('Formation', null=True, blank=True, on_delete=models.CASCADE, related_name="rapports")
     # Données du rapport
     donnees = models.JSONField(default=dict, verbose_name="Données du rapport")
     

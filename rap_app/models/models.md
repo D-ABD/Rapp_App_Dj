@@ -1,3 +1,381 @@
+Directory structure:
+└── d-abd-rapp_app_dj.git/
+    ├── README.md
+    ├── __init__.py
+    ├── db.sqlite3
+    ├── fichier
+    ├── formation.js
+    ├── manage.py
+    ├── requirements.txt
+    ├── un
+    ├── vide
+    ├── .!63787!db.sqlite3
+    ├── .!63801!db.sqlite3
+    ├── formations/
+    │   └── documents/
+    ├── rap_app/
+    │   ├── __init__.py
+    │   ├── apps.py
+    │   ├── queries.py
+    │   ├── urls.py
+    │   ├── .DS_Store
+    │   ├── __pycache__/
+    │   ├── admin/
+    │   │   ├── __init__.py
+    │   │   ├── centres_admin.py
+    │   │   ├── commentaires_admin.py
+    │   │   ├── company_admin.py
+    │   │   ├── documents_admin.py
+    │   │   ├── evenements_admin.py
+    │   │   ├── formations_admin.py
+    │   │   ├── partenaires_admin.py
+    │   │   ├── prospection_admin.py
+    │   │   ├── statuts_admin.py
+    │   │   ├── types_offre_admin.py
+    │   │   ├── utilisateurs_admin.py
+    │   │   └── __pycache__/
+    │   ├── forms/
+    │   │   ├── __init__.py
+    │   │   ├── company_form.py
+    │   │   ├── prepa_comp_form.py
+    │   │   ├── ProspectionForm.py
+    │   │   ├── rapports_forms.py
+    │   │   └── __pycache__/
+    │   ├── migrations/
+    │   │   ├── 0001_initial.py
+    │   │   ├── 0002_alter_partenaire_nom.py
+    │   │   ├── 0003_alter_rapport_options_remove_rapport_created_at_and_more.py
+    │   │   ├── 0004_alter_rapport_options_and_more.py
+    │   │   ├── 0005_alter_rapport_options_remove_rapport_centre_and_more.py
+    │   │   ├── 0006_delete_rapport.py
+    │   │   ├── 0007_rapport_delete_parametre.py
+    │   │   ├── 0008_company_prospection.py
+    │   │   ├── 0009_remove_company_email_remove_company_phone_number_and_more.py
+    │   │   ├── 0010_historiqueprospection_and_more.py
+    │   │   ├── 0011_historiqueformation_action_and_more.py
+    │   │   ├── 0012_typeoffre_couleur.py
+    │   │   ├── 0013_alter_company_options_and_more.py
+    │   │   ├── 0014_delete_recherche.py
+    │   │   ├── 0015_alter_historiqueformation_options_and_more.py
+    │   │   ├── 0016_candidat_departement_objectifannuel_semaine_entree_and_more.py
+    │   │   ├── __init__.py
+    │   │   └── __pycache__/
+    │   ├── models/
+    │   │   ├── __init__.py
+    │   │   ├── base.py
+    │   │   ├── centres.py
+    │   │   ├── commentaires.py
+    │   │   ├── company.py
+    │   │   ├── documents.py
+    │   │   ├── evenements.py
+    │   │   ├── formations.py
+    │   │   ├── logs.py
+    │   │   ├── models.md
+    │   │   ├── partenaires.py
+    │   │   ├── prepa_comp.py
+    │   │   ├── prospection.py
+    │   │   ├── rapports.py
+    │   │   ├── statut.py
+    │   │   ├── types_offre.py
+    │   │   └── __pycache__/
+    │   ├── services/
+    │   │   ├── generateur_rapports.py
+    │   │   └── __pycache__/
+    │   ├── static/
+    │   │   ├── __init__.py
+    │   │   ├── css/
+    │   │   │   └── formation.css
+    │   │   ├── images/
+    │   │   └── js/
+    │   │       └── formation.js
+    │   ├── templates/
+    │   │   ├── base.html
+    │   │   ├── dashboard copy.html
+    │   │   ├── dashboard.html
+    │   │   ├── home copy.html
+    │   │   ├── home.html
+    │   │   ├── .DS_Store
+    │   │   ├── centres/
+    │   │   │   ├── centre_confirm_delete.html
+    │   │   │   ├── centre_detail.html
+    │   │   │   ├── centre_form.html
+    │   │   │   └── centre_list.html
+    │   │   ├── commentaires/
+    │   │   │   ├── commentaire_confirm.html
+    │   │   │   ├── commentaire_detail.html
+    │   │   │   ├── commentaire_form.html
+    │   │   │   └── commentaire_list.html
+    │   │   ├── company/
+    │   │   │   ├── company_confirm_delete.html
+    │   │   │   ├── company_detail.html
+    │   │   │   ├── company_form.html
+    │   │   │   └── company_list.html
+    │   │   ├── composants/
+    │   │   │   ├── bouton_retour.html
+    │   │   │   ├── commentaires_bouton.html
+    │   │   │   ├── footer.html
+    │   │   │   ├── navbar.html
+    │   │   │   ├── pagination.html
+    │   │   │   └── sidebar.html
+    │   │   ├── dashboard_composants/
+    │   │   │   ├── comments_list.html
+    │   │   │   ├── entreprises_par_prospections.html
+    │   │   │   ├── events_by_type_and_center.html
+    │   │   │   ├── evolution_chart.html
+    │   │   │   ├── formations_by_type_and_statut.html
+    │   │   │   ├── performance_table.html
+    │   │   │   ├── propections_par_statuts.html
+    │   │   │   ├── prospections.html
+    │   │   │   └── stats_cards.html
+    │   │   ├── documents/
+    │   │   │   ├── document_confirm_delete.html
+    │   │   │   ├── document_detail.html
+    │   │   │   ├── document_form.html
+    │   │   │   └── document_list.html
+    │   │   ├── evenements/
+    │   │   │   ├── evenement_confirm_delete.html
+    │   │   │   ├── evenement_detail.html
+    │   │   │   ├── evenement_form.html
+    │   │   │   └── evenement_list.html
+    │   │   ├── formations/
+    │   │   │   ├── commentaires_tous.html
+    │   │   │   ├── formation_add_comment.html
+    │   │   │   ├── formation_confirm_delete.html
+    │   │   │   ├── formation_detail copy.html
+    │   │   │   ├── formation_detail.html
+    │   │   │   ├── formation_form.html
+    │   │   │   ├── formation_list.html
+    │   │   │   ├── formation_update_partenaire.html
+    │   │   │   └── includes/
+    │   │   │       ├── commentaires_formation.html
+    │   │   │       ├── create_new_formations.html
+    │   │   │       ├── documents_formation.html
+    │   │   │       ├── entreprises_formation.html
+    │   │   │       ├── evenements_formation.html
+    │   │   │       ├── filters_and_search_formations copy.html
+    │   │   │       ├── filters_and_search_formations.html
+    │   │   │       ├── formations_table.html
+    │   │   │       ├── pagination.html
+    │   │   │       ├── partenaires_formation.html
+    │   │   │       ├── prospections_formation.html
+    │   │   │       ├── saturation_formation.html
+    │   │   │       └── stats_formations.html
+    │   │   ├── historiqueformation/
+    │   │   │   ├── historiqueformation_detail.html
+    │   │   │   └── historiqueformation_list.html
+    │   │   ├── parametres/
+    │   │   │   └── parametres.html
+    │   │   ├── partenaires/
+    │   │   │   ├── partenaire_confirm_delete.html
+    │   │   │   ├── partenaire_detail.html
+    │   │   │   ├── partenaire_form.html
+    │   │   │   ├── partenaire_formation_form.html
+    │   │   │   └── partenaire_list.html
+    │   │   ├── prepa_comp/
+    │   │   │   ├── candidats.html
+    │   │   │   └── prepa_comp_board.html
+    │   │   ├── prospection/
+    │   │   │   ├── historiqueprospection_detail.html
+    │   │   │   ├── historiqueprospection_list.html
+    │   │   │   ├── prospection_detail.html
+    │   │   │   ├── prospection_form.html
+    │   │   │   ├── prospection_home.html
+    │   │   │   └── prospection_list.html
+    │   │   ├── rapports/
+    │   │   │   ├── rapport_confirm_delete.html
+    │   │   │   ├── rapport_detail.html
+    │   │   │   ├── rapport_form.html
+    │   │   │   ├── rapport_list.html
+    │   │   │   └── includes/
+    │   │   │       ├── rapport_centre.html
+    │   │   │       ├── rapport_evenement.html
+    │   │   │       ├── rapport_occupation.html
+    │   │   │       ├── rapport_partenaire.html
+    │   │   │       ├── rapport_recrutement.html
+    │   │   │       └── rapport_statut.html
+    │   │   ├── statuts/
+    │   │   │   ├── statut_confirm_delete.html
+    │   │   │   ├── statut_detail.html
+    │   │   │   ├── statut_form.html
+    │   │   │   └── statut_list.html
+    │   │   ├── types_offres/
+    │   │   │   ├── typeoffre_confirm_delete.html
+    │   │   │   ├── typeoffre_detail.html
+    │   │   │   ├── typeoffre_form.html
+    │   │   │   └── typeoffre_list.html
+    │   │   └── users/
+    │   │       ├── login.html
+    │   │       ├── password_reset.html
+    │   │       ├── password_reset_complete.html
+    │   │       ├── password_reset_confirm.html
+    │   │       ├── password_reset_done.html
+    │   │       ├── profile.html
+    │   │       ├── register.html
+    │   │       └── user_list.html
+    │   ├── templatetags/
+    │   │   ├── __init__.py
+    │   │   ├── custom_filters.py
+    │   │   ├── form_filters.py
+    │   │   ├── prospection_extras.py
+    │   │   └── __pycache__/
+    │   ├── tests/
+    │   │   ├── __init__.py
+    │   │   ├── test_models.py
+    │   │   ├── test_views.py
+    │   │   └── tv.md
+    │   └── views/
+    │       ├── __init__.py
+    │       ├── base_views.py
+    │       ├── centres_views.py
+    │       ├── commentaires_views.py
+    │       ├── company_views.py
+    │       ├── dashboard_views.py
+    │       ├── documents_views.py
+    │       ├── evenements_views.py
+    │       ├── formations_views.py
+    │       ├── historique_formation_views.py
+    │       ├── home_views.py
+    │       ├── log_views.py
+    │       ├── parametres_views.py
+    │       ├── partenaires_views.py
+    │       ├── prepa_comp_views.py
+    │       ├── prospection_views.py
+    │       ├── rapport_views.py
+    │       ├── statuts_views.py
+    │       ├── types_offre_views.py
+    │       ├── users_views.py
+    │       ├── views.md
+    │       └── __pycache__/
+    ├── rap_app_project/
+    │   ├── __init__.py
+    │   ├── asgi.py
+    │   ├── settings.py
+    │   ├── urls.py
+    │   ├── wsgi.py
+    │   └── __pycache__/
+    └── staticfiles/
+        ├── __init__.py
+        ├── admin/
+        │   ├── css/
+        │   │   ├── autocomplete.css
+        │   │   ├── base.css
+        │   │   ├── changelists.css
+        │   │   ├── dark_mode.css
+        │   │   ├── dashboard.css
+        │   │   ├── forms.css
+        │   │   ├── login.css
+        │   │   ├── nav_sidebar.css
+        │   │   ├── responsive.css
+        │   │   ├── responsive_rtl.css
+        │   │   ├── rtl.css
+        │   │   ├── widgets.css
+        │   │   └── vendor/
+        │   │       └── select2/
+        │   │           ├── LICENSE-SELECT2.md
+        │   │           └── select2.css
+        │   ├── img/
+        │   │   ├── LICENSE
+        │   │   ├── README.txt
+        │   │   └── gis/
+        │   └── js/
+        │       ├── actions.js
+        │       ├── autocomplete.js
+        │       ├── calendar.js
+        │       ├── cancel.js
+        │       ├── change_form.js
+        │       ├── collapse.js
+        │       ├── core.js
+        │       ├── filters.js
+        │       ├── inlines.js
+        │       ├── jquery.init.js
+        │       ├── nav_sidebar.js
+        │       ├── popup_response.js
+        │       ├── prepopulate.js
+        │       ├── prepopulate_init.js
+        │       ├── SelectBox.js
+        │       ├── SelectFilter2.js
+        │       ├── theme.js
+        │       ├── urlify.js
+        │       ├── admin/
+        │       │   ├── DateTimeShortcuts.js
+        │       │   └── RelatedObjectLookups.js
+        │       └── vendor/
+        │           ├── jquery/
+        │           │   ├── jquery.js
+        │           │   └── LICENSE.txt
+        │           ├── select2/
+        │           │   ├── LICENSE.md
+        │           │   ├── select2.full.js
+        │           │   └── i18n/
+        │           │       ├── af.js
+        │           │       ├── ar.js
+        │           │       ├── az.js
+        │           │       ├── bg.js
+        │           │       ├── bn.js
+        │           │       ├── bs.js
+        │           │       ├── ca.js
+        │           │       ├── cs.js
+        │           │       ├── da.js
+        │           │       ├── de.js
+        │           │       ├── dsb.js
+        │           │       ├── el.js
+        │           │       ├── en.js
+        │           │       ├── es.js
+        │           │       ├── et.js
+        │           │       ├── eu.js
+        │           │       ├── fa.js
+        │           │       ├── fi.js
+        │           │       ├── fr.js
+        │           │       ├── gl.js
+        │           │       ├── he.js
+        │           │       ├── hi.js
+        │           │       ├── hr.js
+        │           │       ├── hsb.js
+        │           │       ├── hu.js
+        │           │       ├── hy.js
+        │           │       ├── id.js
+        │           │       ├── is.js
+        │           │       ├── it.js
+        │           │       ├── ja.js
+        │           │       ├── ka.js
+        │           │       ├── km.js
+        │           │       ├── ko.js
+        │           │       ├── lt.js
+        │           │       ├── lv.js
+        │           │       ├── mk.js
+        │           │       ├── ms.js
+        │           │       ├── nb.js
+        │           │       ├── ne.js
+        │           │       ├── nl.js
+        │           │       ├── pl.js
+        │           │       ├── ps.js
+        │           │       ├── pt-BR.js
+        │           │       ├── pt.js
+        │           │       ├── ro.js
+        │           │       ├── ru.js
+        │           │       ├── sk.js
+        │           │       ├── sl.js
+        │           │       ├── sq.js
+        │           │       ├── sr-Cyrl.js
+        │           │       ├── sr.js
+        │           │       ├── sv.js
+        │           │       ├── th.js
+        │           │       ├── tk.js
+        │           │       ├── tr.js
+        │           │       ├── uk.js
+        │           │       ├── vi.js
+        │           │       ├── zh-CN.js
+        │           │       └── zh-TW.js
+        │           └── xregexp/
+        │               ├── LICENSE.txt
+        │               └── xregexp.js
+        └── js/
+            ├── formation.js
+            └── formations.js
+
+
+Files Content:
+
 (Files content cropped to 300k characters, download full ingest to see more)
 ================================================
 File: README.md
@@ -139,21 +517,263 @@ class RapAppConfig(AppConfig):
 
 
 ================================================
+File: rap_app/queries.py
+================================================
+# Exemple de code pour obtenir les statistiques
+
+from django.db.models import Count, F, Sum, FloatField, ExpressionWrapper
+from django.utils import timezone
+from datetime import datetime
+
+from .models.prepa_comp import Candidat, Departement, Entree, Mois, ObjectifAnnuel, Semaine
+
+
+def get_stats_semaine_courante():
+    """Récupère les statistiques pour la semaine courante"""
+    semaine = Semaine.creer_semaine_courante()
+    
+    # Nombre d'entrées et de candidats pour la semaine
+    nombre_entrees = semaine.nombre_entrees
+    nombre_candidats = semaine.nombre_candidats
+    
+    # Taux de transformation
+    taux = semaine.taux_transformation
+    
+    # Pourcentage d'atteinte de l'objectif hebdomadaire
+    pourcentage_objectif = semaine.pourcentage_objectif_hebdomadaire
+    
+    # Objectif hebdomadaire
+    objectif_hebdo = semaine.objectif_annuel.objectif_hebdomadaire()
+    
+    # Statistiques par département
+    stats_departements = semaine.stats_par_departement()
+    
+    return {
+        'semaine': semaine,
+        'nombre_entrees': nombre_entrees,
+        'nombre_candidats': nombre_candidats,
+        'taux_transformation': taux,
+        'pourcentage_objectif': pourcentage_objectif,
+        'objectif_hebdo': objectif_hebdo,
+        'stats_departements': stats_departements
+    }
+
+
+def get_stats_mois_courant():
+    """Récupère les statistiques pour le mois courant"""
+    mois = Mois.creer_mois_courant()
+    
+    # Nombre d'entrées et de candidats pour le mois
+    nombre_entrees = mois.nombre_entrees
+    nombre_candidats = mois.nombre_candidats
+    
+    # Taux de transformation
+    taux = mois.taux_transformation
+    
+    # Pourcentage d'atteinte de l'objectif mensuel
+    pourcentage_objectif = mois.pourcentage_objectif_mensuel
+    
+    # Objectif mensuel
+    objectif_mensuel = mois.objectif_annuel.objectif_mensuel()
+    
+    # Statistiques par département
+    stats_departements = mois.stats_par_departement()
+    
+    # Liste des semaines du mois
+    semaines = mois.get_semaines()
+    
+    return {
+        'mois': mois,
+        'nombre_entrees': nombre_entrees,
+        'nombre_candidats': nombre_candidats,
+        'taux_transformation': taux,
+        'pourcentage_objectif': pourcentage_objectif,
+        'objectif_mensuel': objectif_mensuel,
+        'stats_departements': stats_departements,
+        'semaines': semaines
+    }
+
+
+def get_stats_annee_courante():
+    """Récupère les statistiques pour l'année courante"""
+    annee_courante = timezone.now().year
+    objectif_annuel = ObjectifAnnuel.get_current_year_objectif()
+    
+    # Nombre total d'entrées et de candidats pour l'année
+    nombre_entrees = Entree.objects.filter(semaine__annee=annee_courante).count()
+    nombre_candidats = Candidat.objects.filter(semaine__annee=annee_courante).count()
+    
+    # Taux de transformation
+    taux = (nombre_entrees / nombre_candidats * 100) if nombre_candidats > 0 else 0
+    
+    # Pourcentage d'atteinte de l'objectif annuel
+    pourcentage_objectif = (nombre_entrees / objectif_annuel.objectif * 100) if objectif_annuel.objectif > 0 else 0
+    
+    # Statistiques par département
+    stats_departements = Entree.objects.filter(
+        semaine__annee=annee_courante
+    ).values(
+        'departement__code', 'departement__nom'
+    ).annotate(
+        total=Count('id')
+    ).order_by('departement__code')
+    
+    # Statistiques par mois
+    stats_mois = []
+    for mois_num in range(1, 13):
+        try:
+            mois_obj = Mois.objects.get(mois=mois_num, annee=annee_courante)
+            entrees_mois = mois_obj.nombre_entrees
+        except Mois.DoesNotExist:
+            entrees_mois = 0
+            
+        stats_mois.append({
+            'mois': mois_num,
+            'nom_mois': Mois.get_nom_mois(mois_num),
+            'entrees': entrees_mois,
+            'objectif': objectif_annuel.objectif_mensuel()
+        })
+    
+    return {
+        'annee': annee_courante,
+        'objectif_annuel': objectif_annuel,
+        'nombre_entrees': nombre_entrees,
+        'nombre_candidats': nombre_candidats,
+        'taux_transformation': taux,
+        'pourcentage_objectif': pourcentage_objectif,
+        'stats_departements': stats_departements,
+        'stats_mois': stats_mois
+    }
+
+
+def get_stats_historiques_semaines(nb_semaines=10):
+    """Récupère les statistiques sur les n dernières semaines"""
+    semaines = Semaine.objects.all().order_by('-date_debut')[:nb_semaines]
+    
+    resultats = []
+    for semaine in semaines:
+        resultats.append({
+            'semaine': f"S{semaine.numero_semaine}",
+            'periode': f"{semaine.date_debut} au {semaine.date_fin}",
+            'entrees': semaine.nombre_entrees,
+            'candidats': semaine.nombre_candidats,
+            'taux_transformation': semaine.taux_transformation,
+            'pourcentage_objectif': semaine.pourcentage_objectif_hebdomadaire,
+            'objectif': semaine.objectif_annuel.objectif_hebdomadaire(),
+            'departements': {
+                stat['departement__code']: stat['total'] 
+                for stat in semaine.stats_par_departement()
+            }
+        })
+    
+    return resultats
+
+
+def get_stats_historiques_mois(nb_mois=12):
+    """Récupère les statistiques sur les n derniers mois"""
+    mois = Mois.objects.all().order_by('-annee', '-mois')[:nb_mois]
+    
+    resultats = []
+    for m in mois:
+        resultats.append({
+            'mois': m.nom_mois,
+            'annee': m.annee,
+            'entrees': m.nombre_entrees,
+            'candidats': m.nombre_candidats,
+            'taux_transformation': m.taux_transformation,
+            'pourcentage_objectif': m.pourcentage_objectif_mensuel,
+            'objectif': m.objectif_annuel.objectif_mensuel(),
+            'departements': {
+                stat['departement__code']: stat['total'] 
+                for stat in m.stats_par_departement()
+            }
+        })
+    
+    return resultats
+
+
+def get_stats_historiques_annees(nb_annees=5):
+    """Récupère les statistiques sur les n dernières années"""
+    annee_courante = timezone.now().year
+    annees = list(range(annee_courante, annee_courante - nb_annees, -1))
+    
+    resultats = []
+    for annee in annees:
+        try:
+            objectif = ObjectifAnnuel.objects.get(annee=annee)
+        except ObjectifAnnuel.DoesNotExist:
+            # Si pas d'objectif défini pour cette année, passer à la suivante
+            continue
+            
+        nombre_entrees = Entree.objects.filter(semaine__annee=annee).count()
+        nombre_candidats = Candidat.objects.filter(semaine__annee=annee).count()
+        
+        taux = (nombre_entrees / nombre_candidats * 100) if nombre_candidats > 0 else 0
+        pourcentage_objectif = (nombre_entrees / objectif.objectif * 100) if objectif.objectif > 0 else 0
+        
+        stats_departements = Entree.objects.filter(
+            semaine__annee=annee
+        ).values(
+            'departement__code', 'departement__nom'
+        ).annotate(
+            total=Count('id')
+        ).order_by('departement__code')
+        
+        resultats.append({
+            'annee': annee,
+            'entrees': nombre_entrees,
+            'candidats': nombre_candidats,
+            'taux_transformation': taux,
+            'pourcentage_objectif': pourcentage_objectif,
+            'objectif': objectif.objectif,
+            'departements': {
+                stat['departement__code']: stat['total'] 
+                for stat in stats_departements
+            }
+        })
+    
+    return resultats
+
+
+def initialiser_departements():
+    """Initialise les départements de la région parisienne"""
+    departements = [
+        {'code': '75', 'nom': 'Paris'},
+        {'code': '77', 'nom': 'Seine-et-Marne'},
+        {'code': '78', 'nom': 'Yvelines'},
+        {'code': '91', 'nom': 'Essonne'},
+        {'code': '92', 'nom': 'Hauts-de-Seine'},
+        {'code': '93', 'nom': 'Seine-Saint-Denis'},
+        {'code': '94', 'nom': 'Val-de-Marne'},
+        {'code': '95', 'nom': "Val-d'Oise"}
+    ]
+    
+    for dept in departements:
+        Departement.objects.get_or_create(
+            code=dept['code'],
+            defaults={'nom': dept['nom']}
+        )
+
+
+================================================
 File: rap_app/urls.py
 ================================================
 from django.urls import path
 
+from .views.prepa_comp_views import AnneeDetailView, CandidatCreateView, CandidatDeleteView, CandidatListView, DepartementStatsView, EntreeCreateView, EntreeListView, MoisDetailView, ObjectifAnnuelUpdateView, SemaineDetailView, TableauDeBordView
+from . import views
+
 from .views.historique_formation_views import HistoriqueFormationDeleteView, HistoriqueFormationDetailView, HistoriqueFormationListView
 
-from .views.prospection_views import HistoriqueProspectionDetailView, HistoriqueProspectionListView, ProspectionCreateView, ProspectionDeleteView, ProspectionDetailView, ProspectionHomeView, ProspectionListView, ProspectionUpdateView
+from .views.prospection_views import HistoriqueProspectionDetailView, HistoriqueProspectionListView, ProspectionCreateView, ProspectionDeleteView, ProspectionDetailView, ProspectionHomeView, ProspectionListView, ProspectionUpdateView, export_prospections_csv
 
-from .views.company_views import CompanyCreateView, CompanyDeleteView, CompanyDetailView, CompanyListView, CompanyUpdateView
+from .views.company_views import CompanyCreateView, CompanyDeleteView, CompanyDetailView, CompanyListView, CompanyUpdateView, export_companies_csv
 
 from .views.rapport_views import RapportCreationView, RapportDeleteView, RapportDetailView, RapportExportView, RapportListView
 
 
 from .views.parametres_views import parametres
-
+from .views.formations_views import UpdateFormationFieldView
 
 from .views.users_views import (UserDeleteView, UserDetailView, UserListView, UserUpdateView, 
 user_login, register, user_logout, user_profile, change_password,reset_password, 
@@ -239,6 +859,7 @@ urlpatterns = [
     path('partenaires/<int:pk>/modifier/', partenaires_views.PartenaireUpdateView.as_view(), name='partenaire-update'),
     path('partenaires/<int:pk>/supprimer/', partenaires_views.PartenaireDeleteView.as_view(), name='partenaire-delete'),
     path('partenaires/ajouter/formation/<int:formation_id>/', partenaires_views.PartenaireCreateViewFormation.as_view(), name='partenaire-add-formation'),
+    path('partenaires/export-csv/', partenaires_views.ExportPartenairesCSVView.as_view(), name='export-partenaires-csv'),
 
     # Événements
     path('evenements/', evenements_views.EvenementListView.as_view(), name='evenement-list'),
@@ -249,14 +870,14 @@ urlpatterns = [
     
     # Formations
     path('formations/', formations_views.FormationListView.as_view(), name='formation-list'),
-    path('formations/modifier-inscrits/<int:formation_id>/', formations_views.ModifierInscritsView.as_view(), name='modifier-inscrits'),
     path('formations/<int:pk>/', formations_views.FormationDetailView.as_view(), name='formation-detail'),
     path('formations/ajouter/', formations_views.FormationCreateView.as_view(), name='formation-create'),
     path('formations/<int:pk>/modifier/', formations_views.FormationUpdateView.as_view(), name='formation-update'),
     path('formations/<int:pk>/supprimer/', formations_views.FormationDeleteView.as_view(), name='formation-delete'),
     path('formations/<int:pk>/commentaire/', formations_views.FormationAddCommentView.as_view(), name='formation-add-comment'),
     path("formations/export-excel/", formations_views.ExportFormationsExcelView.as_view(), name="export-formations-excel"),
-    
+    path("formations/update-champ/<int:id>/", UpdateFormationFieldView.as_view(), name="update_formation_field"),
+
         # Historique des Formations
     path('historique-formations/', HistoriqueFormationListView.as_view(), name='historique-formation-list'),
     path('historique-formations/<int:pk>/', HistoriqueFormationDetailView.as_view(), name='historique-formation-detail'),
@@ -268,6 +889,7 @@ urlpatterns = [
     path('companies/add/', CompanyCreateView.as_view(), name='company-create'),
     path('companies/<int:pk>/edit/', CompanyUpdateView.as_view(), name='company-update'),
     path('companies/<int:pk>/delete/', CompanyDeleteView.as_view(), name='company-delete'),
+    path('companies/export/', export_companies_csv, name='company-export'),
 
     # Paramètres
     path('parametres/', parametres, name='parametres'),
@@ -281,7 +903,32 @@ urlpatterns = [
     path('prospections/<int:pk>/delete/', ProspectionDeleteView.as_view(), name='prospection-delete'),
     path('historique-prospections/', HistoriqueProspectionListView.as_view(), name='historique-prospection-list'),
     path('historique-prospections/<int:pk>/', HistoriqueProspectionDetailView.as_view(), name='historique-prospection-detail'),
-]
+    path("prospections/export/", export_prospections_csv, name="prospection-export"),
+
+ # Prepa_Comp
+
+    path('prepa_comp',TableauDeBordView.as_view(), name='tableau_de_bord'),
+
+# Détail des périodes
+    path('semaine/<int:pk>/', SemaineDetailView.as_view(), name='semaine_detail'),
+    path('mois/<int:pk>/', MoisDetailView.as_view(), name='mois_detail'),
+    path('annee/<int:annee>/', AnneeDetailView.as_view(), name='annee_detail'),
+    
+    # Gestion des candidats
+    path('candidats/', CandidatListView.as_view(), name='candidat_list'),
+    path('candidat/ajouter/', CandidatCreateView.as_view(), name='candidat_create'),
+    path('candidat/<int:pk>/supprimer/', CandidatDeleteView.as_view(), name='candidat_delete'),
+    
+    # Gestion des entrées
+    path('entrees/', EntreeListView.as_view(), name='entree_list'),
+    path('entree/ajouter/', EntreeCreateView.as_view(), name='entree_create'),
+    
+    # Statistiques par département
+    path('departement/<int:pk>/stats/', DepartementStatsView.as_view(), name='departement_stats'),
+    
+    # Gestion des objectifs
+    path('objectif/<int:annee>/modifier/', ObjectifAnnuelUpdateView.as_view(), name='objectif_update'),
+    ]
 
 
 ================================================
@@ -304,46 +951,170 @@ from .statuts_admin import StatutAdmin
 from .types_offre_admin import TypeOffreAdmin
 from .formations_admin import FormationAdmin
 from .commentaires_admin import CommentaireAdmin
-from .recherches_admin import RechercheAdmin
 from .partenaires_admin import PartenaireAdmin  # Nouveau
 from .evenements_admin import EvenementAdmin    # Nouveau
 from .documents_admin import DocumentAdmin      # Nouveau
-from .prospection_admin import ProspectionAdmin
+from .prospection_admin import ProspectionAdmin, HistoriqueProspection
 
 
 
 ================================================
 File: rap_app/admin/centres_admin.py
 ================================================
+import logging
 from django.contrib import admin
-from ..models import Centre
+from django.urls import reverse
+from django.utils.html import format_html
+from ..models import Centre, Formation
+from rap_app import models
 
+# Configuration du logger
+logger = logging.getLogger(__name__)
 
 @admin.register(Centre)
 class CentreAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'code_postal', 'created_at', 'updated_at')
+    """
+    Interface d'administration pour les centres de formation.
+    
+    Fonctionnalités:
+    - Liste affichant nom, code postal et dates de création/modification
+    - Filtrage par code postal
+    - Recherche par nom ou code postal
+    - Tri par nom par défaut
+    - Affichage et organisation des champs en sections
+    """
+    
+    # Colonnes affichées dans la liste des centres
+    list_display = ('nom', 'code_postal', 'nombre_formations', 'created_at', 'updated_at')
+    
+    # Filtres disponibles dans le panneau latéral
     list_filter = ('code_postal',)
+    
+    # Champs pour la recherche
     search_fields = ('nom', 'code_postal')
+    
+    # Tri par défaut
     ordering = ('nom',)
-    readonly_fields = ('created_at', 'updated_at')
+    
+    # Champs en lecture seule (non modifiables)
+    readonly_fields = ('created_at', 'updated_at', 'nombre_formations', 'formations_list')
+    
+    # Organisation des champs en sections
     fieldsets = (
         ('Informations', {
-            'fields': ('nom', 'code_postal')
+            'fields': ('nom', 'code_postal'),
+            'description': 'Informations principales du centre de formation'
+        }),
+        ('Formations associées', {
+            'fields': ('nombre_formations', 'formations_list'),
+            'classes': ('collapse',),
+            'description': 'Liste des formations rattachées à ce centre'
         }),
         ('Métadonnées', {
             'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
+            'description': 'Informations temporelles automatiques'
         }),
     )
+    
+    def nombre_formations(self, obj):
+        """Affiche le nombre de formations associées au centre."""
+        count = obj.formations.count()
+        return format_html(
+            '<span style="color:{}">{}</span>',
+            'green' if count > 0 else 'grey',
+            count
+        )
+    nombre_formations.short_description = "Nombre de formations"
+    nombre_formations.admin_order_field = 'formations__count'
+    
+    def formations_list(self, obj):
+        """Affiche une liste des formations associées avec liens."""
+        formations = obj.formations.all()[:10]  # Limite à 10 formations pour éviter une liste trop longue
+        
+        if not formations:
+            return "Aucune formation associée"
+            
+        formations_links = []
+        for formation in formations:
+            url = reverse('admin:rap_app_formation_change', args=[formation.pk])
+            formations_links.append(
+                f'<a href="{url}">{formation.nom}</a>'
+            )
+            
+        html = '<ul>' + ''.join([f'<li>{link}</li>' for link in formations_links]) + '</ul>'
+        
+        if obj.formations.count() > 10:
+            html += f'<a href="?formation__centre__id__exact={obj.pk}">Voir toutes les formations ({obj.formations.count()})</a>'
+            
+        return format_html(html)
+    formations_list.short_description = "Formations associées"
+    
+    def get_queryset(self, request):
+        """Surcharge pour optimiser les requêtes."""
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(
+            formations__count=models.Count('formations')
+        )
+        return queryset
+    
+    def save_model(self, request, obj, form, change):
+        """Journalise les modifications des centres via l'admin."""
+        if change:  # Modification d'un centre existant
+            original = Centre.objects.get(pk=obj.pk)
+            changes = []
+            
+            if original.nom != obj.nom:
+                changes.append(f"nom: '{original.nom}' → '{obj.nom}'")
+                
+            if original.code_postal != obj.code_postal:
+                changes.append(f"code_postal: '{original.code_postal}' → '{obj.code_postal}'")
+                
+            if changes:
+                logger.info(
+                    f"Admin - Modification du centre #{obj.pk} par {request.user}: "
+                    f"{', '.join(changes)}"
+                )
+        else:  # Création d'un nouveau centre
+            logger.info(
+                f"Admin - Création d'un nouveau centre par {request.user}: "
+                f"nom='{obj.nom}', code_postal='{obj.code_postal}'"
+            )
+            
+        super().save_model(request, obj, form, change)
+    
+    def delete_model(self, request, obj):
+        """Journalise la suppression d'un centre via l'admin."""
+        formations_count = obj.formations.count()
+        
+        logger.warning(
+            f"Admin - Suppression du centre #{obj.pk} '{obj.nom}' par {request.user}. "
+            f"{formations_count} formations associées."
+        )
+        
+        super().delete_model(request, obj)
+    
+    class Media:
+        """Ajout de CSS pour l'interface d'administration."""
+        css = {
+            'all': ('css/admin/centre_admin.css',)
+        }
 
 
 ================================================
 File: rap_app/admin/commentaires_admin.py
 ================================================
+import logging
 from django.contrib import admin
 from django.contrib.auth import get_user_model
+from django.utils.html import format_html
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 from ..models.commentaires import Commentaire
+from ..models.formations import Formation
 
+# Configuration du logger
+logger = logging.getLogger(__name__)
 
 Utilisateur = get_user_model()
 
@@ -351,67 +1122,453 @@ Utilisateur = get_user_model()
 class CommentaireAdmin(admin.ModelAdmin):
     """
     Interface d'administration pour la gestion des commentaires liés aux formations.
+    
+    Caractéristiques:
+    - Liste avec formation, utilisateur, contenu, saturation et date
+    - Filtres par formation, utilisateur, saturation et date
+    - Recherche par formation, utilisateur et contenu
+    - Vue détaillée organisée en sections
+    - Attribution automatique de l'utilisateur lors de la création
     """
 
     # Affichage des principales informations
-    list_display = ("formation", "utilisateur", "contenu", "saturation", "created_at")
+    list_display = ("formation_link", "utilisateur_link", "contenu_preview", "saturation_display", "created_at")
 
     # Ajout de filtres pour faciliter la recherche
-    list_filter = ("formation", "utilisateur", "saturation", "created_at")
+    list_filter = (
+        "formation__centre", 
+        "utilisateur", 
+        "saturation", 
+        "created_at",
+        ("saturation", admin.EmptyFieldListFilter),  # Filtrer les commentaires sans saturation
+    )
 
     # Recherche rapide sur certains champs
-    search_fields = ("formation__nom", "utilisateur__username", "contenu")
+    search_fields = ("formation__nom", "utilisateur__username", "utilisateur__email", "contenu")
 
     # Rendre certains champs en lecture seule
-    readonly_fields = ("utilisateur", "created_at")
+    readonly_fields = ("utilisateur", "created_at", "updated_at", "formation_details")
 
     # Organisation des champs
     fieldsets = (
         ("Informations générales", {
-            "fields": ("formation", "utilisateur")
+            "fields": ("formation", "formation_details", "utilisateur"),
+            "description": "Information sur la formation et l'utilisateur concernés",
         }),
         ("Contenu du commentaire", {
-            "fields": ("contenu",)
+            "fields": ("contenu",),
+            "description": "Texte du commentaire",
         }),
         ("Données complémentaires", {
             "fields": ("saturation",),
+            "description": "Données additionnelles liées au commentaire",
         }),
         ("Métadonnées", {
-            "fields": ("created_at",),
-            "classes": ("collapse",)
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",),
+            "description": "Informations temporelles automatiques",
         }),
     )
 
     ordering = ("-created_at",)
     list_per_page = 20
+    date_hierarchy = "created_at"  # Navigation par date
+    
+    def get_queryset(self, request):
+        """Optimise les requêtes avec des jointures."""
+        queryset = super().get_queryset(request)
+        return queryset.select_related('formation', 'formation__centre', 'utilisateur')
+
+    def formation_link(self, obj):
+        """Affiche un lien vers la formation associée."""
+        if obj.formation:
+            url = reverse('admin:rap_app_formation_change', args=[obj.formation.id])
+            return format_html('<a href="{}">{}</a>', url, obj.formation.nom)
+        return "—"
+    formation_link.short_description = "Formation"
+    formation_link.admin_order_field = "formation__nom"
+
+    def utilisateur_link(self, obj):
+        """Affiche un lien vers l'utilisateur associé."""
+        if obj.utilisateur:
+            url = reverse('admin:auth_user_change', args=[obj.utilisateur.id])
+            return format_html('<a href="{}">{}</a>', url, obj.utilisateur.username)
+        return "Anonyme"
+    utilisateur_link.short_description = "Utilisateur"
+    utilisateur_link.admin_order_field = "utilisateur__username"
+
+    def contenu_preview(self, obj):
+        """Affiche un aperçu tronqué du contenu du commentaire."""
+        max_length = 50
+        if len(obj.contenu) <= max_length:
+            return obj.contenu
+        return format_html(
+            '{}... <span class="viewlink">(<a href="{}">Voir tout</a>)</span>', 
+            obj.contenu[:max_length], 
+            reverse('admin:rap_app_commentaire_change', args=[obj.id])
+        )
+    contenu_preview.short_description = "Contenu"
+
+    def saturation_display(self, obj):
+        """Affiche le niveau de saturation avec code couleur."""
+        if obj.saturation is None:
+            return "—"
+            
+        # Détermination de la couleur selon le pourcentage
+        if obj.saturation < 50:
+            color = "green"
+        elif obj.saturation < 80:
+            color = "orange"
+        else:
+            color = "red"
+            
+        return format_html(
+            '<div style="width:100%%; background-color: #f8f9fa; border-radius: 3px;">'
+            '<div style="width:{}%%; background-color: {}; height: 10px; border-radius: 3px;"></div>'
+            '</div>'
+            '<span>{} %</span>', 
+            min(obj.saturation, 100), color, obj.saturation
+        )
+    saturation_display.short_description = "Saturation"
+    saturation_display.admin_order_field = "saturation"
+    
+    def formation_details(self, obj):
+        """Affiche les détails de la formation associée."""
+        if not obj.formation:
+            return "Aucune formation associée"
+            
+        formation = obj.formation
+        return format_html(
+            '<table class="formation-details">'
+            '<tr><th>Nom:</th><td>{}</td></tr>'
+            '<tr><th>Centre:</th><td>{}</td></tr>'
+            '<tr><th>Statut:</th><td>{}</td></tr>'
+            '<tr><th>Dates:</th><td>{} → {}</td></tr>'
+            '<tr><th>Commentaires:</th><td>{}</td></tr>'
+            '</table>',
+            formation.nom,
+            formation.centre.nom if formation.centre else "—",
+            formation.statut.nom if formation.statut else "—",
+            formation.start_date.strftime('%d/%m/%Y') if formation.start_date else "—",
+            formation.end_date.strftime('%d/%m/%Y') if formation.end_date else "—",
+            formation.commentaires.count()
+        )
+    formation_details.short_description = "Détails de la formation"
 
     def save_model(self, request, obj, form, change):
         """
-        Assigne l'utilisateur connecté à l'ajout d'un commentaire.
+        Assigne l'utilisateur connecté à l'ajout d'un commentaire et
+        journalise l'opération.
         """
-        if not obj.utilisateur:
-            # Vérifie que request.user est bien du bon type
-            if isinstance(request.user, Utilisateur):
-                obj.utilisateur = request.user
-            else:
-                obj.utilisateur = Utilisateur.objects.get(pk=request.user.pk)  # Convertit en `Utilisateur`
-        
+        if not change:  # Création d'un nouveau commentaire
+            if not obj.utilisateur:
+                # Vérifie que request.user est bien du bon type
+                if isinstance(request.user, Utilisateur):
+                    obj.utilisateur = request.user
+                else:
+                    obj.utilisateur = Utilisateur.objects.get(pk=request.user.pk)
+                    
+            logger.info(
+                f"Admin - Création d'un commentaire par {request.user.username} "
+                f"pour la formation '{obj.formation.nom if obj.formation else 'N/A'}'"
+            )
+        else:  # Modification d'un commentaire existant
+            original = Commentaire.objects.get(pk=obj.pk)
+            changes = []
+            
+            if original.contenu != obj.contenu:
+                changes.append("contenu modifié")
+                
+            if original.saturation != obj.saturation:
+                changes.append(f"saturation: {original.saturation}% → {obj.saturation}%")
+                
+            if original.formation != obj.formation:
+                changes.append(
+                    f"formation: '{original.formation.nom if original.formation else 'N/A'}' → "
+                    f"'{obj.formation.nom if obj.formation else 'N/A'}'"
+                )
+                
+            if changes:
+                logger.info(
+                    f"Admin - Modification du commentaire #{obj.pk} par {request.user.username}: "
+                    f"{', '.join(changes)}"
+                )
+                
         obj.save()
+
+    def delete_model(self, request, obj):
+        """Journalise la suppression d'un commentaire depuis l'admin."""
+        logger.warning(
+            f"Admin - Suppression du commentaire #{obj.pk} "
+            f"(créé le {obj.created_at.strftime('%d/%m/%Y')} "
+            f"par {obj.utilisateur.username if obj.utilisateur else 'Anonyme'}) "
+            f"pour la formation '{obj.formation.nom if obj.formation else 'N/A'}' "
+            f"par {request.user.username}"
+        )
+        super().delete_model(request, obj)
+        
+    class Media:
+        """Ressources CSS et JS pour l'interface d'admin."""
+        css = {
+            'all': ('css/admin/commentaire_admin.css',)
+        }
 
 
 ================================================
 File: rap_app/admin/company_admin.py
 ================================================
+import logging
 from django.contrib import admin
+from django.utils.html import format_html
+from django.urls import reverse
+from django.db.models import Count
+from django.contrib.admin.filters import SimpleListFilter
+from django.utils.safestring import mark_safe
+
 from ..models.company import Company
+from ..models.prospection import Prospection
+
+# Configuration du logger
+logger = logging.getLogger(__name__)
+
+# Filtre personnalisé pour les entreprises avec/sans prospections
+class HasProspectionsFilter(SimpleListFilter):
+    title = 'a des prospections'
+    parameter_name = 'has_prospections'
+    
+    def lookups(self, request, model_admin):
+        return (
+            ('yes', 'Avec prospections'),
+            ('no', 'Sans prospection')
+        )
+    
+    def queryset(self, request, queryset):
+        if self.value() == 'yes':
+            return queryset.annotate(prospections_count=Count('prospections')).filter(prospections_count__gt=0)
+        if self.value() == 'no':
+            return queryset.annotate(prospections_count=Count('prospections')).filter(prospections_count=0)
+        return queryset
 
 @admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('name', 'contact_name', 'contact_email', 'phone_number', 'city', 'sector_name', 'created_at')
-    search_fields = ('name', 'contact_name', 'contact_email', 'phone_number', 'sector_name')
-    list_filter = ('sector_name', 'city', 'created_at')
-    ordering = ('-created_at',)
+    """
+    Interface d'administration personnalisée pour le modèle Company.
+    """
+    list_display = (
+        'name',                 # Nom de l'entreprise
+        'city_with_code',       # Ville avec code postal
+        'contact_info',         # Informations de contact
+        'sector_name',          # Secteur d'activité
+        'actions_display',      # Type d'action
+        'prospections_count',   # Nombre de prospections
+        'website_link',         # Lien vers le site web
+        'created_at',           # Date de création
+        'created_by',           # Utilisateur qui a créé l'entrée
+    )
 
+    list_display_links = ('name',)
+
+    list_filter = (
+        'city',                # Filtre par ville
+        'sector_name',         # Filtre par secteur d'activité
+        'actions',             # Filtre par type d'action
+        HasProspectionsFilter, # Filtre personnalisé
+        'created_at',          # Filtre par date
+    )
+
+    search_fields = (
+        'name',               # Recherche par nom d'entreprise
+        'contact_name',       # Recherche par nom du contact
+        'contact_email',      # Recherche par email du contact
+        'contact_job',        # Recherche par poste du contact
+        'sector_name',        # Recherche par secteur
+        'city',               # Recherche par ville
+        'zip_code',           # Recherche par code postal
+    )
+
+    fieldsets = (
+        ("Informations générales", {
+            'fields': (('name', 'sector_name'), ('street_name', 'zip_code', 'city', 'country')),
+            'description': 'Informations principales de l\'entreprise'
+        }),
+        ("Contact", {
+            'fields': (('contact_name', 'contact_job'), ('contact_email', 'contact_phone_number')),
+            'description': 'Coordonnées du contact principal'
+        }),
+        ("Opportunités", {
+            'fields': ('actions', 'action_description'),
+            'description': 'Actions possibles avec cette entreprise'
+        }),
+        ("Présence en ligne", {
+            'fields': ('website', 'social_network_url'),
+            'description': 'Sites web et profils sur les réseaux sociaux'
+        }),
+        ("Métadonnées", {
+            'fields': ('created_by', 'created_at', 'updated_at'),
+            'classes': ('collapse',),
+            'description': 'Informations sur la création et les modifications'
+        }),
+    )
+
+    readonly_fields = ('created_at', 'updated_at', 'prospections_list')
+    list_per_page = 20
+    date_hierarchy = 'created_at'
+    ordering = ('-created_at',)
+    
+    def get_queryset(self, request):
+        """
+        Optimise les requêtes en préchargeant les relations
+        et en calculant le nombre de prospections.
+        """
+        queryset = super().get_queryset(request)
+        queryset = queryset.select_related('created_by').annotate(
+            num_prospections=Count('prospections', distinct=True)
+        )
+        return queryset
+    
+    def city_with_code(self, obj):
+        """Affiche la ville avec le code postal."""
+        if obj.city and obj.zip_code:
+            return f"{obj.city} ({obj.zip_code})"
+        elif obj.city:
+            return obj.city
+        elif obj.zip_code:
+            return f"CP: {obj.zip_code}"
+        return "—"
+    city_with_code.short_description = "Localisation"
+    city_with_code.admin_order_field = 'city'
+    
+    def contact_info(self, obj):
+        """Affiche les informations de contact de manière compacte."""
+        if obj.contact_name:
+            contact_parts = [obj.contact_name]
+            if obj.contact_job:
+                contact_parts.append(f"<em>{obj.contact_job}</em>")
+            if obj.contact_email:
+                contact_parts.append(f'<a href="mailto:{obj.contact_email}">{obj.contact_email}</a>')
+            return format_html(' - '.join(contact_parts))
+        return "—"
+    contact_info.short_description = "Contact"
+    contact_info.admin_order_field = 'contact_name'
+    
+    def actions_display(self, obj):
+        """Affiche le type d'action avec une étiquette colorée."""
+        if not obj.actions:
+            return "—"
+            
+        action_labels = {
+            'accueil_stagiaires': ('bg-info', 'Stagiaires'),
+            'recrutement_cdi': ('bg-success', 'CDI'),
+            'recrutement_cdd': ('bg-success', 'CDD'),
+            'recrutement_stage': ('bg-info', 'Stage'),
+            'recrutement_formation': ('bg-primary', 'Formation'),
+            'recrutement_apprentissage': ('bg-warning', 'Apprentissage'),
+            'partenariat': ('bg-primary', 'Partenariat'),
+            'taxe_apprentissage': ('bg-warning', 'Taxe'),
+        }
+        
+        # Valeur par défaut pour les actions non spécifiées
+        bg_class, label = action_labels.get(obj.actions, ('bg-secondary', dict(obj.CHOICES_TYPE_OF_ACTION).get(obj.actions, 'Autre')))
+        
+        return format_html(
+            '<span class="badge {}">{}</span>',
+            bg_class, label
+        )
+    actions_display.short_description = "Action"
+    actions_display.admin_order_field = 'actions'
+    
+    def website_link(self, obj):
+        """Affiche un lien vers le site web s'il existe."""
+        if obj.website:
+            return format_html('<a href="{}" target="_blank">Visiter</a>', obj.website)
+        return "—"
+    website_link.short_description = "Site Web"
+    
+    def prospections_count(self, obj):
+        """Affiche le nombre de prospections avec un lien vers le filtre."""
+        count = getattr(obj, 'num_prospections', 0)
+        if count > 0:
+            url = reverse('admin:rap_app_prospection_changelist') + f'?company__id__exact={obj.pk}'
+            return format_html('<a href="{}">{} prospection(s)</a>', url, count)
+        return "Aucune"
+    prospections_count.short_description = "Prospections"
+    prospections_count.admin_order_field = 'num_prospections'
+    
+    def prospections_list(self, obj):
+        """Affiche la liste des prospections associées dans le détail."""
+        prospections = Prospection.objects.filter(company=obj).select_related('formation', 'responsable')
+        if not prospections.exists():
+            return "Aucune prospection associée à cette entreprise."
+            
+        html = ['<table class="table"><thead><tr>',
+                '<th>Date</th><th>Formation</th><th>Statut</th><th>Objectif</th><th>Responsable</th>',
+                '</tr></thead><tbody>']
+        
+        for p in prospections:
+            formation_name = p.formation.nom if p.formation else "—"
+            responsable_name = p.responsable.username if p.responsable else "—"
+            
+            html.append(f'<tr>')
+            html.append(f'<td>{p.date_prospection.strftime("%d/%m/%Y")}</td>')
+            html.append(f'<td>{formation_name}</td>')
+            html.append(f'<td>{p.get_statut_display()}</td>')
+            html.append(f'<td>{p.get_objectif_display()}</td>')
+            html.append(f'<td>{responsable_name}</td>')
+            html.append('</tr>')
+            
+        html.append('</tbody></table>')
+        
+        return mark_safe(''.join(html))
+    prospections_list.short_description = "Activités de prospection"
+
+    def save_model(self, request, obj, form, change):
+        """
+        Assigne l'utilisateur actuel comme créateur si nécessaire
+        et journalise l'action.
+        """
+        is_new = not obj.pk
+        
+        if not obj.created_by:
+            obj.created_by = request.user
+        
+        if is_new:
+            logger.info(f"Admin - Création d'une nouvelle entreprise '{obj.name}' par {request.user.username}")
+        else:
+            if form.changed_data:
+                logger.info(
+                    f"Admin - Modification de l'entreprise #{obj.pk} '{obj.name}' par {request.user.username}. "
+                    f"Champs modifiés: {', '.join(form.changed_data)}"
+                )
+                
+        super().save_model(request, obj, form, change)
+
+    def delete_model(self, request, obj):
+        """Journalise la suppression d'une entreprise."""
+        logger.warning(
+            f"Admin - Suppression de l'entreprise #{obj.pk} '{obj.name}' "
+            f"par {request.user.username}"
+        )
+        super().delete_model(request, obj)
+
+    def has_delete_permission(self, request, obj=None):
+        """
+        Empêche la suppression si l'entreprise a des prospections associées.
+        """
+        if obj is None:
+            return True
+            
+        prospections_count = Prospection.objects.filter(company=obj).count()
+        
+        if prospections_count > 0:
+            return False
+            
+        return True
+    
+    class Media:
+        """Ressources CSS et JS pour l'interface d'admin."""
+        css = {
+            'all': ('css/admin/company_admin.css',)
+        }
 
 
 ================================================
@@ -511,91 +1668,450 @@ class DocumentAdmin(admin.ModelAdmin):
 ================================================
 File: rap_app/admin/evenements_admin.py
 ================================================
+import logging
 from django.contrib import admin
 from django.urls import reverse
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
+from django.db.models import Count
+from django.contrib.admin import SimpleListFilter
+from django.utils import timezone
+
 from ..models import Evenement
+
+
+# Filtre personnalisé pour le statut de l'événement
+class EventStatusFilter(SimpleListFilter):
+    """
+    Filtre personnalisé permettant de filtrer les événements par statut
+    (passés, aujourd'hui, à venir, imminents).
+    """
+    title = 'Statut'
+    parameter_name = 'status'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('past', 'Passés'),
+            ('today', 'Aujourd\'hui'),
+            ('coming_soon', 'Imminents (7 jours)'),
+            ('future', 'À venir'),
+        )
+
+    def queryset(self, request, queryset):
+        today = timezone.now().date()
+        
+        if self.value() == 'past':
+            return queryset.filter(event_date__lt=today)
+        elif self.value() == 'today':
+            return queryset.filter(event_date=today)
+        elif self.value() == 'coming_soon':
+            return queryset.filter(event_date__gt=today, 
+                                  event_date__lte=today + timezone.timedelta(days=7))
+        elif self.value() == 'future':
+            return queryset.filter(event_date__gt=today)
+        return queryset
 
 
 @admin.register(Evenement)
 class EvenementAdmin(admin.ModelAdmin):
-    list_display = ('type_evenement_display', 'event_date', 'formation_link', 
-                   'details_preview', 'created_at', 'event_date')
-    list_filter = ('type_evenement', 'event_date', 'formation__centre')
-    search_fields = ('formation__nom', 'details', 'description_autre')
-    readonly_fields = ('created_at', 'updated_at')
-    date_hierarchy = 'event_date'
+    """
+    Configuration de l'interface d'administration pour le modèle Evenement.
     
+    Cette classe définit l'affichage, le filtrage, la recherche et les formulaires
+    dans l'interface d'administration Django.
+    """
+    list_display = (
+        'type_evenement_display', 
+        'event_date_formatted', 
+        'formation_link', 
+        'lieu_display',
+        'details_preview', 
+        'participants_display',
+        'status_badge',
+        'created_at',
+    )
+    list_filter = (
+        EventStatusFilter,
+        'type_evenement', 
+        'formation__centre',
+        'event_date',
+    )
+    search_fields = (
+        'formation__nom', 
+        'details', 
+        'description_autre',
+        'lieu',
+    )
+    readonly_fields = (
+        'created_at', 
+        'updated_at', 
+        'participation_rate_display',
+        'status_display',
+    )
+    date_hierarchy = 'event_date'
+    autocomplete_fields = ['formation']
+    list_select_related = ('formation', 'formation__centre')
+    save_on_top = True
+    list_per_page = 25
+    
+    # Regroupement des champs par sections
     fieldsets = (
         ('Informations générales', {
-            'fields': ('formation', 'type_evenement', 'description_autre', 'event_date')
+            'fields': (
+                'formation', 
+                'type_evenement', 
+                'description_autre', 
+                'event_date',
+                'lieu',
+                'status_display',
+            )
+        }),
+        ('Participants', {
+            'fields': (
+                'participants_prevus', 
+                'participants_reels',
+                'participation_rate_display',
+            ),
+            'description': 'Information sur la participation à l\'événement.'
         }),
         ('Détails', {
-            'fields': ('details',)
+            'fields': ('details',),
+            'classes': ('wide',)
         }),
         ('Métadonnées', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         }),
     )
-
+    
+    # Personnalisation des actions disponibles
+    actions = ['mark_as_completed']
+    
+    def get_queryset(self, request):
+        """
+        Optimise les requêtes en préchargeant les relations.
+        """
+        return super().get_queryset(request).select_related(
+            'formation', 
+            'formation__centre'
+        )
+    
     def formation_link(self, obj):
+        """
+        Génère un lien vers la formation associée à l'événement.
+        """
         if obj.formation and obj.formation.id:
             url = reverse('admin:rap_app_formation_change', args=[obj.formation.id])
-            return format_html('<a href="{}">{}</a>', url, obj.formation)
+            return format_html(
+                '<a href="{}" title="{}">{}</a>', 
+                url, 
+                f"Centre: {obj.formation.centre.nom if obj.formation.centre else 'N/A'}", 
+                obj.formation.nom
+            )
         return "Aucune formation"
-
+    formation_link.short_description = "Formation"
+    formation_link.admin_order_field = 'formation__nom'
 
     def type_evenement_display(self, obj):
+        """
+        Affiche le type d'événement ou la description personnalisée.
+        """
         if obj.type_evenement == Evenement.AUTRE and obj.description_autre:
-            return obj.description_autre
+            return format_html('<span title="Type: Autre">{}</span>', obj.description_autre)
         return obj.get_type_evenement_display()
     type_evenement_display.short_description = "Type d'événement"
     type_evenement_display.admin_order_field = 'type_evenement'
 
+    def event_date_formatted(self, obj):
+        """
+        Formate la date de l'événement de manière lisible.
+        """
+        if not obj.event_date:
+            return "Non définie"
+        
+        today = timezone.now().date()
+        formatted_date = obj.event_date.strftime('%d/%m/%Y')
+        
+        # Ajouter une indication visuelle selon la date
+        if obj.event_date == today:
+            return format_html('<b style="color: #d35400;">{} (Aujourd\'hui)</b>', formatted_date)
+        elif obj.event_date < today:
+            return format_html('<span style="color: #7f8c8d;">{}</span>', formatted_date)
+        elif obj.event_date <= today + timezone.timedelta(days=7):
+            return format_html('<b style="color: #2980b9;">{}</b>', formatted_date)
+        
+        return formatted_date
+    event_date_formatted.short_description = "Date"
+    event_date_formatted.admin_order_field = 'event_date'
+
     def details_preview(self, obj):
-        if obj.details:
-            # Tronquer les détails s'ils sont trop longs
-            preview = obj.details[:50] + ('...' if len(obj.details) > 50 else '')
-            return preview
-        return "-"
+        """
+        Génère un aperçu des détails avec bouton d'affichage complet.
+        """
+        if not obj.details:
+            return "-"
+            
+        # Tronquer les détails s'ils sont trop longs
+        max_length = 50
+        preview = obj.details[:max_length] + ('...' if len(obj.details) > max_length else '')
+        
+        # Ajouter un bouton pour voir les détails complets
+        if len(obj.details) > max_length:
+            return format_html(
+                '<span title="Cliquer pour voir tout le texte">{}</span> '
+                '<button type="button" class="button" '
+                'onclick="alert(\'{}\')">Voir</button>',
+                preview, 
+                obj.details.replace("'", "\\'").replace("\n", "\\n")
+            )
+        return preview
     details_preview.short_description = 'Détails'
+    
+    def participants_display(self, obj):
+        """
+        Affiche les informations sur les participants avec formatage conditionnel.
+        """
+        if obj.participants_prevus is None:
+            return "-"
+            
+        if obj.participants_reels is not None:
+            # Calcul du taux et couleur selon la valeur
+            rate = (obj.participants_reels / obj.participants_prevus) * 100
+            if rate >= 90:
+                color = "green"
+            elif rate >= 70:
+                color = "orange"
+            else:
+                color = "red"
+                
+            return format_html(
+                '<span title="Taux: {:.1f}%">'
+                '<b style="color: {};">{}/{}</b>'
+                '</span>',
+                rate, color, obj.participants_reels, obj.participants_prevus
+            )
+        else:
+            return f"{obj.participants_prevus} prévus"
+    participants_display.short_description = "Participants"
+    
+    def participation_rate_display(self, obj):
+        """
+        Calcule et affiche le taux de participation.
+        """
+        rate = obj.get_participation_rate()
+        if rate is None:
+            return "Données incomplètes"
+            
+        # Formatage avec code couleur selon le taux
+        if rate >= 90:
+            color_class = "success"
+        elif rate >= 70:
+            color_class = "warning"
+        else:
+            color_class = "error"
+            
+        return format_html(
+            '<span style="font-weight: bold; color: {};">{:.1f}%</span>',
+            {"success": "green", "warning": "orange", "error": "red"}[color_class],
+            rate
+        )
+    participation_rate_display.short_description = "Taux de participation"
+    
+    def status_display(self, obj):
+        """
+        Affiche le statut actuel de l'événement.
+        """
+        status = obj.get_status_display()
+        
+        # Définition des couleurs selon le statut
+        colors = {
+            "Passé": "#7f8c8d",
+            "Aujourd'hui": "#d35400",
+            "À venir": "#2980b9"
+        }
+        
+        return format_html(
+            '<span style="font-weight: bold; color: {};">{}</span>',
+            colors.get(status, "black"),
+            status
+        )
+    status_display.short_description = "Statut"
+    
+    def status_badge(self, obj):
+        """
+        Génère un badge visuel pour indiquer le statut de l'événement.
+        """
+        if obj.is_past():
+            return mark_safe('<span style="color: white; background-color: #7f8c8d; padding: 3px 6px; border-radius: 3px;">Passé</span>')
+        elif obj.is_today():
+            return mark_safe('<span style="color: white; background-color: #d35400; padding: 3px 6px; border-radius: 3px;">Aujourd\'hui</span>')
+        elif obj.is_coming_soon():
+            return mark_safe('<span style="color: white; background-color: #2980b9; padding: 3px 6px; border-radius: 3px;">Imminent</span>')
+        else:
+            return mark_safe('<span style="color: white; background-color: #27ae60; padding: 3px 6px; border-radius: 3px;">À venir</span>')
+    status_badge.short_description = "Statut"
+    
+    def lieu_display(self, obj):
+        """
+        Affiche le lieu de l'événement ou une valeur par défaut.
+        """
+        if obj.lieu:
+            return obj.lieu
+        return format_html('<span style="color: #999;">Non défini</span>')
+    lieu_display.short_description = "Lieu"
+    lieu_display.admin_order_field = 'lieu'
+    
+    def mark_as_completed(self, request, queryset):
+        """
+        Action personnalisée pour marquer les événements comme terminés.
+        
+        Cette action permet de mettre à jour les événements sélectionnés
+        pour indiquer qu'ils sont terminés, en mettant participants_reels
+        égal à participants_prevus s'il n'est pas défini.
+        """
+        updated = 0
+        for event in queryset:
+            if event.participants_prevus and event.participants_reels is None:
+                event.participants_reels = event.participants_prevus
+                event.save()
+                updated += 1
+                
+        if updated:
+            self.message_user(
+                request, 
+                f"{updated} événement(s) ont été marqués comme terminés."
+            )
+        else:
+            self.message_user(
+                request,
+                "Aucun événement n'a été mis à jour. Vérifiez que les événements "
+                "sélectionnés ont des participants prévus mais pas de participants réels.",
+                level='WARNING'
+            )
+    mark_as_completed.short_description = "Marquer les événements sélectionnés comme terminés"
+    
+    # Personnalisation de l'interface d'édition
+    def get_fieldsets(self, request, obj=None):
+        """
+        Ajuste les sections du formulaire selon que l'objet existe ou non.
+        """
+        fieldsets = super().get_fieldsets(request, obj)
+        
+        # Pour un nouvel événement, simplifie le formulaire
+        if obj is None:
+            return (
+                ('Informations générales', {
+                    'fields': (
+                        'formation', 
+                        'type_evenement', 
+                        'description_autre', 
+                        'event_date',
+                        'lieu',
+                    )
+                }),
+                ('Participants', {
+                    'fields': ('participants_prevus',),
+                }),
+                ('Détails', {
+                    'fields': ('details',),
+                }),
+            )
+        return fieldsets
+    
+    def save_model(self, request, obj, form, change):
+        """
+        Personnalise la sauvegarde pour journaliser l'action d'administration.
+        """
+        # Journaliser l'action
+        logger = logging.getLogger("application.admin")
+        
+        if change:
+            logger.info(
+                f"Admin: Utilisateur {request.user} a modifié l'événement #{obj.pk}"
+            )
+        else:
+            logger.info(
+                f"Admin: Utilisateur {request.user} a créé un nouvel événement de type '{obj.get_type_evenement_display()}'"
+            )
+            
+        super().save_model(request, obj, form, change)
 
 
 ================================================
 File: rap_app/admin/formations_admin.py
 ================================================
+import logging
 from django.contrib import admin
 from django.utils.html import format_html
-from django.db.models import F, Sum
+from django.db.models import F, Sum, Case, When, Value, IntegerField, FloatField, Q, Count
+from django.urls import reverse
+from django.utils import timezone
 
-from ..models.formations import Formation
+from ..models.formations import Formation, HistoriqueFormation
+
+# Configuration du logger
+logger = logging.getLogger("application.formation.admin")
+
+
+class HistoriqueFormationInline(admin.TabularInline):
+    """
+    Inline pour afficher l'historique des modifications des formations.
+    Permet de voir les changements récents directement dans la page d'édition de la formation.
+    """
+    model = HistoriqueFormation
+    extra = 0
+    readonly_fields = (
+        'date_modification', 'action', 'champ_modifie', 
+        'ancienne_valeur', 'nouvelle_valeur', 'modifie_par'
+    )
+    fields = readonly_fields
+    can_delete = False
+    max_num = 0  # Empêche l'ajout manuel
+    verbose_name = "Historique de modification"
+    verbose_name_plural = "Historique des modifications"
+    
+    def has_add_permission(self, request, obj=None):
+        """Désactive l'ajout manuel d'historique"""
+        return False
+    
+    def get_queryset(self, request):
+        """Récupère les 10 dernières modifications"""
+        queryset = super().get_queryset(request)
+        return queryset.order_by('-date_modification')[:10]
+
 
 @admin.register(Formation)
 class FormationAdmin(admin.ModelAdmin):
     """
-    Administration du modèle Formation avec fonctionnalités avancées
+    Administration du modèle Formation avec fonctionnalités avancées:
+    - Affichage optimisé avec indicateurs visuels
+    - Filtres contextuels
+    - Statistiques globales
+    - Actions personnalisées
+    - Interface responsive
     """
     # Champs affichés dans la liste des formations
     list_display = (
         'nom', 
-        'centre', 
-        'type_offre', 
-        'statut', 
-        'start_date', 
-        'end_date', 
+        'centre_display', 
+        'type_offre_display', 
+        'statut_display', 
+        'statut',  # Ajout de ce champ pour list_editable
+        'periode_display',
         'places_dispo_display', 
-        'taux_saturation_display'
+        'taux_saturation_display',
+        'prospections_count',
+        'evenements_count'
     )
     
-    # Filtres dans la barre latérale
+    # Filtres dans la barre latérale avec filtres personnalisés
     list_filter = (
         'centre', 
         'statut', 
-        'type_offre', 
-        'start_date', 
-        'end_date', 
-        'convocation_envoie'
+        'type_offre',
+        ('start_date', admin.DateFieldListFilter),
+        ('end_date', admin.DateFieldListFilter),
+        'convocation_envoie',
     )
     
     # Champs de recherche
@@ -604,13 +2120,18 @@ class FormationAdmin(admin.ModelAdmin):
         'num_kairos', 
         'num_offre', 
         'num_produit', 
-        'assistante'
+        'assistante',
+        'centre__nom',
+        'type_offre__nom',
+        'statut__nom'
     )
     
     # Actions personnalisées
     actions = [
         'marquer_convocation_envoyee', 
-        'reset_convocation_envoyee'
+        'reset_convocation_envoyee',
+        'export_selected_formations',
+        'dupliquer_formations'
     ]
     
     # Champs pour édition rapide depuis la liste
@@ -624,10 +2145,16 @@ class FormationAdmin(admin.ModelAdmin):
     )
     
     # Pagination pour la liste des formations
-    list_per_page = 20
+    list_per_page = 25
     
     # Filtres date dans le panneau latéral
     date_hierarchy = 'start_date'
+    
+    # Relations préchargées pour optimiser les performances
+    list_select_related = ('centre', 'type_offre', 'statut', 'utilisateur')
+    
+    # Inlines pour afficher les relations
+    inlines = [HistoriqueFormationInline]
     
     # Groupes de champs dans le formulaire d'édition
     fieldsets = (
@@ -638,31 +2165,34 @@ class FormationAdmin(admin.ModelAdmin):
                 'type_offre', 
                 'statut',
                 'utilisateur'
-            )
+            ),
+            'description': 'Informations principales de la formation'
         }),
         ('Dates et identifiants', {
             'fields': (
-                'start_date', 
-                'end_date', 
-                'num_kairos', 
-                'num_offre', 
-                'num_produit'
-            )
+                ('start_date', 'end_date'), 
+                ('num_kairos', 'num_offre', 'num_produit'),
+            ),
+            'description': 'Dates et codes de référence pour la formation'
         }),
         ('Gestion des places', {
             'fields': (
                 ('prevus_crif', 'inscrits_crif'),
                 ('prevus_mp', 'inscrits_mp'),
                 'cap',
-                'entresformation'
-            )
+                'entresformation',
+                'calcul_places_disponibles'
+            ),
+            'description': 'Configuration des places et inscriptions'
         }),
         ('Recrutement', {
             'fields': (
                 'nombre_candidats', 
                 'nombre_entretiens', 
-                'convocation_envoie'
-            )
+                'convocation_envoie',
+                'calcul_taux_transformation'
+            ),
+            'description': 'Données liées au recrutement et à la sélection des candidats'
         }),
         ('Informations supplémentaires', {
             'fields': (
@@ -671,11 +2201,18 @@ class FormationAdmin(admin.ModelAdmin):
                 'dernier_commentaire',
                 'partenaires'
             ),
-            'classes': ('collapse',)  # Cette section est rétractable
+            'classes': ('collapse',),
+            'description': 'Informations complémentaires et associations'
         })
     )
     
-    # Sauvegarde automatique des ManyToMany relations
+    # Champs en lecture seule (calculés automatiquement)
+    readonly_fields = (
+        'calcul_places_disponibles',
+        'calcul_taux_transformation',
+    )
+    
+    # Sauvegarde en haut de page pour les longs formulaires
     save_on_top = True
     
     # Relations many-to-many dans un widget filtrable
@@ -683,69 +2220,318 @@ class FormationAdmin(admin.ModelAdmin):
     
     # Méthodes pour les champs personnalisés dans l'affichage en liste
     
+    def centre_display(self, obj):
+        """Affiche le centre avec lien vers sa page d'administration"""
+        if obj.centre:
+            url = reverse('admin:rap_app_centre_change', args=[obj.centre.id])
+            return format_html('<a href="{}">{}</a>', url, obj.centre.nom)
+        return "-"
+    centre_display.short_description = "Centre"
+    centre_display.admin_order_field = 'centre__nom'
+    
+    def type_offre_display(self, obj):
+        """Affiche le type d'offre avec une pastille de couleur"""
+        if obj.type_offre:
+            color = "#3498db"  # Bleu par défaut
+            return format_html(
+                '<span style="color: white; background-color: {}; padding: 3px 7px; border-radius: 3px;">{}</span>',
+                color, obj.type_offre.nom
+            )
+        return "-"
+    type_offre_display.short_description = "Type d'offre"
+    type_offre_display.admin_order_field = 'type_offre__nom'
+    
+    def statut_display(self, obj):
+        """Affiche le statut avec une pastille de couleur basée sur sa valeur"""
+        if obj.statut:
+            # Récupérer la couleur depuis le modèle statut ou utiliser une couleur par défaut
+            color = obj.get_status_color() if hasattr(obj, 'get_status_color') else "#7f8c8d"
+            return format_html(
+                '<span style="color: white; background-color: {}; padding: 3px 7px; border-radius: 3px;">{}</span>',
+                color, obj.statut.nom
+            )
+        return "-"
+    statut_display.short_description = "Statut"
+    statut_display.admin_order_field = 'statut__nom'
+    
+    def periode_display(self, obj):
+        """Affiche la période (à venir, en cours, terminée) avec formatage visuel"""
+        today = timezone.now().date()
+        
+        if not obj.start_date:
+            return format_html('<span style="color: #95a5a6;">Non programmée</span>')
+        
+        if obj.start_date > today:
+            days = (obj.start_date - today).days
+            return format_html(
+                '<span style="color: #3498db;">À venir</span> <small>(dans {} jour{})</small>',
+                days, 's' if days > 1 else ''
+            )
+        
+        if not obj.end_date or obj.end_date >= today:
+            if obj.end_date:
+                days = (obj.end_date - today).days
+                return format_html(
+                    '<span style="color: #27ae60;">En cours</span> <small>({} jour{} restant{})</small>',
+                    days, 's' if days > 1 else '', 's' if days > 1 else ''
+                )
+            return format_html('<span style="color: #27ae60;">En cours</span>')
+        
+        days = (today - obj.end_date).days
+        return format_html(
+            '<span style="color: #7f8c8d;">Terminée</span> <small>(depuis {} jour{})</small>',
+            days, 's' if days > 1 else ''
+        )
+    periode_display.short_description = "Période"
+    periode_display.admin_order_field = 'start_date'
+    
     def places_dispo_display(self, obj):
-        """Affiche le nombre de places disponibles avec formatage"""
-        places = obj.get_places_disponibles()
-        color = 'green' if places > 5 else 'orange' if places > 0 else 'red'
-        return format_html('<span style="color: {};">{}</span>', color, places)
+        """Affiche le nombre de places disponibles avec formatage visuel"""
+        if hasattr(obj, 'places_disponibles'):
+            places = obj.places_disponibles
+        else:
+            places = obj.get_places_disponibles()
+            
+        total = obj.prevus_crif + obj.prevus_mp
+        if total == 0:
+            return format_html('<span style="color: #95a5a6;">N/A</span>')
+            
+        if places <= 0:
+            return format_html('<span style="color: #e74c3c;">Complet</span>')
+            
+        color = '#27ae60' if places > 5 else '#f39c12' if places > 0 else '#e74c3c'
+        return format_html(
+            '<span style="color: {};">{}/{}</span>',
+            color, places, total
+        )
     places_dispo_display.short_description = "Places disponibles"
     places_dispo_display.admin_order_field = 'places_disponibles'
     
     def taux_saturation_display(self, obj):
-        """Affiche le taux de saturation avec une barre de progression"""
-        taux = obj.get_taux_saturation()
-        color = 'green' if taux < 70 else 'orange' if taux < 95 else 'red'
+        """Affiche le taux de saturation avec une barre de progression interactive"""
+        if hasattr(obj, 'taux_saturation'):
+            taux = obj.taux_saturation
+        else:
+            taux = obj.get_taux_saturation()
+            
+        if obj.prevus_crif + obj.prevus_mp == 0:
+            return format_html('<span style="color: #95a5a6;">N/A</span>')
+            
+        taux = min(100, max(0, taux))  # Garantit que le taux est entre 0 et 100
+        
+        # Définition de la couleur en fonction du taux
+        if taux < 70:
+            color = '#27ae60'  # Vert
+        elif taux < 95:
+            color = '#f39c12'  # Orange
+        else:
+            color = '#e74c3c'  # Rouge
+            
         return format_html(
-            '<div style="width:100px; border:1px solid #ccc;">'
-            '<div style="width:{}px; height:10px; background-color:{};">&nbsp;</div>'
-            '</div> {}%',
-            min(int(taux), 100), color, round(taux, 1)
+            '<div class="progress" style="width:100px; height:10px; background-color:#ecf0f1; border-radius:5px;">'
+            '<div style="width:{}%; height:100%; background-color:{}; border-radius:5px;" '
+            'title="{}% de saturation"></div>'
+            '</div>'
+            '<span style="color: {};">{:.1f}%</span>',
+            taux, color, taux, color, taux
         )
     taux_saturation_display.short_description = "Taux de saturation"
     taux_saturation_display.admin_order_field = 'taux_saturation'
+    
+    def evenements_count(self, obj):
+        """Affiche le nombre d'événements avec lien vers la liste filtrée"""
+        count = obj.nombre_evenements
+        if count > 0:
+            url = reverse('admin:rap_app_evenement_changelist') + f'?formation__id__exact={obj.id}'
+            return format_html('<a href="{}" title="Voir les événements">{}</a>', url, count)
+        return "0"
+    evenements_count.short_description = "Événements"
+    
+    def prospections_count(self, obj):
+        """Affiche le nombre de prospections avec lien vers la liste filtrée"""
+        if hasattr(obj, 'nb_prospections'):
+            count = obj.nb_prospections
+        else:
+            count = obj.prospections.count()
+            
+        if count > 0:
+            url = reverse('admin:rap_app_prospection_changelist') + f'?formation__id__exact={obj.id}'
+            return format_html('<a href="{}" title="Voir les prospections">{}</a>', url, count)
+        return "0"
+    prospections_count.short_description = "Prospections"
+    
+    def calcul_places_disponibles(self, obj):
+        """Affiche le calcul détaillé des places disponibles"""
+        places_crif = max(0, obj.prevus_crif - obj.inscrits_crif)
+        places_mp = max(0, obj.prevus_mp - obj.inscrits_mp)
+        total = places_crif + places_mp
+        
+        return format_html(
+            '<div style="margin-top: 10px;">'
+            '<p><strong>Places CRIF:</strong> {} - {} = <span style="color:#27ae60;">{}</span></p>'
+            '<p><strong>Places MP:</strong> {} - {} = <span style="color:#27ae60;">{}</span></p>'
+            '<p><strong>Total disponible:</strong> <span style="color:#2980b9; font-weight:bold;">{}</span></p>'
+            '</div>',
+            obj.prevus_crif, obj.inscrits_crif, places_crif,
+            obj.prevus_mp, obj.inscrits_mp, places_mp,
+            total
+        )
+    calcul_places_disponibles.short_description = "Calcul des places disponibles"
+    
+    def calcul_taux_transformation(self, obj):
+        """Affiche le calcul du taux de transformation (candidats -> inscrits)"""
+        inscrits = obj.inscrits_crif + obj.inscrits_mp
+        
+        if obj.nombre_candidats == 0:
+            return format_html('<p>Pas de candidats enregistrés</p>')
+            
+        taux = (inscrits / obj.nombre_candidats) * 100
+        
+        if taux < 40:
+            color = '#e74c3c'  # Rouge
+        elif taux < 70:
+            color = '#f39c12'  # Orange
+        else:
+            color = '#27ae60'  # Vert
+            
+        return format_html(
+            '<div style="margin-top: 10px;">'
+            '<p><strong>Candidats:</strong> {}</p>'
+            '<p><strong>Inscrits:</strong> {}</p>'
+            '<p><strong>Taux de transformation:</strong> <span style="color:{}; font-weight:bold;">{:.1f}%</span></p>'
+            '</div>',
+            obj.nombre_candidats, inscrits, color, taux
+        )
+    calcul_taux_transformation.short_description = "Calcul du taux de transformation"
     
     # Actions personnalisées
     
     def marquer_convocation_envoyee(self, request, queryset):
         """Marque les convocations comme envoyées pour les formations sélectionnées"""
         updated = queryset.update(convocation_envoie=True)
+        logger.info(f"Admin: {request.user} a marqué {updated} formations avec convocations envoyées")
         self.message_user(request, f"{updated} formations marquées avec convocations envoyées.")
     marquer_convocation_envoyee.short_description = "Marquer les convocations comme envoyées"
     
     def reset_convocation_envoyee(self, request, queryset):
         """Réinitialise le statut d'envoi des convocations"""
         updated = queryset.update(convocation_envoie=False)
+        logger.info(f"Admin: {request.user} a réinitialisé le statut des convocations pour {updated} formations")
         self.message_user(request, f"Statut d'envoi des convocations réinitialisé pour {updated} formations.")
     reset_convocation_envoyee.short_description = "Réinitialiser statut d'envoi des convocations"
     
+    def export_selected_formations(self, request, queryset):
+        """Exporte les formations sélectionnées au format CSV"""
+        import csv
+        from django.http import HttpResponse
+        
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="formations_export.csv"'
+        
+        writer = csv.writer(response)
+        writer.writerow([
+            "Nom", "Centre", "Type d'offre", "Statut", "Début", "Fin",
+            "Places CRIF", "Inscrits CRIF", "Places MP", "Inscrits MP",
+            "Candidats", "Entretiens", "Places disponibles", "Taux de saturation"
+        ])
+        
+        for formation in queryset:
+            writer.writerow([
+                formation.nom,
+                formation.centre.nom if formation.centre else "",
+                formation.type_offre.nom if formation.type_offre else "",
+                formation.statut.nom if formation.statut else "",
+                formation.start_date.strftime('%d/%m/%Y') if formation.start_date else "",
+                formation.end_date.strftime('%d/%m/%Y') if formation.end_date else "",
+                formation.prevus_crif,
+                formation.inscrits_crif,
+                formation.prevus_mp,
+                formation.inscrits_mp,
+                formation.nombre_candidats,
+                formation.nombre_entretiens,
+                formation.get_places_disponibles(),
+                f"{formation.get_taux_saturation():.1f}%"
+            ])
+            
+        logger.info(f"Admin: {request.user} a exporté {queryset.count()} formations en CSV")
+        return response
+    export_selected_formations.short_description = "Exporter les formations sélectionnées"
+    
+    def dupliquer_formations(self, request, queryset):
+        """Duplique les formations sélectionnées"""
+        count = 0
+        for formation in queryset:
+            # Sauvegarde des relations many-to-many
+            partenaires = list(formation.partenaires.all())
+            
+            # Duplication de la formation
+            formation.pk = None
+            formation.nom = f"Copie de {formation.nom}"
+            formation.save()
+            
+            # Restauration des relations many-to-many
+            formation.partenaires.add(*partenaires)
+            
+            count += 1
+            
+        logger.info(f"Admin: {request.user} a dupliqué {count} formations")
+        self.message_user(request, f"{count} formations ont été dupliquées avec succès.")
+    dupliquer_formations.short_description = "Dupliquer les formations sélectionnées"
+    
     # Surcharge pour ajouter des annotations
     def get_queryset(self, request):
-        """Surcharge pour ajouter des calculs agrégés à la requête"""
+        """
+        Optimise la requête avec des annotations pour les champs calculés.
+        Ajoute des calculs pour les places disponibles, taux de saturation, etc.
+        """
         queryset = super().get_queryset(request)
+        
+        # Ajout des calculs pour éviter les requêtes N+1
         queryset = queryset.annotate(
+            # Places disponibles
             places_disponibles=F('prevus_crif') + F('prevus_mp') - F('inscrits_crif') - F('inscrits_mp'),
-            taux_saturation=100 * (F('inscrits_crif') + F('inscrits_mp')) / 
-                           (F('prevus_crif') + F('prevus_mp'))
+            
+            # Taux de saturation
+            taux_saturation=Case(
+                When(Q(prevus_crif=0) & Q(prevus_mp=0), then=Value(0)),
+                default=100 * (F('inscrits_crif') + F('inscrits_mp')) / 
+                         (F('prevus_crif') + F('prevus_mp')),
+                output_field=FloatField()
+            ),
+            
+            # Nombre de prospections
+            nb_prospections=Count('prospections', distinct=True),
         )
+        
         return queryset
 
     # Statistiques personnalisées
     def changelist_view(self, request, extra_context=None):
-        """Ajout de statistiques en haut de la liste des formations"""
+        """
+        Enrichit la vue de liste avec des statistiques globales.
+        Ajoute des informations utiles pour avoir une vue d'ensemble.
+        """
         response = super().changelist_view(request, extra_context)
         
         # Uniquement si nous ne faisons pas face à une erreur 404
         if hasattr(response, 'context_data'):
             queryset = self.get_queryset(request)
+            today = timezone.now().date()
             
             # Calculer les statistiques globales
             stats = queryset.aggregate(
-                total_formations=Sum('id', distinct=True),
+                total_formations=Count('id', distinct=True),
                 total_places=Sum(F('prevus_crif') + F('prevus_mp')),
                 total_inscrits=Sum(F('inscrits_crif') + F('inscrits_mp')),
+                places_disponibles=Sum(F('prevus_crif') + F('prevus_mp') - F('inscrits_crif') - F('inscrits_mp')),
             )
             
-            # Ajouter les statistiques au contexte
+            # Statistiques par période
+            actives = queryset.filter(start_date__lte=today, end_date__gte=today).count()
+            a_venir = queryset.filter(start_date__gt=today).count()
+            terminees = queryset.filter(end_date__lt=today).count()
+            
+            # Créer le contexte enrichi
             if not extra_context:
                 extra_context = {}
             
@@ -756,15 +2542,26 @@ class FormationAdmin(admin.ModelAdmin):
             else:
                 extra_context['taux_remplissage_global'] = 0
                 
+            # Ajouter les statistiques supplémentaires
             extra_context.update(stats)
+            extra_context.update({
+                'formations_actives': actives,
+                'formations_a_venir': a_venir,
+                'formations_terminees': terminees,
+            })
+            
+            # Mise à jour du contexte de la réponse
             response.context_data.update(extra_context)
             
         return response
     
-    # Esthétique et optimisation des chargements
+    # Personnalisation de l'affichage
     
     class Media:
-        """Ressources CSS et JS pour l'interface d'admin"""
+        """
+        Ressources CSS et JS pour l'interface d'admin.
+        Améliore l'expérience utilisateur avec des styles et fonctionnalités personnalisés.
+        """
         css = {
             'all': ('css/admin/formation_admin.css',)
         }
@@ -774,147 +2571,529 @@ class FormationAdmin(admin.ModelAdmin):
 ================================================
 File: rap_app/admin/partenaires_admin.py
 ================================================
+import logging
 from django.contrib import admin
-from django.apps import apps
+from django.urls import reverse
+from django.utils.html import format_html, mark_safe
+from django.db.models import Count
+from django.contrib.admin import SimpleListFilter
 
-Partenaire = apps.get_model('rap_app', 'Partenaire')
+from ..models.partenaires import Partenaire
+from ..models import Formation
+
+
+class PartenaireHasFormationsFilter(SimpleListFilter):
+    """
+    Filtre personnalisé pour filtrer les partenaires selon qu'ils ont ou non des formations associées.
+    """
+    title = 'Statut d\'activité'
+    parameter_name = 'status'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('actif', 'Partenaires actifs (avec formations)'),
+            ('inactif', 'Partenaires inactifs (sans formation)'),
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'actif':
+            return queryset.filter(formations__isnull=False).distinct()
+        elif self.value() == 'inactif':
+            return queryset.filter(formations__isnull=True)
+        return queryset
+
+
+class SecteurActiviteFilter(SimpleListFilter):
+    """
+    Filtre personnalisé pour les secteurs d'activité, qui regroupe les valeurs similaires.
+    """
+    title = 'Secteur d\'activité'
+    parameter_name = 'secteur'
+
+    def lookups(self, request, model_admin):
+        # Récupération des secteurs d'activité avec regroupement intelligent
+        secteurs = Partenaire.objects.exclude(
+            secteur_activite__isnull=True
+        ).exclude(
+            secteur_activite=''
+        ).values_list('secteur_activite', flat=True).distinct()
+        
+        # Création des choix avec comptage
+        choices = []
+        for secteur in sorted(secteurs):
+            count = Partenaire.objects.filter(secteur_activite__icontains=secteur).count()
+            choices.append((secteur, f"{secteur} ({count})"))
+        
+        return choices
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(secteur_activite__icontains=self.value())
+        return queryset
+
 
 @admin.register(Partenaire)
 class PartenaireAdmin(admin.ModelAdmin):
-    list_display = ('nom', 'secteur_activite', 'contact_nom', 'contact_poste', 
-                    'contact_telephone', 'contact_email' )
-    list_filter = ('secteur_activite',)  # Ajout de la virgule pour éviter une erreur de tuple
-    search_fields = ('nom', 'contact_nom', 'contact_email', 'contact_telephone')
-    readonly_fields = ('created_at', 'updated_at')
+    """
+    Configuration de l'interface d'administration pour le modèle Partenaire.
+    
+    Cette classe définit l'affichage, le filtrage, la recherche et les formulaires
+    pour la gestion des partenaires dans l'interface d'administration Django.
+    """
+    list_display = (
+        'nom', 
+        'secteur_activite_display',
+        'contact_info_display',
+        'formations_count_display',
+        'last_update_display',
+    )
+    
+    list_filter = (
+        PartenaireHasFormationsFilter,
+        SecteurActiviteFilter,
+    )
+    
+    search_fields = (
+        'nom', 
+        'secteur_activite',
+        'contact_nom',
+        'contact_email',
+        'description',
+    )
+    
+    readonly_fields = (
+        'created_at', 
+        'updated_at',
+        'formations_list_display',
+        'slug',
+    )
     
     fieldsets = (
         ('Informations générales', {
-            'fields': ('nom', 'secteur_activite', 'description')
+            'fields': ('nom', 'slug', 'secteur_activite', 'description')
         }),
         ('Contact', {
-            'fields': ('contact_nom', 'contact_poste', 'contact_telephone', 'contact_email')
+            'fields': ('contact_nom', 'contact_poste', 'contact_telephone', 'contact_email'),
+            'description': 'Informations sur la personne à contacter chez ce partenaire'
+        }),
+        ('Formations associées', {
+            'fields': ('formations_list_display',),
+            'classes': ('collapse',),
+            'description': 'Liste des formations qui collaborent avec ce partenaire'
         }),
         ('Métadonnées', {
             'fields': ('created_at', 'updated_at'),
             'classes': ('collapse',)
         }),
     )
-
+    
+    save_on_top = True
+    list_per_page = 25
+    
+    def get_queryset(self, request):
+        """
+        Optimise les requêtes en annotant le nombre de formations.
+        
+        Returns:
+            QuerySet: Partenaires annotés avec le nombre de formations
+        """
+        return super().get_queryset(request).annotate(
+            formations_count=Count('formations', distinct=True)
+        )
+    
+    def formations_count_display(self, obj):
+        """
+        Affiche le nombre de formations avec lien vers le filtre admin.
+        
+        Args:
+            obj: Instance du partenaire
+            
+        Returns:
+            SafeText: Formatage HTML du compteur avec lien
+        """
+        count = getattr(obj, 'formations_count', obj.formations.count())
+        
+        if count == 0:
+            return format_html('<span style="color:#999;">Aucune formation</span>')
+            
+        url = reverse('admin:rap_app_formation_changelist') + f'?partenaires__id__exact={obj.id}'
+        return format_html(
+            '<a href="{}" class="badge" style="background-color:#007bff; color:white; '
+            'padding:4px 8px; border-radius:10px; text-decoration:none;">{} formation{}</a>',
+            url, count, 's' if count > 1 else ''
+        )
+    formations_count_display.short_description = 'Formations'
+    formations_count_display.admin_order_field = 'formations_count'
+    
+    def secteur_activite_display(self, obj):
+        """
+        Affiche le secteur d'activité avec une présentation améliorée.
+        
+        Args:
+            obj: Instance du partenaire
+            
+        Returns:
+            SafeText: Formatage HTML du secteur d'activité
+        """
+        if not obj.secteur_activite:
+            return format_html('<span style="color:#999;">Non défini</span>')
+            
+        return format_html(
+            '<span class="badge" style="background-color:#6c757d; color:white; '
+            'padding:3px 6px; border-radius:4px;">{}</span>',
+            obj.secteur_activite
+        )
+    secteur_activite_display.short_description = "Secteur d'activité"
+    secteur_activite_display.admin_order_field = 'secteur_activite'
+    
+    def contact_info_display(self, obj):
+        """
+        Affiche les informations de contact de façon condensée.
+        
+        Args:
+            obj: Instance du partenaire
+            
+        Returns:
+            SafeText: Formatage HTML des informations de contact
+        """
+        contact_parts = []
+        
+        if obj.contact_nom:
+            contact_parts.append(f"<strong>{obj.contact_nom}</strong>")
+        
+        if obj.contact_poste:
+            contact_parts.append(f"<em>{obj.contact_poste}</em>")
+            
+        if obj.contact_email:
+            contact_parts.append(f'<a href="mailto:{obj.contact_email}">{obj.contact_email}</a>')
+            
+        if obj.contact_telephone:
+            contact_parts.append(f'<span>{obj.contact_telephone}</span>')
+            
+        if not contact_parts:
+            return format_html('<span style="color:#999;">Aucun contact défini</span>')
+            
+        return format_html(' | '.join(contact_parts))
+    contact_info_display.short_description = "Contact"
+    
+    def last_update_display(self, obj):
+        """
+        Affiche la date de dernière mise à jour avec formatage.
+        
+        Args:
+            obj: Instance du partenaire
+            
+        Returns:
+            SafeText: Formatage HTML de la date de mise à jour
+        """
+        if not obj.updated_at:
+            return "-"
+            
+        return format_html(
+            '<span title="Créé le: {}">{}</span>',
+            obj.created_at.strftime("%d/%m/%Y %H:%M"),
+            obj.updated_at.strftime("%d/%m/%Y %H:%M")
+        )
+    last_update_display.short_description = "Dernière mise à jour"
+    last_update_display.admin_order_field = 'updated_at'
+    
+    def formations_list_display(self, obj):
+        """
+        Affiche la liste détaillée des formations associées.
+        
+        Args:
+            obj: Instance du partenaire
+            
+        Returns:
+            SafeText: Formatage HTML de la liste des formations
+        """
+        formations = obj.formations.select_related('type_offre', 'statut', 'centre').all()
+        
+        if not formations:
+            return format_html('<span style="color:#999;">Aucune formation associée</span>')
+            
+        formation_list = ['<div class="formations-list" style="margin-bottom:10px;">']
+        
+        for formation in formations:
+            url = reverse('admin:rap_app_formation_change', args=[formation.id])
+            status_color = "#28a745" if formation.statut and formation.statut.code == "active" else "#6c757d"
+            
+            formation_list.append(
+                f'<div style="margin-bottom:5px;">'
+                f'<a href="{url}" style="text-decoration:none;">'
+                f'<span style="display:inline-block; width:12px; height:12px; '
+                f'background-color:{status_color}; border-radius:50%; margin-right:5px;"></span>'
+                f'{formation.nom}</a>'
+                f'<span style="color:#777; font-size:0.9em;"> - {formation.centre.nom if formation.centre else "Centre non défini"}'
+                f'</span></div>'
+            )
+            
+        formation_list.append('</div>')
+        return mark_safe(''.join(formation_list))
+    formations_list_display.short_description = "Formations associées"
+    
+    # Actions personnalisées
+    actions = ['mark_as_inactive', 'export_partenaires_csv']
+    
+    def mark_as_inactive(self, request, queryset):
+        """
+        Action personnalisée pour dissocier les partenaires des formations.
+        
+        Args:
+            request: Requête HTTP
+            queryset: QuerySet des partenaires sélectionnés
+        """
+        total_removed = 0
+        
+        for partenaire in queryset:
+            formations_count = partenaire.formations.count()
+            if formations_count > 0:
+                # Enregistrement des formations avant dissociation pour le message
+                formations = list(partenaire.formations.all())
+                
+                # Dissociation des formations
+                partenaire.formations.clear()
+                
+                # Journalisation
+                logger = logging.getLogger("application.admin")
+                logger.info(
+                    f"Admin: Utilisateur {request.user} a dissocié le partenaire '{partenaire.nom}' "
+                    f"de {formations_count} formations"
+                )
+                
+                total_removed += formations_count
+        
+        if total_removed > 0:
+            self.message_user(
+                request,
+                f"{total_removed} associations entre partenaires et formations ont été supprimées."
+            )
+        else:
+            self.message_user(
+                request,
+                "Aucune association n'a été supprimée. Les partenaires sélectionnés n'ont pas de formations associées.",
+                level='WARNING'
+            )
+    mark_as_inactive.short_description = "Dissocier les partenaires sélectionnés des formations"
+    
+    def export_partenaires_csv(self, request, queryset):
+        """
+        Action personnalisée pour exporter les partenaires au format CSV.
+        
+        Args:
+            request: Requête HTTP
+            queryset: QuerySet des partenaires sélectionnés
+            
+        Returns:
+            HttpResponse: Réponse HTTP avec le fichier CSV
+        """
+        import csv
+        from django.http import HttpResponse
+        from django.utils import timezone
+        
+        # Configuration de la réponse HTTP
+        timestamp = timezone.now().strftime('%Y%m%d-%H%M%S')
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="partenaires-export-{timestamp}.csv"'
+        
+        # En-têtes CSV
+        writer = csv.writer(response)
+        writer.writerow([
+            'ID', 'Nom', 'Secteur d\'activité', 'Contact Nom', 'Contact Poste',
+            'Contact Téléphone', 'Contact Email', 'Nombre de formations', 'Date de création'
+        ])
+        
+        # Données des partenaires
+        for partenaire in queryset:
+            writer.writerow([
+                partenaire.id,
+                partenaire.nom,
+                partenaire.secteur_activite or '',
+                partenaire.contact_nom or '',
+                partenaire.contact_poste or '',
+                partenaire.contact_telephone or '',
+                partenaire.contact_email or '',
+                partenaire.formations.count(),
+                partenaire.created_at.strftime('%d/%m/%Y')
+            ])
+        
+        # Journalisation de l'export
+        logger = logging.getLogger("application.admin")
+        logger.info(
+            f"Admin: Utilisateur {request.user} a exporté {queryset.count()} partenaires au format CSV"
+        )
+        
+        return response
+    export_partenaires_csv.short_description = "Exporter les partenaires sélectionnés en CSV"
+    
+    def save_model(self, request, obj, form, change):
+        """
+        Personnalise la sauvegarde pour journaliser l'action d'administration.
+        
+        Args:
+            request: Requête HTTP
+            obj: Instance du partenaire
+            form: Formulaire soumis
+            change: Indique s'il s'agit d'une modification ou d'une création
+        """
+        # Journaliser l'action
+        logger = logging.getLogger("application.admin")
+        
+        if change:
+            logger.info(
+                f"Admin: Utilisateur {request.user} a modifié le partenaire '{obj.nom}' (ID: {obj.pk})"
+            )
+        else:
+            logger.info(
+                f"Admin: Utilisateur {request.user} a créé un nouveau partenaire '{obj.nom}'"
+            )
+            
+        super().save_model(request, obj, form, change)
 
 
 ================================================
 File: rap_app/admin/prospection_admin.py
 ================================================
+import logging
 from django.contrib import admin
+from django.utils.html import format_html
+from ..models.prospection import Prospection, HistoriqueProspection
 
-from ..models import Prospection
-
+# Logger pour suivre les actions dans l'admin
+logger = logging.getLogger("admin.prospection")
 
 
 @admin.register(Prospection)
 class ProspectionAdmin(admin.ModelAdmin):
-    list_display = ('company', 'formation', 'statut', 'objectif', 'date_prospection', 'responsable')
-    list_filter = ('statut', 'objectif', 'date_prospection')
-    search_fields = ('company__name', 'formation__nom', 'statut', 'objectif')
-
-
-
-================================================
-File: rap_app/admin/recherches_admin.py
-================================================
-from django.contrib import admin
-from ..models.recherches import Recherche
-
-
-@admin.register(Recherche)
-class RechercheAdmin(admin.ModelAdmin):
     """
-    Interface d'administration pour la gestion des recherches effectuées par les utilisateurs.
+    Interface d'administration pour la gestion des prospections commerciales.
+    Permet un suivi visuel, des filtres pratiques et une journalisation des actions.
     """
-
-    # ✅ Affichage des principales informations dans la liste
     list_display = (
-        "terme_recherche", "filtre_centre", "filtre_type_offre", 
-        "filtre_statut", "date_debut", "date_fin", 
-        "nombre_resultats", "temps_execution", "created_at"
+        'company', 'formation', 'statut_color', 'objectif', 'responsable', 'date_prospection',
     )
+    list_filter = ('statut', 'objectif', 'date_prospection', 'responsable')
+    search_fields = ('company__name', 'formation__nom', 'commentaire')
+    readonly_fields = ('date_prospection', 'statut_color', 'historique_display')
+    ordering = ['-date_prospection']
+    date_hierarchy = 'date_prospection'
 
-    # ✅ Ajout de filtres pour affiner les recherches dans l'admin
-    list_filter = (
-        "filtre_centre", "filtre_type_offre", "filtre_statut", 
-        "date_debut", "date_fin", "created_at"
-    )
-
-    # ✅ Recherche rapide sur certains champs
-    search_fields = ("terme_recherche", "filtre_centre__nom", "filtre_type_offre__nom", "filtre_statut__nom")
-
-    # ✅ Champs en lecture seule pour éviter des modifications involontaires
-    readonly_fields = ("nombre_resultats", "temps_execution", "created_at", "updated_at")
-
-    # ✅ Organisation des champs dans l'interface d'administration
     fieldsets = (
-        ("Détails de la recherche", {
-            "fields": ("terme_recherche",)
+        ("Informations générales", {
+            'fields': ('company', 'formation', 'responsable', 'statut', 'statut_color', 'objectif', 'motif'),
         }),
-        ("Filtres appliqués", {
-            "fields": ("filtre_centre", "filtre_type_offre", "filtre_statut", "date_debut", "date_fin")
+        ("Commentaires et historique", {
+            'fields': ('commentaire', 'historique_display')
         }),
-        ("Informations sur les résultats", {
-            "fields": ("nombre_resultats", "temps_execution"),
-            "classes": ("collapse",)  # Permet de masquer cette section par défaut
-        }),
-        ("Métadonnées", {
-            "fields": ("created_at", "updated_at"),
-            "classes": ("collapse",)
+        ("Date", {
+            'fields': ('date_prospection',),
         }),
     )
 
-    # ✅ Configuration de l'affichage dans l'admin
-    ordering = ("-created_at",)  # Trie les recherches du plus récent au plus ancien
-    list_per_page = 25  # Nombre de recherches affichées par page
+    def statut_color(self, obj):
+        """Affiche le statut avec une couleur de fond CSS."""
+        classes = {
+            'a_faire': 'primary',
+            'en_cours': 'info',
+            'a_relancer': 'warning',
+            'acceptee': 'success',
+            'refusee': 'danger',
+            'annulee': 'secondary',
+            'non_renseigne': 'light',
+        }
+        css_class = classes.get(obj.statut, 'light')
+        return format_html('<span class="badge bg-{}">{}</span>', css_class, obj.get_statut_display())
+    
+    statut_color.short_description = "Statut"
+    statut_color.admin_order_field = "statut"
+
+    def historique_display(self, obj):
+        """Affiche un résumé HTML des historiques de cette prospection."""
+        historiques = obj.historiques.all().order_by('-date_modification')[:5]
+        if not historiques:
+            return "Aucun historique."
+        rows = []
+        for h in historiques:
+            rows.append(f"<li><strong>{h.date_modification.strftime('%d/%m/%Y')}:</strong> {h.get_ancien_statut_display()} ➔ {h.get_nouveau_statut_display()}</li>")
+        return format_html('<ul>{}</ul>', format_html(''.join(rows)))
+
+    historique_display.short_description = "Historique récent"
+
+    def save_model(self, request, obj, form, change):
+        """Journalisation personnalisée à la sauvegarde."""
+        if change:
+            logger.info(f"Admin: modification de la prospection #{obj.pk} par {request.user.username}")
+        else:
+            logger.info(f"Admin: création de la prospection pour {obj.company.name} par {request.user.username}")
+        super().save_model(request, obj, form, change)
 
 
-    def a_trouve_resultats_display(self, obj):
-        """
-        Affiche un ✅ si la recherche a trouvé des résultats, sinon ❌.
-        """
-        return "✅ Oui" if obj.a_trouve_resultats else "❌ Non"
-    a_trouve_resultats_display.short_description = "Résultats trouvés"
+@admin.register(HistoriqueProspection)
+class HistoriqueProspectionAdmin(admin.ModelAdmin):
+    """
+    Interface d'administration pour visualiser les historiques de prospection.
+    """
+    list_display = ('prospection', 'ancien_statut', 'nouveau_statut', 'date_modification', 'modifie_par')
+    list_filter = ('nouveau_statut', 'modifie_par', 'date_modification')
+    search_fields = ('prospection__company__name', 'commentaire', 'resultat')
+    ordering = ['-date_modification']
+    readonly_fields = [f.name for f in HistoriqueProspection._meta.fields]
 
+    def has_add_permission(self, request):
+        """On empêche l'ajout manuel d'historique depuis l'admin."""
+        return False
 
 
 
 ================================================
 File: rap_app/admin/statuts_admin.py
 ================================================
+# admin/statut.py
+import logging
 from django.contrib import admin
 from django.utils.html import format_html
+
 from ..models import Statut
+
+# Configuration du logger pour les actions d'administration
+logger = logging.getLogger('admin.statut')
 
 
 @admin.register(Statut)
 class StatutAdmin(admin.ModelAdmin):
+    """
+    Interface d'administration pour le modèle Statut.
+    Permet un affichage visuel de la couleur, des filtres par nom,
+    et un aperçu rapide des statuts enregistrés.
+    """
     list_display = ('get_nom_display', 'couleur_display', 'description_autre', 'created_at')
     list_filter = ('nom',)
     search_fields = ('nom', 'description_autre')
     readonly_fields = ('created_at', 'updated_at', 'couleur_display')
+
     fieldsets = (
-        ('Informations', {
-            'fields': ('nom', 'couleur', 'couleur_display', 'description_autre')
+        ('Informations générales', {
+            'fields': ('nom', 'couleur', 'couleur_display', 'description_autre'),
         }),
         ('Métadonnées', {
             'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
+            'classes': ('collapse',),
         }),
     )
-    
+
     def get_nom_display(self, obj):
+        """
+        Affiche le nom du statut avec gestion du cas 'Autre'.
+        """
         return obj.get_nom_display()
+
     get_nom_display.short_description = 'Statut'
     get_nom_display.admin_order_field = 'nom'
-    
+
     def couleur_display(self, obj):
-        """Affiche un échantillon visuel de la couleur."""
+        """
+        Affiche un bloc coloré représentant visuellement la couleur du statut.
+        """
         if obj.couleur:
             return format_html(
                 '<div style="display:inline-block; width:100px; height:25px; background-color:{}; '
@@ -922,36 +3101,349 @@ class StatutAdmin(admin.ModelAdmin):
                 obj.couleur
             )
         return "-"
-    couleur_display.short_description = 'Aperçu de la couleur'
+    
+    couleur_display.short_description = 'Aperçu couleur'
+
+    # ➕ Logging lors des actions en admin
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)
+        action = "Créé" if not change else "Modifié"
+        logger.info(f"{action} statut : {obj} (par {request.user})")
+
+    def delete_model(self, request, obj):
+        logger.warning(f"Suppression du statut : {obj} (par {request.user})")
+        super().delete_model(request, obj)
+
 
 
 ================================================
 File: rap_app/admin/types_offre_admin.py
 ================================================
+import logging
 from django.contrib import admin
-from ..models import TypeOffre
+from django.utils.html import format_html, mark_safe
+from django.db.models import Count
+from django.urls import reverse
+from django.contrib import messages
+
+from ..models.types_offre import TypeOffre
+
+# Configuration du logger
+logger = logging.getLogger("application.typeoffre.admin")
+
+
+class FormationInline(admin.TabularInline):
+    """
+    Inline pour afficher les formations associées à un type d'offre.
+    """
+    model = 'Formation'  # Remplacer par le chemin complet du modèle si nécessaire
+    verbose_name = "Formation associée"
+    verbose_name_plural = "Formations associées"
+    extra = 0
+    fields = ('nom', 'centre', 'start_date', 'end_date', 'places_disponibles')
+    readonly_fields = fields
+    can_delete = False
+    max_num = 10
+    
+    def has_add_permission(self, request, obj=None):
+        """Désactive l'ajout manuel de formations via l'inline"""
+        return False
 
 
 @admin.register(TypeOffre)
 class TypeOffreAdmin(admin.ModelAdmin):
-    list_display = ('get_nom_display', 'autre', 'created_at')
-    list_filter = ('nom',)
-    search_fields = ('nom', 'autre')
-    readonly_fields = ('created_at', 'updated_at')
+    """
+    Administration du modèle TypeOffre avec fonctionnalités avancées:
+    - Affichage des couleurs avec prévisualisation
+    - Statistiques sur l'utilisation des types d'offre
+    - Validation avancée des codes couleur
+    - Interface intuitive pour la gestion des types d'offre
+    """
+    # Champs affichés dans la liste des types d'offre
+    list_display = (
+        'nom_display',
+        'color_preview',
+        'autre_display',
+        'formations_count',
+        'is_personnalise_display',
+        'created_at',
+        'updated_at',
+    )
+    
+    # Filtres dans la barre latérale
+    list_filter = (
+        'nom',
+        'created_at',
+    )
+    
+    # Champs de recherche
+    search_fields = (
+        'nom',
+        'autre',
+    )
+    
+    # Regroupement des champs dans le formulaire d'édition
     fieldsets = (
-        ('Informations', {
-            'fields': ('nom', 'autre')
+        ('Informations générales', {
+            'fields': (
+                'nom',
+                'autre',
+            ),
+            'description': "Définition du type d'offre, avec option pour un type personnalisé"
+        }),
+        ('Apparence', {
+            'fields': (
+                'couleur',
+                'color_preview_large',
+                'badge_preview',
+            ),
+            'description': "Configuration visuelle pour l'affichage du type d'offre"
         }),
         ('Métadonnées', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
+            'fields': (
+                'created_at',
+                'updated_at',
+            ),
+            'classes': ('collapse',),
+            'description': "Informations de suivi et d'audit"
         }),
     )
     
-    def get_nom_display(self, obj):
+    # Champs en lecture seule (calculés automatiquement)
+    readonly_fields = (
+        'color_preview_large',
+        'badge_preview',
+        'created_at',
+        'updated_at',
+    )
+    
+    # Actions personnalisées
+    actions = [
+        'reset_default_colors',
+        'export_selected_types',
+    ]
+    
+    # Méthodes pour les champs calculés et l'affichage personnalisé
+    
+    def nom_display(self, obj):
+        """
+        Affiche le nom du type d'offre formaté avec distinction pour les personnalisés.
+        """
+        if obj.is_personnalise():
+            return format_html(
+                '{} <small style="color:#6c757d;">({})</small>',
+                obj.autre,
+                obj.get_nom_display()
+            )
         return obj.get_nom_display()
-    get_nom_display.short_description = "Type d'offre"
-    get_nom_display.admin_order_field = 'nom'
+    nom_display.short_description = "Type d'offre"
+    nom_display.admin_order_field = 'nom'
+    
+    def autre_display(self, obj):
+        """
+        Affiche le champ 'autre' avec formatage conditionnel.
+        """
+        if obj.is_personnalise() and obj.autre:
+            return obj.autre
+        return format_html(
+            '<span style="color:#999;">-</span>'
+        )
+    autre_display.short_description = "Personnalisé"
+    autre_display.admin_order_field = 'autre'
+    
+    def color_preview(self, obj):
+        """
+        Affiche un aperçu de la couleur sous forme d'un carré coloré.
+        """
+        text_color = obj.text_color()
+        return format_html(
+            '<div style="background-color:{}; width:20px; height:20px; border-radius:3px; display:inline-block;" title="{}"></div>',
+            obj.couleur,
+            obj.couleur
+        )
+    color_preview.short_description = "Couleur"
+    
+    def color_preview_large(self, obj):
+        """
+        Affiche un grand aperçu de la couleur avec code hexadécimal.
+        """
+        text_color = obj.text_color()
+        return format_html(
+            '<div style="background-color:{}; color:{}; padding:15px; border-radius:5px; text-align:center; margin:10px 0;">'
+            '<strong style="font-size:16px;">{}</strong>'
+            '</div>',
+            obj.couleur,
+            text_color,
+            obj.couleur
+        )
+    color_preview_large.short_description = "Aperçu de la couleur"
+    
+    def badge_preview(self, obj):
+        """
+        Affiche un aperçu du badge tel qu'il apparaîtra dans l'interface.
+        """
+        return format_html(
+            '<div style="margin:10px 0;">{}</div>',
+            mark_safe(obj.get_badge_html())
+        )
+    badge_preview.short_description = "Aperçu du badge"
+    
+    def formations_count(self, obj):
+        """
+        Affiche le nombre de formations associées à ce type d'offre.
+        """
+        count = getattr(obj, 'formations_count', None)
+        if count is None:
+            count = obj.get_formations_count()
+            
+        if count > 0:
+            url = reverse('admin:rap_app_formation_changelist') + f'?type_offre__id__exact={obj.id}'
+            return format_html(
+                '<a href="{}" title="Voir les formations associées" style="font-weight:bold;">{}</a>',
+                url,
+                count
+            )
+        return "0"
+    formations_count.short_description = "Formations"
+    formations_count.admin_order_field = 'formations_count'
+    
+    def is_personnalise_display(self, obj):
+        """
+        Affiche si le type d'offre est personnalisé.
+        """
+        if obj.is_personnalise():
+            return format_html(
+                '<span style="color:green;">✓</span>'
+            )
+        return format_html(
+            '<span style="color:#999;">-</span>'
+        )
+    is_personnalise_display.short_description = "Personnalisé"
+    is_personnalise_display.boolean = True
+    
+    # Actions personnalisées
+    
+    def reset_default_colors(self, request, queryset):
+        """
+        Réinitialise les couleurs par défaut pour les types d'offre sélectionnés.
+        """
+        updated = 0
+        for type_offre in queryset:
+            original_color = type_offre.couleur
+            
+            # Réinitialisation de la couleur pour forcer l'assignation par défaut
+            type_offre.couleur = '#6c757d'
+            type_offre.assign_default_color()
+            
+            # Sauvegarder uniquement si la couleur a changé
+            if original_color != type_offre.couleur:
+                type_offre.save()
+                updated += 1
+                logger.info(
+                    f"Admin: Couleur réinitialisée pour le type d'offre #{type_offre.pk} "
+                    f"de {original_color} à {type_offre.couleur}"
+                )
+        
+        if updated:
+            self.message_user(
+                request, 
+                f"Couleurs réinitialisées pour {updated} types d'offre.",
+                messages.SUCCESS
+            )
+        else:
+            self.message_user(
+                request,
+                "Aucune couleur n'a été modifiée. Les types d'offre avaient déjà leurs couleurs par défaut.",
+                messages.INFO
+            )
+    reset_default_colors.short_description = "Réinitialiser les couleurs par défaut"
+    
+    def export_selected_types(self, request, queryset):
+        """
+        Exporte les types d'offre sélectionnés au format CSV.
+        """
+        import csv
+        from django.http import HttpResponse
+        from django.utils import timezone
+        
+        # Configuration de la réponse HTTP
+        timestamp = timezone.now().strftime('%Y%m%d-%H%M%S')
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = f'attachment; filename="types_offre_export_{timestamp}.csv"'
+        
+        # En-têtes CSV
+        writer = csv.writer(response)
+        writer.writerow([
+            'ID', 'Nom', 'Personnalisé', 'Couleur', 'Nombre de formations', 
+            'Date de création', 'Dernière modification'
+        ])
+        
+        # Données des types d'offre
+        for type_offre in queryset:
+            writer.writerow([
+                type_offre.pk,
+                str(type_offre),
+                'Oui' if type_offre.is_personnalise() else 'Non',
+                type_offre.couleur,
+                type_offre.get_formations_count(),
+                type_offre.created_at.strftime('%d/%m/%Y %H:%M'),
+                type_offre.updated_at.strftime('%d/%m/%Y %H:%M'),
+            ])
+        
+        # Journalisation
+        logger.info(f"Admin: Export CSV de {queryset.count()} types d'offre par {request.user}")
+        
+        return response
+    export_selected_types.short_description = "Exporter les types d'offre sélectionnés"
+    
+    def get_queryset(self, request):
+        """
+        Optimise la requête avec des annotations pour les champs calculés.
+        """
+        queryset = super().get_queryset(request)
+        
+        # Annoter avec le nombre de formations pour optimiser les performances
+        queryset = queryset.annotate(
+            formations_count=Count('formations', distinct=True)
+        )
+        
+        return queryset
+    
+    def save_model(self, request, obj, form, change):
+        """
+        Personnalisation de la sauvegarde avec journalisation.
+        """
+        is_new = not change
+        
+        # Sauvegarde du modèle
+        super().save_model(request, obj, form, change)
+        
+        # Journalisation de l'action administrative
+        if is_new:
+            logger.info(
+                f"Admin: Type d'offre '{obj}' créé par {request.user}"
+            )
+            messages.success(
+                request, 
+                f"Type d'offre '{obj}' créé avec succès."
+            )
+        else:
+            logger.info(
+                f"Admin: Type d'offre '{obj}' modifié par {request.user}"
+            )
+            messages.success(
+                request, 
+                f"Type d'offre '{obj}' mis à jour avec succès."
+            )
+    
+    class Media:
+        """
+        Ressources CSS et JS pour l'interface d'admin.
+        """
+        css = {
+            'all': ('css/admin/type_offre_admin.css',)
+        }
+        js = ('js/admin/type_offre_admin.js',)
 
 
 ================================================
@@ -986,22 +3478,6 @@ class UtilisateurAdmin(UserAdmin):
 
 
 ================================================
-File: rap_app/forms/ProspectionForm.py
-================================================
-from django import forms
-from ..models.prospection import Prospection
-
-class ProspectionForm(forms.ModelForm):
-    class Meta:
-        model = Prospection
-        fields = ['company', 'formation', 'statut', 'objectif', 'commentaire', 'responsable']
-        widgets = {
-            'commentaire': forms.Textarea(attrs={'rows': 3}),
-        }
-
-
-
-================================================
 File: rap_app/forms/__init__.py
 ================================================
 from rap_app.forms import ProspectionForm
@@ -1030,6 +3506,98 @@ class CompanyForm(forms.ModelForm):
             'contact_phone_number': forms.TextInput(attrs={'class': 'form-control'}),
             'city': forms.TextInput(attrs={'class': 'form-control'}),
             'sector_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
+
+================================================
+File: rap_app/forms/prepa_comp_form.py
+================================================
+from django import forms
+from ..models.prepa_comp import Candidat, Entree, Departement, ObjectifAnnuel
+
+
+class CandidatForm(forms.ModelForm):
+    """Formulaire pour la création et modification d'un candidat"""
+    
+    class Meta:
+        model = Candidat
+        fields = ['nom', 'prenom', 'email', 'telephone', 'departement', 'a_adhere']
+        widgets = {
+            'nom': forms.TextInput(attrs={'class': 'form-control'}),
+            'prenom': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'telephone': forms.TextInput(attrs={'class': 'form-control'}),
+            'departement': forms.Select(attrs={'class': 'form-select'}),
+            'a_adhere': forms.CheckboxInput(attrs={'class': 'form-check-input'})
+        }
+        labels = {
+            'a_adhere': 'A déjà adhéré au dispositif'
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Limiter les départements aux codes spécifiés
+        departements_codes = ['77', '78', '92', '93', '94', '95']
+        self.fields['departement'].queryset = Departement.objects.filter(
+            code__in=departements_codes
+        )
+
+
+class EntreeForm(forms.ModelForm):
+    """Formulaire pour la création d'une entrée dans le dispositif"""
+    
+    class Meta:
+        model = Entree
+        fields = ['candidat', 'departement']
+        widgets = {
+            'candidat': forms.Select(attrs={'class': 'form-select'}),
+            'departement': forms.Select(attrs={'class': 'form-select'})
+        }
+        
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Limiter les candidats à ceux qui n'ont pas encore adhéré
+        self.fields['candidat'].queryset = Candidat.objects.filter(a_adhere=False)
+        # Limiter les départements aux codes spécifiés
+        departements_codes = ['77', '78', '92', '93', '94', '95']
+        self.fields['departement'].queryset = Departement.objects.filter(
+            code__in=departements_codes
+        )
+        # Rendre le champ candidat optionnel
+        self.fields['candidat'].required = False
+        self.fields['candidat'].help_text = "Laissez vide pour une entrée directe sans candidature préalable"
+
+
+class ObjectifAnnuelForm(forms.ModelForm):
+    """Formulaire pour modifier l'objectif annuel"""
+    
+    class Meta:
+        model = ObjectifAnnuel
+        fields = ['objectif']
+        widgets = {
+            'objectif': forms.NumberInput(attrs={'class': 'form-control'})
+        }
+        labels = {
+            'objectif': 'Objectif annuel d\'entrées'
+        }
+        help_texts = {
+            'objectif': 'Nombre total d\'entrées à atteindre sur l\'année'
+        }
+
+
+================================================
+File: rap_app/forms/ProspectionForm.py
+================================================
+from django import forms
+from ..models.prospection import Prospection
+
+class ProspectionForm(forms.ModelForm):
+    class Meta:
+        model = Prospection
+        fields = ['company', 'formation', 'statut', 'objectif', 'commentaire', 'responsable']
+        widgets = {
+            'commentaire': forms.Textarea(attrs={'rows': 3}),
         }
 
 
@@ -2400,6 +4968,1052 @@ class Migration(migrations.Migration):
 
 
 ================================================
+File: rap_app/migrations/0013_alter_company_options_and_more.py
+================================================
+# Generated by Django 4.2.7 on 2025-03-22 13:53
+
+from django.conf import settings
+import django.core.validators
+from django.db import migrations, models
+import django.db.models.deletion
+import django.utils.timezone
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('rap_app', '0012_typeoffre_couleur'),
+    ]
+
+    operations = [
+        migrations.AlterModelOptions(
+            name='company',
+            options={'ordering': ['-created_at'], 'verbose_name': 'entreprise', 'verbose_name_plural': 'entreprises'},
+        ),
+        migrations.AlterModelOptions(
+            name='historiqueformation',
+            options={'ordering': ['-date_modification'], 'verbose_name': 'Historique de modification de formation', 'verbose_name_plural': 'Historique des modifications de formations'},
+        ),
+        migrations.AlterModelOptions(
+            name='historiqueprospection',
+            options={'ordering': ['-date_modification'], 'verbose_name': 'Historique de prospection', 'verbose_name_plural': 'Historiques de prospection'},
+        ),
+        migrations.RemoveField(
+            model_name='historiqueformation',
+            name='utilisateur',
+        ),
+        migrations.AddField(
+            model_name='document',
+            name='mime_type',
+            field=models.CharField(blank=True, help_text='Type MIME détecté automatiquement', max_length=100, null=True, verbose_name='Type MIME'),
+        ),
+        migrations.AddField(
+            model_name='evenement',
+            name='lieu',
+            field=models.CharField(blank=True, help_text="Emplacement où se déroule l'événement", max_length=255, null=True, verbose_name='Lieu'),
+        ),
+        migrations.AddField(
+            model_name='evenement',
+            name='participants_prevus',
+            field=models.PositiveIntegerField(blank=True, help_text='Nombre de participants attendus', null=True, verbose_name='Participants prévus'),
+        ),
+        migrations.AddField(
+            model_name='evenement',
+            name='participants_reels',
+            field=models.PositiveIntegerField(blank=True, help_text="Nombre de participants réels (à remplir après l'événement)", null=True, verbose_name='Participants réels'),
+        ),
+        migrations.AddField(
+            model_name='partenaire',
+            name='slug',
+            field=models.SlugField(blank=True, help_text='Identifiant unique pour les URLs (généré automatiquement)', max_length=255, null=True, unique=True, verbose_name='Slug'),
+        ),
+        migrations.AlterField(
+            model_name='centre',
+            name='code_postal',
+            field=models.CharField(blank=True, help_text='Code postal à 5 chiffres du centre', max_length=5, null=True, validators=[django.core.validators.RegexValidator(message='Le code postal doit contenir exactement 5 chiffres', regex='^\\d{5}$')], verbose_name='Code postal'),
+        ),
+        migrations.AlterField(
+            model_name='centre',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='centre',
+            name='nom',
+            field=models.CharField(help_text='Nom complet du centre de formation (doit être unique)', max_length=255, unique=True, verbose_name='Nom du centre'),
+        ),
+        migrations.AlterField(
+            model_name='centre',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='commentaire',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='commentaire',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='action_description',
+            field=models.CharField(blank=True, help_text="Détails sur l'action ou l'opportunité", max_length=5000, null=True, verbose_name="Description de l'action"),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='actions',
+            field=models.CharField(blank=True, choices=[('recrutement_emploi', 'Recrutement - Emploi'), ('recrutement_stage', 'Recrutement - Stage'), ('recrutement_apprentissage', 'Recrutement - Apprentissage'), ('presentation_metier_entreprise', 'Présentation de métier(s)/entreprise'), ('visite_entreprise', "Visite de l'entreprise"), ('coaching', 'Coaching'), ('autre', 'Autre'), ('partenariat', 'Partenariat'), ('non_definie', 'Non définie')], help_text="Type d'interaction possible avec cette entreprise", max_length=50, null=True, verbose_name='Actions'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='city',
+            field=models.CharField(blank=True, help_text='Ville du siège social', max_length=100, null=True, verbose_name='Ville'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='contact_email',
+            field=models.EmailField(blank=True, help_text='Email professionnel du contact', max_length=254, null=True, verbose_name='Adresse email du contact'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='contact_job',
+            field=models.CharField(blank=True, help_text='Fonction ou poste du contact', max_length=255, null=True, verbose_name='Métier du contact'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='contact_name',
+            field=models.CharField(blank=True, help_text='Nom et prénom du contact principal', max_length=255, null=True, verbose_name='Nom du contact'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='contact_phone_number',
+            field=models.CharField(blank=True, help_text='Format: 06XXXXXXXX ou +33XXXXXXXXX', max_length=20, null=True, validators=[django.core.validators.RegexValidator(message='Entrez un numéro de téléphone français valide commençant par 01, 02, ..., 06 ou 07.', regex='^(0[1-9]\\d{8})$|^(?:\\+33|0033)[1-9]\\d{8}$')], verbose_name='Numéro de téléphone du contact'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='created_by',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='companies_created', to=settings.AUTH_USER_MODEL, verbose_name='Créé par'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='name',
+            field=models.CharField(blank=True, help_text="Nom de l'entreprise", max_length=100, null=True, verbose_name='Nom'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='sector_name',
+            field=models.CharField(blank=True, help_text="Domaine d'activité principal de l'entreprise", max_length=200, null=True, verbose_name="Secteur d'activité"),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='social_network_url',
+            field=models.CharField(blank=True, help_text="Lien vers le profil de l'entreprise sur un réseau social", max_length=200, null=True, verbose_name='URL du réseau social'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='street_name',
+            field=models.CharField(blank=True, help_text='Exemple: 123 rue de la République', max_length=200, null=True, verbose_name='Numéro et nom de la rue'),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='website',
+            field=models.URLField(blank=True, help_text="Site web de l'entreprise (avec http:// ou https://)", null=True, validators=[django.core.validators.RegexValidator(message="L'URL doit commencer par http:// ou https://", regex='^(http|https)://')]),
+        ),
+        migrations.AlterField(
+            model_name='company',
+            name='zip_code',
+            field=models.CharField(blank=True, help_text='Code postal à 5 chiffres', max_length=5, null=True, validators=[django.core.validators.RegexValidator(message='Le code postal doit être composé de 5 chiffres.', regex='^[0-9]{5}$')], verbose_name='Code postal'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='fichier',
+            field=models.FileField(help_text='Fichier à télécharger (types acceptés selon la catégorie)', upload_to='formations/documents/', verbose_name='Fichier'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='nom_fichier',
+            field=models.CharField(db_index=True, help_text="Nom du fichier tel qu'il apparaîtra dans l'interface", max_length=255, verbose_name='Nom du fichier'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='source',
+            field=models.TextField(blank=True, help_text='Source ou origine du document (optionnel)', null=True, verbose_name='Source du document'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='taille_fichier',
+            field=models.PositiveIntegerField(blank=True, help_text='Taille du fichier en Ko (calculée automatiquement)', null=True, verbose_name='Taille du fichier (Ko)'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='type_document',
+            field=models.CharField(choices=[('pdf', 'PDF'), ('image', 'Image'), ('contrat', 'Contrat signé'), ('autre', 'Autre')], default='autre', help_text='Catégorie du document déterminant les types de fichiers acceptés', max_length=20, verbose_name='Type de document'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='document',
+            name='utilisateur',
+            field=models.ForeignKey(help_text='Utilisateur ayant téléchargé le document', null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Téléchargé par'),
+        ),
+        migrations.AlterField(
+            model_name='evenement',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='evenement',
+            name='description_autre',
+            field=models.CharField(blank=True, help_text="Précision obligatoire si le type d'événement est 'Autre'", max_length=255, null=True, verbose_name="Description pour 'Autre' événement"),
+        ),
+        migrations.AlterField(
+            model_name='evenement',
+            name='details',
+            field=models.TextField(blank=True, help_text="Informations complémentaires sur l'événement", null=True, verbose_name="Détails de l'événement"),
+        ),
+        migrations.AlterField(
+            model_name='evenement',
+            name='event_date',
+            field=models.DateField(blank=True, help_text="Date prévue pour l'événement", null=True, verbose_name="Date de l'événement"),
+        ),
+        migrations.AlterField(
+            model_name='evenement',
+            name='formation',
+            field=models.ForeignKey(blank=True, help_text='Formation à laquelle cet événement est rattaché', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='evenements', to='rap_app.formation', verbose_name='Formation associée'),
+        ),
+        migrations.AlterField(
+            model_name='evenement',
+            name='type_evenement',
+            field=models.CharField(choices=[('info_collective_presentiel', 'Information collective présentiel'), ('info_collective_distanciel', 'Information collective distanciel'), ('job_dating', 'Job dating'), ('evenement_emploi', 'Événement emploi'), ('forum', 'Forum'), ('jpo', 'Journée Portes Ouvertes (JPO)'), ('autre', 'Autre')], db_index=True, help_text="Catégorie de l'événement", max_length=100, verbose_name="Type d'événement"),
+        ),
+        migrations.AlterField(
+            model_name='evenement',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='assistante',
+            field=models.CharField(blank=True, help_text="Nom de l'assistante en charge de la formation", max_length=255, null=True, verbose_name='Assistante'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='cap',
+            field=models.PositiveIntegerField(blank=True, help_text="Capacité maximale d'accueil (tous financements confondus)", null=True, verbose_name='Capacité maximale'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='centre',
+            field=models.ForeignKey(help_text='Centre où se déroule la formation', on_delete=django.db.models.deletion.CASCADE, related_name='formations', to='rap_app.centre', verbose_name='Centre de formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='convocation_envoie',
+            field=models.BooleanField(default=False, help_text='Indique si les convocations ont été envoyées aux participants', verbose_name='Convocation envoyée'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='dernier_commentaire',
+            field=models.TextField(blank=True, help_text='Dernier commentaire ajouté à cette formation', null=True, verbose_name='Dernier commentaire'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='end_date',
+            field=models.DateField(blank=True, help_text='Date prévue de fin de la formation', null=True, verbose_name='Date de fin'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='entresformation',
+            field=models.PositiveIntegerField(default=0, help_text='Nombre de personnes ayant effectivement débuté la formation', verbose_name='Entrées en formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='inscrits_crif',
+            field=models.PositiveIntegerField(default=0, help_text="Nombre d'inscrits sur les places CRIF", verbose_name='Inscrits CRIF'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='inscrits_mp',
+            field=models.PositiveIntegerField(default=0, help_text="Nombre d'inscrits sur les places MP", verbose_name='Inscrits MP'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nom',
+            field=models.CharField(help_text='Titre ou nom officiel de la formation', max_length=255, verbose_name='Nom de la formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nombre_candidats',
+            field=models.PositiveIntegerField(default=0, help_text='Nombre total de candidats pour cette formation', verbose_name='Nombre de candidats'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nombre_entretiens',
+            field=models.PositiveIntegerField(default=0, help_text="Nombre d'entretiens réalisés avec les candidats", verbose_name="Nombre d'entretiens"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nombre_evenements',
+            field=models.PositiveIntegerField(default=0, help_text="Nombre d'événements liés à cette formation", verbose_name="Nombre d'événements"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='num_kairos',
+            field=models.CharField(blank=True, help_text='Identifiant de la formation dans Kairos', max_length=50, null=True, verbose_name='Numéro Kairos'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='num_offre',
+            field=models.CharField(blank=True, help_text="Identifiant unique de l'offre de formation", max_length=50, null=True, verbose_name="Numéro de l'offre"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='num_produit',
+            field=models.CharField(blank=True, help_text='Référence du produit de formation', max_length=50, null=True, verbose_name='Numéro du produit'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='partenaires',
+            field=models.ManyToManyField(blank=True, help_text='Partenaires associés à cette formation', related_name='formations', to='rap_app.partenaire', verbose_name='Partenaires'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='prevus_crif',
+            field=models.PositiveIntegerField(default=0, help_text='Nombre de places financées par la région', verbose_name='Places prévues CRIF'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='prevus_mp',
+            field=models.PositiveIntegerField(default=0, help_text='Nombre de places en marché public', verbose_name='Places prévues MP'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='start_date',
+            field=models.DateField(blank=True, help_text='Date de démarrage de la formation', null=True, verbose_name='Date de début'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='statut',
+            field=models.ForeignKey(help_text='État actuel de la formation', on_delete=django.db.models.deletion.CASCADE, related_name='formations', to='rap_app.statut', verbose_name='Statut de la formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='type_offre',
+            field=models.ForeignKey(help_text="Catégorie ou type de l'offre de formation", on_delete=django.db.models.deletion.CASCADE, related_name='formations', to='rap_app.typeoffre', verbose_name="Type d'offre"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='utilisateur',
+            field=models.ForeignKey(blank=True, help_text='Utilisateur ayant créé cette formation', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='formations_creees', to=settings.AUTH_USER_MODEL, verbose_name='Créé par'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='action',
+            field=models.CharField(default='modification', help_text="Type d'action effectuée (création, modification, etc.)", max_length=100, verbose_name="Type d'action"),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='ancienne_valeur',
+            field=models.TextField(blank=True, help_text='Valeur du champ avant modification', null=True, verbose_name='Ancienne valeur'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='champ_modifie',
+            field=models.CharField(default='non_specifié', help_text='Nom du champ qui a été modifié', max_length=100, verbose_name='Champ modifié'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='commentaire',
+            field=models.TextField(blank=True, help_text='Commentaire explicatif sur la modification', null=True, verbose_name='Commentaire lié à la modification'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='date_modification',
+            field=models.DateTimeField(default=django.utils.timezone.now, help_text='Date et heure de la modification', verbose_name='Date de modification'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='details',
+            field=models.JSONField(blank=True, default=dict, help_text='Informations supplémentaires sur la modification au format JSON', verbose_name='Détails'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='formation',
+            field=models.ForeignKey(help_text='Formation concernée par cette modification', on_delete=django.db.models.deletion.CASCADE, related_name='historiques', to='rap_app.formation', verbose_name='Formation'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='modifie_par',
+            field=models.ForeignKey(help_text='Utilisateur qui a effectué la modification', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='historiques_formation', to=settings.AUTH_USER_MODEL, verbose_name='Modifié par'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='nouvelle_valeur',
+            field=models.TextField(blank=True, help_text='Valeur du champ après modification', null=True, verbose_name='Nouvelle valeur'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='ancien_statut',
+            field=models.CharField(choices=[('a_faire', 'À faire'), ('en_cours', 'En cours'), ('a_relancer', 'À relancer'), ('acceptee', 'Acceptée'), ('refusee', 'Refusée'), ('annulee', 'Annulée'), ('non_renseigne', 'Non renseigné')], help_text='Statut avant la modification', max_length=20, verbose_name='Ancien statut'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='commentaire',
+            field=models.TextField(blank=True, help_text='Commentaire associé à cette modification', null=True, verbose_name='Commentaire'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='date_modification',
+            field=models.DateTimeField(auto_now_add=True, help_text='Date à laquelle cette modification a été enregistrée', verbose_name='Date de modification'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='modifie_par',
+            field=models.ForeignKey(help_text='Utilisateur ayant effectué cette modification', null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Modifié par'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='moyen_contact',
+            field=models.CharField(blank=True, choices=[('email', 'Email'), ('telephone', 'Téléphone'), ('visite', 'Visite'), ('reseaux', 'Réseaux sociaux')], help_text='Moyen utilisé pour ce contact', max_length=50, null=True, verbose_name='Moyen de contact'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='nouveau_statut',
+            field=models.CharField(choices=[('a_faire', 'À faire'), ('en_cours', 'En cours'), ('a_relancer', 'À relancer'), ('acceptee', 'Acceptée'), ('refusee', 'Refusée'), ('annulee', 'Annulée'), ('non_renseigne', 'Non renseigné')], help_text='Nouveau statut après la modification', max_length=20, verbose_name='Nouveau statut'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='prochain_contact',
+            field=models.DateField(blank=True, help_text='Date à laquelle un suivi devrait être effectué', null=True, verbose_name='Date de relance'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='prospection',
+            field=models.ForeignKey(help_text='Prospection concernée par cet historique', on_delete=django.db.models.deletion.CASCADE, related_name='historiques', to='rap_app.prospection', verbose_name='Prospection'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueprospection',
+            name='resultat',
+            field=models.TextField(blank=True, help_text='Information sur le résultat de cette étape de prospection', null=True, verbose_name='Résultat ou retour de la prospection'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='contact_email',
+            field=models.EmailField(blank=True, help_text='Adresse email professionnelle du contact', max_length=254, null=True, verbose_name='Email du contact'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='contact_nom',
+            field=models.CharField(blank=True, help_text='Nom de la personne à contacter chez le partenaire', max_length=255, null=True, verbose_name='Nom du contact'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='contact_poste',
+            field=models.CharField(blank=True, help_text="Fonction occupée par le contact au sein de l'organisation", max_length=255, null=True, verbose_name='Poste du contact'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='contact_telephone',
+            field=models.CharField(blank=True, help_text='Numéro de téléphone direct du contact', max_length=20, null=True, verbose_name='Téléphone du contact'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='description',
+            field=models.TextField(blank=True, help_text="Informations sur le partenariat et l'historique de la relation", null=True, verbose_name='Description de la relation'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='nom',
+            field=models.CharField(help_text="Nom officiel de l'entreprise ou de l'organisation partenaire", max_length=255, unique=True, verbose_name='Nom du partenaire'),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='secteur_activite',
+            field=models.CharField(blank=True, help_text="Domaine d'activité principal du partenaire (ex: Santé, IT, Formation...)", max_length=255, null=True, verbose_name="Secteur d'activité"),
+        ),
+        migrations.AlterField(
+            model_name='partenaire',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='commentaire',
+            field=models.TextField(blank=True, help_text='Notes et observations sur la prospection', null=True, verbose_name='Commentaires de la prospection'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='company',
+            field=models.ForeignKey(help_text='Entreprise ciblée par cette prospection', on_delete=django.db.models.deletion.CASCADE, related_name='prospections', to='rap_app.company', verbose_name='Entreprise'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='date_prospection',
+            field=models.DateTimeField(default=django.utils.timezone.now, help_text='Date à laquelle la prospection a été initiée', verbose_name='Date de la prospection'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='formation',
+            field=models.ForeignKey(blank=True, help_text='Formation associée à cette prospection (facultatif)', null=True, on_delete=django.db.models.deletion.CASCADE, related_name='prospections', to='rap_app.formation', verbose_name='Formation en lien'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='motif',
+            field=models.CharField(choices=[('POEI', 'POEI'), ('apprentissage', 'Apprentissage'), ('VAE', 'VAE'), ('partenariat', 'Établir un partenariat'), ('autre', 'Autre')], default='prise_contact', help_text='Raison principale de cette prospection', max_length=30, verbose_name='Motif de la prospection'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='objectif',
+            field=models.CharField(choices=[('prise_contact', 'Prise de contact'), ('rendez_vous', 'Obtenir un rendez-vous'), ('presentation_offre', 'Présentation d’une offre'), ('contrat', 'Signer un contrat'), ('partenariat', 'Établir un partenariat'), ('autre', 'Autre')], default='prise_contact', help_text='But visé par cette prospection', max_length=30, verbose_name='Objectif de la prospection'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='responsable',
+            field=models.ForeignKey(blank=True, help_text='Personne en charge de cette prospection', null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Responsable de la prospection'),
+        ),
+        migrations.AlterField(
+            model_name='prospection',
+            name='statut',
+            field=models.CharField(choices=[('a_faire', 'À faire'), ('en_cours', 'En cours'), ('a_relancer', 'À relancer'), ('acceptee', 'Acceptée'), ('refusee', 'Refusée'), ('annulee', 'Annulée'), ('non_renseigne', 'Non renseigné')], default='a_faire', help_text='État actuel de la prospection', max_length=20, verbose_name='Statut de la prospection'),
+        ),
+        migrations.AlterField(
+            model_name='rapport',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='rapport',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='recherche',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='recherche',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='statut',
+            name='couleur',
+            field=models.CharField(blank=True, help_text='Couleur hexadécimale (#RRGGBB).', max_length=7, verbose_name='Couleur'),
+        ),
+        migrations.AlterField(
+            model_name='statut',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='statut',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AlterField(
+            model_name='typeoffre',
+            name='autre',
+            field=models.CharField(blank=True, help_text="Si vous avez choisi 'Autre', précisez le type d'offre personnalisé", max_length=255, verbose_name='Autre (personnalisé)'),
+        ),
+        migrations.AlterField(
+            model_name='typeoffre',
+            name='couleur',
+            field=models.CharField(default='#6c757d', help_text="Code couleur hexadécimal (ex: #FF5733) pour l'affichage visuel", max_length=7, verbose_name='Couleur associée (hexadécimal)'),
+        ),
+        migrations.AlterField(
+            model_name='typeoffre',
+            name='created_at',
+            field=models.DateTimeField(default=django.utils.timezone.now, editable=False, help_text="Date et heure de création de l'enregistrement", verbose_name='Date de création'),
+        ),
+        migrations.AlterField(
+            model_name='typeoffre',
+            name='nom',
+            field=models.CharField(choices=[('crif', 'CRIF'), ('alternance', 'Alternance'), ('poec', 'POEC'), ('poei', 'POEI'), ('tosa', 'TOSA'), ('autre', 'Autre'), ('non_defini', 'Non défini')], default='non_defini', help_text="Sélectionnez le type d'offre de formation parmi les choix prédéfinis", max_length=100, verbose_name="Type d'offre"),
+        ),
+        migrations.AlterField(
+            model_name='typeoffre',
+            name='updated_at',
+            field=models.DateTimeField(auto_now=True, help_text='Date et heure de la dernière modification', verbose_name='Dernière mise à jour'),
+        ),
+        migrations.AddIndex(
+            model_name='company',
+            index=models.Index(fields=['name'], name='company_name_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='company',
+            index=models.Index(fields=['city'], name='company_city_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='company',
+            index=models.Index(fields=['sector_name'], name='company_sector_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='company',
+            index=models.Index(fields=['zip_code'], name='company_zipcode_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='document',
+            index=models.Index(fields=['formation'], name='rap_app_doc_formati_399b58_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='document',
+            index=models.Index(fields=['type_document'], name='rap_app_doc_type_do_ef9a30_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='evenement',
+            index=models.Index(fields=['formation'], name='rap_app_eve_formati_3e51e7_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='formation',
+            index=models.Index(fields=['statut'], name='rap_app_for_statut__266c03_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='formation',
+            index=models.Index(fields=['centre'], name='rap_app_for_centre__02fbd4_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='formation',
+            index=models.Index(fields=['statut', 'start_date'], name='rap_app_for_statut__25de1c_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='formation',
+            index=models.Index(fields=['centre', 'statut'], name='rap_app_for_centre__5e5c3c_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='historiqueformation',
+            index=models.Index(fields=['formation'], name='rap_app_his_formati_aa2815_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='historiqueformation',
+            index=models.Index(fields=['date_modification'], name='rap_app_his_date_mo_a927c1_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='historiqueformation',
+            index=models.Index(fields=['modifie_par'], name='rap_app_his_modifie_241c9e_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='historiqueformation',
+            index=models.Index(fields=['champ_modifie'], name='rap_app_his_champ_m_84201a_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='historiqueprospection',
+            index=models.Index(fields=['prospection'], name='rap_app_his_prospec_f00db9_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='historiqueprospection',
+            index=models.Index(fields=['date_modification'], name='rap_app_his_date_mo_5b61b9_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='historiqueprospection',
+            index=models.Index(fields=['prochain_contact'], name='rap_app_his_prochai_5f80db_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='partenaire',
+            index=models.Index(fields=['secteur_activite'], name='rap_app_par_secteur_455cf4_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='partenaire',
+            index=models.Index(fields=['slug'], name='rap_app_par_slug_09691e_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='prospection',
+            index=models.Index(fields=['statut'], name='rap_app_pro_statut_84d25a_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='prospection',
+            index=models.Index(fields=['date_prospection'], name='rap_app_pro_date_pr_5d71cf_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='prospection',
+            index=models.Index(fields=['company'], name='rap_app_pro_company_bb2e93_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='prospection',
+            index=models.Index(fields=['formation'], name='rap_app_pro_formati_986a4a_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='prospection',
+            index=models.Index(fields=['responsable'], name='rap_app_pro_respons_fb7ec5_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='typeoffre',
+            index=models.Index(fields=['nom'], name='rap_app_typ_nom_d4cbe0_idx'),
+        ),
+        migrations.AddIndex(
+            model_name='typeoffre',
+            index=models.Index(fields=['autre'], name='rap_app_typ_autre_76e40c_idx'),
+        ),
+    ]
+
+
+
+================================================
+File: rap_app/migrations/0014_delete_recherche.py
+================================================
+# Generated by Django 4.2.7 on 2025-03-22 18:17
+
+from django.db import migrations
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('rap_app', '0013_alter_company_options_and_more'),
+    ]
+
+    operations = [
+        migrations.DeleteModel(
+            name='Recherche',
+        ),
+    ]
+
+
+
+================================================
+File: rap_app/migrations/0015_alter_historiqueformation_options_and_more.py
+================================================
+# Generated by Django 4.2.7 on 2025-03-23 16:18
+
+from django.conf import settings
+from django.db import migrations, models
+import django.db.models.deletion
+import django.utils.timezone
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('rap_app', '0014_delete_recherche'),
+    ]
+
+    operations = [
+        migrations.AlterModelOptions(
+            name='historiqueformation',
+            options={'ordering': ['-date_modification'], 'verbose_name': 'Historique de modification de formation'},
+        ),
+        migrations.RemoveIndex(
+            model_name='formation',
+            name='rap_app_for_statut__266c03_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='formation',
+            name='rap_app_for_centre__02fbd4_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='formation',
+            name='rap_app_for_statut__25de1c_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='formation',
+            name='rap_app_for_centre__5e5c3c_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='historiqueformation',
+            name='rap_app_his_formati_aa2815_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='historiqueformation',
+            name='rap_app_his_date_mo_a927c1_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='historiqueformation',
+            name='rap_app_his_modifie_241c9e_idx',
+        ),
+        migrations.RemoveIndex(
+            model_name='historiqueformation',
+            name='rap_app_his_champ_m_84201a_idx',
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='assistante',
+            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Assistante'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='cap',
+            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='Capacité maximale'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='centre',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='formations', to='rap_app.centre', verbose_name='Centre de formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='convocation_envoie',
+            field=models.BooleanField(default=False, verbose_name='Convocation envoyée'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='dernier_commentaire',
+            field=models.TextField(blank=True, null=True, verbose_name='Dernier commentaire'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='end_date',
+            field=models.DateField(blank=True, null=True, verbose_name='Date de fin'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='entresformation',
+            field=models.PositiveIntegerField(default=0, verbose_name='Entrées en formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='inscrits_crif',
+            field=models.PositiveIntegerField(default=0, verbose_name='Inscrits CRIF'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='inscrits_mp',
+            field=models.PositiveIntegerField(default=0, verbose_name='Inscrits MP'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nom',
+            field=models.CharField(max_length=255, verbose_name='Nom de la formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nombre_candidats',
+            field=models.PositiveIntegerField(default=0, verbose_name='Nombre de candidats'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nombre_entretiens',
+            field=models.PositiveIntegerField(default=0, verbose_name="Nombre d'entretiens"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='nombre_evenements',
+            field=models.PositiveIntegerField(default=0, verbose_name="Nombre d'événements"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='num_kairos',
+            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='Numéro Kairos'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='num_offre',
+            field=models.CharField(blank=True, max_length=50, null=True, verbose_name="Numéro de l'offre"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='num_produit',
+            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='Numéro du produit'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='partenaires',
+            field=models.ManyToManyField(blank=True, related_name='formations', to='rap_app.partenaire', verbose_name='Partenaires'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='prevus_crif',
+            field=models.PositiveIntegerField(default=0, verbose_name='Places prévues CRIF'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='prevus_mp',
+            field=models.PositiveIntegerField(default=0, verbose_name='Places prévues MP'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='start_date',
+            field=models.DateField(blank=True, null=True, verbose_name='Date de début'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='statut',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='formations', to='rap_app.statut', verbose_name='Statut de la formation'),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='type_offre',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='formations', to='rap_app.typeoffre', verbose_name="Type d'offre"),
+        ),
+        migrations.AlterField(
+            model_name='formation',
+            name='utilisateur',
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='formations_creees', to=settings.AUTH_USER_MODEL, verbose_name='Créé par'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='action',
+            field=models.CharField(default='modification', max_length=100),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='ancienne_valeur',
+            field=models.TextField(blank=True, null=True),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='champ_modifie',
+            field=models.CharField(default='non_specifié', max_length=100, verbose_name='Champ modifié'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='commentaire',
+            field=models.TextField(blank=True, null=True, verbose_name='Commentaire lié à la modification'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='date_modification',
+            field=models.DateTimeField(default=django.utils.timezone.now),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='details',
+            field=models.JSONField(blank=True, default=dict),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='formation',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='historiques', to='rap_app.formation'),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='modifie_par',
+            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
+        ),
+        migrations.AlterField(
+            model_name='historiqueformation',
+            name='nouvelle_valeur',
+            field=models.TextField(blank=True, null=True),
+        ),
+    ]
+
+
+
+================================================
+File: rap_app/migrations/0016_candidat_departement_objectifannuel_semaine_entree_and_more.py
+================================================
+# Generated by Django 4.2.7 on 2025-03-23 18:11
+
+from django.db import migrations, models
+import django.db.models.deletion
+
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('rap_app', '0015_alter_historiqueformation_options_and_more'),
+    ]
+
+    operations = [
+        migrations.CreateModel(
+            name='Candidat',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('nom', models.CharField(max_length=100)),
+                ('prenom', models.CharField(max_length=100)),
+                ('email', models.EmailField(max_length=254, unique=True)),
+                ('telephone', models.CharField(blank=True, max_length=20, null=True)),
+                ('date_candidature', models.DateTimeField(auto_now_add=True)),
+                ('a_adhere', models.BooleanField(default=False)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Departement',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('code', models.CharField(max_length=3, unique=True)),
+                ('nom', models.CharField(max_length=100)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='ObjectifAnnuel',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('annee', models.PositiveIntegerField(unique=True)),
+                ('objectif', models.IntegerField(default=430)),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Semaine',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('date_debut', models.DateField()),
+                ('date_fin', models.DateField()),
+                ('numero_semaine', models.PositiveIntegerField()),
+                ('mois', models.PositiveIntegerField()),
+                ('annee', models.PositiveIntegerField()),
+                ('objectif_annuel', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rap_app.objectifannuel')),
+            ],
+            options={
+                'ordering': ['-date_debut'],
+                'unique_together': {('numero_semaine', 'annee')},
+            },
+        ),
+        migrations.CreateModel(
+            name='Entree',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('date_entree', models.DateTimeField(auto_now_add=True)),
+                ('candidat', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='rap_app.candidat')),
+                ('departement', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rap_app.departement')),
+                ('semaine', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rap_app.semaine')),
+            ],
+        ),
+        migrations.AddField(
+            model_name='candidat',
+            name='departement',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rap_app.departement'),
+        ),
+        migrations.AddField(
+            model_name='candidat',
+            name='semaine',
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rap_app.semaine'),
+        ),
+        migrations.CreateModel(
+            name='Mois',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('mois', models.PositiveIntegerField()),
+                ('annee', models.PositiveIntegerField()),
+                ('objectif_annuel', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rap_app.objectifannuel')),
+            ],
+            options={
+                'ordering': ['-annee', '-mois'],
+                'unique_together': {('mois', 'annee')},
+            },
+        ),
+    ]
+
+
+
+================================================
 File: rap_app/migrations/__init__.py
 ================================================
 
@@ -2417,7 +6031,6 @@ from .formations import Formation, FormationManager
 from .commentaires import Commentaire
 from .evenements import Evenement
 from .documents import Document
-from .recherches import Recherche
 from .partenaires import Partenaire
 from .rapports import Rapport  
 from .company import Company
@@ -2436,7 +6049,6 @@ __all__ = [
     'Evenement',
     'Document',
     'HistoriqueFormation',
-    'Recherche',
     'Rapport',  
     'Prospection',
     'Company',
@@ -2446,32 +6058,80 @@ __all__ = [
 ================================================
 File: rap_app/models/base.py
 ================================================
+import logging
 from django.db import models
 from django.utils.timezone import now  # Utilise Django timezone pour éviter les problèmes UTC
 
+# Configuration du logger pour ce module
+logger = logging.getLogger(__name__)
+
 class BaseModel(models.Model):
     """
-    Modèle de base pour tous les modèles de l'application.
-    Il inclut la gestion automatique de `created_at` et `updated_at`.
+    Modèle de base abstrait pour tous les modèles de l'application.
+    
+    Ce modèle fournit deux champs de date/heure automatiques :
+    - created_at : Enregistre la date et l'heure de création de l'objet
+    - updated_at : Mise à jour automatique à chaque modification de l'objet
+    
+    L'utilisation de ce modèle comme classe parente permet de :
+    1. Standardiser le suivi temporel des données
+    2. Éviter la duplication de code dans chaque modèle
+    3. Faciliter les requêtes basées sur les dates (filtrage, tri)
+    
+    Exemple d'usage :
+        class MonModele(BaseModel):
+            nom = models.CharField(max_length=100)
+            # ... autres champs ...
     """
 
-    created_at = models.DateTimeField(default=now, editable=False, verbose_name="Date de création")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Dernière mise à jour")
+    created_at = models.DateTimeField(
+        default=now, 
+        editable=False, 
+        verbose_name="Date de création",
+        help_text="Date et heure de création de l'enregistrement"
+    )
+    
+    updated_at = models.DateTimeField(
+        auto_now=True, 
+        verbose_name="Dernière mise à jour",
+        help_text="Date et heure de la dernière modification"
+    )
+
+    def save(self, *args, **kwargs):
+        """
+        Surcharge de la méthode save pour ajouter des logs
+        et des validations supplémentaires si nécessaire.
+        """
+        # Déterminer s'il s'agit d'une création ou d'une mise à jour
+        is_new = self.pk is None
+        
+        # Log l'opération
+        if is_new:
+            logger.debug(f"Création d'un nouvel objet {self.__class__.__name__}")
+        else:
+            logger.debug(f"Mise à jour de l'objet {self.__class__.__name__} #{self.pk}")
+            
+        # Appel à la méthode save parente
+        super().save(*args, **kwargs)
+        
+        # Log après sauvegarde
+        logger.debug(f"Objet {self.__class__.__name__} #{self.pk} sauvegardé avec succès")
 
     class Meta:
         abstract = True  # Empêche Django de créer une table pour ce modèle
 
 
-
 ================================================
 File: rap_app/models/centres.py
 ================================================
-# models/centres.py
+import logging
 from django.db import models
 from django.core.validators import RegexValidator
 from django.urls import reverse
 from .base import BaseModel
 
+# Configuration du logger pour ce module
+logger = logging.getLogger(__name__)
 
 class Centre(BaseModel):
     """
@@ -2500,15 +6160,17 @@ class Centre(BaseModel):
 
     nom = models.CharField(
         max_length=255,
-        unique=True,  # 🔹 Garantit qu'un centre a un nom unique
-        verbose_name="Nom du centre"
+        unique=True,
+        verbose_name="Nom du centre",
+        help_text="Nom complet du centre de formation (doit être unique)"
     )
 
     code_postal = models.CharField(
-        max_length=5,  # 🔹 Limité à 5 caractères au lieu de 10
+        max_length=5,
         null=True,
         blank=True,
         verbose_name="Code postal",
+        help_text="Code postal à 5 chiffres du centre",
         validators=[
             RegexValidator(
                 regex=r'^\d{5}$',
@@ -2536,47 +6198,162 @@ class Centre(BaseModel):
         if self.code_postal:
             address += f" ({self.code_postal})"
         return address
+        
+    def save(self, *args, **kwargs):
+        """
+        Surcharge de la méthode save pour inclure des validations supplémentaires
+        et journaliser les opérations sur les centres.
+        """
+        is_new = self.pk is None
+        
+        # Création
+        if is_new:
+            logger.info(f"Création d'un nouveau centre: {self.nom}")
+        # Modification
+        else:
+            old_centre = Centre.objects.get(pk=self.pk)
+            modifications = []
+            
+            if old_centre.nom != self.nom:
+                modifications.append(f"nom: '{old_centre.nom}' → '{self.nom}'")
+            
+            if old_centre.code_postal != self.code_postal:
+                modifications.append(f"code_postal: '{old_centre.code_postal}' → '{self.code_postal}'")
+                
+            if modifications:
+                logger.info(f"Modification du centre #{self.pk}: {', '.join(modifications)}")
+        
+        # Appel à la méthode parente
+        super().save(*args, **kwargs)
+        
+        # Log après sauvegarde
+        if is_new:
+            logger.info(f"Centre #{self.pk} '{self.nom}' créé avec succès")
 
     class Meta:
         verbose_name = "Centre"
         verbose_name_plural = "Centres"
         ordering = ['nom']
         indexes = [
-            models.Index(fields=['nom']),  # 🔹 Index pour optimiser les recherches par nom
-            models.Index(fields=['code_postal']),  # 🔹 Index pour les recherches par code postal
+            models.Index(fields=['nom']),
+            models.Index(fields=['code_postal']),
         ]
-
 
 
 ================================================
 File: rap_app/models/commentaires.py
 ================================================
+import logging
 from django.db import models
 from django.db.models import Q
-
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from django.utils.html import strip_tags
 from .base import BaseModel
 from .formations import Formation
 from django.contrib.auth import get_user_model
+
+# Configuration du logger
+logger = logging.getLogger(__name__)
+
 User = get_user_model()
 
 
 class Commentaire(BaseModel):
     """
     Modèle représentant un commentaire associé à une formation.
+    
+    Ce modèle permet de stocker les commentaires des utilisateurs sur les formations,
+    avec éventuellement une indication du niveau de saturation si le commentaire
+    concerne le remplissage de la formation.
+    
+    Relations:
+    - Lié à une formation (ForeignKey vers Formation)
+    - Lié à un utilisateur qui a créé le commentaire (ForeignKey vers User)
+    
+    Champs spécifiques:
+    - contenu: Texte du commentaire
+    - saturation: Valeur en pourcentage (optionnelle)
     """
 
-    formation = models.ForeignKey(Formation, on_delete=models.CASCADE, related_name="commentaires", verbose_name="Formation")
-    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="commentaires", verbose_name="Utilisateur associé")
-    contenu = models.TextField(verbose_name="Contenu du commentaire")
-    saturation = models.PositiveIntegerField(null=True, blank=True,verbose_name="Niveau de saturation (%)")
+    formation = models.ForeignKey(
+        Formation, 
+        on_delete=models.CASCADE, 
+        related_name="commentaires", 
+        verbose_name="Formation"
+    )
+    
+    utilisateur = models.ForeignKey(
+        User, 
+        on_delete=models.CASCADE, 
+        blank=True, 
+        null=True, 
+        related_name="commentaires", 
+        verbose_name="Utilisateur associé"
+    )
+    
+    contenu = models.TextField(
+        verbose_name="Contenu du commentaire"
+    )
+    
+    saturation = models.PositiveIntegerField(
+        null=True, 
+        blank=True,
+        verbose_name="Niveau de saturation (%)"
+    )
 
     def __str__(self):
         """
         Retourne une représentation lisible du commentaire.
         """
-        return f"Commentaire de {self.utilisateur} sur {self.formation.nom} ({self.created_at.strftime('%d/%m/%Y')})"
+        username = self.utilisateur.username if self.utilisateur else "Anonyme"
+        return f"Commentaire de {username} sur {self.formation.nom} ({self.created_at.strftime('%d/%m/%Y')})"
+
+    def save(self, *args, **kwargs):
+        """
+        Surcharge de la méthode save pour ajouter des logs et validations.
+        """
+        is_new = self.pk is None
+        
+        # Validation du niveau de saturation
+        if self.saturation is not None and (self.saturation < 0 or self.saturation > 100):
+            logger.warning(f"Tentative de définir une saturation invalide ({self.saturation}%) pour le commentaire.")
+            self.saturation = max(0, min(100, self.saturation))  # Limiter entre 0 et 100
+        
+        # Nettoyer le contenu des balises HTML potentiellement dangereuses
+        cleaned_content = strip_tags(self.contenu)
+        if cleaned_content != self.contenu:
+            logger.info(f"Nettoyage des balises HTML du commentaire")
+            self.contenu = cleaned_content
+        
+        # Journalisation
+        if is_new:
+            user_str = self.utilisateur.username if self.utilisateur else "Anonyme"
+            formation_str = self.formation.nom if self.formation else "N/A"
+            logger.info(
+                f"Création d'un commentaire par {user_str} sur formation '{formation_str}'. "
+                f"Saturation: {self.saturation}%"
+            )
+        else:
+            logger.info(f"Mise à jour du commentaire #{self.pk}")
+        
+        super().save(*args, **kwargs)
+
+    def get_content_preview(self, length=50):
+        """
+        Retourne un aperçu du contenu du commentaire limité à une certaine longueur.
+        """
+        if len(self.contenu) <= length:
+            return self.contenu
+        return f"{self.contenu[:length]}..."
+
+    def is_recent(self, days=7):
+        """
+        Vérifie si le commentaire a été créé récemment (dans les X derniers jours).
+        """
+        from django.utils import timezone
+        from datetime import timedelta
+        return self.created_at >= (timezone.now() - timedelta(days=days))
 
     class Meta:
         verbose_name = "Commentaire"
@@ -2592,7 +6369,19 @@ class Commentaire(BaseModel):
     def get_all_commentaires(cls, formation_id=None, utilisateur_id=None, search_query=None, order_by="-created_at"):
         """
         Récupère tous les commentaires avec options de filtres.
+        
+        Paramètres:
+        - formation_id: Filtrer par formation spécifique
+        - utilisateur_id: Filtrer par utilisateur spécifique
+        - search_query: Recherche textuelle dans le contenu
+        - order_by: Champ de tri (défaut: commentaires les plus récents en premier)
         """
+        logger.debug(
+            f"Recherche de commentaires avec filtres: "
+            f"formation_id={formation_id}, utilisateur_id={utilisateur_id}, "
+            f"search_query='{search_query}', tri par {order_by}"
+        )
+        
         queryset = cls.objects.select_related('formation', 'utilisateur').order_by(order_by)
 
         filters = Q()
@@ -2604,39 +6393,59 @@ class Commentaire(BaseModel):
             filters &= Q(contenu__icontains=search_query)
 
         queryset = queryset.filter(filters)
-        return queryset if queryset.exists() else cls.objects.none()  # ✅ Évite l'erreur avec un queryset vide
-
-
+        count = queryset.count()
+        
+        logger.debug(f"Recherche de commentaires: {count} résultats trouvés")
+        
+        return queryset if queryset.exists() else cls.objects.none()  # Évite l'erreur avec un queryset vide
 
 
 @receiver(post_save, sender=Commentaire)
 def update_formation_saturation(sender, instance, **kwargs):
     """
     Met à jour la saturation et le dernier commentaire après un ajout.
+    
+    Ce signal est déclenché après chaque sauvegarde d'un commentaire et
+    met à jour les informations associées dans la formation concernée.
     """
     if instance.formation:
         updates = {}
 
         if instance.saturation is not None:
             updates['saturation'] = instance.saturation
+            logger.info(
+                f"Mise à jour de la saturation de la formation #{instance.formation.id} "
+                f"'{instance.formation.nom}' à {instance.saturation}%"
+            )
 
         dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
         updates['dernier_commentaire'] = dernier_commentaire.contenu if dernier_commentaire else ""
 
         if updates:
             Formation.objects.filter(id=instance.formation.id).update(**updates)
+            logger.debug(f"Formation #{instance.formation.id} mise à jour suite à un commentaire")
+
 
 @receiver(post_delete, sender=Commentaire)
 def handle_commentaire_delete(sender, instance, **kwargs):
     """
     Met à jour la formation après la suppression d'un commentaire.
+    
+    Ce signal est déclenché après la suppression d'un commentaire et
+    met à jour le dernier commentaire affiché dans la formation.
     """
     if instance.formation:
+        logger.info(f"Commentaire #{instance.pk} supprimé, mise à jour de la formation #{instance.formation.id}")
+        
         dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
         Formation.objects.filter(id=instance.formation.id).update(
             dernier_commentaire=dernier_commentaire.contenu if dernier_commentaire else ""
         )
-
+        
+        logger.debug(
+            f"Dernier commentaire de la formation #{instance.formation.id} mis à jour "
+            f"après suppression d'un commentaire"
+        )
 
 
 ================================================
@@ -2645,35 +6454,45 @@ File: rap_app/models/company.py
 from django.db import models
 from django.core.validators import RegexValidator
 from django.utils import timezone
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 import logging
 
-# Configuration du logger
+# Configuration du logger pour enregistrer les actions (création, modification)
 logger = logging.getLogger(__name__)
 
-# Expression régulière pour les numéros de téléphone français
+# Regex pour valider un numéro de téléphone français
 phone_regex = RegexValidator(
     regex=r'^(0[1-9]\d{8})$|^(?:\+33|0033)[1-9]\d{8}$',
     message="Entrez un numéro de téléphone français valide commençant par 01, 02, ..., 06 ou 07."
 )
 
+# Regex pour valider un code postal à 5 chiffres
+zip_code_regex = RegexValidator(
+    regex=r'^[0-9]{5}$',
+    message="Le code postal doit être composé de 5 chiffres."
+)
+
+# Regex pour s'assurer que l'URL commence par http:// ou https://
+url_regex = RegexValidator(
+    regex=r'^(http|https)://',
+    message="L'URL doit commencer par http:// ou https://"
+)
+
+# Liste des types d'action qu'une entreprise peut proposer
 CHOICES_TYPE_OF_ACTION = [
-    ('accueil_stagiaires', 'Accueil de stagiaires'),
-    ('recrutement_cdi', 'Recrutement - CDI'),
-    ('recrutement_cdd', 'Recrutement - CDD'),
+    ('recrutement_emploi', 'Recrutement - Emploi'),
     ('recrutement_stage', 'Recrutement - Stage'),
-    ('recrutement_formation', 'Recrutement Formation'),
     ('recrutement_apprentissage', 'Recrutement - Apprentissage'),
     ('presentation_metier_entreprise', 'Présentation de métier(s)/entreprise'),
-    ('enquete_metier', 'Enquête métier'),
-    ('visite_entreprise', 'Visite de l’entreprise'),
+    ('visite_entreprise', "Visite de l'entreprise"),
     ('coaching', 'Coaching'),
     ('autre', 'Autre'),
     ('partenariat', 'Partenariat'),
-    ('taxe_apprentissage', 'Taxe apprentissage'),
     ('non_definie', 'Non définie')
 ]
 
+# Réseaux sociaux possibles pour une entreprise
 CHOICES_SOCIAL_NETWORK = [
     ("facebook", "Facebook"),
     ("twitter", "Twitter"),
@@ -2682,81 +6501,264 @@ CHOICES_SOCIAL_NETWORK = [
     ("tiktok", "TikTok"),
 ]
 
+# Récupère le modèle utilisateur personnalisé si défini
+User = get_user_model()
+
 class Company(models.Model):
+    """
+    Modèle représentant une entreprise avec ses coordonnées, contacts, site web, secteur, etc.
+    """
+    # Pour les requêtes : Company.objects.all() utilisera ce manager par défaut
     objects = models.Manager()
 
-    # INFORMATIONS GENERALES
-    name = models.CharField(max_length=100, null=True, blank=True, verbose_name="Nom")
+    # --- Informations générales ---
+    name = models.CharField(
+        max_length=100,
+        null=True, blank=True,
+        verbose_name="Nom",
+        help_text="Nom de l'entreprise"
+    )
 
-    # Adresse
-    street_name = models.CharField(max_length=200, null=True, blank=True, verbose_name="Numéro et nom de la rue")
+    street_name = models.CharField(
+        max_length=200,
+        null=True, blank=True,
+        verbose_name="Numéro et nom de la rue",
+        help_text="Exemple: 123 rue de la République"
+    )
+
     zip_code = models.CharField(
         max_length=5,
-        validators=[RegexValidator(regex=r'^[0-9]{5}$', message="Le code postal doit être composé de 5 chiffres.")],
+        validators=[zip_code_regex],  # Validation du format
         verbose_name="Code postal",
-        blank=True,
-        null=True,
+        blank=True, null=True,
+        help_text="Code postal à 5 chiffres"
     )
-    city = models.CharField(max_length=100, verbose_name="Ville", blank=True, null=True)
-    country = models.CharField(max_length=100, default="France", verbose_name="Pays", blank=True, null=True)
 
-    # Contact principal (Sans relation avec `Person`)
-    contact_name = models.CharField(max_length=255, null=True, blank=True, verbose_name="Nom du contact")
-    contact_email = models.EmailField(null=True, blank=True, verbose_name="Adresse email du contact")
+    city = models.CharField(
+        max_length=100,
+        verbose_name="Ville",
+        blank=True, null=True,
+        help_text="Ville du siège social"
+    )
+
+    country = models.CharField(
+        max_length=100,
+        default="France",
+        verbose_name="Pays",
+        blank=True, null=True
+    )
+
+    # --- Contact principal ---
+    contact_name = models.CharField(
+        max_length=255,
+        null=True, blank=True,
+        verbose_name="Nom du contact",
+        help_text="Nom et prénom du contact principal"
+    )
+
+    contact_email = models.EmailField(
+        null=True, blank=True,
+        verbose_name="Adresse email du contact",
+        help_text="Email professionnel du contact"
+    )
+
     contact_phone_number = models.CharField(
-        max_length=20, verbose_name='Numéro de téléphone du contact', blank=True, null=True, validators=[phone_regex]
+        max_length=20,
+        validators=[phone_regex],  # Validation du numéro
+        verbose_name="Numéro de téléphone du contact",
+        blank=True, null=True,
+        help_text="Format: 06XXXXXXXX ou +33XXXXXXXXX"
     )
-    contact_job = models.CharField(max_length=255, null=True, blank=True, verbose_name="Métier du contact")
 
-    # Informations complémentaires
-    sector_name = models.CharField(max_length=200, null=True, blank=True, verbose_name="Secteur d'activité")
+    contact_job = models.CharField(
+        max_length=255,
+        null=True, blank=True,
+        verbose_name="Métier du contact",
+        help_text="Fonction ou poste du contact"
+    )
 
-    # Opportunités
-    actions = models.CharField(max_length=50, null=True, blank=True, choices=CHOICES_TYPE_OF_ACTION, verbose_name="Actions")
-    action_description = models.CharField(max_length=5000, null=True, blank=True, verbose_name="Description de l'action")
+    # --- Détails supplémentaires ---
+    sector_name = models.CharField(
+        max_length=200,
+        null=True, blank=True,
+        verbose_name="Secteur d'activité",
+        help_text="Domaine d'activité principal de l'entreprise"
+    )
 
-    # Informations numériques
-    website = models.URLField(null=True, blank=True, validators=[RegexValidator(regex='^(http|https)://')])
-    social_network_url = models.CharField(max_length=200, verbose_name="URL du réseau social", null=True, blank=True)
+    actions = models.CharField(
+        max_length=50,
+        null=True, blank=True,
+        choices=CHOICES_TYPE_OF_ACTION,
+        verbose_name="Actions",
+        help_text="Type d'interaction possible avec cette entreprise"
+    )
 
-    # Création et mise à jour
-    created_by = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
-    created_at = models.DateTimeField(default=timezone.now, editable=False, verbose_name="Contact créé le")
-    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name="Date de MAJ")
+    action_description = models.CharField(
+        max_length=5000,
+        null=True, blank=True,
+        verbose_name="Description de l'action",
+        help_text="Détails sur l'action ou l'opportunité"
+    )
+
+    website = models.URLField(
+        null=True, blank=True,
+        validators=[url_regex],
+        help_text="Site web de l'entreprise (avec http:// ou https://)"
+    )
+
+    social_network_url = models.CharField(
+        max_length=200,
+        verbose_name="URL du réseau social",
+        null=True, blank=True,
+        help_text="Lien vers le profil de l'entreprise sur un réseau social"
+    )
+
+    # --- Métadonnées ---
+    created_by = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+        verbose_name="Créé par",
+        related_name="companies_created"
+    )
+
+    created_at = models.DateTimeField(
+        default=timezone.now,
+        editable=False,
+        verbose_name="Contact créé le"
+    )
+
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        null=True, blank=True,
+        verbose_name="Date de MAJ"
+    )
 
     class Meta:
         verbose_name = 'entreprise'
         verbose_name_plural = 'entreprises'
-        db_table = 'companies'
+        db_table = 'companies'  # Nom de la table dans la base de données
+        ordering = ['-created_at']  # Tri par date de création descendante
+        indexes = [  # Index pour optimiser les requêtes
+            models.Index(fields=['name'], name='company_name_idx'),
+            models.Index(fields=['city'], name='company_city_idx'),
+            models.Index(fields=['sector_name'], name='company_sector_idx'),
+            models.Index(fields=['zip_code'], name='company_zipcode_idx'),
+        ]
 
     def __str__(self):
-        return f"{self.name} ({self.city}) - {self.sector_name or 'Secteur inconnu'}"
+        # Représentation textuelle de l'entreprise dans l'admin
+        return f"{self.name or 'Entreprise sans nom'} ({self.city or 'Ville non spécifiée'}) - {self.sector_name or 'Secteur inconnu'}"
+
+    def get_absolute_url(self):
+        # Pour les liens dans les templates : {{ object.get_absolute_url }}
+        return reverse('company-detail', kwargs={'pk': self.pk})
+
+    def get_full_address(self):
+        """Retourne l'adresse complète formatée pour affichage."""
+        parts = []
+        if self.street_name:
+            parts.append(self.street_name)
+        if self.zip_code and self.city:
+            parts.append(f"{self.zip_code} {self.city}")
+        elif self.city:
+            parts.append(self.city)
+        if self.country and self.country != "France":
+            parts.append(self.country)
+        return ", ".join(parts) if parts else "Adresse non spécifiée"
+
+    def get_contact_info(self):
+        """Retourne les infos de contact formatées pour affichage."""
+        parts = []
+        if self.contact_name:
+            parts.append(self.contact_name)
+        if self.contact_job:
+            parts.append(f"({self.contact_job})")
+        if self.contact_email:
+            parts.append(self.contact_email)
+        if self.contact_phone_number:
+            parts.append(self.contact_phone_number)
+        return " - ".join(parts) if parts else "Aucun contact spécifié"
+
+    def get_prospections_count(self):
+        """Retourne le nombre de prospections associées à l'entreprise."""
+        return self.prospections.count()
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
+        """
+        Surcharge de la méthode save() pour :
+        - Nettoyer/normaliser les champs (email, nom)
+        - Préfixer automatiquement les URLs si besoin
+        - Logger les modifications dans les logs système
+        """
+        is_new = self.pk is None  # Vérifie si c'est une création
+
+        # Nettoyage de base
+        if self.name:
+            self.name = self.name.strip()
+
+        if self.contact_email:
+            self.contact_email = self.contact_email.lower().strip()
+
+        # Ajoute le préfixe https:// si l'utilisateur l'a oublié
+        if self.website and not self.website.startswith(('http://', 'https://')):
+            self.website = f"https://{self.website}"
+
+        # Journalisation des modifications
+        if is_new:
+            logger.info(f"Création d'une nouvelle entreprise: {self.name or 'Sans nom'}")
+        else:
+            try:
+                original = Company.objects.get(pk=self.pk)
+                changes = []
+                for field in ('name', 'city', 'contact_name', 'contact_email', 'sector_name'):
+                    old_value = getattr(original, field)
+                    new_value = getattr(self, field)
+                    if old_value != new_value:
+                        changes.append(f"{field}: '{old_value or 'Non spécifié'}' → '{new_value or 'Non spécifié'}'")
+                if changes:
+                    logger.info(f"Mise à jour de l'entreprise #{self.pk}: {', '.join(changes)}")
+            except Company.DoesNotExist:
+                logger.warning(f"Entreprise introuvable lors de la tentative de modification (ID: {self.pk})")
+
+        super().save(*args, **kwargs)  # Appelle la méthode save() originale de Django
 
 
 
 ================================================
 File: rap_app/models/documents.py
 ================================================
+import logging
+import os
+import magic  # Nécessite l'installation de python-magic
 from django.db import models
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
-import os
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.utils.html import escape
 from .base import BaseModel
 from .formations import Formation, User
 
+# Configuration du logger
+logger = logging.getLogger(__name__)
 
 class Document(BaseModel):
     """
     Modèle représentant un document associé à une formation.
-    Permet de stocker et gérer différents types de documents (PDF, images, contrats...).
+    
+    Ce modèle permet de stocker et gérer différents types de documents
+    (PDF, images, contrats...) avec validation de type et gestion automatique
+    des fichiers physiques.
+    
+    Fonctionnalités:
+    - Validation automatique du type de fichier par extension et contenu MIME
+    - Calcul automatique de la taille du fichier
+    - Suppression automatique des anciens fichiers lors d'un remplacement
+    - Suppression automatique du fichier physique lors de la suppression de l'objet
     """
 
-    # Types de documents possibles
+    # Définition des types de documents acceptés
     PDF = 'pdf'
     IMAGE = 'image'
     CONTRAT = 'contrat'
@@ -2769,58 +6771,205 @@ class Document(BaseModel):
         (AUTRE, 'Autre'),
     ]
 
-    formation = models.ForeignKey(Formation, on_delete=models.CASCADE, related_name="documents",  verbose_name="Formation associée")
-    nom_fichier = models.CharField(max_length=255, verbose_name="Nom du fichier",db_index=True)
-    fichier = models.FileField(upload_to='formations/documents/', verbose_name="Fichier")
-    source = models.TextField(null=True, blank=True, verbose_name="Source du document")
-    type_document = models.CharField( max_length=20, choices=TYPE_DOCUMENT_CHOICES, default=AUTRE,verbose_name="Type de document")
-    taille_fichier = models.PositiveIntegerField(null=True,blank=True, verbose_name="Taille du fichier (Ko)")
-    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    # Champs du modèle
+    formation = models.ForeignKey(
+        Formation,
+        on_delete=models.CASCADE,
+        related_name="documents",
+        verbose_name="Formation associée"
+    )
+    
+    nom_fichier = models.CharField(
+        max_length=255,
+        verbose_name="Nom du fichier",
+        db_index=True,
+        help_text="Nom du fichier tel qu'il apparaîtra dans l'interface"
+    )
+    
+    fichier = models.FileField(
+        upload_to='formations/documents/',
+        verbose_name="Fichier",
+        help_text="Fichier à télécharger (types acceptés selon la catégorie)"
+    )
+    
+    source = models.TextField(
+        null=True, blank=True,
+        verbose_name="Source du document",
+        help_text="Source ou origine du document (optionnel)"
+    )
+    
+    type_document = models.CharField(
+        max_length=20,
+        choices=TYPE_DOCUMENT_CHOICES,
+        default=AUTRE,
+        verbose_name="Type de document",
+        help_text="Catégorie du document déterminant les types de fichiers acceptés"
+    )
+    
+    taille_fichier = models.PositiveIntegerField(
+        null=True, blank=True,
+        verbose_name="Taille du fichier (Ko)",
+        help_text="Taille du fichier en Ko (calculée automatiquement)"
+    )
+    
+    utilisateur = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Téléchargé par",
+        help_text="Utilisateur ayant téléchargé le document"
+    )
+    
+    # Métadonnées détectées
+    mime_type = models.CharField(
+        max_length=100,
+        blank=True, null=True,
+        verbose_name="Type MIME",
+        help_text="Type MIME détecté automatiquement"
+    )
 
     def __str__(self):
         """
-        Retourne une représentation lisible du document avec un nom tronqué si nécessaire.
-        Exemple : "Guide utilisateur.pdf"
+        Représentation lisible du document dans l'admin ou les logs.
+        Affiche un nom tronqué s'il est trop long, suivi du type de document.
         """
         nom_tronque = self.nom_fichier[:50] + ('...' if len(self.nom_fichier) > 50 else '')
         return f"{nom_tronque} ({self.get_type_document_display()})"
-    
+
     def clean(self):
-        """Validation personnalisée pour vérifier la correspondance entre type et extension."""
+        """
+        Validation personnalisée à l'enregistrement:
+        - Vérifie la correspondance entre type et extension
+        - Valide le contenu MIME si possible
+        - Nettoie le nom du fichier pour éviter les injections
+        """
         super().clean()
+        
+        # Validation du fichier si présent
         if self.fichier and self.type_document:
+            # Validation de l'extension
             validate_file_extension(self.fichier, self.type_document)
+            
+            # Validation du contenu MIME
+            try:
+                mime_type = magic.from_buffer(self.fichier.read(2048), mime=True)
+                self.fichier.seek(0)  # Réinitialiser le pointeur
+                self.mime_type = mime_type
+                
+                # Vérifier la cohérence du type MIME avec le type de document
+                valid_mime_types = {
+                    'pdf': ['application/pdf'],
+                    'image': ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+                    'contrat': ['application/pdf', 'application/msword', 
+                               'application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+                    'autre': []  # Pas de restriction pour "Autre"
+                }
+                
+                if (self.type_document != Document.AUTRE and 
+                    valid_mime_types.get(self.type_document) and 
+                    mime_type not in valid_mime_types.get(self.type_document)):
+                    logger.warning(
+                        f"Type MIME incohérent: '{mime_type}' pour un document de type '{self.type_document}'"
+                    )
+            except Exception as e:
+                logger.warning(f"Impossible de valider le type MIME: {str(e)}")
+                
+        # Nettoyage du nom du fichier
+        if self.nom_fichier:
+            # Échapper les caractères spéciaux pour éviter les injections
+            self.nom_fichier = escape(self.nom_fichier)
+        
+        # Taille maximale
+        if self.fichier and hasattr(self.fichier, 'size'):
+            taille_ko = self.fichier.size // 1024
+        if taille_ko > 10 * 1024:  # 10 Mo
+            raise ValidationError("Le fichier est trop volumineux (max. 10 Mo).")
 
     def save(self, *args, **kwargs):
         """
-        - Vérifie les règles de validation avant la sauvegarde (`full_clean()`).
-        - Met à jour automatiquement la taille du fichier en Ko.
+        Surcharge de la méthode save() pour:
+        - Exécuter les validations personnalisées
+        - Calculer automatiquement la taille du fichier
+        - Journaliser les opérations
         """
-        self.full_clean()  # Exécute la validation avant la sauvegarde.
-
+        is_new = self.pk is None
+        
+        # Exécuter la validation
+        self.full_clean()
+        
+        # Calcul de la taille du fichier
         if self.fichier and hasattr(self.fichier, 'size'):
-            self.taille_fichier = max(1, self.fichier.size // 1024)  # Au moins 1 Ko pour éviter les zeros
+            self.taille_fichier = max(1, self.fichier.size // 1024)  # Au moins 1 Ko
+        
+        # Journalisation
+        if is_new:
+            logger.info(
+                f"Création d'un nouveau document '{self.nom_fichier}' "
+                f"({self.get_type_document_display()}) "
+                f"pour la formation #{self.formation_id if self.formation else 'N/A'}"
+            )
+        else:
+            logger.info(f"Mise à jour du document #{self.pk}: '{self.nom_fichier}'")
         
         super().save(*args, **kwargs)
+        
+    def get_file_extension(self):
+        """Retourne l'extension du fichier."""
+        if self.fichier:
+            _, ext = os.path.splitext(self.fichier.name)
+            return ext.lower()
+        return ""
+    
+    def get_icon_class(self):
+        """
+        Retourne une classe d'icône selon le type de document,
+        utile pour l'affichage dans l'interface.
+        """
+        icons = {
+            self.PDF: "fa-file-pdf",
+            self.IMAGE: "fa-file-image",
+            self.CONTRAT: "fa-file-contract",
+            self.AUTRE: "fa-file",
+        }
+        return icons.get(self.type_document, "fa-file")
+    
+    def get_download_url(self):
+        """Retourne l'URL de téléchargement du document."""
+        if self.fichier:
+            return self.fichier.url
+        return None
+    
+    @property
+    def extension(self):
+        return self.get_file_extension().replace('.', '')
+    
+
     class Meta:
         verbose_name = "Document"
         verbose_name_plural = "Documents"
         ordering = ['-created_at']
         indexes = [
-            models.Index(fields=['nom_fichier']),  # Index pour la recherche rapide
+            models.Index(fields=['nom_fichier']),
+            models.Index(fields=['formation']),
+            models.Index(fields=['type_document']),
         ]
 
 
-### 🚀 Validation : Empêcher l'upload d'un fichier invalide
+# -------------------- VALIDATION --------------------
 def validate_file_extension(value, type_doc=None):
     """
-    Vérifie que le fichier téléchargé correspond bien au type déclaré.
-    Le paramètre type_doc peut être passé à la validation.
+    Fonction utilitaire pour valider l'extension du fichier en fonction du type_document.
+    
+    Arguments:
+        value: Le fichier à valider
+        type_doc: Le type de document attendu (pdf, image, contrat, autre)
+    
+    Lève une ValidationError si l'extension ne correspond pas au type attendu.
     """
     ext = os.path.splitext(value.name)[1].lower()
     valid_extensions = {
         'pdf': ['.pdf'],
-        'image': ['.jpg', '.jpeg', '.png', '.gif'],
+        'image': ['.jpg', '.jpeg', '.png', '.gif', '.webp'],
         'contrat': ['.pdf', '.doc', '.docx'],
         'autre': []  # Autorise tout pour "Autre"
     }
@@ -2828,139 +6977,454 @@ def validate_file_extension(value, type_doc=None):
     # Si aucun type n'est fourni ou si c'est "autre", on accepte le fichier
     if not type_doc or type_doc == Document.AUTRE:
         return
-        
+    
     # Vérifie si l'extension correspond au type fourni
     if ext not in valid_extensions.get(type_doc, []):
-        raise ValidationError(f"Le fichier {value.name} ne correspond pas au type {dict(Document.TYPE_DOCUMENT_CHOICES).get(type_doc, type_doc)}.")
+        error_msg = (f"Le fichier {value.name} ne correspond pas au type "
+                    f"{dict(Document.TYPE_DOCUMENT_CHOICES).get(type_doc, type_doc)}. "
+                    f"Extensions acceptées: {', '.join(valid_extensions.get(type_doc, []))}")
+        logger.warning(f"Validation d'extension échouée: {error_msg}")
+        raise ValidationError(error_msg)
+    
+    logger.debug(f"Extension validée pour le fichier {value.name}: {ext} (type: {type_doc})")
 
-### 🚀 Suppression automatique des anciens fichiers avant mise à jour
+
+# -------------------- SIGNALS --------------------
 @receiver(pre_save, sender=Document)
 def supprimer_fichier_ancien(sender, instance, **kwargs):
     """
-    Supprime l'ancien fichier si un nouveau fichier est uploadé pour éviter l'accumulation de fichiers inutiles.
+    Avant la sauvegarde: supprime l'ancien fichier si un nouveau est fourni.
+    Permet d'éviter l'accumulation inutile de fichiers obsolètes.
     """
     if instance.pk:
-        ancien_document = Document.objects.get(pk=instance.pk)
-        if ancien_document.fichier and ancien_document.fichier != instance.fichier:
-            ancien_fichier_path = os.path.join(settings.MEDIA_ROOT, ancien_document.fichier.name)
-            if os.path.exists(ancien_fichier_path):
-                os.remove(ancien_fichier_path)
+        try:
+            ancien_document = Document.objects.get(pk=instance.pk)
+            if ancien_document.fichier and ancien_document.fichier != instance.fichier:
+                ancien_fichier_path = os.path.join(settings.MEDIA_ROOT, ancien_document.fichier.name)
+                if os.path.exists(ancien_fichier_path):
+                    os.remove(ancien_fichier_path)
+                    logger.info(f"Ancien fichier supprimé: {ancien_document.fichier.name}")
+        except Document.DoesNotExist:
+            logger.warning(f"Impossible de trouver l'ancien document #{instance.pk} pour supprimer le fichier")
+        except Exception as e:
+            logger.error(f"Erreur lors de la suppression de l'ancien fichier: {str(e)}")
+    
 
 
-### 🚀 Suppression automatique du fichier après suppression d'un Document
 @receiver(post_delete, sender=Document)
 def supprimer_fichier_apres_suppression(sender, instance, **kwargs):
     """
-    Supprime le fichier du stockage lorsque l'objet `Document` est supprimé.
-    Évite les erreurs si le fichier a déjà été supprimé.
+    Après suppression d'un Document: supprime le fichier du disque dur (media).
     """
     if instance.fichier:
         fichier_path = os.path.join(settings.MEDIA_ROOT, instance.fichier.name)
         try:
             if os.path.exists(fichier_path):
                 os.remove(fichier_path)
+                logger.info(f"Fichier supprimé après suppression du document: {instance.fichier.name}")
         except Exception as e:
-            print(f"Erreur lors de la suppression du fichier {fichier_path}: {e}")
-
+            logger.error(f"Erreur lors de la suppression du fichier {fichier_path}: {str(e)}")
 
 
 ================================================
 File: rap_app/models/evenements.py
 ================================================
-from django.db import models
+import logging
+from django.db import models, transaction
 from django.core.exceptions import ValidationError
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from django.db.models import F
+from django.utils import timezone
 from .base import BaseModel
 from .formations import Formation
+
+# Configuration du logger avec un nom plus spécifique
+logger = logging.getLogger("application.evenements")
 
 class Evenement(BaseModel):
     """
     Modèle représentant un événement lié à une formation.
+    
+    Ce modèle permet de suivre différents types d'événements organisés dans le cadre
+    des formations, comme les réunions d'information, job dating, forums, etc.
+    
+    Attributes:
+        formation: Référence à la formation associée à cet événement
+        type_evenement: Catégorie de l'événement (présentiel, distanciel, etc.)
+        details: Informations complémentaires sur l'événement
+        event_date: Date prévue pour l'événement
+        description_autre: Précision obligatoire si le type d'événement est 'Autre'
+        lieu: Emplacement où se déroule l'événement
+        participants_prevus: Nombre de participants attendus
+        participants_reels: Nombre de participants réels après l'événement
     """
 
-    # Constantes pour les types d'événements
-    INFO_PRESENTIEL = 'info_collective_presentiel'
-    INFO_DISTANCIEL = 'info_collective_distanciel'
-    JOB_DATING = 'job_dating'
-    EVENEMENT_EMPLOI = 'evenement_emploi'
-    FORUM = 'forum'
-    JPO = 'jpo'
-    AUTRE = 'autre'
+    # Constantes pour les types d'événements - utilisation d'une énumération pour plus de clarté
+    class TypeEvenement(models.TextChoices):
+        INFO_PRESENTIEL = 'info_collective_presentiel', 'Information collective présentiel'
+        INFO_DISTANCIEL = 'info_collective_distanciel', 'Information collective distanciel'
+        JOB_DATING = 'job_dating', 'Job dating'
+        EVENEMENT_EMPLOI = 'evenement_emploi', 'Événement emploi'
+        FORUM = 'forum', 'Forum'
+        JPO = 'jpo', 'Journée Portes Ouvertes (JPO)'
+        AUTRE = 'autre', 'Autre'
+    
+    # Pour garantir la rétrocompatibilité avec le code existant
+    INFO_PRESENTIEL = TypeEvenement.INFO_PRESENTIEL.value
+    INFO_DISTANCIEL = TypeEvenement.INFO_DISTANCIEL.value
+    JOB_DATING = TypeEvenement.JOB_DATING.value
+    EVENEMENT_EMPLOI = TypeEvenement.EVENEMENT_EMPLOI.value
+    FORUM = TypeEvenement.FORUM.value
+    JPO = TypeEvenement.JPO.value
+    AUTRE = TypeEvenement.AUTRE.value
+    
+    # Conservation de la liste des choix pour rétrocompatibilité
+    TYPE_EVENEMENT_CHOICES = TypeEvenement.choices
 
-    TYPE_EVENEMENT_CHOICES = [
-        (INFO_PRESENTIEL, 'Information collective présentiel'),
-        (INFO_DISTANCIEL, 'Information collective distanciel'),
-        (JOB_DATING, 'Job dating'),
-        (EVENEMENT_EMPLOI, 'Événement emploi'),
-        (FORUM, 'Forum'),
-        (JPO, 'Journée Portes Ouvertes (JPO)'),
-        (AUTRE, 'Autre'),
-    ]
-
-    formation = models.ForeignKey(Formation, on_delete=models.CASCADE, null=True, blank=True,  related_name="evenements",verbose_name="Formation associée")
-    type_evenement = models.CharField(max_length=100, choices=TYPE_EVENEMENT_CHOICES, verbose_name="Type d'événement",db_index=True)
-    details = models.TextField(null=True,  blank=True, verbose_name="Détails de l'événement")
-    event_date = models.DateField(null=True, blank=True, verbose_name="Date de l'événement")
-    description_autre = models.CharField(max_length=255,  null=True,  blank=True,  verbose_name="Description pour 'Autre' événement")
+    formation = models.ForeignKey(
+        Formation, 
+        on_delete=models.CASCADE, 
+        null=True, 
+        blank=True,  
+        related_name="evenements",
+        verbose_name="Formation associée",
+        help_text="Formation à laquelle cet événement est rattaché"
+    )
+    
+    type_evenement = models.CharField(
+        max_length=100, 
+        choices=TypeEvenement.choices, 
+        verbose_name="Type d'événement",
+        db_index=True,
+        help_text="Catégorie de l'événement"
+    )
+    
+    details = models.TextField(
+        null=True,  
+        blank=True, 
+        verbose_name="Détails de l'événement",
+        help_text="Informations complémentaires sur l'événement"
+    )
+    
+    event_date = models.DateField(
+        null=True, 
+        blank=True, 
+        verbose_name="Date de l'événement",
+        help_text="Date prévue pour l'événement"
+    )
+    
+    description_autre = models.CharField(
+        max_length=255,  
+        null=True,  
+        blank=True,  
+        verbose_name="Description pour 'Autre' événement",
+        help_text="Précision obligatoire si le type d'événement est 'Autre'"
+    )
+    
+    lieu = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        verbose_name="Lieu",
+        help_text="Emplacement où se déroule l'événement"
+    )
+    
+    participants_prevus = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Participants prévus",
+        help_text="Nombre de participants attendus"
+    )
+    
+    participants_reels = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="Participants réels",
+        help_text="Nombre de participants réels (à remplir après l'événement)"
+    )
 
     def clean(self):
         """
         Validation personnalisée :
         - Si l'événement est de type "Autre", la description doit être remplie.
+        - Vérification que la date n'est pas trop ancienne.
+        - Validation des participants réels par rapport aux participants prévus.
         """
+        today = timezone.now().date()
+        
+        # Validation du type "Autre"
         if self.type_evenement == self.AUTRE and not self.description_autre:
             raise ValidationError({
                 'description_autre': "Veuillez fournir une description pour l'événement de type 'Autre'."
             })
+            
+        # Avertissement pour les dates trop anciennes (plus d'un an)
+        if self.event_date and self.event_date < today - timezone.timedelta(days=365):
+            logger.warning(
+                f"Événement ID={self.pk}: Date très ancienne détectée ({self.event_date}, plus d'un an)"
+            )
+        
+        # Validation des participants réels vs prévus (si les deux sont renseignés)
+        if self.participants_prevus and self.participants_reels and self.participants_reels > self.participants_prevus * 1.5:
+            logger.warning(
+                f"Événement ID={self.pk}: Nombre de participants réels ({self.participants_reels}) "
+                f"très supérieur aux prévisions ({self.participants_prevus})"
+            )
 
     def save(self, *args, **kwargs):
         """
         Personnalisation de la sauvegarde :
-        - Vérifie les règles de validation (`full_clean()`).
+        - Vérifie les règles de validation
+        - Journalise les opérations avec plus de détails
+        - Utilise une transaction pour garantir l'intégrité
         """
-        self.full_clean()  # Exécute la validation avant la sauvegarde.
-        super().save(*args, **kwargs)
+        is_new = not self.pk
+        
+        # Utilisation de transaction.atomic pour garantir l'intégrité
+        with transaction.atomic():
+            # Validation (full_clean applique les validateurs du modèle)
+            self.full_clean()
+            
+            # Récupération de l'objet original pour comparaison (si non-nouveau)
+            original = None
+            if not is_new:
+                try:
+                    original = Evenement.objects.get(pk=self.pk)
+                except Evenement.DoesNotExist:
+                    pass
+            
+            # Journalisation détaillée
+            if is_new:
+                logger.info(
+                    f"Création d'un nouvel événement de type '{self.get_type_evenement_display()}' "
+                    f"pour le {self.event_date.strftime('%d/%m/%Y') if self.event_date else 'date non spécifiée'} "
+                    f"(formation: {self.formation.nom if self.formation else 'N/A'})"
+                )
+            elif original:
+                self._log_changes(original)
+            
+            # Sauvegarde du modèle
+            super().save(*args, **kwargs)
+    
+    def _log_changes(self, original):
+        """
+        Méthode auxiliaire pour journaliser les changements de façon structurée.
+        
+        Args:
+            original: Instance originale de l'objet avant modification
+        """
+        changes = []
+        
+        # Détection des changements pour les champs principaux
+        fields_to_check = {
+            'type_evenement': {
+                'display': lambda obj: obj.get_type_evenement_display(), 
+                'label': 'type'
+            },
+            'event_date': {
+                'display': lambda obj: obj.event_date.strftime('%d/%m/%Y') if obj.event_date else 'non spécifiée',
+                'label': 'date'
+            },
+            'formation': {
+                'display': lambda obj: obj.formation.nom if obj.formation else 'N/A',
+                'label': 'formation'
+            },
+            'lieu': {
+                'display': lambda obj: obj.lieu if obj.lieu else 'non spécifié',
+                'label': 'lieu'
+            },
+            'participants_prevus': {
+                'display': lambda obj: str(obj.participants_prevus) if obj.participants_prevus is not None else 'non spécifié',
+                'label': 'participants prévus'
+            },
+            'participants_reels': {
+                'display': lambda obj: str(obj.participants_reels) if obj.participants_reels is not None else 'non spécifié',
+                'label': 'participants réels'
+            }
+        }
+        
+        # Vérification de chaque champ
+        for field, config in fields_to_check.items():
+            old_value = getattr(original, field)
+            new_value = getattr(self, field)
+            
+            if old_value != new_value:
+                old_display = config['display'](original)
+                new_display = config['display'](self)
+                changes.append(f"{config['label']}: '{old_display}' → '{new_display}'")
+        
+        # Journalisation des changements si nécessaire
+        if changes:
+            logger.info(f"Modification de l'événement #{self.pk}: {', '.join(changes)}")
+    
+    def is_past(self):
+        """
+        Indique si l'événement est passé.
+        
+        Returns:
+            bool: True si l'événement est passé, False sinon
+        """
+        if not self.event_date:
+            return False
+        return self.event_date < timezone.now().date()
+    
+    def is_today(self):
+        """
+        Indique si l'événement a lieu aujourd'hui.
+        
+        Returns:
+            bool: True si l'événement est aujourd'hui, False sinon
+        """
+        if not self.event_date:
+            return False
+        return self.event_date == timezone.now().date()
+    
+    def is_coming_soon(self, days=7):
+        """
+        Indique si l'événement est imminent (dans les X prochains jours).
+        
+        Args:
+            days (int): Nombre de jours à considérer comme "imminent"
+            
+        Returns:
+            bool: True si l'événement est imminent, False sinon
+        """
+        if not self.event_date:
+            return False
+        today = timezone.now().date()
+        return today < self.event_date <= today + timezone.timedelta(days=days)
+    
+    def get_status_display(self):
+        """
+        Retourne l'état actuel de l'événement (passé, aujourd'hui, à venir).
+        
+        Returns:
+            str: Status textuel de l'événement
+        """
+        if self.is_past():
+            return "Passé"
+        elif self.is_today():
+            return "Aujourd'hui"
+        else:
+            return "À venir"
+    
+    def get_participation_rate(self):
+        """
+        Calcule le taux de participation si les données sont disponibles.
+        
+        Returns:
+            float: Pourcentage de participation ou None si données insuffisantes
+        """
+        if not self.participants_prevus or not self.participants_reels or self.participants_prevus <= 0:
+            return None
+        return round((self.participants_reels / self.participants_prevus) * 100, 1)
+    
+    @property
+    def status_color(self):
+        """
+        Retourne une classe CSS en fonction du statut de l'événement.
+        Utile pour les templates.
+        
+        Returns:
+            str: Classe CSS correspondant au statut
+        """
+        if self.is_past():
+            return "text-secondary"
+        elif self.is_today():
+            return "text-danger"
+        elif self.is_coming_soon():
+            return "text-warning"
+        else:
+            return "text-primary"
 
     class Meta:
         verbose_name = "Événement"
         verbose_name_plural = "Événements"
         ordering = ['-event_date']
         indexes = [
-            models.Index(fields=['event_date']),  # Optimisation des recherches par date.
-            models.Index(fields=['type_evenement']),  # Ajout d'un index sur le type d'événement.
+            models.Index(fields=['event_date']),
+            models.Index(fields=['type_evenement']),
+            models.Index(fields=['formation']),
         ]
 
     def __str__(self):
         """
         Retourne une représentation lisible de l'événement.
-        Exemple : "Job dating - 2025-03-10"
+        Exemple : "Job dating - 22/03/2025"
+        
+        Returns:
+            str: Représentation textuelle de l'événement
         """
         type_event = self.get_type_evenement_display() if self.type_evenement else "Type inconnu"
-        return f"{type_event} - {self.event_date.strftime('%d/%m/%Y')}" if self.event_date else f"{type_event} - Date inconnue"
+        
+        if self.type_evenement == self.AUTRE and self.description_autre:
+            type_event = self.description_autre
+            
+        date_str = self.event_date.strftime('%d/%m/%Y') if self.event_date else "Date inconnue"
+        return f"{type_event} - {date_str}"
 
 
-
-# 🚀 Signaux pour mettre à jour `nombre_evenements` dans `Formation`
+# Optimisation des signaux pour les mises à jour des compteurs
 @receiver(post_save, sender=Evenement)
 def update_nombre_evenements(sender, instance, **kwargs):
-    """Met à jour le nombre d'événements dans la formation associée."""
-    if instance.formation:
-        # Recalcule le nombre total d'événements à chaque modification
-        count = Evenement.objects.filter(formation=instance.formation).count()
-        Formation.objects.filter(id=instance.formation.id).update(nombre_evenements=count)
-        # Rafraîchir la formation
-        if hasattr(instance, 'formation'):
-            instance.formation.refresh_from_db()
+    """
+    Met à jour le nombre d'événements dans la formation associée après sauvegarde.
+    
+    Cette fonction est déclenché par un signal post_save pour maintenir
+    automatiquement à jour le compteur dans le modèle Formation.
+    
+    Args:
+        sender: Classe du modèle qui a déclenché le signal
+        instance: Instance de l'objet qui a été sauvé
+        kwargs: Arguments supplémentaires fournis par le signal
+    """
+    _update_formation_counter(instance)
 
 @receiver(post_delete, sender=Evenement)
 def update_nombre_evenements_after_delete(sender, instance, **kwargs):
-    """Met à jour le nombre d'événements après suppression."""
+    """
+    Met à jour le nombre d'événements après suppression.
+    
+    Cette fonction est déclenchée par un signal post_delete pour maintenir
+    automatiquement à jour le compteur dans le modèle Formation.
+    
+    Args:
+        sender: Classe du modèle qui a déclenché le signal
+        instance: Instance de l'objet qui a été supprimé
+        kwargs: Arguments supplémentaires fournis par le signal
+    """
+    _update_formation_counter(instance)
+
+def _update_formation_counter(instance):
+    """
+    Fonction d'aide pour mettre à jour le compteur d'événements.
+    
+    Cette fonction factorise le code commun aux signaux post_save et post_delete.
+    Elle utilise une transaction pour garantir l'intégrité des données.
+    
+    Args:
+        instance: Instance de l'événement qui a déclenché la mise à jour
+    """
     if hasattr(instance, 'formation') and instance.formation:
-        # Recalcule le nombre après suppression
-        count = Evenement.objects.filter(formation=instance.formation).count()
-        Formation.objects.filter(id=instance.formation.id).update(nombre_evenements=count)
+        formation_id = instance.formation.id
+        
+        try:
+            with transaction.atomic():
+                # Recalcule le nombre d'événements de façon optimisée avec annotate
+                count = Evenement.objects.filter(formation_id=formation_id).count()
+                
+                # Mise à jour avec update pour éviter les problèmes de concurrence
+                Formation.objects.filter(id=formation_id).update(nombre_evenements=count)
+                
+                logger.debug(
+                    f"Mise à jour du compteur d'événements pour la formation #{formation_id}: {count} événements"
+                )
+                
+        except Exception as e:
+            logger.error(
+                f"Erreur lors de la mise à jour du compteur d'événements pour formation #{formation_id}: {str(e)}",
+                exc_info=True
+            )
 
 
 ================================================
@@ -3134,7 +7598,6 @@ class Formation(BaseModel):
         ]}
 
     ### ✅ Méthodes calculées (remplaçant `@property`)
-
     def get_total_places(self):
         """Retourne le nombre total de places prévues (CRIF + MP)."""
         return self.prevus_crif + self.prevus_mp
@@ -3143,4248 +7606,16 @@ class Formation(BaseModel):
         """Retourne le nombre total d'inscrits (CRIF + MP)."""
         return self.inscrits_crif + self.inscrits_mp
 
-    def get_places_restantes_crif(self):
-        """Retourne le nombre de places restantes pour CRIF."""
-        return max(0, self.prevus_crif - self.inscrits_crif)
+    def get_taux_transformation(self):
+        total_candidats = self.nombre_candidats or 0
+        total_inscrits = (self.inscrits_crif or 0) + (self.inscrits_mp or 0)
 
-    def get_places_restantes_mp(self):
-        """Retourne le nombre de places restantes pour MP."""
-        return max(0, self.prevus_mp - self.inscrits_mp)
-
-    def get_places_disponibles(self):
-        """Retourne le nombre de places encore disponibles pour la formation."""
-        return max(0, self.get_total_places() - self.get_total_inscrits())
-
-    def get_a_recruter(self):
-        """Retourne le nombre de places encore disponibles pour le recrutement."""
-        return self.get_places_disponibles()
+        if total_candidats == 0:
+            return 0.0
+        return round(100.0 * total_inscrits / total_candidats, 2)
 
     def get_taux_saturation(self):
-        """Calcule le taux de saturation de la formation en fonction des inscriptions."""
-        total_places = self.get_total_places()
-        return (self.get_total_inscrits() / total_places) * 100 if total_places > 0 else 0
+        total_prevus = (self.prevus_crif or 0) + (self.prevus_mp or 0)
+        total_inscrits = (self.inscrits_crif or 0) + (self.inscrits_mp or 0)
 
-    def is_a_recruter(self):
-        """Renvoie `True` si la formation a encore des places disponibles, sinon `False`."""
-        return self.get_a_recruter() > 0
-    
-
-### ✅ Méthodes d'ajout d'éléments associés
-
-# ✅ Ajout d'un commentaire en utilisant la relation inverse
-    def add_commentaire(self, utilisateur, contenu):
-        """
-        Ajoute un commentaire à la formation via la relation inverse.
-        """
-        commentaire = self.commentaires.create(
-            utilisateur=utilisateur,
-            contenu=contenu
-        )
-        self.dernier_commentaire = contenu  # Mettre à jour le dernier commentaire affiché
-        self.save()
-        return commentaire
-
-    # ✅ Ajout d'un événement en utilisant la relation inverse
-    def add_evenement(self, type_evenement, event_date, details=None, description_autre=None):
-        """
-        Ajoute un événement à la formation via la relation inverse.
-        """
-        from .evenements import Evenement  # ✅ Import local pour éviter la relation circulaire
-
-        if type_evenement == Evenement.AUTRE and not description_autre:
-            raise ValidationError("Veuillez fournir une description pour un événement de type 'Autre'.")
-
-        evenement = Evenement.objects.create(
-            formation=self,
-            type_evenement=type_evenement,
-            event_date=event_date,
-            details=details,
-            description_autre=description_autre if type_evenement == Evenement.AUTRE else None
-        )
-
-        self.nombre_evenements += 1  # ✅ Mise à jour du compteur d'événements
-        self.save()
-        return evenement
-
-
-
-    ### ✅ Autres méthodes utiles
-
-    def get_status_color(self):
-        """
-        Retourne la couleur associée au statut de la formation.
-        Si le statut n’a pas de couleur définie, il prend une couleur par défaut.
-        """
-        return self.statut.couleur if self.statut.couleur else get_default_color(self.statut.nom)
-    
-    def get_absolute_url(self):
-        """Retourne l'URL de détail de la formation."""
-        return reverse('formation-detail', kwargs={'pk': self.pk})
-    
-    def get_commentaires(self):
-        """Retourne tous les commentaires associés à cette formation, en incluant les utilisateurs."""
-        return self.commentaires.select_related("utilisateur").all()  # ✅ Optimisation SQL
-
-
-    def get_evenements(self):
-        """Retourne tous les événements associés à cette formation."""
-        return self.evenements.all()
-
-    def get_documents(self):
-        """Retourne tous les documents associés à cette formation."""
-        return self.documents.all()
-
-    def get_partenaires(self):
-        """Retourne les partenaires associés (optimisé avec prefetch)."""
-        return self.partenaires.all().prefetch_related()
-
-    def __str__(self):
-        """Affiche une représentation textuelle de la formation."""
-        return f"{self.nom} ({self.centre.nom if self.centre else 'Centre inconnu'})"
-
-    class Meta:
-        verbose_name = "Formation"
-        verbose_name_plural = "Formations"
-        ordering = ['-start_date', 'nom']
-        indexes = [
-            models.Index(fields=['start_date']),
-            models.Index(fields=['end_date']),
-            models.Index(fields=['nom']),
-        ]
-
-class HistoriqueFormation(models.Model):
-    formation = models.ForeignKey('Formation', on_delete=models.CASCADE, related_name="historiques")
-    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='historiques_utilisateur')
-    action = models.CharField(max_length=100, default='modification')
-    details = models.JSONField(default=dict, blank=True)
-    date_modification = models.DateTimeField(default=timezone.now)
-    champ_modifie = models.CharField(max_length=100, default="non_specifié" , verbose_name="Champ modifié")
-    ancienne_valeur = models.TextField(null=True, blank=True)
-    nouvelle_valeur = models.TextField(null=True, blank=True)
-    modifie_par = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
-    commentaire = models.TextField(null=True, blank=True, verbose_name="Commentaire lié à la modification")
-
-    class Meta:
-        ordering = ['-date_modification']
-        verbose_name = "Historique de modification de formation"
-
-
-
-================================================
-File: rap_app/models/models.md
-================================================
-from django.db import models
-from django.utils.timezone import now  # Utilise Django timezone pour éviter les problèmes UTC
-
-class BaseModel(models.Model):
-    """
-    Modèle de base pour tous les modèles de l'application.
-    Il inclut la gestion automatique de `created_at` et `updated_at`.
-    """
-
-    created_at = models.DateTimeField(default=now, editable=False, verbose_name="Date de création")
-    updated_at = models.DateTimeField(auto_now=True, verbose_name="Dernière mise à jour")
-
-    class Meta:
-        abstract = True  # Empêche Django de créer une table pour ce modèle
-# models/centres.py
-from django.db import models
-from django.core.validators import RegexValidator
-from django.urls import reverse
-from .base import BaseModel
-
-
-class Centre(BaseModel):
-    """
-    Modèle représentant un centre de formation.
-
-    Hérite de `BaseModel` qui ajoute les champs :
-    - `created_at` : Date et heure de création de l'enregistrement.
-    - `updated_at` : Date et heure de la dernière modification.
-
-    Champs spécifiques :
-    - `nom` : Nom du centre de formation (obligatoire et unique).
-    - `code_postal` : Code postal du centre (optionnel).
-      * Doit contenir exactement 5 chiffres (validation par regex).
-    
-    Méthodes :
-    - `__str__` : Retourne le nom du centre.
-    - `get_absolute_url` : Retourne l'URL du détail du centre.
-    - `full_address` : Retourne l'adresse complète (utile pour affichage futur).
-
-    Options du modèle :
-    - `verbose_name` : Nom affiché au singulier dans l'interface d'administration.
-    - `verbose_name_plural` : Nom affiché au pluriel dans l'interface d'administration.
-    - `ordering` : Trie les centres par nom par défaut.
-    - `indexes` : Ajoute des index sur `nom` et `code_postal` pour optimiser les recherches.
-    """
-
-    nom = models.CharField(
-        max_length=255,
-        unique=True,  # 🔹 Garantit qu'un centre a un nom unique
-        verbose_name="Nom du centre"
-    )
-
-    code_postal = models.CharField(
-        max_length=5,  # 🔹 Limité à 5 caractères au lieu de 10
-        null=True,
-        blank=True,
-        verbose_name="Code postal",
-        validators=[
-            RegexValidator(
-                regex=r'^\d{5}$',
-                message="Le code postal doit contenir exactement 5 chiffres"
-            )
-        ]
-    )
-
-    def __str__(self):
-        """Retourne le nom du centre pour une meilleure lisibilité."""
-        return self.nom
-
-    def get_absolute_url(self):
-        """
-        Retourne l'URL du détail du centre.
-        Utile pour les vues génériques et les redirections après une création/modification.
-        """
-        return reverse('centre-detail', kwargs={'pk': self.pk})
-
-    def full_address(self):
-        """
-        Retourne une version complète de l'adresse (utile si d'autres champs d'adresse sont ajoutés).
-        """
-        address = self.nom
-        if self.code_postal:
-            address += f" ({self.code_postal})"
-        return address
-
-    class Meta:
-        verbose_name = "Centre"
-        verbose_name_plural = "Centres"
-        ordering = ['nom']
-        indexes = [
-            models.Index(fields=['nom']),  # 🔹 Index pour optimiser les recherches par nom
-            models.Index(fields=['code_postal']),  # 🔹 Index pour les recherches par code postal
-        ]
-from django.db import models
-from django.db.models import Q
-
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
-from .base import BaseModel
-from .formations import Formation
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-
-class Commentaire(BaseModel):
-    """
-    Modèle représentant un commentaire associé à une formation.
-    """
-
-    formation = models.ForeignKey(Formation, on_delete=models.CASCADE, related_name="commentaires", verbose_name="Formation")
-    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="commentaires", verbose_name="Utilisateur associé")
-    contenu = models.TextField(verbose_name="Contenu du commentaire")
-    saturation = models.PositiveIntegerField(null=True, blank=True,verbose_name="Niveau de saturation (%)")
-
-    def __str__(self):
-        """
-        Retourne une représentation lisible du commentaire.
-        """
-        return f"Commentaire de {self.utilisateur} sur {self.formation.nom} ({self.created_at.strftime('%d/%m/%Y')})"
-
-    class Meta:
-        verbose_name = "Commentaire"
-        verbose_name_plural = "Commentaires"
-        ordering = ['formation', '-created_at']
-        indexes = [
-            models.Index(fields=['created_at']),
-            models.Index(fields=['formation']),
-        ]
-
-
-    @classmethod
-    def get_all_commentaires(cls, formation_id=None, utilisateur_id=None, search_query=None, order_by="-created_at"):
-        """
-        Récupère tous les commentaires avec options de filtres.
-        """
-        queryset = cls.objects.select_related('formation', 'utilisateur').order_by(order_by)
-
-        filters = Q()
-        if formation_id:
-            filters &= Q(formation_id=formation_id)
-        if utilisateur_id:
-            filters &= Q(utilisateur_id=utilisateur_id)
-        if search_query:
-            filters &= Q(contenu__icontains=search_query)
-
-        queryset = queryset.filter(filters)
-        return queryset if queryset.exists() else cls.objects.none()  # ✅ Évite l'erreur avec un queryset vide
-
-
-
-
-@receiver(post_save, sender=Commentaire)
-def update_formation_saturation(sender, instance, **kwargs):
-    """
-    Met à jour la saturation et le dernier commentaire après un ajout.
-    """
-    if instance.formation:
-        updates = {}
-
-        if instance.saturation is not None:
-            updates['saturation'] = instance.saturation
-
-        dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
-        updates['dernier_commentaire'] = dernier_commentaire.contenu if dernier_commentaire else ""
-
-        if updates:
-            Formation.objects.filter(id=instance.formation.id).update(**updates)
-
-@receiver(post_delete, sender=Commentaire)
-def handle_commentaire_delete(sender, instance, **kwargs):
-    """
-    Met à jour la formation après la suppression d'un commentaire.
-    """
-    if instance.formation:
-        dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
-        Formation.objects.filter(id=instance.formation.id).update(
-            dernier_commentaire=dernier_commentaire.contenu if dernier_commentaire else ""
-        )
-from django.db import models
-from django.db.models import Q
-
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
-from .base import BaseModel
-from .formations import Formation
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-
-class Commentaire(BaseModel):
-    """
-    Modèle représentant un commentaire associé à une formation.
-    """
-
-    formation = models.ForeignKey(Formation, on_delete=models.CASCADE, related_name="commentaires", verbose_name="Formation")
-    utilisateur = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, related_name="commentaires", verbose_name="Utilisateur associé")
-    contenu = models.TextField(verbose_name="Contenu du commentaire")
-    saturation = models.PositiveIntegerField(null=True, blank=True,verbose_name="Niveau de saturation (%)")
-
-    def __str__(self):
-        """
-        Retourne une représentation lisible du commentaire.
-        """
-        return f"Commentaire de {self.utilisateur} sur {self.formation.nom} ({self.created_at.strftime('%d/%m/%Y')})"
-
-    class Meta:
-        verbose_name = "Commentaire"
-        verbose_name_plural = "Commentaires"
-        ordering = ['formation', '-created_at']
-        indexes = [
-            models.Index(fields=['created_at']),
-            models.Index(fields=['formation']),
-        ]
-
-
-    @classmethod
-    def get_all_commentaires(cls, formation_id=None, utilisateur_id=None, search_query=None, order_by="-created_at"):
-        """
-        Récupère tous les commentaires avec options de filtres.
-        """
-        queryset = cls.objects.select_related('formation', 'utilisateur').order_by(order_by)
-
-        filters = Q()
-        if formation_id:
-            filters &= Q(formation_id=formation_id)
-        if utilisateur_id:
-            filters &= Q(utilisateur_id=utilisateur_id)
-        if search_query:
-            filters &= Q(contenu__icontains=search_query)
-
-        queryset = queryset.filter(filters)
-        return queryset if queryset.exists() else cls.objects.none()  # ✅ Évite l'erreur avec un queryset vide
-
-
-
-
-@receiver(post_save, sender=Commentaire)
-def update_formation_saturation(sender, instance, **kwargs):
-    """
-    Met à jour la saturation et le dernier commentaire après un ajout.
-    """
-    if instance.formation:
-        updates = {}
-
-        if instance.saturation is not None:
-            updates['saturation'] = instance.saturation
-
-        dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
-        updates['dernier_commentaire'] = dernier_commentaire.contenu if dernier_commentaire else ""
-
-        if updates:
-            Formation.objects.filter(id=instance.formation.id).update(**updates)
-
-@receiver(post_delete, sender=Commentaire)
-def handle_commentaire_delete(sender, instance, **kwargs):
-    """
-    Met à jour la formation après la suppression d'un commentaire.
-    """
-    if instance.formation:
-        dernier_commentaire = Commentaire.objects.filter(formation=instance.formation).order_by('-created_at').first()
-        Formation.objects.filter(id=instance.formation.id).update(
-            dernier_commentaire=dernier_commentaire.contenu if dernier_commentaire else ""
-        )
-from django.db import models
-from django.db.models.signals import post_delete, pre_save
-from django.dispatch import receiver
-import os
-from django.conf import settings
-from django.core.exceptions import ValidationError
-from .base import BaseModel
-from .formations import Formation, User
-
-
-class Document(BaseModel):
-    """
-    Modèle représentant un document associé à une formation.
-    Permet de stocker et gérer différents types de documents (PDF, images, contrats...).
-    """
-
-    # Types de documents possibles
-    PDF = 'pdf'
-    IMAGE = 'image'
-    CONTRAT = 'contrat'
-    AUTRE = 'autre'
-
-    TYPE_DOCUMENT_CHOICES = [
-        (PDF, 'PDF'),
-        (IMAGE, 'Image'),
-        (CONTRAT, 'Contrat signé'),
-        (AUTRE, 'Autre'),
-    ]
-
-    formation = models.ForeignKey(Formation, on_delete=models.CASCADE, related_name="documents",  verbose_name="Formation associée")
-    nom_fichier = models.CharField(max_length=255, verbose_name="Nom du fichier",db_index=True)
-    fichier = models.FileField(upload_to='formations/documents/', verbose_name="Fichier")
-    source = models.TextField(null=True, blank=True, verbose_name="Source du document")
-    type_document = models.CharField( max_length=20, choices=TYPE_DOCUMENT_CHOICES, default=AUTRE,verbose_name="Type de document")
-    taille_fichier = models.PositiveIntegerField(null=True,blank=True, verbose_name="Taille du fichier (Ko)")
-    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-
-    def __str__(self):
-        """
-        Retourne une représentation lisible du document avec un nom tronqué si nécessaire.
-        Exemple : "Guide utilisateur.pdf"
-        """
-        nom_tronque = self.nom_fichier[:50] + ('...' if len(self.nom_fichier) > 50 else '')
-        return f"{nom_tronque} ({self.get_type_document_display()})"
-    
-    def clean(self):
-        """Validation personnalisée pour vérifier la correspondance entre type et extension."""
-        super().clean()
-        if self.fichier and self.type_document:
-            validate_file_extension(self.fichier, self.type_document)
-
-    def save(self, *args, **kwargs):
-        """
-        - Vérifie les règles de validation avant la sauvegarde (`full_clean()`).
-        - Met à jour automatiquement la taille du fichier en Ko.
-        """
-        self.full_clean()  # Exécute la validation avant la sauvegarde.
-
-        if self.fichier and hasattr(self.fichier, 'size'):
-            self.taille_fichier = max(1, self.fichier.size // 1024)  # Au moins 1 Ko pour éviter les zeros
-        
-        super().save(*args, **kwargs)
-    class Meta:
-        verbose_name = "Document"
-        verbose_name_plural = "Documents"
-        ordering = ['-created_at']
-        indexes = [
-            models.Index(fields=['nom_fichier']),  # Index pour la recherche rapide
-        ]
-
-
-### 🚀 Validation : Empêcher l'upload d'un fichier invalide
-def validate_file_extension(value, type_doc=None):
-    """
-    Vérifie que le fichier téléchargé correspond bien au type déclaré.
-    Le paramètre type_doc peut être passé à la validation.
-    """
-    ext = os.path.splitext(value.name)[1].lower()
-    valid_extensions = {
-        'pdf': ['.pdf'],
-        'image': ['.jpg', '.jpeg', '.png', '.gif'],
-        'contrat': ['.pdf', '.doc', '.docx'],
-        'autre': []  # Autorise tout pour "Autre"
-    }
-    
-    # Si aucun type n'est fourni ou si c'est "autre", on accepte le fichier
-    if not type_doc or type_doc == Document.AUTRE:
-        return
-        
-    # Vérifie si l'extension correspond au type fourni
-    if ext not in valid_extensions.get(type_doc, []):
-        raise ValidationError(f"Le fichier {value.name} ne correspond pas au type {dict(Document.TYPE_DOCUMENT_CHOICES).get(type_doc, type_doc)}.")
-
-### 🚀 Suppression automatique des anciens fichiers avant mise à jour
-@receiver(pre_save, sender=Document)
-def supprimer_fichier_ancien(sender, instance, **kwargs):
-    """
-    Supprime l'ancien fichier si un nouveau fichier est uploadé pour éviter l'accumulation de fichiers inutiles.
-    """
-    if instance.pk:
-        ancien_document = Document.objects.get(pk=instance.pk)
-        if ancien_document.fichier and ancien_document.fichier != instance.fichier:
-            ancien_fichier_path = os.path.join(settings.MEDIA_ROOT, ancien_document.fichier.name)
-            if os.path.exists(ancien_fichier_path):
-                os.remove(ancien_fichier_path)
-
-
-### 🚀 Suppression automatique du fichier après suppression d'un Document
-@receiver(post_delete, sender=Document)
-def supprimer_fichier_apres_suppression(sender, instance, **kwargs):
-    """
-    Supprime le fichier du stockage lorsque l'objet `Document` est supprimé.
-    Évite les erreurs si le fichier a déjà été supprimé.
-    """
-    if instance.fichier:
-        fichier_path = os.path.join(settings.MEDIA_ROOT, instance.fichier.name)
-        try:
-            if os.path.exists(fichier_path):
-                os.remove(fichier_path)
-        except Exception as e:
-            print(f"Erreur lors de la suppression du fichier {fichier_path}: {e}")
-from django.db import models
-from django.core.exceptions import ValidationError
-from django.db.models.signals import post_save, post_delete
-from django.dispatch import receiver
-from django.db.models import F
-from .base import BaseModel
-from .formations import Formation
-
-class Evenement(BaseModel):
-    """
-    Modèle représentant un événement lié à une formation.
-    """
-
-    # Constantes pour les types d'événements
-    INFO_PRESENTIEL = 'info_collective_presentiel'
-    INFO_DISTANCIEL = 'info_collective_distanciel'
-    JOB_DATING = 'job_dating'
-    EVENEMENT_EMPLOI = 'evenement_emploi'
-    FORUM = 'forum'
-    JPO = 'jpo'
-    AUTRE = 'autre'
-
-    TYPE_EVENEMENT_CHOICES = [
-        (INFO_PRESENTIEL, 'Information collective présentiel'),
-        (INFO_DISTANCIEL, 'Information collective distanciel'),
-        (JOB_DATING, 'Job dating'),
-        (EVENEMENT_EMPLOI, 'Événement emploi'),
-        (FORUM, 'Forum'),
-        (JPO, 'Journée Portes Ouvertes (JPO)'),
-        (AUTRE, 'Autre'),
-    ]
-
-    formation = models.ForeignKey(Formation, on_delete=models.CASCADE, null=True, blank=True,  related_name="evenements",verbose_name="Formation associée")
-    type_evenement = models.CharField(max_length=100, choices=TYPE_EVENEMENT_CHOICES, verbose_name="Type d'événement",db_index=True)
-    details = models.TextField(null=True,  blank=True, verbose_name="Détails de l'événement")
-    event_date = models.DateField(null=True, blank=True, verbose_name="Date de l'événement")
-    description_autre = models.CharField(max_length=255,  null=True,  blank=True,  verbose_name="Description pour 'Autre' événement")
-
-    def clean(self):
-        """
-        Validation personnalisée :
-        - Si l'événement est de type "Autre", la description doit être remplie.
-        """
-        if self.type_evenement == self.AUTRE and not self.description_autre:
-            raise ValidationError({
-                'description_autre': "Veuillez fournir une description pour l'événement de type 'Autre'."
-            })
-
-    def save(self, *args, **kwargs):
-        """
-        Personnalisation de la sauvegarde :
-        - Vérifie les règles de validation (`full_clean()`).
-        """
-        self.full_clean()  # Exécute la validation avant la sauvegarde.
-        super().save(*args, **kwargs)
-
-    class Meta:
-        verbose_name = "Événement"
-        verbose_name_plural = "Événements"
-        ordering = ['-event_date']
-        indexes = [
-            models.Index(fields=['event_date']),  # Optimisation des recherches par date.
-            models.Index(fields=['type_evenement']),  # Ajout d'un index sur le type d'événement.
-        ]
-
-    def __str__(self):
-        """
-        Retourne une représentation lisible de l'événement.
-        Exemple : "Job dating - 2025-03-10"
-        """
-        type_event = self.get_type_evenement_display() if self.type_evenement else "Type inconnu"
-        return f"{type_event} - {self.event_date.strftime('%d/%m/%Y')}" if self.event_date else f"{type_event} - Date inconnue"
-
-
-
-# 🚀 Signaux pour mettre à jour `nombre_evenements` dans `Formation`
-@receiver(post_save, sender=Evenement)
-def update_nombre_evenements(sender, instance, **kwargs):
-    """Met à jour le nombre d'événements dans la formation associée."""
-    if instance.formation:
-        # Recalcule le nombre total d'événements à chaque modification
-        count = Evenement.objects.filter(formation=instance.formation).count()
-        Formation.objects.filter(id=instance.formation.id).update(nombre_evenements=count)
-        # Rafraîchir la formation
-        if hasattr(instance, 'formation'):
-            instance.formation.refresh_from_db()
-
-@receiver(post_delete, sender=Evenement)
-def update_nombre_evenements_after_delete(sender, instance, **kwargs):
-    """Met à jour le nombre d'événements après suppression."""
-    if hasattr(instance, 'formation') and instance.formation:
-        # Recalcule le nombre après suppression
-        count = Evenement.objects.filter(formation=instance.formation).count()
-        Formation.objects.filter(id=instance.formation.id).update(nombre_evenements=count)import datetime
-from django.db import models
-from django.urls import reverse
-from django.contrib.auth import get_user_model
-from django.utils import timezone
-from jsonschema import ValidationError
-
-from .partenaires import Partenaire
-
-from .centres import Centre
-from .types_offre import TypeOffre
-from .base import BaseModel
-from .statut import Statut, get_default_color
-
-User = get_user_model()  # Récupère le modèle User
-
-
-class FormationManager(models.Manager):
-    """
-    Manager personnalisé pour optimiser les requêtes sur les formations.
-    Ajoute des méthodes pour filtrer les formations selon leur état.
-    """
-        
-    def formations_actives(self):
-        """
-        Retourne uniquement les formations actives :
-        - La date de début est passée (<= aujourd’hui)
-        - La date de fin est future ou aujourd’hui (>= aujourd’hui)
-        """
-        today = timezone.now().date()
-        return self.filter(start_date__lte=today, end_date__gte=today)
-
-    def formations_a_venir(self):
-        """Retourne uniquement les formations qui commencent dans le futur."""
-        return self.filter(start_date__gt=timezone.now().date())
-
-    def formations_terminees(self):
-        """Retourne uniquement les formations terminées (date de fin dépassée)."""
-        return self.filter(end_date__lt=timezone.now().date())
-
-    def formations_a_recruter(self):
-        """Retourne les formations qui ont encore des places disponibles."""
-        return self.annotate(
-            total_places=models.F('prevus_crif') + models.F('prevus_mp'),
-            total_inscrits=models.F('inscrits_crif') + models.F('inscrits_mp')
-        ).filter(total_places__gt=models.F('total_inscrits'))
-
-    def formations_toutes(self):
-        """Retourne **toutes** les formations, sans filtre."""
-        return self.all()
-
-    def trier_par(self, champ_tri):
-        """Trie les formations selon un champ donné, si autorisé."""
-        champs_autorises = [
-            "centre", "-centre",
-            "statut", "-statut",
-            "type_offre", "-type_offre",
-            "start_date", "-start_date",
-            "end_date", "-end_date"
-        ]
-        return self.get_queryset().order_by(champ_tri) if champ_tri in champs_autorises else self.get_queryset()
-
-
-class Formation(BaseModel):
-    """
-    Modèle représentant une formation.
-    """
-
-    # Informations générales
-    nom = models.CharField(max_length=255, verbose_name="Nom de la formation")
-    centre = models.ForeignKey(Centre, on_delete=models.CASCADE, related_name='formations', verbose_name="Centre de formation")
-    type_offre = models.ForeignKey(TypeOffre, on_delete=models.CASCADE, related_name="formations", verbose_name="Type d'offre")
-    statut = models.ForeignKey(Statut, on_delete=models.CASCADE, related_name="formations", verbose_name="Statut de la formation")
-
-    # Dates et identifiants
-    start_date = models.DateField(null=True, blank=True, verbose_name="Date de début")
-    end_date = models.DateField(null=True, blank=True, verbose_name="Date de fin")
-    num_kairos = models.CharField(max_length=50, null=True, blank=True, verbose_name="Numéro Kairos")
-    num_offre = models.CharField(max_length=50, null=True, blank=True, verbose_name="Numéro de l'offre")
-    num_produit = models.CharField(max_length=50, null=True, blank=True, verbose_name="Numéro du produit")
-
-    # Gestion des places et inscriptions
-    prevus_crif = models.PositiveIntegerField(default=0, verbose_name="Places prévues CRIF")
-    prevus_mp = models.PositiveIntegerField(default=0, verbose_name="Places prévues MP")
-    inscrits_crif = models.PositiveIntegerField(default=0, verbose_name="Inscrits CRIF")
-    inscrits_mp = models.PositiveIntegerField(default=0, verbose_name="Inscrits MP")
-
-    # Informations supplémentaires
-    assistante = models.CharField(max_length=255, null=True, blank=True, verbose_name="Assistante")
-    cap = models.PositiveIntegerField(null=True, blank=True, verbose_name="Capacité maximale")
-    convocation_envoie = models.BooleanField(default=False, verbose_name="Convocation envoyée")
-    entresformation = models.PositiveIntegerField(default=0, verbose_name="Entrées en formation")
-
-    # Statistiques de recrutement
-    nombre_candidats = models.PositiveIntegerField(default=0, verbose_name="Nombre de candidats")
-    nombre_entretiens = models.PositiveIntegerField(default=0, verbose_name="Nombre d'entretiens")
-
-    # Nombre d'événements liés
-    nombre_evenements = models.PositiveIntegerField(default=0, verbose_name="Nombre d'événements")
-
-    # Commentaires et logs
-    dernier_commentaire = models.TextField(null=True, blank=True, verbose_name="Dernier commentaire")
-
-    # Relation avec les partenaires
-    partenaires = models.ManyToManyField(Partenaire, related_name="formations", verbose_name="Partenaires", blank=True)
-
-    # Créateur de la formation
-    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True,related_name="formations_creees",verbose_name="Créé par" )
-
-    # Manager personnalisé
-    objects = FormationManager()
-
-    def save(self, *args, **kwargs):
-        is_new = self.pk is None
-        old_instance = None
-
-        if not is_new:
-            try:
-                old_instance = Formation.objects.get(pk=self.pk)
-            except Formation.DoesNotExist:
-                pass
-
-        super().save(*args, **kwargs)  # Sauvegarde classique
-
-        if old_instance:
-            fields_to_track = [
-                'nom', 'centre', 'type_offre', 'statut',
-                'start_date', 'end_date', 'num_kairos',
-                'num_offre', 'num_produit', 'prevus_crif',
-                'prevus_mp', 'inscrits_crif', 'inscrits_mp',
-                'assistante', 'cap', 'convocation_envoie',
-                'entresformation', 'nombre_candidats', 'nombre_entretiens',
-                'dernier_commentaire'
-            ]
-
-            for field in fields_to_track:
-                old_value = getattr(old_instance, field)
-                new_value = getattr(self, field)
-
-                if old_value != new_value:
-                    HistoriqueFormation.objects.create(
-                        formation=self,
-                        champ_modifie=field,
-                        ancienne_valeur=str(old_value),
-                        nouvelle_valeur=str(new_value),
-                        modifie_par=self.utilisateur  # ou `kwargs.get('user')` selon ton besoin
-                    )
-
-    ### ✅ Méthode pour sérialiser les données avant enregistrement dans JSONField
-    def to_serializable_dict(self):
-        """
-        Retourne un dictionnaire JSON-sérialisable des valeurs de la formation,
-        en convertissant les dates en chaînes de caractères.
-        """
-        def convert_value(value):
-            if isinstance(value, (datetime.date, datetime.datetime)):
-                return value.strftime('%Y-%m-%d')  # ✅ Convertit les dates en format JSON
-            elif isinstance(value, models.Model):
-                return str(value)  # ✅ Convertit les objets Django en string
-            return value 
-
-        return {key: convert_value(getattr(self, key)) for key in [
-            "nom", "centre", "type_offre", "statut", "start_date", "end_date", "num_kairos", "num_offre", "num_produit",
-            "prevus_crif", "prevus_mp", "inscrits_crif", "inscrits_mp", "assistante", "cap", "convocation_envoie",
-            "entresformation", "nombre_candidats", "nombre_entretiens", "nombre_evenements", "dernier_commentaire"
-        ]}
-
-    ### ✅ Méthodes calculées (remplaçant `@property`)
-
-    def get_total_places(self):
-        """Retourne le nombre total de places prévues (CRIF + MP)."""
-        return self.prevus_crif + self.prevus_mp
-
-    def get_total_inscrits(self):
-        """Retourne le nombre total d'inscrits (CRIF + MP)."""
-        return self.inscrits_crif + self.inscrits_mp
-
-    def get_places_restantes_crif(self):
-        """Retourne le nombre de places restantes pour CRIF."""
-        return max(0, self.prevus_crif - self.inscrits_crif)
-
-    def get_places_restantes_mp(self):
-        """Retourne le nombre de places restantes pour MP."""
-        return max(0, self.prevus_mp - self.inscrits_mp)
-
-    def get_places_disponibles(self):
-        """Retourne le nombre de places encore disponibles pour la formation."""
-        return max(0, self.get_total_places() - self.get_total_inscrits())
-
-    def get_a_recruter(self):
-        """Retourne le nombre de places encore disponibles pour le recrutement."""
-        return self.get_places_disponibles()
-
-    def get_taux_saturation(self):
-        """Calcule le taux de saturation de la formation en fonction des inscriptions."""
-        total_places = self.get_total_places()
-        return (self.get_total_inscrits() / total_places) * 100 if total_places > 0 else 0
-
-    def is_a_recruter(self):
-        """Renvoie `True` si la formation a encore des places disponibles, sinon `False`."""
-        return self.get_a_recruter() > 0
-    
-
-### ✅ Méthodes d'ajout d'éléments associés
-
-# ✅ Ajout d'un commentaire en utilisant la relation inverse
-    def add_commentaire(self, utilisateur, contenu):
-        """
-        Ajoute un commentaire à la formation via la relation inverse.
-        """
-        commentaire = self.commentaires.create(
-            utilisateur=utilisateur,
-            contenu=contenu
-        )
-        self.dernier_commentaire = contenu  # Mettre à jour le dernier commentaire affiché
-        self.save()
-        return commentaire
-
-    # ✅ Ajout d'un événement en utilisant la relation inverse
-    def add_evenement(self, type_evenement, event_date, details=None, description_autre=None):
-        """
-        Ajoute un événement à la formation via la relation inverse.
-        """
-        from .evenements import Evenement  # ✅ Import local pour éviter la relation circulaire
-
-        if type_evenement == Evenement.AUTRE and not description_autre:
-            raise ValidationError("Veuillez fournir une description pour un événement de type 'Autre'.")
-
-        evenement = Evenement.objects.create(
-            formation=self,
-            type_evenement=type_evenement,
-            event_date=event_date,
-            details=details,
-            description_autre=description_autre if type_evenement == Evenement.AUTRE else None
-        )
-
-        self.nombre_evenements += 1  # ✅ Mise à jour du compteur d'événements
-        self.save()
-        return evenement
-
-
-
-    ### ✅ Autres méthodes utiles
-
-    def get_status_color(self):
-        """
-        Retourne la couleur associée au statut de la formation.
-        Si le statut n’a pas de couleur définie, il prend une couleur par défaut.
-        """
-        return self.statut.couleur if self.statut.couleur else get_default_color(self.statut.nom)
-    
-    def get_absolute_url(self):
-        """Retourne l'URL de détail de la formation."""
-        return reverse('formation-detail', kwargs={'pk': self.pk})
-    
-    def get_commentaires(self):
-        """Retourne tous les commentaires associés à cette formation, en incluant les utilisateurs."""
-        return self.commentaires.select_related("utilisateur").all()  # ✅ Optimisation SQL
-
-
-    def get_evenements(self):
-        """Retourne tous les événements associés à cette formation."""
-        return self.evenements.all()
-
-    def get_documents(self):
-        """Retourne tous les documents associés à cette formation."""
-        return self.documents.all()
-
-    def get_partenaires(self):
-        """Retourne les partenaires associées."""
-        return self.partenaires.all()
-
-    def __str__(self):
-        """Affiche une représentation textuelle de la formation."""
-        return f"{self.nom} ({self.centre.nom if self.centre else 'Centre inconnu'})"
-
-    class Meta:
-        verbose_name = "Formation"
-        verbose_name_plural = "Formations"
-        ordering = ['-start_date', 'nom']
-        indexes = [
-            models.Index(fields=['start_date']),
-            models.Index(fields=['end_date']),
-            models.Index(fields=['nom']),
-        ]
-
-class HistoriqueFormation(models.Model):
-    formation = models.ForeignKey('Formation', on_delete=models.CASCADE, related_name="historiques")
-    utilisateur = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='historiques_utilisateur')
-    action = models.CharField(max_length=100, default='modification')
-    details = models.JSONField(default=dict, blank=True)
-    date_modification = models.DateTimeField(default=timezone.now)
-    champ_modifie = models.CharField(max_length=100, default="non_specifié" , verbose_name="Champ modifié")
-    ancienne_valeur = models.TextField(null=True, blank=True)
-    nouvelle_valeur = models.TextField(null=True, blank=True)
-    modifie_par = models.ForeignKey(get_user_model(), on_delete=models.SET_NULL, null=True)
-    commentaire = models.TextField(null=True, blank=True, verbose_name="Commentaire lié à la modification")
-
-    class Meta:
-        ordering = ['-date_modification']
-        verbose_name = "Historique de modification de formation"
-from django.db import models
-from .base import BaseModel
-
-class Partenaire(BaseModel):
-    """
-    Modèle représentant une partenaire.
-
-    Ajout d'une relation avec `Formation` pour que les partenaires puissent être utilisées comme ressources.
-    """
-
-    nom = models.CharField(max_length=255, verbose_name="Nom du partenaire", unique=True )
-    secteur_activite = models.CharField(max_length=255, verbose_name="Secteur d'activité",blank=True,null=True)
-    contact_nom = models.CharField(max_length=255,verbose_name="Nom du contact",blank=True,null=True)
-    contact_poste = models.CharField(max_length=255,verbose_name="Poste du contact",blank=True,null=True)
-    contact_telephone = models.CharField(max_length=20, verbose_name="Téléphone du contact", blank=True, null=True)
-    contact_email = models.EmailField(verbose_name="Email du contact", blank=True, null=True)
-    description = models.TextField(verbose_name="Description de la relation", blank=True, null=True)
-
-    # Manager par défaut (si PartenaireManager est supprimé)
-    objects = models.Manager()
-
-    def __str__(self):
-        """Représentation lisible du partenaire."""
-        return self.nom
-
-    class Meta:
-        verbose_name = "Partenaire"
-        verbose_name_plural = "Partenaires"
-        ordering = ['nom']
-        indexes = [
-            models.Index(fields=['nom']),  # Index pour optimiser la recherche par nom.
-        ]
-from django.db import models
-from django.utils import timezone
-from django.contrib.auth import get_user_model
-
-from ..models.formations import Formation
-from .company import Company
-
-# ✅ Statuts possibles pour une prospection
-PROSPECTION_STATUS_CHOICES = [
-    ('a_faire', 'À faire'),
-    ('en_cours', 'En cours'),
-    ('a_relancer', 'À relancer'),
-    ('acceptee', 'Acceptée'),
-    ('refusee', 'Refusée'),
-    ('annulee', 'Annulée'),
-    ('Non renséigné', 'Non renséigné'),
-
-]
-
-# ✅ Objectifs de prospection
-PROSPECTION_OBJECTIF_CHOICES = [
-    ('prise_contact', 'Prise de contact'),
-    ('rendez_vous', 'Obtenir un rendez-vous'),
-    ('presentation_offre', 'Présentation d’une offre'),
-    ('contrat', 'Signer un contrat'),
-    ('partenariat', 'Établir un partenariat'),
-    ('autre', 'Autre'),
-]
-
-# ✅ Motifs pour lesquels on fait la prospection
-PROSPECTION_MOTIF_CHOICES = [
-    ('POEI', 'POEI'),
-    ('Apprentissage', 'Apprentissage'),
-    ('VAE', 'VAE'),
-    ('partenariat', 'Établir un partenariat'),
-    ('autre', 'Autre'),
-]
-
-# ===============================
-# 🔵 Modèle principal : Prospection
-# ===============================
-class Prospection(models.Model):
-    company = models.ForeignKey(
-        Company, on_delete=models.CASCADE,
-        related_name="prospections",
-        verbose_name="Entreprise"
-    )
-    formation = models.ForeignKey(
-        Formation, on_delete=models.CASCADE,
-        null=True, blank=True,
-        related_name="prospections",
-        verbose_name="Formation en lien"
-    )
-    date_prospection = models.DateTimeField(
-        default=timezone.now,
-        verbose_name="Date de la prospection"
-    )
-    motif = models.CharField(
-        max_length=30,
-        choices=PROSPECTION_MOTIF_CHOICES,
-        default='prise_contact',
-        verbose_name="Motif de la prospection"
-    )
-    statut = models.CharField(
-        max_length=20,
-        choices=PROSPECTION_STATUS_CHOICES,
-        default='a_faire',
-        verbose_name="Statut de la prospection"
-    )
-    objectif = models.CharField(
-        max_length=30,
-        choices=PROSPECTION_OBJECTIF_CHOICES,
-        default='prise_contact',
-        verbose_name="Objectif de la prospection"
-    )
-    commentaire = models.TextField(
-        blank=True, null=True,
-        verbose_name="Commentaires de la prospection"
-    )
-    responsable = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.SET_NULL,
-        null=True, blank=True,
-        verbose_name="Responsable de la prospection"
-    )
-
-    class Meta:
-        verbose_name = "Suivi de la prospection"
-        verbose_name_plural = "Suivis des prospections"
-        ordering = ['-date_prospection']
-
-    def __str__(self):
-        return f"{self.company.name} - {self.formation.nom if self.formation else 'Sans formation'} - {self.get_statut_display()} - {self.get_objectif_display()}"
-
-    # 🔁 Méthode save() personnalisée pour historiser les changements
-    def save(self, *args, **kwargs):
-        is_new = self.pk is None
-        old_prospection = None
-
-        # ⚠️ Si la prospection existe déjà, on récupère l'ancienne version pour détecter les changements
-        if not is_new:
-            try:
-                old_prospection = Prospection.objects.get(pk=self.pk)
-            except Prospection.DoesNotExist:
-                pass
-
-        # 💾 On sauvegarde d'abord la prospection
-        super().save(*args, **kwargs)
-
-        # 🕓 Ensuite, on vérifie s'il y a des changements à historiser
-        if old_prospection:
-            changement_statut = old_prospection.statut != self.statut
-            changement_objectif = old_prospection.objectif != self.objectif
-            changement_commentaire = old_prospection.commentaire != self.commentaire
-
-            if changement_statut or changement_objectif or changement_commentaire:
-                # 📚 Création d'un enregistrement d'historique
-                HistoriqueProspection.objects.create(
-                    prospection=self,
-                    ancien_statut=old_prospection.statut,
-                    nouveau_statut=self.statut,
-                    modifie_par=self.responsable,
-                    commentaire=self.commentaire or "",
-                    resultat=(
-                        f"Objectif modifié : {old_prospection.objectif} → {self.objectif}"
-                        if changement_objectif else ""
-                    ),
-                    prochain_contact=timezone.now().date() + timezone.timedelta(days=7),  # ⏳ J+7 pour relancer
-                )
-
-# ===============================
-# 🔵 Historique des changements
-# ===============================
-class HistoriqueProspection(models.Model):
-    prospection = models.ForeignKey(
-        Prospection, on_delete=models.CASCADE,
-        related_name="historiques"
-    )
-    date_modification = models.DateTimeField(auto_now_add=True)
-    ancien_statut = models.CharField(max_length=20, choices=PROSPECTION_STATUS_CHOICES)
-    nouveau_statut = models.CharField(max_length=20, choices=PROSPECTION_STATUS_CHOICES)
-    commentaire = models.TextField(null=True, blank=True)
-    modifie_par = models.ForeignKey(
-        get_user_model(), on_delete=models.SET_NULL,
-        null=True
-    )
-    prochain_contact = models.DateField(
-        null=True, blank=True,
-        verbose_name="Date de relance"
-    )
-    resultat = models.TextField(
-        null=True, blank=True,
-        verbose_name="Résultat ou retour de la prospection"
-    )
-    moyen_contact = models.CharField(
-        max_length=50,
-        choices=[('email', 'Email'), ('telephone', 'Téléphone'), ('visite', 'Visite'), ('réseaux', 'Réseaux sociaux')],
-        null=True, blank=True,
-        verbose_name="Moyen de contact"
-    )
-
-    class Meta:
-        ordering = ['-date_modification']
-        verbose_name = "Historique de prospection"
-
-    def __str__(self):
-        return f"{self.date_modification} - {self.prospection.company.name} - {self.nouveau_statut}"
-# models/rapports.py
-from django.db import models
-from django.utils import timezone
-from .base import BaseModel
-
-class Rapport(BaseModel):
-    """
-    Modèle représentant un rapport généré par le système.
-    Les rapports peuvent être générés automatiquement ou manuellement.
-    """
-    TYPE_OCCUPATION = 'occupation'
-    TYPE_CENTRE = 'centre'
-    TYPE_STATUT = 'statut'
-    TYPE_EVENEMENT = 'evenement'
-    TYPE_RECRUTEMENT = 'recrutement'
-    TYPE_PARTENAIRE = 'partenaire'
-    TYPE_REPARTITION = 'repartition'
-    TYPE_PERIODIQUE = 'periodique'
-    TYPE_ANNUEL = 'annuel'
-    TYPE_UTILISATEUR = 'utilisateur'
-    
-    TYPE_CHOICES = [
-        (TYPE_OCCUPATION, 'Rapport d\'occupation des formations'),
-        (TYPE_CENTRE, 'Rapport de performance par centre'),
-        (TYPE_STATUT, 'Rapport de suivi des statuts'),
-        (TYPE_EVENEMENT, 'Rapport d\'efficacité des événements'),
-        (TYPE_RECRUTEMENT, 'Rapport de suivi du recrutement'),
-        (TYPE_PARTENAIRE, 'Rapport d\'activité des partenaires'),
-        (TYPE_REPARTITION, 'Rapport de répartition des partenaires'),
-        (TYPE_PERIODIQUE, 'Rapport périodique'),
-        (TYPE_ANNUEL, 'Rapport annuel consolidé'),
-        (TYPE_UTILISATEUR, 'Rapport d\'activité utilisateurs'),
-    ]
-    
-    PERIODE_QUOTIDIEN = 'quotidien'
-    PERIODE_HEBDOMADAIRE = 'hebdomadaire'
-    PERIODE_MENSUEL = 'mensuel'
-    PERIODE_TRIMESTRIEL = 'trimestriel'
-    PERIODE_ANNUEL = 'annuel'
-    PERIODE_PERSONNALISE = 'personnalise'
-    
-    PERIODE_CHOICES = [
-        (PERIODE_QUOTIDIEN, 'Quotidien'),
-        (PERIODE_HEBDOMADAIRE, 'Hebdomadaire'),
-        (PERIODE_MENSUEL, 'Mensuel'),
-        (PERIODE_TRIMESTRIEL, 'Trimestriel'),
-        (PERIODE_ANNUEL, 'Annuel'),
-        (PERIODE_PERSONNALISE, 'Période personnalisée'),
-    ]
-    
-    FORMAT_PDF = 'pdf'
-    FORMAT_EXCEL = 'excel'
-    FORMAT_CSV = 'csv'
-    FORMAT_HTML = 'html'
-    
-    FORMAT_CHOICES = [
-        (FORMAT_PDF, 'PDF'),
-        (FORMAT_EXCEL, 'Excel'),
-        (FORMAT_CSV, 'CSV'),
-        (FORMAT_HTML, 'HTML'),
-    ]
-    
-    nom = models.CharField(max_length=255, verbose_name="Nom du rapport")
-    type_rapport = models.CharField(max_length=50, choices=TYPE_CHOICES, verbose_name="Type de rapport")
-    periode = models.CharField(max_length=50, choices=PERIODE_CHOICES, verbose_name="Périodicité")
-    date_debut = models.DateField(verbose_name="Date de début")
-    date_fin = models.DateField(verbose_name="Date de fin")
-    format = models.CharField(max_length=10, choices=FORMAT_CHOICES, default=FORMAT_HTML, verbose_name="Format")
-    
-    # Filtres optionnels
-    centre = models.ForeignKey('Centre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Centre")
-    type_offre = models.ForeignKey('TypeOffre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Type d'offre")
-    statut = models.ForeignKey('Statut', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Statut")
-    
-    # Données du rapport
-    donnees = models.JSONField(default=dict, verbose_name="Données du rapport")
-    
-    # Métadonnées
-    date_generation = models.DateTimeField(default=timezone.now, verbose_name="Date de génération")
-    utilisateur = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Généré par")
-    temps_generation = models.FloatField(null=True, blank=True, verbose_name="Temps de génération (s)")
-    
-    class Meta:
-        verbose_name = "Rapport"
-        verbose_name_plural = "Rapports"
-        ordering = ['-date_generation']
-        
-    def __str__(self):
-        return f"{self.nom} - {self.get_type_rapport_display()} ({self.date_debut} à {self.date_fin})"
-        # models/statut.py
-from django.db import models
-from django.core.exceptions import ValidationError
-from .base import BaseModel
-
-def get_default_color(statut_nom):
-    """
-    Retourne une couleur prédéfinie selon le type de statut.
-    """
-    COULEURS_PREDEFINIES = {
-        'non_defini': "#FFEB3B",  # 🟡 Jaune (texte noir lisible)
-        'recrutement_en_cours': "#4CAF50", # Vert
-        'formation_en_cours': "#2196F3",  # Bleu
-        'formation_a_annuler': "#FF9800", # Orange
-        'formation_a_repousser': "#FFEB3B", # Jaune
-        'formation_annulee': "#F44336",   # Rouge
-        'pleine': "#9C27B0",             # Violet
-        'quasi_pleine': "#3F51B5",       # Indigo
-        'autre': "#795548",              # Marron
-    }
-    return COULEURS_PREDEFINIES.get(statut_nom, "#607D8B")  # Bleu-gris par défaut
-
-class Statut(BaseModel):
-    """
-    Modèle représentant les statuts des formations.
-
-    Ce modèle définit les différents états possibles d'une formation (ex: "Recrutement en cours", 
-    "Formation en cours", "Formation annulée", etc.). Il permet également d'ajouter une couleur 
-    pour une meilleure visibilité et un statut personnalisé si nécessaire.
-
-    ✅ Utilisation principale :
-    - Assigner un statut à une formation.
-    - Permettre l'affichage du statut sous forme colorée sur l'interface utilisateur.
-    - Offrir une flexibilité avec un statut "Autre" personnalisable.
-    """
-
-    # Constantes pour les choix de statut
-    NON_DEFINI = 'non_defini'
-    RECRUTEMENT_EN_COURS = 'recrutement_en_cours'
-    FORMATION_EN_COURS = 'formation_en_cours'
-    FORMATION_A_ANNULER = 'formation_a_annuler'
-    FORMATION_A_REPOUSSER = 'formation_a_repousser'
-    FORMATION_ANNULEE = 'formation_annulee'
-    PLEINE = 'pleine'
-    QUASI_PLEINE = 'quasi_pleine'
-    AUTRE = 'autre'
-    
-    STATUT_CHOICES = [
-        (NON_DEFINI, 'Non défini'),
-        (RECRUTEMENT_EN_COURS, 'Recrutement en cours'),
-        (FORMATION_EN_COURS, 'Formation en cours'),
-        (FORMATION_A_ANNULER, 'Formation à annuler'),
-        (FORMATION_A_REPOUSSER, 'Formation à repousser'),
-        (FORMATION_ANNULEE, 'Formation annulée'),
-        (PLEINE, 'Pleine'),
-        (QUASI_PLEINE, 'Quasi-pleine'),
-        (AUTRE, 'Autre'),
-    ]
-    
-    nom = models.CharField(
-        max_length=100, 
-        choices=STATUT_CHOICES, 
-        verbose_name="Nom du statut"
-    )
-    """
-    Nom du statut, avec des choix prédéfinis.
-    """
-
-    couleur = models.CharField(
-        max_length=7,  # Format #RRGGBB
-        verbose_name="Couleur", 
-        help_text="Couleur hexadécimale (ex: #FF5733)",
-        blank=True  # Permet d'assigner une couleur par défaut si vide
-    )
-    """
-    Code couleur associé au statut.
-    Exemple : `#FF0000` pour rouge, `#00FF00` pour vert.
-    Si ce champ est vide, une couleur prédéfinie selon le type de statut sera attribuée.
-    """
-
-    description_autre = models.CharField(
-        max_length=255, 
-        blank=True, 
-        null=True, 
-        verbose_name="Description personnalisée"
-    )
-    """
-    Permet de renseigner une description si le statut sélectionné est "Autre".
-    Obligatoire si le statut est `AUTRE`.
-    """
-
-    def clean(self):
-        """
-        Validation personnalisée :
-        - Si le statut est 'Autre', alors `description_autre` doit être rempli.
-        """
-        if self.nom == self.AUTRE and not self.description_autre:
-            raise ValidationError({
-                'description_autre': "Le champ 'description_autre' doit être renseigné lorsque le statut est 'autre'."
-            })
-
-    def get_nom_display(self):
-        """
-        Retourne le nom du statut. Si le statut est 'Autre', affiche la description à la place.
-        """
-        if self.nom == self.AUTRE and self.description_autre:
-            return self.description_autre  # ✅ Retourne la description si le statut est "Autre"
-        return dict(self.STATUT_CHOICES).get(self.nom, self.nom)  # ✅ Sinon, retourne le nom normal
-
-    def save(self, *args, **kwargs):
-        """
-        Sauvegarde avec validation :
-        - Assigne une couleur prédéfinie si aucune couleur n'est spécifiée.
-        - Appelle `clean()` avant l'enregistrement en base de données.
-        """
-        if not self.couleur:
-            self.couleur = get_default_color(self.nom)
-        
-        self.full_clean()  # Applique les validations avant l'enregistrement
-        super().save(*args, **kwargs)
-
-    def __str__(self):
-        """
-        Représentation textuelle du modèle dans l'admin Django et les logs.
-        """
-        if self.nom == self.AUTRE and self.description_autre:
-            return f"{self.description_autre} - {self.couleur}"
-        return f"{self.get_nom_display()} "
-
-    class Meta:
-        verbose_name = "Statut"
-        verbose_name_plural = "Statuts"
-        ordering = ['nom']
-        # models/types_offre.py
-from django.db import models
-from django.core.exceptions import ValidationError
-from .base import BaseModel
-
-
-class TypeOffre(BaseModel):
-    """
-    Modèle représentant les types d'offres de formation.
-
-    Ce modèle définit les différents types d'offres disponibles dans l'application, 
-    comme CRIF, Alternance, POEC, POEI, etc. Il permet également d'ajouter un type personnalisé 
-    via l'option "Autre".
-
-    ✅ Utilisation principale :
-    - Associer un type d'offre à une formation.
-    - Filtrer les formations par type d'offre.
-    - Permettre l'ajout d'un type personnalisé si besoin.
-    """
-
-    # Constantes pour les choix de types d'offre
-    CRIF = 'crif'
-    ALTERNANCE = 'alternance'
-    POEC = 'poec'
-    POEI = 'poei'
-    TOSA = 'tosa'
-    AUTRE = 'autre'
-    NON_DEFINI = 'non_defini'
-    
-    TYPE_OFFRE_CHOICES = [
-        (CRIF, 'CRIF'),
-        (ALTERNANCE, 'Alternance'),
-        (POEC, 'POEC'),
-        (POEI, 'POEI'),
-        (TOSA, 'TOSA'),
-        (AUTRE, 'Autre'),
-        (NON_DEFINI, 'Non défini'),
-    ]
-    
-    nom = models.CharField(
-        max_length=100, 
-        choices=TYPE_OFFRE_CHOICES, 
-        default=NON_DEFINI, 
-        verbose_name="Type d'offre"
-    )
-    """
-    Nom du type d'offre, avec une liste de choix prédéfinis.
-    """
-
-    autre = models.CharField(
-        max_length=255, 
-        blank=True,  # Suppression de null=True pour éviter les valeurs NULL sur un CharField
-        verbose_name="Autre (personnalisé)"
-    )
-    """
-    Champ permettant de spécifier un type personnalisé si "Autre" est sélectionné.
-    """
-    
-    couleur = models.CharField(
-    max_length=7,
-    default='#6c757d',  # Gris Bootstrap par défaut
-    verbose_name="Couleur associée (hexadécimal)"
-)
-    """
-    Champ permettant d'ajouter une couleur aux types d'offres.
-    """
-    def clean(self):
-        """
-        Validation personnalisée :
-        - Si le type d'offre est 'Autre', alors `autre` doit être rempli.
-        """
-        if self.nom == self.AUTRE and not self.autre:
-            raise ValidationError({
-                'autre': "Le champ 'autre' doit être renseigné lorsque le type d'offre est 'autre'."
-            })
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        self.assign_default_color()  # 🎨 Assigne la couleur
-        super().save(*args, **kwargs)
-
-
-    def __str__(self):
-        """
-        Représentation textuelle du modèle dans l'admin Django et les logs.
-        """
-        return self.autre if self.nom == self.AUTRE and self.autre else self.get_nom_display()
-    
-    def is_personnalise(self):
-        """
-        Vérifie si le type d'offre est personnalisé (Autre).
-        """
-        return self.nom == self.AUTRE
-    
-    def assign_default_color(self):
-        """Assigne une couleur par défaut selon le type d'offre"""
-        couleurs = {
-        self.CRIF: "#4e73df",         # Bleu
-        self.ALTERNANCE: "#1cc88a",   # Vert
-        self.POEC: "#f6c23e",         # Jaune
-        self.POEI: "#e74a3b",         # Rouge
-        self.TOSA: "#6f42c1",         # Violet
-        self.AUTRE: "#20c997",        # Turquoise
-        self.NON_DEFINI: "#6c757d",   # Gris
-    }
-    # On affecte seulement si aucune couleur personnalisée
-        if not self.couleur or self.couleur == "#6c757d":
-            self.couleur = couleurs.get(self.nom, "#6c757d")
-
-
-    class Meta:
-        verbose_name = "Type d'offre"
-        verbose_name_plural = "Types d'offres"
-        ordering = ['nom']
-        constraints = [
-            models.UniqueConstraint(
-                fields=['autre'],
-                name='unique_autre_non_null',
-                condition=models.Q(nom='autre', autre__isnull=False)
-            )
-        ]  # Empêche d'avoir plusieurs fois la même valeur personnalisée 'Autre'
-    def text_color(self):
-        """Retourne 'black' ou 'white' selon la couleur de fond"""
-        if self.couleur.lower() in ['#ffff00', '#ffeb3b']:
-            return 'black'
-        return 'white'
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from django.contrib import messages
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
-
-class CustomLoginRequiredMixin(LoginRequiredMixin):
-    """Mixin personnalisé pour gérer les utilisateurs non connectés"""
-    def handle_no_permission(self):
-        # Ajouter un message d'erreur
-        messages.error(self.request, "Vous devez être connecté pour accéder à cette page.")
-        # Rediriger vers la page de connexion
-        return redirect('login')  # Remplacez 'login' par le nom de votre URL de connexion
-
-class BaseListView(CustomLoginRequiredMixin, ListView):
-    """Vue de base pour les listes avec pagination"""
-    paginate_by = 20
-    template_name_suffix = '_list'
-
-
-class BaseDetailView(CustomLoginRequiredMixin, DetailView):
-    """Vue de base pour afficher un détail"""
-    template_name_suffix = '_detail'
-
-
-class BaseCreateView(CustomLoginRequiredMixin, CreateView):
-    """Vue de base pour créer un objet"""
-
-    def form_valid(self, form):
-        """Ajoute un message de succès après la création"""
-        response = super().form_valid(form)
-        messages.success(self.request, f"{self.model._meta.verbose_name} créé avec succès.")
-        return response
-
-
-class BaseUpdateView(CustomLoginRequiredMixin, UpdateView):
-    """Vue de base pour modifier un objet"""
-
-    def form_valid(self, form):
-        """Ajoute un message de succès après la modification"""
-        response = super().form_valid(form)
-        messages.success(self.request, f"{self.model._meta.verbose_name} mis à jour avec succès.")
-        return response
-
-
-class BaseDeleteView(CustomLoginRequiredMixin, DeleteView):
-    """Vue de base pour supprimer un objet"""
-    success_url = reverse_lazy('dashboard')
-
-    def delete(self, request, *args, **kwargs):
-        """Ajoute un message de succès après la suppression"""
-        messages.success(request, f"{self.model._meta.verbose_name} supprimé avec succès.")
-        return super().delete(request, *args, **kwargs)
-
-        from django.urls import reverse_lazy
-from django.db.models import Count, Sum, F, Q
-from django.utils import timezone
-from django.contrib.auth.mixins import PermissionRequiredMixin
-
-from ..models import Centre, Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-
-class CentreListView(BaseListView):
-    """Vue listant tous les centres de formation avec des statistiques"""
-    model = Centre
-    context_object_name = 'centres'
-    template_name = 'centres/centre_list.html'  # ✅ Défini explicitement le template
-    
-    def get_queryset(self):
-        """
-        Récupère la liste des centres de formation en annotant des statistiques :
-        - Nombre total de formations liées à chaque centre.
-        - Nombre de formations actives (date de fin >= aujourd'hui OU sans date de fin).
-        - Nombre total d'inscrits (CRIF + MP).
-        """
-        queryset = super().get_queryset().annotate(
-            nb_formations=Count('formations'),
-            nb_formations_actives=Count(
-                'formations',
-                filter=Q(formations__end_date__gte=timezone.now()) | Q(formations__end_date__isnull=True)
-            ),
-            nb_inscrits=Sum(
-                F('formations__inscrits_crif') + F('formations__inscrits_mp'),
-                default=0
-            )
-        )
-        
-        # 🔍 Filtrage par nom du centre
-        q = self.request.GET.get('q')
-        if q:
-            queryset = queryset.filter(nom__icontains=q)
-            
-        # 🔍 Filtrage par code postal
-        cp = self.request.GET.get('code_postal')
-        if cp:
-            queryset = queryset.filter(code_postal__startswith=cp)
-            
-        return queryset
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute des statistiques générales et les filtres appliqués au contexte de la page.
-        """
-        context = super().get_context_data(**kwargs)
-        
-        # 📊 Statistiques globales
-        context['total_centres'] = Centre.objects.count()
-        context['total_formations'] = Formation.objects.count()
-        
-        # 🔍 Filtres actuellement appliqués
-        context['filters'] = {
-            'q': self.request.GET.get('q', ''),
-            'code_postal': self.request.GET.get('code_postal', ''),
-        }
-        
-        return context
-
-
-class CentreDetailView(BaseDetailView):
-    """Vue affichant les détails d'un centre de formation"""
-    model = Centre
-    context_object_name = 'centre'
-    template_name = 'centres/centre_detail.html'  # Vérifie que ce fichier existe
-
-    def get_context_data(self, **kwargs):
-        """Ajoute au contexte les formations associées au centre"""
-        context = super().get_context_data(**kwargs)
-        
-        # 📌 Récupération des formations associées au centre
-        formations = self.object.formations.select_related('type_offre', 'statut').order_by('-start_date')
-
-        # 🔍 Filtrage des formations par type d'offre
-        type_offre = self.request.GET.get('type_offre')
-        if type_offre:
-            formations = formations.filter(type_offre_id=type_offre)
-
-        # 🔍 Filtrage des formations par statut
-        statut = self.request.GET.get('statut')
-        if statut:
-            formations = formations.filter(statut_id=statut)
-
-        # 📊 Extraire les choix pour le template
-        type_offres = formations.values_list('type_offre__id', 'type_offre__nom').distinct()
-        statuts = formations.values_list('statut__id', 'statut__nom').distinct()
-
-        # 📊 Ajouter au contexte
-        context.update({
-            'formations': formations,
-            'type_offres': type_offres,
-            'statuts': statuts
-        })
-
-        return context
-
-
-
-class CentreCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Vue permettant de créer un nouveau centre de formation"""
-    model = Centre
-    permission_required = 'rap_app.add_centre'
-    fields = ['nom', 'code_postal']
-    success_url = reverse_lazy('centre-list')
-    template_name = 'centres/centre_form.html'  # ✅ Vérification du chemin correct
-
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute un titre personnalisé au contexte.
-        """
-        context = super().get_context_data(**kwargs)
-        context['titre'] = "Ajouter un centre de formation"
-        return context
-
-
-class CentreUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Vue permettant de modifier un centre de formation existant"""
-    model = Centre
-    permission_required = 'rap_app.change_centre'
-    fields = ['nom', 'code_postal']
-    template_name = 'centres/centre_form.html'  # ✅ Vérification du chemin correct
-
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute un titre dynamique au contexte en fonction du centre modifié.
-        """
-        context = super().get_context_data(**kwargs)
-        context['titre'] = f"Modifier le centre : {self.object.nom}"
-        return context
-
-
-class CentreDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Vue permettant de supprimer un centre de formation"""
-    model = Centre
-    permission_required = 'rap_app.delete_centre'
-    success_url = reverse_lazy('centre-list')
-    template_name = 'centres/centre_confirm_delete.html'  # ✅ Ajout du bon chemin
-
-from django.urls import reverse_lazy
-from django.db.models import Q
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.views import View
-from django.shortcuts import get_list_or_404
-from django.contrib.auth import get_user_model
-from django.views.generic import ListView
-import csv
-from django.http import HttpResponse
-from ..models.commentaires import User
-
-from ..models import Commentaire, Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-User = get_user_model()
-
-class CommentaireListView(BaseListView):
-    """Vue listant tous les commentaires avec options de filtrage"""
-    model = Commentaire
-    context_object_name = 'commentaires'
-    template_name = 'commentaires/commentaire_list.html'
-    paginate_by = 20  # ✅ Ajout de la pagination
-
-    def get_queryset(self):
-        """
-        Récupère la liste des commentaires avec possibilité de filtrage par :
-        - Formation associée
-        - Utilisateur
-        - Contenu (recherche textuelle)
-        """
-        queryset = super().get_queryset().select_related('formation', 'utilisateur')
-
-        # 🔍 Filtrage dynamique
-        formation_id = self.request.GET.get('formation')
-        utilisateur_id = self.request.GET.get('utilisateur')
-        search_query = self.request.GET.get('q')
-
-        if formation_id:
-            queryset = queryset.filter(formation_id=formation_id)
-
-        if utilisateur_id:
-            queryset = queryset.filter(utilisateur_id=utilisateur_id)
-
-        if search_query:
-            queryset = queryset.filter(contenu__icontains=search_query)
-
-        print(f"DEBUG: {queryset.count()} commentaires trouvés")  # ✅ Debugging
-
-        return queryset  # ✅ Ajout du return pour éviter une erreur 500
-
-    def get_context_data(self, **kwargs):
-        """Ajoute les options de filtre au contexte pour le template"""
-        context = super().get_context_data(**kwargs)
-
-        # Ajout des filtres et options de filtrage
-        context['filters'] = {
-            'formation': self.request.GET.get('formation', ''),
-            'utilisateur': self.request.GET.get('utilisateur', ''),
-            'q': self.request.GET.get('q', ''),
-        }
-
-        # Liste des formations et utilisateurs pour les filtres
-        context['formations'] = Formation.objects.all()
-        context['utilisateurs'] = User.objects.all()  # ✅ Ajout de la liste des utilisateurs
-
-        return context
-
-
-
-class CommentaireDetailView(BaseDetailView):
-    """Vue affichant les détails d'un commentaire"""
-    model = Commentaire
-    context_object_name = 'commentaire'
-    template_name = 'commentaires/commentaire_detail.html'
-
-
-class CommentaireCreateView(BaseCreateView):
-    """Vue permettant de créer un nouveau commentaire"""
-    model = Commentaire
-    fields = ['formation', 'contenu', 'saturation']
-    template_name = 'commentaires/commentaire_form.html'
-    
-    def get_initial(self):
-        """Pré-remplit le formulaire avec la formation si spécifiée dans l'URL"""
-        initial = super().get_initial()
-        formation_id = self.request.GET.get('formation')
-        if formation_id:
-            initial['formation'] = formation_id
-        return initial
-    
-    def form_valid(self, form):
-        """Associe automatiquement l'utilisateur connecté au commentaire"""
-        form.instance.utilisateur = self.request.user
-        return super().form_valid(form)
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après création"""
-        return reverse_lazy('formation-detail', kwargs={'pk': self.object.formation.pk})
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = "Ajouter un commentaire"
-        return context
-
-
-class CommentaireUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Vue permettant de modifier un commentaire existant"""
-    model = Commentaire
-    permission_required = 'rap_app.change_commentaire'
-    fields = ['contenu', 'saturation']
-    template_name = 'commentaires/commentaire_form.html'
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après modification"""
-        return reverse_lazy('formation-detail', kwargs={'pk': self.object.formation.pk})
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = f"Modifier le commentaire du {self.object.created_at.strftime('%d/%m/%Y')}"
-        return context
-
-
-class CommentaireDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Vue permettant de supprimer un commentaire"""
-    model = Commentaire
-    permission_required = 'rap_app.delete_commentaire'
-    template_name = 'commentaires/commentaire_confirm_delete.html'
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après suppression"""
-        formation_id = self.object.formation.id
-        return reverse_lazy('formation-detail', kwargs={'pk': formation_id})
-    
-
-
-
-class AllCommentairesView(ListView):
-    model = Commentaire
-    template_name = 'formations/commentaires_tous.html'
-    context_object_name = 'commentaires'
-    paginate_by = 20  # Pagination
-
-    def get_queryset(self):
-        """Récupère tous les commentaires avec les filtres appliqués."""
-        queryset = Commentaire.objects.select_related('formation', 'utilisateur').order_by('-created_at')
-
-        formation_id = self.request.GET.get('formation')
-        utilisateur_id = self.request.GET.get('utilisateur')
-        search_query = self.request.GET.get('q')
-        order_by = self.request.GET.get('order_by', '-created_at')
-
-        filters = Q()
-
-        if formation_id:
-            filters &= Q(formation_id=formation_id)
-
-        if utilisateur_id:
-            filters &= Q(utilisateur_id=utilisateur_id)
-
-        if search_query:
-            filters &= Q(contenu__icontains=search_query)
-
-        if order_by:
-            queryset = queryset.order_by(order_by)
-
-        queryset = queryset.filter(filters)
-
-
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        """Ajoute la liste des formations et utilisateurs pour le filtrage."""
-        context = super().get_context_data(**kwargs)
-        context['formations'] = Formation.objects.all()
-        context['utilisateurs'] = User.objects.all()
-        return context
-
-class ExportCommentairesView(View):
-    """Vue permettant d'exporter les commentaires sélectionnés en CSV."""
-
-    def post(self, request, *args, **kwargs):
-        commentaire_ids = request.POST.getlist('commentaire_ids')  # Récupération des IDs sélectionnés
-        
-        if not commentaire_ids:
-            return HttpResponse("Aucun commentaire sélectionné.", status=400)
-
-        commentaires = get_list_or_404(Commentaire, id__in=commentaire_ids)
-
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="commentaires_export.csv"'
-
-        writer = csv.writer(response)
-        writer.writerow(["ID", "Utilisateur", "Date", "Formation", "Num Offre", "Commentaire"])
-
-        for commentaire in commentaires:
-            writer.writerow([
-                commentaire.id,
-                commentaire.utilisateur.username if commentaire.utilisateur else "Anonyme",
-                commentaire.created_at.strftime("%d/%m/%Y %H:%M"),
-                commentaire.formation.nom if commentaire.formation else "N/A",
-                commentaire.formation.num_offre if commentaire.formation else "N/A",
-                commentaire.contenu
-            ])
-
-        return response
-        from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
-from ..forms.company_form import CompanyForm
-from ..models.company import Company
-
-# Liste des entreprises
-class CompanyListView(ListView):
-    model = Company
-    template_name = 'company/company_list.html'
-    context_object_name = 'companies'
-    ordering = ['-created_at']
-
-# Détail d'une entreprise
-class CompanyDetailView(DetailView):
-    model = Company
-    template_name = 'company/company_detail.html'
-
-# Création d'une entreprise
-class CompanyCreateView(CreateView):
-    model = Company
-    form_class = CompanyForm
-    template_name = 'company/company_form.html'
-    success_url = reverse_lazy('company-list')
-
-# Mise à jour d'une entreprise
-class CompanyUpdateView(UpdateView):
-    model = Company
-    form_class = CompanyForm
-    template_name = 'company/company_form.html'
-    success_url = reverse_lazy('company-list')
-
-# Suppression d'une entreprise
-class CompanyDeleteView(DeleteView):
-    model = Company
-    template_name = 'company/company_confirm_delete.html'
-    success_url = reverse_lazy('company-list')
-from django.http import HttpRequest  # ✅ Import correct de HttpRequest
-from django.shortcuts import redirect, render
-from django.views.generic import TemplateView
-from django.db.models import Count, Sum, Avg, F, Q, Case, When, IntegerField, Value
-from django.utils import timezone
-from datetime import timedelta
-from django.db.models.functions import TruncMonth
-from django.http import JsonResponse
-from django.views import View
-from django import template
-from django.db.models import Count, Avg, F, Value, Sum, FloatField
-from django.db.models.functions import Coalesce, TruncMonth
-from django.db import models
-
-from ..models.company import Company
-
-from ..models.prospection import PROSPECTION_STATUS_CHOICES, Prospection
-
-from ..models.formations import HistoriqueFormation
-
-from ..views.base_views import BaseListView
-
-from ..models.partenaires import Partenaire
-
-
-from ..models import Formation, Centre, Commentaire, TypeOffre, Statut, Evenement, Recherche
-
-
-from ..models import Formation, Statut
-
-from ..models import Formation, Centre, Commentaire, TypeOffre, Statut, Evenement
-
-
-class DashboardView(BaseListView):
-    model = Formation  # Spécifiez le modèle à afficher
-    template_name = 'dashboard.html'  # Spécifiez le template
-    context_object_name = 'formations'  # Nom de la variable dans le template
-
-    def get_context_data(self, **kwargs):
-        # Appelez la méthode parente pour obtenir le contexte de base
-        context = super().get_context_data(**kwargs)
-
-        # ✅ Nombre total de formations par centre
-        context['formations_par_centre'] = (
-            Centre.objects.annotate(total_formations=Count('formations'))
-            .order_by('-total_formations')
-        )
-
-        # ✅ Formations par type d'offre
-        context['formations_par_type_offre'] = (
-            TypeOffre.objects.annotate(total=Count('formations'))
-            .order_by('-total')
-        )
-
-        # ✅ Formations par statut
-        context['formations_par_statut'] = (
-            Statut.objects.annotate(total=Count('formations'))
-            .order_by('-total')
-        )
-
-        # ✅ Statistiques globales
-        context['total_formations'] = Formation.objects.count()
-        context['formations_actives'] = Formation.objects.formations_actives().count()
-        context['formations_a_venir'] = Formation.objects.formations_a_venir().count()
-        context['formations_terminees'] = Formation.objects.formations_terminees().count()
-        context['formations_a_recruter'] = Formation.objects.formations_a_recruter().count()
-
-        # ✅ Places prévues et disponibles
-        context['total_places_prevues'] = Formation.objects.aggregate(
-            total=Sum(F('prevus_crif') + F('prevus_mp'))
-        )['total'] or 0
-
-        context['total_places_prevues_crif'] = Formation.objects.aggregate(
-            total=Sum('prevus_crif')
-        )['total'] or 0
-
-        context['total_places_prevues_mp'] = Formation.objects.aggregate(
-            total=Sum('prevus_mp')
-        )['total'] or 0
-
-        context['total_places_restantes'] = Formation.objects.aggregate(
-            total=Sum(F('prevus_crif') + F('prevus_mp') - F('inscrits_crif') - F('inscrits_mp'))
-        )['total'] or 0
-
-        context['total_places_restantes_crif'] = Formation.objects.aggregate(
-            total=Sum(F('prevus_crif') - F('inscrits_crif'))
-        )['total'] or 0
-
-        context['total_places_restantes_mp'] = Formation.objects.aggregate(
-            total=Sum(F('prevus_mp') - F('inscrits_mp'))
-        )['total'] or 0
-
-        # ✅ Recrutement et inscriptions
-        context['total_candidats'] = Formation.objects.aggregate(total=Sum('nombre_candidats'))['total'] or 0
-        context['total_entretiens'] = Formation.objects.aggregate(total=Sum('nombre_entretiens'))['total'] or 0
-        context['total_inscrits'] = Formation.objects.aggregate(total=Sum(F('inscrits_crif') + F('inscrits_mp')))['total'] or 0
-        context['total_inscrits_crif'] = Formation.objects.aggregate(total=Sum('inscrits_crif'))['total'] or 0
-        context['total_inscrits_mp'] = Formation.objects.aggregate(total=Sum('inscrits_mp'))['total'] or 0
-
-        # ✅ Calcul des taux moyens avec gestion d'erreur (évite division par zéro)
-        try:
-            context['taux_transformation_moyen'] = Formation.objects.aggregate(
-                taux=Avg(100 * (F('inscrits_crif') + F('inscrits_mp')) / Coalesce(F('nombre_candidats'), Value(1)))
-            )['taux'] or 0
-        except ZeroDivisionError:
-            context['taux_transformation_moyen'] = 0
-
-        try:
-            context['taux_saturation_moyen'] = Formation.objects.aggregate(
-                taux=Avg(100 * (F('inscrits_crif') + F('inscrits_mp')) / Coalesce(F('prevus_crif') + F('prevus_mp'), Value(1)))
-            )['taux'] or 0
-        except ZeroDivisionError:
-            context['taux_saturation_moyen'] = 0
-
-        # ✅ Nombre de partenaires
-        context['total_partenaires'] = Partenaire.objects.count()
-
-        # ✅ Derniers commentaires des formations
-        context['derniers_commentaires'] = (
-            Commentaire.objects.select_related('formation', 'utilisateur')
-            .order_by('-created_at')[:5]
-        )
-
-        # ✅ Candidats et Entretiens par Centre
-        candidats_par_centre = (
-            Centre.objects.annotate(
-                total_candidats=Sum('formations__nombre_candidats'),
-                total_entretiens=Sum('formations__nombre_entretiens')
-            )
-            .filter(Q(total_candidats__gt=0) | Q(total_entretiens__gt=0))
-            .order_by('-total_candidats')
-        )
-        context['candidats_par_centre'] = candidats_par_centre
-
-        # ✅ Places prévues et Inscrits par Centre
-        places_par_centre = (
-            Centre.objects.annotate(
-                total_places_prevues=Sum(F('formations__prevus_crif') + F('formations__prevus_mp')),
-                total_inscrits=Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')),
-                places_prevues_crif=Sum('formations__prevus_crif'),
-                places_prevues_mp=Sum('formations__prevus_mp'),
-                inscrits_crif=Sum('formations__inscrits_crif'),
-                inscrits_mp=Sum('formations__inscrits_mp')
-            )
-            .filter(total_places_prevues__gt=0)
-            .order_by('-total_places_prevues')
-        )
-        context['places_par_centre'] = places_par_centre
-
-        # ✅ Taux de transformation et saturation par Centre
-        taux_par_centre = (
-            Centre.objects.annotate(
-                total_formations=Count('formations'),  # Ajout du total des formations
-                total_candidats=Sum('formations__nombre_candidats'),
-                total_entretiens=Sum('formations__nombre_entretiens'), 
-                places_prevues_crif=Sum('formations__prevus_crif'),  # ✅ Ajout des places CRIF
-                inscrits_crif=Sum('formations__inscrits_crif'),  # ✅ Ajout des inscrits CRIF
-                places_prevues_mp=Sum('formations__prevus_mp'),  # ✅ Ajout des places MP
-                inscrits_mp=Sum('formations__inscrits_mp'),  # ✅ Ajout des inscrits MP
-                total_inscrits=Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')),
-                total_places_prevues=Sum(F('formations__prevus_crif') + F('formations__prevus_mp')),
-                taux_transformation=Case(
-                    When(total_candidats__gt=0, 
-                        then=100.0 * Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')) / Coalesce(Sum('formations__nombre_candidats'), Value(1))),
-                    default=Value(0.0)
-                ),
-                taux_saturation=Case(
-                    When(total_places_prevues__gt=0, 
-                        then=100.0 * Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')) / Coalesce(Sum(F('formations__prevus_crif') + F('formations__prevus_mp')), Value(1))),
-                    default=Value(0.0)
-                )
-            )
-            .filter(Q(total_candidats__gt=0) | Q(total_places_prevues__gt=0))
-            .order_by('-taux_saturation')
-        )
-        context['taux_par_centre'] = taux_par_centre
-
-        # ✅ Prospections par statut (d'abord on stocke les valeurs)
-        context['nb_prospections_en_cours'] = Prospection.objects.filter(statut='en_cours').count()
-        context['nb_prospections_acceptees'] = Prospection.objects.filter(statut='acceptee').count()
-        context['nb_prospections_a_faire'] = Prospection.objects.filter(statut='a_faire').count()
-        context['nb_prospections_a_relancer'] = Prospection.objects.filter(statut='a_relancer').count()
-
-        # ✅ Ensuite, les stats classiques pour les cartes du haut
-        context['stats'] = [
-        (context['total_formations'], "Formations", "primary", "fa-graduation-cap"),
-        (context['total_candidats'], "Candidats", "secondary", "fa-users"),
-        (context['total_entretiens'], "Entretiens", "warning", "fa-handshake"),
-        (context['total_inscrits'], "Inscrits", "success", "fa-user-check"),
-        (context['total_places_prevues'], "Places prévues", "info", "fa-calendar-alt"),
-        (context['total_places_restantes'], "Places restantes", "danger", "fa-calendar-times"),
-    ]
-
-        total_prospections = Prospection.objects.count()
-        prospections_acceptees = Prospection.objects.filter(statut='acceptee').count()
-
-        context['taux_transformation_prospections'] = (
-            (prospections_acceptees / total_prospections) * 100
-            if total_prospections > 0 else 0
-        )
-
-
-        # ✅ Événements par type
-        context['evenements_par_type'] = (
-            Evenement.objects.values('type_evenement')
-            .annotate(total=Count('id'))
-            .order_by('-total')
-        )
-
-        # ✅ Récupération du nombre total d'événements par centre + détails par type
-        evenements_par_centre = (
-            Centre.objects.annotate(
-                total_evenements=Count('formations__evenements', distinct=True)  # Utilisation du related_name
-            )
-        )
-
-        details_evenements_par_centre = []
-        for centre in evenements_par_centre:
-            evenements = (
-                Evenement.objects.filter(formation__centre=centre)
-                .values('type_evenement')
-                .annotate(total=Count('id'))
-                .order_by('-total')
-            )
-
-            details_evenements_par_centre.append({
-                'centre': centre,
-                'total_evenements': centre.total_evenements,  # Total des événements pour ce centre
-                'evenements': evenements
-            })
-
-        # ✅ Ajout au contexte
-        context['evenements_par_centre'] = details_evenements_par_centre
-
-        # Nombre total de prospections
-        context['total_prospections'] = Prospection.objects.count()
-
-        # Prospections par statut
-        context['prospections_par_statut'] = (
-            Prospection.objects.values('statut')
-            .annotate(total=Count('id'))
-            .order_by('-total')
-        )
-
-        # Prospections par objectif
-        context['prospections_par_objectif'] = (
-            Prospection.objects.values('objectif')
-            .annotate(total=Count('id'))
-            .order_by('-total')
-        )
-
-        # Nombre total d'entreprises
-        context['total_entreprises'] = Company.objects.count()
-
-        # Entreprises avec au moins une prospection
-        context['entreprises_avec_prospections'] = (
-            Company.objects.annotate(nb_prospections=Count('prospections'))
-            .filter(nb_prospections__gt=0)
-            .order_by('-nb_prospections')[:10]
-        )
-
-        context['prospections_par_statut'] = (
-            Prospection.objects.values('statut')
-            .annotate(total=Count('id'))
-        )
-        # Statuts existants avec leurs totaux
-        statuts_db = {
-            item['statut']: item['total']
-            for item in Prospection.objects.values('statut').annotate(total=Count('id'))
-        }
-
-        # Ajoute tous les statuts possibles, même ceux absents
-        prospections_par_statut_complet = []
-        for key, label in PROSPECTION_STATUS_CHOICES:
-            prospections_par_statut_complet.append({
-                'statut': key,
-                'label': label,
-                'total': statuts_db.get(key, 0)
-            })
-
-        context['prospections_par_statut_complet'] = prospections_par_statut_complet
-
-
-
-        return context  # ✅ Retourne correctement le contexte sans écrasement
-
-
-class StatsAPIView(View):
-    """API pour récupérer les statistiques du Dashboard"""
-
-    def get(self, request, *args, **kwargs):
-        action = request.GET.get('action')
-
-        if action == 'formations_par_statut':
-            return self.formations_par_statut()
-        elif action == 'evolution_formations':
-            return self.evolution_formations()
-        elif action == 'formations_par_type':
-            return self.formations_par_type()
-        else:
-            return JsonResponse({'error': 'Action non reconnue'}, status=400)
-
-    def formations_par_statut(self):
-        """Renvoie le nombre de formations par statut"""
-        statuts = Statut.objects.annotate(
-            nb_formations=Count('formations'),
-            taux_moyen=Coalesce(
-                Avg(
-                    100.0 * (F('formations__inscrits_crif') + F('formations__inscrits_mp')) /
-                    Coalesce(F('formations__prevus_crif') + F('formations__prevus_mp'), Value(1))
-                ),
-                Value(0.0),
-                output_field=FloatField()
-            )
-        ).values('nom', 'nb_formations', 'taux_moyen', 'couleur')
-
-        return JsonResponse({'statuts': list(statuts)})
-
-    def evolution_formations(self):
-        """Renvoie l'évolution du nombre de formations et d'inscrits par période"""
-        date_limite = timezone.now().date() - timedelta(days=365)
-        periode = self.request.GET.get('periode', 'mois')
-        
-        # Récupérer l'historique des formations
-        query = HistoriqueFormation.objects.filter(created_at__gte=date_limite)
-        
-        # Définir comment obtenir la période selon le choix
-        result = {}
-        for historique in query:
-            created_at = historique.created_at
-            
-            if periode == 'semaine':
-                # Obtenir année et semaine
-                year, week_num, _ = created_at.isocalendar()
-                key = f"{year}-{week_num:02d}"
-                label = f"Sem {week_num}, {year}"
-            elif periode == 'annee':
-                # Obtenir année
-                year = created_at.year
-                key = str(year)
-                label = str(year)
-            else:  # mois par défaut
-                # Obtenir année et mois
-                year = created_at.year
-                month = created_at.month
-                key = f"{year}-{month:02d}"
-                label = f"{month:02d}/{year}"
-            
-            if key not in result:
-                result[key] = {
-                    'periode_evolution': key,
-                    'label': label,
-                    'nb_formations': 0,
-                    'nb_inscrits': 0,
-                    'total_candidats': 0,
-                    'total_entretiens': 0,
-                    'taux_saturation': 0,
-                    'taux_transformation': 0,
-                    'count': 0  # Pour calculer des moyennes
-                }
-            
-            # Incrémenter les compteurs
-            result[key]['nb_formations'] += 1
-            
-            # Traiter les champs qui peuvent être None
-            if historique.inscrits_total is not None:
-                result[key]['nb_inscrits'] += historique.inscrits_total
-            
-            if historique.formation is not None:
-                # Candidats et entretiens de la formation
-                candidats = getattr(historique.formation, 'nombre_candidats', 0) or 0
-                entretiens = getattr(historique.formation, 'nombre_entretiens', 0) or 0
-                result[key]['total_candidats'] += candidats
-                result[key]['total_entretiens'] += entretiens
-            
-            if historique.saturation is not None:
-                result[key]['taux_saturation'] += historique.saturation
-                result[key]['count'] += 1
-            
-            # Transformation: calculer le rapport inscrits/candidats
-            if candidats > 0 and historique.inscrits_total is not None:
-                transformation = (historique.inscrits_total / candidats) * 100
-                result[key]['taux_transformation'] += transformation
-                # Ne pas incrémenter count à nouveau, nous utiliserons le même compte pour les deux moyennes
-        
-        # Calculer les moyennes
-        evolution_list = []
-        for key, data in result.items():
-            if data['count'] > 0:
-                data['taux_saturation'] = round(data['taux_saturation'] / data['count'], 1)
-                data['taux_transformation'] = round(data['taux_transformation'] / data['count'], 1)
-            del data['count']
-            evolution_list.append(data)
-        
-        # Trier par période
-        evolution_list.sort(key=lambda x: x['periode_evolution'])
-        
-        print(f"Données d'évolution réelles: {len(evolution_list)} périodes trouvées pour {periode}")
-        return JsonResponse({'evolution': evolution_list})
-
-
-        from django.urls import reverse_lazy
-from django.db.models import Q
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import  get_object_or_404
-from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-
-
-from ..models import Document, Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-
-class DocumentListView(BaseListView):
-    """Vue listant tous les documents avec options de filtrage"""
-    model = Document
-    context_object_name = 'documents'
-    template_name = 'documents/document_list.html'
-    
-    def get_queryset(self):
-        """
-        Récupère la liste des documents avec possibilité de filtrage par:
-        - Formation associée
-        - Type de document
-        - Nom de fichier (recherche textuelle)
-        """
-        queryset = super().get_queryset().select_related('formation')
-        
-        # Filtrage par formation
-        formation_id = self.request.GET.get('formation')
-        if formation_id:
-            queryset = queryset.filter(formation_id=formation_id)
-            
-        # Filtrage par type de document
-        type_doc = self.request.GET.get('type_document')
-        if type_doc:
-            queryset = queryset.filter(type_document=type_doc)
-            
-        # Recherche textuelle
-        q = self.request.GET.get('q')
-        if q:
-            queryset = queryset.filter(
-                Q(nom_fichier__icontains=q) | 
-                Q(source__icontains=q)
-            )
-            
-        return queryset
-    
-    def get_context_data(self, **kwargs):
-        """Ajout des filtres actuels et des options de filtre au contexte"""
-        context = super().get_context_data(**kwargs)
-        
-        # Filtres actuellement appliqués
-        context['filters'] = {
-            'formation': self.request.GET.get('formation', ''),
-            'type_document': self.request.GET.get('type_document', ''),
-            'q': self.request.GET.get('q', ''),
-        }
-        
-        # Liste des formations pour le filtrage
-        context['formations'] = Formation.objects.all()
-        
-        # Types de documents pour le filtrage
-        context['types_document'] = Document.TYPE_DOCUMENT_CHOICES
-        
-        return context
-class DocumentDownloadView(BaseDetailView):
-    """Vue pour télécharger un document"""
-    def get(self, request, pk):
-        document = get_object_or_404(Document, pk=pk)
-        response = HttpResponse(document.fichier, content_type='application/octet-stream')
-        response['Content-Disposition'] = f'attachment; filename="{document.nom_fichier}"'
-        return response
-class DocumentDetailView(BaseDetailView):
-    """Vue affichant les détails d'un document"""
-    model = Document
-    context_object_name = 'document'
-    template_name = 'documents/document_detail.html'
-
-
-class DocumentCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Vue permettant de créer un nouveau document"""
-    model = Document
-    permission_required = 'rap_app.add_document'
-    fields = ['formation', 'nom_fichier', 'fichier', 'source', 'type_document']
-    template_name = 'documents/document_form.html'
-    
-    def get_initial(self):
-        """Pré-remplit le formulaire avec la formation si spécifiée dans l'URL"""
-        initial = super().get_initial()
-        formation_id = self.request.GET.get('formation')
-        if formation_id:
-            initial['formation'] = formation_id
-        return initial
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après création"""
-        return reverse_lazy('formation-detail', kwargs={'pk': self.object.formation.pk})
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = "Ajouter un document"
-        # Ajout de la liste des types de documents
-        context['types_document'] = Document.TYPE_DOCUMENT_CHOICES
-        return context
-
-class DocumentUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Vue permettant de modifier un document existant"""
-    model = Document
-    permission_required = 'rap_app.change_document'
-    fields = ['nom_fichier', 'fichier', 'source', 'type_document']
-    template_name = 'documents/document_form.html'
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après modification"""
-        return reverse_lazy('formation-detail', kwargs={'pk': self.object.formation.pk})
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = f"Modifier le document : {self.object.nom_fichier}"
-        # Ajout de la liste des types de documents
-        context['types_document'] = Document.TYPE_DOCUMENT_CHOICES
-        return context
-
-
-class DocumentDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Vue permettant de supprimer un document"""
-    model = Document
-    permission_required = 'rap_app.delete_document'
-    template_name = 'documents/document_confirm_delete.html'
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après suppression"""
-        formation_id = self.object.formation.id
-        return reverse_lazy('formation-detail', kwargs={'pk': formation_id})
-    
-
-from django.urls import reverse_lazy
-from django.db.models import Q
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import redirect, get_object_or_404
-from django.utils import timezone
-
-from ..models import Evenement, Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-
-class EvenementListView(BaseListView):
-    """Vue listant tous les événements avec options de filtrage"""
-    model = Evenement
-    context_object_name = 'evenements'
-    template_name = 'evenements/evenement_list.html'
-    
-    def get_queryset(self):
-        """
-        Récupère la liste des événements avec possibilité de filtrage par:
-        - Formation associée
-        - Type d'événement
-        - Date (à venir, passés)
-        """
-        queryset = super().get_queryset().select_related('formation', 'formation__centre')
-        
-        # Filtrage par formation
-        formation_id = self.request.GET.get('formation')
-        if formation_id:
-            queryset = queryset.filter(formation_id=formation_id)
-            
-        # Filtrage par type d'événement
-        type_evt = self.request.GET.get('type')
-        if type_evt:
-            queryset = queryset.filter(type_evenement=type_evt)
-            
-        # Filtrage par période (à venir/passés)
-        periode = self.request.GET.get('periode')
-        if periode == 'future':
-            queryset = queryset.filter(event_date__gte=timezone.now().date())
-        elif periode == 'past':
-            queryset = queryset.filter(event_date__lt=timezone.now().date())
-            
-        # Recherche textuelle
-        q = self.request.GET.get('q')
-        if q:
-            queryset = queryset.filter(
-                Q(details__icontains=q) | 
-                Q(description_autre__icontains=q) |
-                Q(formation__nom__icontains=q)
-            )
-            
-        return queryset
-    
-    def get_context_data(self, **kwargs):
-        """Ajout des filtres actuels et des options de filtre au contexte"""
-        context = super().get_context_data(**kwargs)
-        
-        # Filtres actuellement appliqués
-        context['filters'] = {
-            'formation': self.request.GET.get('formation', ''),
-            'type': self.request.GET.get('type', ''),
-            'periode': self.request.GET.get('periode', ''),
-            'q': self.request.GET.get('q', ''),
-        }
-        
-        # Liste des formations pour le filtrage
-        context['formations'] = Formation.objects.all()
-        
-        # Types d'événements pour le filtrage
-        context['types_evenement'] = Evenement.TYPE_EVENEMENT_CHOICES
-        
-        # Date actuelle pour affichage
-        context['now'] = timezone.now().date()
-        
-        return context
-
-
-class EvenementDetailView(BaseDetailView):
-    """Vue affichant les détails d'un événement"""
-    model = Evenement
-    context_object_name = 'evenement'
-    template_name = 'evenements/evenement_detail.html'
-
-
-class EvenementCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Vue permettant de créer un nouvel événement"""
-    model = Evenement
-    permission_required = 'rap_app.add_evenement'
-    fields = ['formation', 'type_evenement', 'details', 'event_date', 'description_autre']
-    template_name = 'evenements/evenement_form.html'
-    
-    def get_initial(self):
-        """Pré-remplit le formulaire avec la formation si spécifiée dans l'URL"""
-        initial = super().get_initial()
-        formation_id = self.request.GET.get('formation')
-        if formation_id:
-            initial['formation'] = formation_id
-        return initial
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après création"""
-        if self.object.formation:
-            return reverse_lazy('formation-detail', kwargs={'pk': self.object.formation.pk})
-        return reverse_lazy('evenement-list')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = "Ajouter un événement"
-        # Ajout de la liste des types d'événements
-        context['types_evenement'] = Evenement.TYPE_EVENEMENT_CHOICES
-        return context
-
-
-class EvenementUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Vue permettant de modifier un événement existant"""
-    model = Evenement
-    permission_required = 'rap_app.change_evenement'
-    fields = ['formation', 'type_evenement', 'details', 'event_date', 'description_autre']
-    template_name = 'evenements/evenement_form.html'
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après modification"""
-        if self.object.formation:
-            return reverse_lazy('formation-detail', kwargs={'pk': self.object.formation.pk})
-        return reverse_lazy('evenement-list')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = f"Modifier l'événement du {self.object.event_date.strftime('%d/%m/%Y') if self.object.event_date else ''}"
-        # Ajout de la liste des types d'événements
-        context['types_evenement'] = Evenement.TYPE_EVENEMENT_CHOICES
-        return context
-
-
-class EvenementDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Vue permettant de supprimer un événement"""
-    model = Evenement
-    permission_required = 'rap_app.delete_evenement'
-    template_name = 'evenements/evenement_confirm_delete.html'
-    
-    def get_success_url(self):
-        """Redirige vers la formation associée après suppression"""
-        if hasattr(self, 'formation_id') and self.formation_id:
-            return reverse_lazy('formation-detail', kwargs={'pk': self.formation_id})
-        return reverse_lazy('evenement-list')
-    
-    def delete(self, request, *args, **kwargs):
-        """Stocke l'ID de la formation avant suppression pour la redirection"""
-        self.object = self.get_object()
-        self.formation_id = self.object.formation.id if self.object.formation else None
-        return super().delete(request, *args, **kwargs)
-        import csv
-from django.contrib.auth import get_user_model
-from django.views.generic import ListView
-from django.urls import reverse_lazy
-from django.db.models import Q, F, ExpressionWrapper, IntegerField, FloatField
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.utils import timezone
-from django.db import transaction
-from django.shortcuts import get_object_or_404, redirect
-from datetime import datetime, date  # ✅ Ajoute cette ligne en haut du fichier
-from django.http import HttpResponse, JsonResponse
-from django.views import View
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
-import json
-from django.views import View
-from django.views.decorators.http import require_POST
-from datetime import datetime
-
-from django.contrib import messages
-from django.http import HttpResponseBadRequest
-
-from ..models.company import Company
-
-from ..models.formations import HistoriqueFormation
-
-from ..models.partenaires import Partenaire
-from ..models import Formation
-
-
-from ..models.centres import Centre
-from ..models.statut import Statut
-from ..models.types_offre import TypeOffre
-
-from ..models.commentaires import Commentaire, User
-from ..models import Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-User = get_user_model()
-
-
-class FormationListView(BaseListView):
-    """Vue listant toutes les formations avec options de filtrage et indicateurs dynamiques."""
-    model = Formation
-    context_object_name = 'formations'
-    template_name = 'formations/formation_list.html'
-    paginate_by = 10  # ✅ Ajout de la pagination
-
-    def get_queryset(self):
-        """Récupère la liste des formations avec options de filtrage et recherche par mots-clés."""
-        today = timezone.now().date()
-
-        queryset = Formation.objects.select_related('centre', 'type_offre', 'statut').annotate(
-            total_places=ExpressionWrapper(
-                F('prevus_crif') + F('prevus_mp'), output_field=IntegerField()
-            ),
-            total_inscrits=ExpressionWrapper(
-                F('inscrits_crif') + F('inscrits_mp'), output_field=IntegerField()
-            ),
-            places_restantes_crif=ExpressionWrapper(
-                F('prevus_crif') - F('inscrits_crif'), output_field=IntegerField()
-            ),
-            places_restantes_mp=ExpressionWrapper(
-                F('prevus_mp') - F('inscrits_mp'), output_field=IntegerField()
-            ),
-            taux_saturation=ExpressionWrapper(
-                100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
-                (F('prevus_crif') + F('prevus_mp')), output_field=FloatField()
-            ),
-            taux_transformation=ExpressionWrapper(
-                100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
-                (F('nombre_candidats') + 0.0001), output_field=FloatField()
-            ),
-        )
-
-        # 🔍 Recherche et filtres
-        mot_cle = self.request.GET.get('q', '').strip()
-        if mot_cle:
-            queryset = queryset.filter(
-                Q(nom__icontains=mot_cle) |
-                Q(num_offre__icontains=mot_cle) |
-                Q(centre__nom__icontains=mot_cle) |
-                Q(type_offre__nom__icontains=mot_cle) |
-                Q(statut__nom__icontains=mot_cle)
-            )
-
-        centre_id = self.request.GET.get('centre', '').strip()
-        type_offre_id = self.request.GET.get('type_offre', '').strip()
-        statut_id = self.request.GET.get('statut', '').strip()
-        periode = self.request.GET.get('periode', '').strip()
-
-        if centre_id:
-            queryset = queryset.filter(centre_id=centre_id)
-        if type_offre_id:
-            queryset = queryset.filter(type_offre_id=type_offre_id)
-        if statut_id:
-            queryset = queryset.filter(statut_id=statut_id)
-        if periode:
-            if periode == 'active':
-                queryset = queryset.filter(start_date__lte=today, end_date__gte=today)
-            elif periode == 'a_venir':
-                queryset = queryset.filter(start_date__gt=today)
-            elif periode == 'terminee':
-                queryset = queryset.filter(end_date__lt=today)
-            elif periode == 'a_recruter':
-                queryset = queryset.filter(total_places__gt=F('total_inscrits'))
-
-        return queryset
-    
-    
-
-    def get_context_data(self, **kwargs):
-        """Ajoute les statistiques, les centres, types d'offres et statuts au contexte pour le template."""
-        context = super().get_context_data(**kwargs)
-
-        context['stats'] = [
-            (Formation.objects.count(), "Total formations", "primary", "fa-graduation-cap"),
-            (Formation.objects.formations_actives().count(), "Formations Actives", "success", "fa-check-circle"),
-            (Formation.objects.formations_a_venir().count(), "Formations À venir", "info", "fa-clock"),
-            (Formation.objects.formations_terminees().count(), "Formations Terminées", "secondary", "fa-times-circle"),
-            (Formation.objects.formations_a_recruter().count(), "Formations À recruter", "danger", "fa-users"),
-
-        ]
-
-        context['centres'] = Centre.objects.all()
-        context['types_offre'] = TypeOffre.objects.all()
-        context['statuts'] = Statut.objects.all()
-
-        context['filters'] = {
-            'centre': self.request.GET.get('centre', ''),
-            'type_offre': self.request.GET.get('type_offre', ''),
-            'statut': self.request.GET.get('statut', ''),
-            'periode': self.request.GET.get('periode', ''),
-            'q': self.request.GET.get('q', ''),
-        }
-
-        return context
-        
-def post(self, request, *args, **kwargs):
-    formation = self.get_object()
-    action = request.POST.get("action")
-
-    if action == "add_company":
-        return self.add_company(request, formation)
-    elif action == "add_prospection":
-        return self.add_prospection(request, formation)
-
-    return super().post(request, *args, **kwargs)
-
-def add_company(self, request, formation):
-    from ..forms.company_form import CompanyForm
-    form = CompanyForm(request.POST)
-    if form.is_valid():
-        company = form.save(commit=False)
-        company.created_by = request.user
-        company.save()
-        messages.success(request, "✅ Entreprise ajoutée avec succès.")
-    else:
-        messages.error(request, "❌ Erreur lors de l'ajout de l'entreprise.")
-    return redirect(request.path)
-
-def add_prospection(self, request, formation):
-    from ..forms.ProspectionForm import ProspectionForm
-    form = ProspectionForm(request.POST)
-    if form.is_valid():
-        prospection = form.save(commit=False)
-        prospection.formation = formation
-        prospection.responsable = request.user
-        prospection.save()
-        messages.success(request, "✅ Prospection ajoutée avec succès.")
-    else:
-        messages.error(request, "❌ Erreur lors de l'ajout de la prospection.")
-    return redirect(request.path)
-
-
-
-
-
-class ModifierInscritsView(View):
-    """Vue pour modifier les inscrits CRIF, MP, nombre de candidats, entretiens et prévus CRIF/MP via AJAX."""
-
-    def post(self, request, formation_id, *args, **kwargs):  
-        try:
-            data = json.loads(request.body)
-            field = data.get("field")
-            value = data.get("value")
-
-            # ✅ Ajout des nouveaux champs autorisés
-            if field not in ["inscrits_crif", "inscrits_mp", "nombre_candidats", "nombre_entretiens", "prevus_crif", "prevus_mp"]:
-                return JsonResponse({"success": False, "error": "Champ invalide"}, status=400)
-
-            formation = Formation.objects.get(pk=formation_id)
-
-            # ✅ Vérifier la permission de modification
-            if not request.user.has_perm("rap_app.change_formation"):
-                return JsonResponse({"success": False, "error": "Permission refusée"}, status=403)
-
-            # ✅ Mettre à jour la valeur du champ
-            setattr(formation, field, int(value))
-            formation.save()
-
-            return JsonResponse({"success": True, "message": "Mise à jour réussie", "new_value": value})
-
-        except Formation.DoesNotExist:
-            return JsonResponse({"success": False, "error": "Formation non trouvée"}, status=404)
-        except json.JSONDecodeError:
-            return JsonResponse({"success": False, "error": "Format JSON invalide"}, status=400)
-        except Exception as e:
-            return JsonResponse({"success": False, "error": str(e)}, status=500)
-
-class FormationDetailView(BaseDetailView):
-    """Vue affichant les détails d'une formation"""
-    model = Formation
-    context_object_name = 'formation'
-    template_name = 'formations/formation_detail.html'
-
-    def get_context_data(self, **kwargs):
-        """Ajoute les commentaires, evenements et autres données au contexte"""
-        context = super().get_context_data(**kwargs)
-        formation = self.object
-
-    # Récupération du dernier commentaire avec toutes ses infos
-        dernier_commentaire = formation.get_commentaires().order_by('-created_at').first()
-
-    # ✅ Partenaires associées
-        context['partenaires'] = formation.partenaires.all()
-
-        # ✅ Partenaires disponibles (celles qui ne sont pas encore associées)
-        context['partenaires_disponibles'] = Partenaire.objects.exclude(id__in=formation.partenaires.values_list('id', flat=True))
-
-
-        context['dernier_commentaire'] = dernier_commentaire  # ✅ Ajout du dernier commentaire complet
-        context['commentaires'] = formation.get_commentaires().order_by('-created_at')
-        context['derniers_commentaires'] = ( Commentaire.objects.select_related('formation', 'utilisateur').order_by('-created_at')[:5])
-        context['evenements'] = formation.get_evenements().order_by('-event_date')
-        context['documents'] = formation.documents.all().order_by('-created_at')
-        context['partenaires'] = formation.get_partenaires()
-        context['historique'] = formation.historiques.order_by('-date_modification')[:10]
-
-        # ✅ Ajout des valeurs calculées pour affichage
-        context['places_restantes_crif'] = formation.get_places_restantes_crif()
-        context['places_restantes_mp'] = formation.get_places_restantes_mp()
-        context['taux_saturation'] = formation.get_taux_saturation()
-
-    # Récupérer toutes les prospections liées à cette formation
-        context['prospections'] = formation.prospections.select_related('company', 'responsable')
-
-        # Afficher les entreprises (distinctes) liées par prospection
-        context['entreprises'] = Company.objects.filter(prospections__formation=formation).distinct()
-
-        # Formulaires vides pour création rapide
-        from ..forms.company_form import CompanyForm
-        from ..forms.ProspectionForm import ProspectionForm
-        context['company_form'] = CompanyForm()
-        context['prospection_form'] = ProspectionForm(initial={'formation': formation})
-
-        return context    
-    def post(self, request, *args, **kwargs):
-            """
-            Gère l'ajout de commentaires, événements, documents et partenaires via POST.
-            L'action est déterminée par le champ `action` du formulaire.
-            """
-            formation = self.get_object()
-            action = request.POST.get('action')
-
-            if action == 'add_commentaire':
-                return self.add_commentaire(request, formation)
-
-            elif action == 'add_evenement':
-                return self.add_evenement(request, formation)
-
-            elif action == 'add_document':
-                return self.add_document(request, formation)
-
-            elif action == 'add_partenaire':
-                return self.add_partenaire(request, formation)
-
-            return HttpResponseBadRequest("Action non valide.")
-
-    def add_commentaire(self, request, formation):
-        """Ajoute un commentaire à la formation"""
-        contenu = request.POST.get('contenu', '').strip()
-
-        if not contenu:
-            return HttpResponseBadRequest("Le commentaire ne peut pas être vide.")
-
-        formation.add_commentaire(request.user, contenu)
-        messages.success(request, "Commentaire ajouté avec succès.")
-        return redirect(self.request.path)
-        
-
-    def add_evenement(self, request, formation):
-        """Ajoute un événement à la formation"""
-        type_evenement = request.POST.get('type_evenement', '').strip()
-        date = request.POST.get('date')
-        details = request.POST.get('details', '').strip()
-        description_autre = request.POST.get('description_autre', '').strip()
-
-        if not type_evenement or not date:
-            return HttpResponseBadRequest("Le type et la date de l'événement sont obligatoires.")
-
-    # ✅ On appelle la méthode avec les bons arguments (4 au total)
-        formation.add_evenement(type_evenement, date, details, description_autre)
-        messages.success(request, "Événement ajouté avec succès.")
-        return redirect(self.request.path)
-
-    def add_document(self, request, formation):
-        """Ajoute un document à la formation."""
-        nom = request.POST.get('nom', '').strip()
-        fichier = request.FILES.get('fichier')
-
-        if not nom or not fichier:
-            return HttpResponseBadRequest("Le nom et le fichier sont obligatoires.")
-
-        # ✅ Ajout du document directement avec `.create()`
-        formation.documents.create(
-            utilisateur=request.user, 
-            nom_fichier=nom, 
-            fichier=fichier
-        )
-
-        messages.success(request, "Document ajouté avec succès.")
-        return redirect(self.request.path)
-
-class FormationCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Vue permettant de créer une nouvelle formation"""
-    model = Formation
-    permission_required = 'rap_app.add_formation'
-    template_name = 'formations/formation_form.html'
-    fields = [
-        'nom', 'centre', 'type_offre', 'statut', 'start_date', 'end_date',
-        'num_kairos', 'num_offre', 'num_produit', 'prevus_crif', 'prevus_mp',
-        'inscrits_crif', 'inscrits_mp', 'assistante', 'cap', 'convocation_envoie',
-        'entresformation', 'nombre_candidats', 'nombre_entretiens'
-    ]
-
-    def form_valid(self, form):
-        """Associe l'utilisateur connecté à la formation et crée un historique"""
-        with transaction.atomic():
-            form.instance.utilisateur = self.request.user
-            response = super().form_valid(form)
-
-            # 📌 Création d'un historique
-            HistoriqueFormation.objects.create(
-                formation=self.object,
-                utilisateur=self.request.user,
-                action='création',
-                details={'nom': self.object.nom}
-            )
-
-            return response
-
-    def get_success_url(self):
-        return reverse_lazy('formation-detail', kwargs={'pk': self.object.pk})
-
-
-class FormationUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Vue permettant de modifier une formation existante"""
-    model = Formation
-    permission_required = 'rap_app.change_formation'
-    template_name = 'formations/formation_form.html'
-    fields = FormationCreateView.fields  # ✅ Réutilisation des champs
-
-    def form_valid(self, form):
-        """Détecte les modifications et met à jour l'historique"""
-        def serialize(value):
-            if isinstance(value, (datetime, date)):
-                return value.isoformat()
-            elif hasattr(value, '__str__'):
-                return str(value)
-            return value
-
-        with transaction.atomic():
-            old_obj = Formation.objects.get(pk=self.object.pk)
-            response = super().form_valid(form)
-
-            # ✅ Comparaison des champs modifiés
-            changes = {}
-            for field in self.fields:
-                old_value = getattr(old_obj, field)
-                new_value = getattr(self.object, field)
-
-                # ✅ Sérialise les valeurs avant comparaison
-                if serialize(old_value) != serialize(new_value):
-                    changes[field] = {
-                        'ancien': serialize(old_value),
-                        'nouveau': serialize(new_value)
-                    }
-
-            # 📌 Enregistre l'historique si des changements ont été détectés
-            if changes:
-                HistoriqueFormation.objects.create(
-                    formation=self.object,
-                    utilisateur=self.request.user,
-                    action='modification',
-                    details=changes
-                )
-
-            return response
-
-
-    def get_success_url(self):
-        return reverse_lazy('formation-detail', kwargs={'pk': self.object.pk})
-
-
-class FormationDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Vue permettant de supprimer une formation"""
-    model = Formation
-    permission_required = 'rap_app.delete_formation'
-    success_url = reverse_lazy('formation-list')
-    template_name = 'formations/formation_confirm_delete.html'
-
-
-class FormationAddCommentView(BaseCreateView):
-    """Vue permettant d'ajouter un commentaire à une formation"""
-    model = Commentaire
-    fields = ['contenu']
-    template_name = 'formations/formation_add_comment.html'
-
-    def dispatch(self, request, *args, **kwargs):
-        """Vérifie que la formation existe avant d'ajouter un commentaire"""
-        self.formation = get_object_or_404(Formation, pk=self.kwargs['pk'])
-        return super().dispatch(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        """Associe le commentaire à la formation et à l'utilisateur"""
-        form.instance.formation = self.formation
-        form.instance.utilisateur = self.request.user
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse_lazy('formation-detail', kwargs={'pk': self.formation.pk})
-
-class ExportFormationsExcelView(View):
-    def get(self, request, *args, **kwargs):
-        response = HttpResponse(content_type='text/csv')
-        response['Content-Disposition'] = 'attachment; filename="formations_export.csv"'
-
-        writer = csv.writer(response)
-        writer.writerow([
-            "Nom", "Centre", "num_offre", "Type d'offre", "Statut", "N° Kairos", 
-            "Dates", "Assistante", "Candidats", "Entretiens",
-            "Prévus CRIF", "Prévus MP", "Inscrits CRIF", "Inscrits MP",
-            "Places restantes CRIF", "Places restantes MP",
-            "Transformation", "Saturation"
-        ])
-
-        formations = Formation.objects.all()
-        for formation in formations:
-            writer.writerow([
-                formation.nom, 
-                formation.centre.nom if formation.centre else "-",
-                formation.num_offre if formation.num_offre else "-",
-                formation.type_offre.nom if formation.type_offre else "-",
-                formation.statut.nom if formation.statut else "-",
-                formation.num_kairos if formation.num_kairos else "-",
-                f"{formation.start_date} - {formation.end_date}",
-                formation.assistante if formation.assistante else "-",
-                formation.nombre_candidats,
-                formation.nombre_entretiens,
-                formation.prevus_crif,
-                formation.prevus_mp,
-                formation.inscrits_crif,
-                formation.inscrits_mp,
-                formation.get_places_restantes_crif(),  # ✅ Appel correct
-                formation.get_places_restantes_mp(),  # ✅ Appel correct
-                formation.get_taux_saturation(),  # ✅ Ajout du taux de saturation
-                formation.get_taux_saturation()  # ✅ Transformation (ajuster si différent)
-            ])
-
-        return response
-    
-
-
-
-from django.contrib import messages
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.utils.timezone import datetime
-
-from ..models.formations import Formation
-from ..models import HistoriqueFormation
-
-class HistoriqueFormationListView(ListView):
-    model = HistoriqueFormation
-    template_name = 'historiqueformation/historiqueformation_list.html'
-    context_object_name = 'historiques'
-    paginate_by = 10
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        formation_id = self.request.GET.get("formation")
-        date = self.request.GET.get("date")
-
-        if formation_id:
-            queryset = queryset.filter(formation__id=formation_id)
-        if date:
-            try:
-                parsed_date = datetime.strptime(date, "%Y-%m-%d")
-                queryset = queryset.filter(date_modification__date=parsed_date)
-            except ValueError:
-                pass  # Ignore mauvaise date
-
-        return queryset.select_related("formation", "modifie_par")
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['formations'] = Formation.objects.all().order_by("nom")
-        return context
-
-class HistoriqueFormationDetailView( DetailView):
-    model = HistoriqueFormation
-    template_name = 'historiqueformation/historiqueformation_detail.html'
-    context_object_name = 'historique'
-
-class HistoriqueFormationDeleteView(DeleteView):
-    model = HistoriqueFormation
-    template_name = "historiqueformation/historiqueformation_confirm_delete.html"
-    success_url = reverse_lazy("historique-formation-list")
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(self.request, "✅ Entrée historique supprimée avec succès.")
-        return super().delete(request, *args, **kwargs)
-from django.urls import reverse_lazy
-from django.db.models import Count, Q
-from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.shortcuts import get_object_or_404
-from django.contrib import messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import redirect
-
-from ..models.partenaires import Partenaire
-
-from ..models import  Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-
-class PartenaireListView(BaseListView):
-    """Vue listant toutes les partenaires avec des statistiques"""
-    model = Partenaire
-    context_object_name = 'partenaires'
-    template_name = 'partenaires/partenaire_list.html'
-    
-    def get_queryset(self):
-        """
-        Récupère la liste des partenaires en annotant des statistiques :
-        - Nombre de formations associées à chaque partenaire
-        """
-        queryset = super().get_queryset().annotate(
-            nb_formations=Count('formations')
-        )
-        
-        # Filtrage par nom de l'partenaire
-        q = self.request.GET.get('q')
-        if q:
-            queryset = queryset.filter(nom__icontains=q)
-            
-        # Filtrage par secteur d'activité
-        secteur = self.request.GET.get('secteur')
-        if secteur:
-            queryset = queryset.filter(secteur_activite__icontains=secteur)
-            
-        return queryset
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute des statistiques générales et les filtres appliqués au contexte de la page.
-        """
-        context = super().get_context_data(**kwargs)
-        context['total_partenaires_avec_formations'] = Partenaire.objects.filter(formations__isnull=False).distinct().count()
-
-        
-        # Statistiques globales
-        context['total_partenaires'] = Partenaire.objects.count()
-        context['total_formations'] = Formation.objects.count()
-        
-        # Secteurs d'activité uniques pour le filtre
-        secteurs = Partenaire.objects.exclude(secteur_activite__isnull=True).exclude(secteur_activite='').values_list('secteur_activite', flat=True).distinct()
-        context['secteurs'] = secteurs
-        
-        # Filtres actuellement appliqués
-        context['filters'] = {
-            'q': self.request.GET.get('q', ''),
-            'secteur': self.request.GET.get('secteur', ''),
-        }
-        
-        return context
-
-
-class PartenaireDetailView(BaseDetailView):
-    """Vue affichant les détails d'une partenaire"""
-    model = Partenaire
-    context_object_name = 'partenaire'
-    template_name = 'partenaires/partenaire_detail.html'
-
-    def get_context_data(self, **kwargs):
-        """Ajoute au contexte les formations associées à l'partenaire"""
-        context = super().get_context_data(**kwargs)
-        
-        # Récupération des formations associées à l'partenaire
-        formations = self.object.formations.select_related('type_offre', 'statut', 'centre').order_by('-start_date')
-
-        # Filtrage des formations par type d'offre
-        type_offre = self.request.GET.get('type_offre')
-        if type_offre:
-            formations = formations.filter(type_offre_id=type_offre)
-
-        # Filtrage des formations par statut
-        statut = self.request.GET.get('statut')
-        if statut:
-            formations = formations.filter(statut_id=statut)
-
-        context['formations'] = formations
-        
-        return context
-
-
-class PartenaireCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Vue permettant de créer une nouvelle partenaire"""
-    model = Partenaire
-    permission_required = 'rap_app.add_partenaire'
-    fields = ['nom', 'secteur_activite', 'contact_nom', 'contact_poste', 
-              'contact_telephone', 'contact_email', 'description']
-    success_url = reverse_lazy('partenaire-list')
-    template_name = 'partenaires/partenaire_form.html'
-
-    def form_valid(self, form):
-        partenaire = form.save()
-        messages.success(self.request, "✅ Partenaire ajouté avec succès.")
-        return redirect('partenaire-list')  # 🔹 Rediriger après succès
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute un titre personnalisé au contexte.
-        """
-        context = super().get_context_data(**kwargs)
-        context['titre'] = "Ajouter un partenaire"
-        return context
-    
-class PartenaireCreateViewFormation(PermissionRequiredMixin, BaseCreateView):
-    """Vue permettant de créer une partenaire et de l'associer à une formation"""
-    model = Partenaire
-    permission_required = 'rap_app.add_partenaire'
-    fields = ['nom', 'secteur_activite', 'contact_nom', 'contact_poste', 
-              'contact_telephone', 'contact_email', 'description']
-    template_name = 'partenaires/partenaire_formation_form.html'
-
-    def form_valid(self, form):
-        print("✅ form_valid exécuté")  # Vérifie si cette ligne s'affiche dans la console
-        formation_id = self.kwargs.get('formation_id')
-
-        if not formation_id:
-            print("❌ Aucun ID de formation fourni !")
-            messages.error(self.request, "❌ Erreur : Aucun ID de formation fourni.")
-            return HttpResponseRedirect(reverse_lazy('formation-list'))  
-
-        formation = get_object_or_404(Formation, pk=formation_id)
-        print(f"📌 Formation trouvée : {formation.nom} (ID: {formation.id})")
-
-        self.object = form.save()
-        print(f"✅ Partenaire créé : {self.object.nom}")
-
-        formation.partenaires.add(self.object)
-        formation.save()
-        print("✅ Partenaire ajouté à la formation avec succès !")
-
-        messages.success(self.request, "Le partenaire a été créé et associé à la formation avec succès.")
-        return HttpResponseRedirect(reverse_lazy('formation-detail', kwargs={'pk': formation_id}))
-
-    def get_context_data(self, **kwargs):
-        """Ajoute un titre dynamique au contexte"""
-        context = super().get_context_data(**kwargs)
-        formation_id = self.kwargs.get('formation_id')
-        formation = get_object_or_404(Formation, pk=formation_id)
-        context['titre'] = f"Ajouter un partenaire à la formation : {formation.nom} - { formation.num_offre}"
-        return context
-
-
-class PartenaireUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Vue permettant de modifier une partenaire existante"""
-    model = Partenaire
-    permission_required = 'rap_app.change_partenaire'
-    fields = ['nom', 'secteur_activite', 'contact_nom', 'contact_poste', 
-              'contact_telephone', 'contact_email', 'description']
-    template_name = 'partenaires/partenaire_form.html'
-    
-    def get_success_url(self):
-        """Redirige vers le détail du partenaire après modification"""
-        return reverse_lazy('partenaire-detail', kwargs={'pk': self.object.pk})
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute un titre dynamique au contexte en fonction du partenaire modifié.
-        """
-        context = super().get_context_data(**kwargs)
-        context['titre'] = f"Modifier le partenaire : {self.object.nom}"
-        return context
-
-class PartenaireDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Vue permettant de supprimer une partenaire"""
-    model = Partenaire
-    permission_required = 'rap_app.delete_partenaire'
-    success_url = reverse_lazy('partenaire-list')
-    template_name = 'partenaires/partenaire_confirm_delete.html'
-    from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse_lazy
-from django.contrib import messages
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-
-from ..forms.ProspectionForm import ProspectionForm
-from ..models.prospection import HistoriqueProspection, Prospection
-
-
-def ProspectionHomeView(request):
-    return render(request, 'prospection/prospection_home.html')  # ✅ Indiquer que le template est dans prospection/
-
-class ProspectionListView( ListView):
-    """Affiche la liste des prospections"""
-    model = Prospection
-    template_name = 'prospection/prospection_list.html'
-    context_object_name = 'prospections'
-    ordering = ['-date_prospection']
-    paginate_by = 10  # Pagination
-
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        statut = self.request.GET.get('statut')
-        formation = self.request.GET.get('formation')
-        entreprise = self.request.GET.get('entreprise')
-
-        if statut:
-            queryset = queryset.filter(statut=statut)
-        if formation:
-            queryset = queryset.filter(formation_id=formation)
-        if entreprise:
-            queryset = queryset.filter(company_id=entreprise)
-
-        return queryset
-
-class ProspectionDetailView( DetailView):
-    """Affiche le détail d'une prospection"""
-    model = Prospection
-    template_name = 'prospection/prospection_detail.html'
-    context_object_name = 'prospection'
-
-class ProspectionCreateView (CreateView):
-    """Vue pour créer une prospection"""
-    model = Prospection
-    form_class = ProspectionForm
-    template_name = 'prospection/prospection_form.html'
-    success_url = reverse_lazy('prospection-list')
-
-    def form_valid(self, form):
-        messages.success(self.request, "✅ Prospection ajoutée avec succès.")
-        return super().form_valid(form)
-    
-    def get_initial(self):
-        initial = super().get_initial()
-        formation_id = self.request.GET.get('formation')
-        if formation_id:
-            initial['formation'] = formation_id
-        return initial
-
-
-class ProspectionUpdateView( UpdateView):
-    """Permet de modifier une prospection"""
-    model = Prospection
-    form_class = ProspectionForm
-    template_name = 'prospection/prospection_form.html'
-    success_url = reverse_lazy('prospection-list')
-
-    def form_valid(self, form):
-        messages.success(self.request, "✅ Prospection mise à jour avec succès.")
-        return super().form_valid(form)
-
-class ProspectionDeleteView(DeleteView):
-    """Permet de supprimer une prospection"""
-    model = Prospection
-    template_name = 'prospection/prospection_confirm_delete.html'
-    success_url = reverse_lazy('prospection-list')
-
-    def delete(self, request, *args, **kwargs):
-        messages.success(request, "✅ Prospection supprimée avec succès.")
-        return super().delete(request, *args, **kwargs)
-
-class HistoriqueProspectionListView(ListView):
-    model = HistoriqueProspection
-    template_name = 'prospection/historiqueprospection_list.html'
-    context_object_name = 'historiques'
-    paginate_by = 20
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        prospection_id = self.request.GET.get("prospection")
-
-        if prospection_id:
-            queryset = queryset.filter(prospection_id=prospection_id)
-
-        return queryset.select_related('prospection', 'modifie_par')
-
-
-class HistoriqueProspectionDetailView(DetailView):
-    model = HistoriqueProspection
-    template_name = 'prospection/historiqueprospection_detail.html'
-    context_object_name = 'historique'
-    # models/rapports.py
-from django.db import models
-from django.utils import timezone
-from .base import BaseModel
-
-class Rapport(BaseModel):
-    """
-    Modèle représentant un rapport généré par le système.
-    Les rapports peuvent être générés automatiquement ou manuellement.
-    """
-    TYPE_OCCUPATION = 'occupation'
-    TYPE_CENTRE = 'centre'
-    TYPE_STATUT = 'statut'
-    TYPE_EVENEMENT = 'evenement'
-    TYPE_RECRUTEMENT = 'recrutement'
-    TYPE_PARTENAIRE = 'partenaire'
-    TYPE_REPARTITION = 'repartition'
-    TYPE_PERIODIQUE = 'periodique'
-    TYPE_ANNUEL = 'annuel'
-    TYPE_UTILISATEUR = 'utilisateur'
-    
-    TYPE_CHOICES = [
-        (TYPE_OCCUPATION, 'Rapport d\'occupation des formations'),
-        (TYPE_CENTRE, 'Rapport de performance par centre'),
-        (TYPE_STATUT, 'Rapport de suivi des statuts'),
-        (TYPE_EVENEMENT, 'Rapport d\'efficacité des événements'),
-        (TYPE_RECRUTEMENT, 'Rapport de suivi du recrutement'),
-        (TYPE_PARTENAIRE, 'Rapport d\'activité des partenaires'),
-        (TYPE_REPARTITION, 'Rapport de répartition des partenaires'),
-        (TYPE_PERIODIQUE, 'Rapport périodique'),
-        (TYPE_ANNUEL, 'Rapport annuel consolidé'),
-        (TYPE_UTILISATEUR, 'Rapport d\'activité utilisateurs'),
-    ]
-    
-    PERIODE_QUOTIDIEN = 'quotidien'
-    PERIODE_HEBDOMADAIRE = 'hebdomadaire'
-    PERIODE_MENSUEL = 'mensuel'
-    PERIODE_TRIMESTRIEL = 'trimestriel'
-    PERIODE_ANNUEL = 'annuel'
-    PERIODE_PERSONNALISE = 'personnalise'
-    
-    PERIODE_CHOICES = [
-        (PERIODE_QUOTIDIEN, 'Quotidien'),
-        (PERIODE_HEBDOMADAIRE, 'Hebdomadaire'),
-        (PERIODE_MENSUEL, 'Mensuel'),
-        (PERIODE_TRIMESTRIEL, 'Trimestriel'),
-        (PERIODE_ANNUEL, 'Annuel'),
-        (PERIODE_PERSONNALISE, 'Période personnalisée'),
-    ]
-    
-    FORMAT_PDF = 'pdf'
-    FORMAT_EXCEL = 'excel'
-    FORMAT_CSV = 'csv'
-    FORMAT_HTML = 'html'
-    
-    FORMAT_CHOICES = [
-        (FORMAT_PDF, 'PDF'),
-        (FORMAT_EXCEL, 'Excel'),
-        (FORMAT_CSV, 'CSV'),
-        (FORMAT_HTML, 'HTML'),
-    ]
-    
-    nom = models.CharField(max_length=255, verbose_name="Nom du rapport")
-    type_rapport = models.CharField(max_length=50, choices=TYPE_CHOICES, verbose_name="Type de rapport")
-    periode = models.CharField(max_length=50, choices=PERIODE_CHOICES, verbose_name="Périodicité")
-    date_debut = models.DateField(verbose_name="Date de début")
-    date_fin = models.DateField(verbose_name="Date de fin")
-    format = models.CharField(max_length=10, choices=FORMAT_CHOICES, default=FORMAT_HTML, verbose_name="Format")
-    
-    # Filtres optionnels
-    centre = models.ForeignKey('Centre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Centre")
-    type_offre = models.ForeignKey('TypeOffre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Type d'offre")
-    statut = models.ForeignKey('Statut', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Statut")
-    
-    # Données du rapport
-    donnees = models.JSONField(default=dict, verbose_name="Données du rapport")
-    
-    # Métadonnées
-    date_generation = models.DateTimeField(default=timezone.now, verbose_name="Date de génération")
-    utilisateur = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Généré par")
-    temps_generation = models.FloatField(null=True, blank=True, verbose_name="Temps de génération (s)")
-    
-    class Meta:
-        verbose_name = "Rapport"
-        verbose_name_plural = "Rapports"
-        ordering = ['-date_generation']
-        
-    def __str__(self):
-        return f"{self.nom} - {self.get_type_rapport_display()} ({self.date_debut} à {self.date_fin})"
-        from django.urls import reverse_lazy
-from django.db.models import Count
-from django.contrib.auth.mixins import PermissionRequiredMixin
-import random
-
-from ..models import Statut, Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-
-def generate_random_color():
-    """
-    Génère une couleur hexadécimale aléatoire si l'utilisateur ne la définit pas.
-    Exemple de sortie : "#A3B2C1"
-    """
-    return "#{:06x}".format(random.randint(0, 0xFFFFFF))
-
-
-class StatutListView(BaseListView):
-    """Liste des statuts de formation"""
-    model = Statut
-    context_object_name = 'statuts'
-    template_name = 'statuts/statut_list.html'  # ✅ Ajout du chemin du template
-    
-    def get_queryset(self):
-        """
-        Récupère les statuts de formation avec un comptage des formations associées.
-        """
-        queryset = super().get_queryset().annotate(
-            nb_formations=Count('formations')
-        )
-        
-        # 🔍 Recherche par nom
-        q = self.request.GET.get('q')
-        if q:
-            queryset = queryset.filter(nom__icontains=q)
-            
-        return queryset.order_by('nom')
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute les filtres appliqués au contexte pour les afficher dans le template.
-        """
-        context = super().get_context_data(**kwargs)
-        context['filters'] = {
-            'q': self.request.GET.get('q', ''),
-        }
-        return context
-    def get_nom_display(self):
-        """
-        Retourne le nom du statut. Si le statut est 'Autre', affiche la description à la place.
-        """
-        if self.nom == self.AUTRE and self.description_autre:
-            return self.description_autre
-        return dict(self.STATUT_CHOICES).get(self.nom, self.nom)  # Retourne le nom du statut normal
-
-
-class StatutDetailView(BaseDetailView):
-    """Détail d'un statut de formation"""
-    model = Statut
-    context_object_name = 'statut'
-    template_name = 'statuts/statut_detail.html'  # ✅ Ajout du chemin du template
-    
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute les formations associées au statut dans le contexte.
-        """
-        context = super().get_context_data(**kwargs)
-        context['formations'] = Formation.objects.filter(
-            statut=self.object
-        ).select_related('centre', 'type_offre').order_by('-start_date')
-        return context
-
-
-class StatutCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Création d'un statut de formation"""
-    model = Statut
-    permission_required = 'rap_app.add_statut'
-    fields = ['nom', 'couleur', 'description_autre']
-    success_url = reverse_lazy('statut-list')
-    template_name = 'statuts/statut_form.html'  # ✅ Ajout du chemin du template
-    
-    def form_valid(self, form):
-        """
-        Vérifie si une couleur est fournie, sinon assigne une couleur aléatoire.
-        """
-        statut = form.save(commit=False)
-        if not statut.couleur:
-            statut.couleur = generate_random_color()
-        statut.save()
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute un titre dynamique au contexte du template.
-        """
-        context = super().get_context_data(**kwargs)
-        context['titre'] = "Ajouter un statut de formation"
-        return context
-
-
-class StatutUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Mise à jour d'un statut de formation"""
-    model = Statut
-    permission_required = 'rap_app.change_statut'
-    fields = ['nom', 'couleur', 'description_autre']
-    template_name = 'statuts/statut_form.html'  # ✅ Même template que pour la création
-    
-    def form_valid(self, form):
-        """
-        Vérifie que la couleur est définie, sinon génère une couleur automatique.
-        """
-        statut = form.save(commit=False)
-        if not statut.couleur:
-            statut.couleur = generate_random_color()
-        statut.save()
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        """
-        Ajoute un titre dynamique au contexte.
-        """
-        context = super().get_context_data(**kwargs)
-        context['titre'] = f"Modifier le statut : {self.object.get_nom_display()}"
-        return context
-
-
-class StatutDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Suppression d'un statut de formation"""
-    model = Statut
-    permission_required = 'rap_app.delete_statut'
-    success_url = reverse_lazy('statut-list')
-    template_name = 'statuts/statut_confirm_delete.html'  # ✅ Ajout du chemin du template
-from django.urls import reverse_lazy
-from django.db.models import Count, Q
-from django.contrib.auth.mixins import PermissionRequiredMixin
-
-from ..models import TypeOffre, Formation
-from .base_views import BaseListView, BaseDetailView, BaseCreateView, BaseUpdateView, BaseDeleteView
-
-
-class TypeOffreListView(BaseListView):
-    """Liste des types d'offres de formation"""
-    model = TypeOffre
-    context_object_name = 'types_offre'
-    template_name = "types_offres/typeoffre_list.html"
-    
-    def get_queryset(self):
-        queryset = super().get_queryset().annotate(
-            nb_formations=Count('formations')
-        )
-        
-        # Recherche par nom
-        q = self.request.GET.get('q')
-        if q:
-            queryset = queryset.filter(Q(nom__icontains=q) | Q(autre__icontains=q))
-        
-        return queryset.order_by('nom')
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        # Filtres appliqués
-        context['filters'] = {
-            'q': self.request.GET.get('q', ''),
-        }
-        
-        return context
-
-
-class TypeOffreDetailView(BaseDetailView):
-    """Détail d'un type d'offre de formation"""
-    model = TypeOffre
-    context_object_name = 'type_offre'
-    template_name = "types_offres/typeoffre_detail.html"
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        # Récupérer les formations associées
-        context['formations'] = Formation.objects.filter(
-            type_offre=self.object
-        ).select_related('centre', 'statut').order_by('-start_date')
-        
-        return context
-
-
-class TypeOffreCreateView(PermissionRequiredMixin, BaseCreateView):
-    """Création d'un type d'offre de formation"""
-    model = TypeOffre
-    permission_required = 'rap_app.add_typeoffre'
-    fields = ['nom', 'autre']
-    success_url = reverse_lazy('type-offre-list')
-    template_name = "types_offres/typeoffre_form.html"
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = "Ajouter un type d'offre de formation"
-        return context
-
-
-class TypeOffreUpdateView(PermissionRequiredMixin, BaseUpdateView):
-    """Mise à jour d'un type d'offre de formation"""
-    model = TypeOffre
-    permission_required = 'rap_app.change_typeoffre'
-    fields = ['nom', 'autre']
-    template_name = "types_offres/typeoffre_form.html"
-    
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['titre'] = f"Modifier le type d'offre : {self.object.__str__()}"
-        return context
-
-
-class TypeOffreDeleteView(PermissionRequiredMixin, BaseDeleteView):
-    """Suppression d'un type d'offre de formation"""
-    model = TypeOffre
-    permission_required = 'rap_app.delete_typeoffre'
-    success_url = reverse_lazy('type-offre-list')
-    template_name = "types_offres/typeoffre_confirm_delete.html"
-    import time
-from django.db.models import Count, Sum, F, Q
-import logging
-
-from ..models.rapports import Rapport
-from ..models import Formation
-
-logger = logging.getLogger(__name__)
-
-class GenerateurRapport:
-    """Service de génération des différents types de rapports."""
-
-    def generer_rapport(type_rapport, date_debut, date_fin, **kwargs):
-        debut_generation = time.time()
-        logger.info(f"📊 Génération du rapport {type_rapport} ({date_debut} → {date_fin})")
-
-        rapport = Rapport(
-            nom=f"Rapport {dict(Rapport.TYPE_CHOICES).get(type_rapport, 'Inconnu')} du {date_debut} au {date_fin}",
-            type_rapport=type_rapport,
-            date_debut=date_debut,
-            date_fin=date_fin,
-            **{k: v for k, v in kwargs.items() if k in ['centre', 'type_offre', 'statut', 'format', 'utilisateur', 'periode']}
-        )
-
-        try:
-            generateur = getattr(GenerateurRapport, f"_generer_{type_rapport}", None)
-            if not generateur:
-                logger.error(f"❌ Aucun générateur trouvé pour {type_rapport}")
-                return None
-
-            rapport.donnees = generateur(date_debut, date_fin, **kwargs)
-
-            rapport.temps_generation = time.time() - debut_generation
-            rapport.save()
-            logger.info(f"✅ Rapport {rapport.nom} généré et sauvegardé en {rapport.temps_generation:.2f}s")
-
-        except Exception as e:
-            logger.error(f"❌ Erreur lors de la génération du rapport {type_rapport} : {str(e)}")
-            return None
-
-        return rapport
-    
-    @staticmethod
-    def _generer_occupation(date_debut, date_fin, **kwargs):
-        """Génère un rapport d'occupation des formations."""
-        formations = Formation.objects.filter(
-            Q(start_date__gte=date_debut, start_date__lte=date_fin) | 
-            Q(end_date__gte=date_debut, end_date__lte=date_fin) |
-            Q(start_date__isnull=True, end_date__gte=date_debut)
-        )
-        
-        if 'centre' in kwargs and kwargs['centre']:
-            formations = formations.filter(centre=kwargs['centre'])
-        if 'type_offre' in kwargs and kwargs['type_offre']:
-            formations = formations.filter(type_offre=kwargs['type_offre'])
-        if 'statut' in kwargs and kwargs['statut']:
-            formations = formations.filter(statut=kwargs['statut'])
-
-        formations = formations.annotate(
-            places_totales=F('prevus_crif') + F('prevus_mp'),
-            inscrits_totaux=F('inscrits_crif') + F('inscrits_mp'),
-            taux_remplissage=100 * (F('inscrits_crif') + F('inscrits_mp')) / (F('prevus_crif') + F('prevus_mp'))
-        )
-
-        stats = formations.aggregate(
-            total_formations=Count('id'),
-            total_places=Sum(F('prevus_crif') + F('prevus_mp')),
-            total_inscrits=Sum(F('inscrits_crif') + F('inscrits_mp')),
-        )
-
-        stats['taux_moyen'] = (stats['total_inscrits'] / stats['total_places']) * 100 if stats['total_places'] else 0
-
-        formations_data = [{
-            'id': f.id,
-            'nom': f.nom,
-            'centre': f.centre.nom,
-            'type_offre': f.type_offre.get_nom_display(),
-            'statut': f.statut.get_nom_display(),
-            'places_totales': f.places_totales,
-            'inscrits_totaux': f.inscrits_totaux,
-            'taux_remplissage': round(f.taux_remplissage, 2)
-        } for f in formations]
-
-        return {
-            'statistiques': stats,
-            'formations': formations_data
-        }
-
-
-
-================================================
-File: rap_app/models/partenaires.py
-================================================
-from django.db import models
-from .base import BaseModel
-
-class Partenaire(BaseModel):
-    """
-    Modèle représentant une partenaire.
-
-    Ajout d'une relation avec `Formation` pour que les partenaires puissent être utilisées comme ressources.
-    """
-
-    nom = models.CharField(max_length=255, verbose_name="Nom du partenaire", unique=True )
-    secteur_activite = models.CharField(max_length=255, verbose_name="Secteur d'activité",blank=True,null=True)
-    contact_nom = models.CharField(max_length=255,verbose_name="Nom du contact",blank=True,null=True)
-    contact_poste = models.CharField(max_length=255,verbose_name="Poste du contact",blank=True,null=True)
-    contact_telephone = models.CharField(max_length=20, verbose_name="Téléphone du contact", blank=True, null=True)
-    contact_email = models.EmailField(verbose_name="Email du contact", blank=True, null=True)
-    description = models.TextField(verbose_name="Description de la relation", blank=True, null=True)
-
-    # Manager par défaut (si PartenaireManager est supprimé)
-    objects = models.Manager()
-
-    def __str__(self):
-        """Représentation lisible du partenaire."""
-        return self.nom
-
-    class Meta:
-        verbose_name = "Partenaire"
-        verbose_name_plural = "Partenaires"
-        ordering = ['nom']
-        indexes = [
-            models.Index(fields=['nom']),  # Index pour optimiser la recherche par nom.
-        ]
-
-
-
-================================================
-File: rap_app/models/prospection.py
-================================================
-from django.db import models
-from django.utils import timezone
-from django.contrib.auth import get_user_model
-
-from ..models.formations import Formation
-from .company import Company
-
-# ✅ Statuts possibles pour une prospection
-PROSPECTION_STATUS_CHOICES = [
-    ('a_faire', 'À faire'),
-    ('en_cours', 'En cours'),
-    ('a_relancer', 'À relancer'),
-    ('acceptee', 'Acceptée'),
-    ('refusee', 'Refusée'),
-    ('annulee', 'Annulée'),
-    ('Non renséigné', 'Non renséigné'),
-
-]
-
-# ✅ Objectifs de prospection
-PROSPECTION_OBJECTIF_CHOICES = [
-    ('prise_contact', 'Prise de contact'),
-    ('rendez_vous', 'Obtenir un rendez-vous'),
-    ('presentation_offre', 'Présentation d’une offre'),
-    ('contrat', 'Signer un contrat'),
-    ('partenariat', 'Établir un partenariat'),
-    ('autre', 'Autre'),
-]
-
-# ✅ Motifs pour lesquels on fait la prospection
-PROSPECTION_MOTIF_CHOICES = [
-    ('POEI', 'POEI'),
-    ('Apprentissage', 'Apprentissage'),
-    ('VAE', 'VAE'),
-    ('partenariat', 'Établir un partenariat'),
-    ('autre', 'Autre'),
-]
-
-# ===============================
-# 🔵 Modèle principal : Prospection
-# ===============================
-class Prospection(models.Model):
-    company = models.ForeignKey(
-        Company, on_delete=models.CASCADE,
-        related_name="prospections",
-        verbose_name="Entreprise"
-    )
-    formation = models.ForeignKey(
-        Formation, on_delete=models.CASCADE,
-        null=True, blank=True,
-        related_name="prospections",
-        verbose_name="Formation en lien"
-    )
-    date_prospection = models.DateTimeField(
-        default=timezone.now,
-        verbose_name="Date de la prospection"
-    )
-    motif = models.CharField(
-        max_length=30,
-        choices=PROSPECTION_MOTIF_CHOICES,
-        default='prise_contact',
-        verbose_name="Motif de la prospection"
-    )
-    statut = models.CharField(
-        max_length=20,
-        choices=PROSPECTION_STATUS_CHOICES,
-        default='a_faire',
-        verbose_name="Statut de la prospection"
-    )
-    objectif = models.CharField(
-        max_length=30,
-        choices=PROSPECTION_OBJECTIF_CHOICES,
-        default='prise_contact',
-        verbose_name="Objectif de la prospection"
-    )
-    commentaire = models.TextField(
-        blank=True, null=True,
-        verbose_name="Commentaires de la prospection"
-    )
-    responsable = models.ForeignKey(
-        get_user_model(),
-        on_delete=models.SET_NULL,
-        null=True, blank=True,
-        verbose_name="Responsable de la prospection"
-    )
-
-    class Meta:
-        verbose_name = "Suivi de la prospection"
-        verbose_name_plural = "Suivis des prospections"
-        ordering = ['-date_prospection']
-
-    def __str__(self):
-        return f"{self.company.name} - {self.formation.nom if self.formation else 'Sans formation'} - {self.get_statut_display()} - {self.get_objectif_display()}"
-
-    # 🔁 Méthode save() personnalisée pour historiser les changements
-    def save(self, *args, **kwargs):
-        is_new = self.pk is None
-        old_prospection = None
-
-        # ⚠️ Si la prospection existe déjà, on récupère l'ancienne version pour détecter les changements
-        if not is_new:
-            try:
-                old_prospection = Prospection.objects.get(pk=self.pk)
-            except Prospection.DoesNotExist:
-                pass
-
-        # 💾 On sauvegarde d'abord la prospection
-        super().save(*args, **kwargs)
-
-        # 🕓 Ensuite, on vérifie s'il y a des changements à historiser
-        if old_prospection:
-            changement_statut = old_prospection.statut != self.statut
-            changement_objectif = old_prospection.objectif != self.objectif
-            changement_commentaire = old_prospection.commentaire != self.commentaire
-
-            if changement_statut or changement_objectif or changement_commentaire:
-                # 📚 Création d'un enregistrement d'historique
-                HistoriqueProspection.objects.create(
-                    prospection=self,
-                    ancien_statut=old_prospection.statut,
-                    nouveau_statut=self.statut,
-                    modifie_par=self.responsable,
-                    commentaire=self.commentaire or "",
-                    resultat=(
-                        f"Objectif modifié : {old_prospection.objectif} → {self.objectif}"
-                        if changement_objectif else ""
-                    ),
-                    prochain_contact=timezone.now().date() + timezone.timedelta(days=7),  # ⏳ J+7 pour relancer
-                )
-
-# ===============================
-# 🔵 Historique des changements
-# ===============================
-class HistoriqueProspection(models.Model):
-    prospection = models.ForeignKey(
-        Prospection, on_delete=models.CASCADE,
-        related_name="historiques"
-    )
-    date_modification = models.DateTimeField(auto_now_add=True)
-    ancien_statut = models.CharField(max_length=20, choices=PROSPECTION_STATUS_CHOICES)
-    nouveau_statut = models.CharField(max_length=20, choices=PROSPECTION_STATUS_CHOICES)
-    commentaire = models.TextField(null=True, blank=True)
-    modifie_par = models.ForeignKey(
-        get_user_model(), on_delete=models.SET_NULL,
-        null=True
-    )
-    prochain_contact = models.DateField(
-        null=True, blank=True,
-        verbose_name="Date de relance"
-    )
-    resultat = models.TextField(
-        null=True, blank=True,
-        verbose_name="Résultat ou retour de la prospection"
-    )
-    moyen_contact = models.CharField(
-        max_length=50,
-        choices=[('email', 'Email'), ('telephone', 'Téléphone'), ('visite', 'Visite'), ('réseaux', 'Réseaux sociaux')],
-        null=True, blank=True,
-        verbose_name="Moyen de contact"
-    )
-
-    class Meta:
-        ordering = ['-date_modification']
-        verbose_name = "Historique de prospection"
-
-    def __str__(self):
-        return f"{self.date_modification} - {self.prospection.company.name} - {self.nouveau_statut}"
-
-
-
-================================================
-File: rap_app/models/rapports.py
-================================================
-# models/rapports.py
-from django.db import models
-from django.utils import timezone
-from .base import BaseModel
-
-class Rapport(BaseModel):
-    """
-    Modèle représentant un rapport généré par le système.
-    Les rapports peuvent être générés automatiquement ou manuellement.
-    """
-    TYPE_OCCUPATION = 'occupation'
-    TYPE_CENTRE = 'centre'
-    TYPE_STATUT = 'statut'
-    TYPE_EVENEMENT = 'evenement'
-    TYPE_RECRUTEMENT = 'recrutement'
-    TYPE_PARTENAIRE = 'partenaire'
-    TYPE_REPARTITION = 'repartition'
-    TYPE_PERIODIQUE = 'periodique'
-    TYPE_ANNUEL = 'annuel'
-    TYPE_UTILISATEUR = 'utilisateur'
-    
-    TYPE_CHOICES = [
-        (TYPE_OCCUPATION, 'Rapport d\'occupation des formations'),
-        (TYPE_CENTRE, 'Rapport de performance par centre'),
-        (TYPE_STATUT, 'Rapport de suivi des statuts'),
-        (TYPE_EVENEMENT, 'Rapport d\'efficacité des événements'),
-        (TYPE_RECRUTEMENT, 'Rapport de suivi du recrutement'),
-        (TYPE_PARTENAIRE, 'Rapport d\'activité des partenaires'),
-        (TYPE_REPARTITION, 'Rapport de répartition des partenaires'),
-        (TYPE_PERIODIQUE, 'Rapport périodique'),
-        (TYPE_ANNUEL, 'Rapport annuel consolidé'),
-        (TYPE_UTILISATEUR, 'Rapport d\'activité utilisateurs'),
-    ]
-    
-    PERIODE_QUOTIDIEN = 'quotidien'
-    PERIODE_HEBDOMADAIRE = 'hebdomadaire'
-    PERIODE_MENSUEL = 'mensuel'
-    PERIODE_TRIMESTRIEL = 'trimestriel'
-    PERIODE_ANNUEL = 'annuel'
-    PERIODE_PERSONNALISE = 'personnalise'
-    
-    PERIODE_CHOICES = [
-        (PERIODE_QUOTIDIEN, 'Quotidien'),
-        (PERIODE_HEBDOMADAIRE, 'Hebdomadaire'),
-        (PERIODE_MENSUEL, 'Mensuel'),
-        (PERIODE_TRIMESTRIEL, 'Trimestriel'),
-        (PERIODE_ANNUEL, 'Annuel'),
-        (PERIODE_PERSONNALISE, 'Période personnalisée'),
-    ]
-    
-    FORMAT_PDF = 'pdf'
-    FORMAT_EXCEL = 'excel'
-    FORMAT_CSV = 'csv'
-    FORMAT_HTML = 'html'
-    
-    FORMAT_CHOICES = [
-        (FORMAT_PDF, 'PDF'),
-        (FORMAT_EXCEL, 'Excel'),
-        (FORMAT_CSV, 'CSV'),
-        (FORMAT_HTML, 'HTML'),
-    ]
-    
-    nom = models.CharField(max_length=255, verbose_name="Nom du rapport")
-    type_rapport = models.CharField(max_length=50, choices=TYPE_CHOICES, verbose_name="Type de rapport")
-    periode = models.CharField(max_length=50, choices=PERIODE_CHOICES, verbose_name="Périodicité")
-    date_debut = models.DateField(verbose_name="Date de début")
-    date_fin = models.DateField(verbose_name="Date de fin")
-    format = models.CharField(max_length=10, choices=FORMAT_CHOICES, default=FORMAT_HTML, verbose_name="Format")
-    
-    # Filtres optionnels
-    centre = models.ForeignKey('Centre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Centre")
-    type_offre = models.ForeignKey('TypeOffre', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Type d'offre")
-    statut = models.ForeignKey('Statut', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Statut")
-    
-    # Données du rapport
-    donnees = models.JSONField(default=dict, verbose_name="Données du rapport")
-    
-    # Métadonnées
-    date_generation = models.DateTimeField(default=timezone.now, verbose_name="Date de génération")
-    utilisateur = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Généré par")
-    temps_generation = models.FloatField(null=True, blank=True, verbose_name="Temps de génération (s)")
-    
-    class Meta:
-        verbose_name = "Rapport"
-        verbose_name_plural = "Rapports"
-        ordering = ['-date_generation']
-        
-    def __str__(self):
-        return f"{self.nom} - {self.get_type_rapport_display()} ({self.date_debut} à {self.date_fin})"
-
-
-================================================
-File: rap_app/models/recherches.py
-================================================
-# models/recherches.py
-from django.db import models
-
-from .types_offre import TypeOffre
-from .base import BaseModel
-from .centres import Centre
-from .statut import Statut
-
-
-class Recherche(BaseModel):
-    """
-    Modèle de suivi des recherches effectuées par les utilisateurs.
-
-    Ce modèle stocke les termes de recherche, les filtres appliqués et d'autres 
-    métadonnées comme l'adresse IP, le User-Agent et le nombre de résultats obtenus.
-    
-    Hérite de `BaseModel`, qui ajoute automatiquement :
-    - `created_at` : Date et heure de création de la recherche.
-    - `updated_at` : Date et heure de la dernière modification.
-    """
-
-
-
-    terme_recherche = models.CharField(
-        max_length=255, 
-        verbose_name="Terme de recherche",
-        null=True,
-        blank=True
-    )
-    """
-    Chaîne de texte recherchée par l'utilisateur.
-    Peut être vide si l'utilisateur a uniquement utilisé des filtres.
-    """
-
-    # Filtres appliqués par l'utilisateur
-    filtre_centre = models.ForeignKey(
-        Centre,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="recherches",
-        verbose_name="Centre filtré"
-    )
-    """
-    Filtre sur un centre de formation spécifique.
-    """
-
-    filtre_type_offre = models.ForeignKey(
-        TypeOffre,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="recherches",
-        verbose_name="Type d'offre filtré"
-    )
-    """
-    Filtre sur un type d'offre spécifique.
-    """
-
-    filtre_statut = models.ForeignKey(
-        Statut,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="recherches",
-        verbose_name="Statut filtré"
-    )
-    """
-    Filtre sur un statut spécifique de formation.
-    """
-
-    # Dates utilisées comme filtres
-    date_debut = models.DateField(null=True, blank=True, verbose_name="Date de début filtrée")
-    """
-    Date minimale pour filtrer les résultats (ex: formations commençant après cette date).
-    """
-
-    date_fin = models.DateField(null=True, blank=True, verbose_name="Date de fin filtrée")
-    """
-    Date maximale pour filtrer les résultats (ex: formations se terminant avant cette date).
-    """
-
-    # Informations sur les résultats de la recherche
-    nombre_resultats = models.PositiveIntegerField(default=0, verbose_name="Nombre de résultats obtenus")
-    """
-    Nombre total de résultats obtenus après exécution de la recherche.
-    """
-
-    temps_execution = models.FloatField(null=True, blank=True, verbose_name="Temps d'exécution (ms)")
-    """
-    Temps d'exécution de la requête en millisecondes (utile pour optimiser les performances).
-    """
-
-
-
-
-
-    @property
-    def a_trouve_resultats(self):
-        """
-        Indique si la recherche a retourné des résultats.
-
-        Retourne `True` si au moins un résultat a été trouvé, sinon `False`.
-        """
-        return self.nombre_resultats > 0
-
-    def __str__(self):
-        """
-        Représentation textuelle de la recherche pour l'affichage dans l'admin.
-        """
-        terme = self.terme_recherche or "Sans terme"
-        utilisateur = self.utilisateur or "Anonyme"
-        return f"Recherche '{terme}' par {utilisateur} ({self.nombre_resultats} résultats)"
-
-    class Meta:
-        verbose_name = "Recherche"
-        verbose_name_plural = "Recherches"
-        ordering = ['-created_at']
-        indexes = [
-            models.Index(fields=['terme_recherche']),
-            models.Index(fields=['created_at']),
-            models.Index(fields=['nombre_resultats']),
-        ]
-    """
-    - Trie les recherches par date de création (les plus récentes en premier).
-    - Ajoute des index pour optimiser les recherches sur `terme_recherche`, `created_at` et `nombre_resultats`.
-    """
-
-
-
-================================================
-File: rap_app/models/statut.py
-================================================
-# models/statut.py
-from django.db import models
-from django.core.exceptions import ValidationError
-from .base import BaseModel
-
-def get_default_color(statut_nom):
-    """
-    Retourne une couleur prédéfinie selon le type de statut.
-    """
-    COULEURS_PREDEFINIES = {
-        'non_defini': "#FFEB3B",  # 🟡 Jaune (texte noir lisible)
-        'recrutement_en_cours': "#4CAF50", # Vert
-        'formation_en_cours': "#2196F3",  # Bleu
-        'formation_a_annuler': "#FF9800",
+        if t

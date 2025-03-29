@@ -45,6 +45,23 @@
           </ul>
         </li>
 
+        <!-- Menu Prépa Comp -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="prepaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-clipboard-list me-1"></i> Prépa Comp
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="prepaDropdown">
+          <li><a class="dropdown-item" href="{% url 'prepa_home' %}"><i class="fas fa-home me-2"></i> Accueil Prépa</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'prepa_semaine_list' %}"><i class="fas fa-calendar-week me-2"></i> Suivi Hebdomadaire</a></li>
+          <li><a class="dropdown-item" href="{% url 'prepa_semaine_create' %}"><i class="fas fa-plus me-2"></i> Ajouter une semaine</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'prepa_global_list' %}"><i class="fas fa-chart-bar me-2"></i> Bilans globaux</a></li>
+          <li><a class="dropdown-item" href="{% url 'prepa_global_create' %}"><i class="fas fa-plus-circle me-2"></i> Ajouter un bilan</a></li>
+        </ul>
+      </li>
+
+
         <li class="nav-item"><a class="nav-link" href="{% url 'parametres' %}"><i class="fas fa-cog me-1"></i> Paramètres</a></li>
       </ul>
 

@@ -2,7 +2,7 @@ from .base import BaseModel
 from .centres import Centre
 from .statut import Statut
 from .types_offre import TypeOffre
-from .formations import Formation, FormationManager
+from .formations import Formation, FormationManager, HistoriqueFormation
 from .commentaires import Commentaire
 from .evenements import Evenement
 from .documents import Document
@@ -10,7 +10,9 @@ from .partenaires import Partenaire
 from .rapports import Rapport  
 from .company import Company
 from .prospection import Prospection
-from .formations import HistoriqueFormation
+
+# ✅ Import des nouveaux modèles pour la prépa comp
+from .prepacomp import  Semaine
 
 __all__ = [
     'BaseModel',
@@ -19,12 +21,13 @@ __all__ = [
     'TypeOffre',
     'Formation',
     'FormationManager',
+    'HistoriqueFormation',
     'Commentaire',
     'Partenaire',
     'Evenement',
     'Document',
-    'HistoriqueFormation',
-    'Rapport',  
+    'Rapport',
     'Prospection',
     'Company',
+    'Semaine',
 ]

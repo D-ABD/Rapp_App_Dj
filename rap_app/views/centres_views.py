@@ -4,7 +4,6 @@ from django.urls import reverse_lazy
 from django.db.models import Count, Sum, F, Q, Value, CharField
 from django.db.models.functions import Concat
 from django.utils import timezone
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib import messages
 
 from ..models import Centre, Formation, TypeOffre, Statut
@@ -229,7 +228,7 @@ class CentreDetailView(BaseDetailView):
         return context
 
 
-class CentreCreateView(PermissionRequiredMixin, BaseCreateView):
+class CentreCreateView( BaseCreateView):
     """
     Vue permettant de créer un nouveau centre de formation.
     
@@ -284,7 +283,7 @@ class CentreCreateView(PermissionRequiredMixin, BaseCreateView):
         return context
 
 
-class CentreUpdateView(PermissionRequiredMixin, BaseUpdateView):
+class CentreUpdateView( BaseUpdateView):
     """
     Vue permettant de modifier un centre de formation existant.
     
@@ -353,7 +352,7 @@ class CentreUpdateView(PermissionRequiredMixin, BaseUpdateView):
         return context
 
 
-class CentreDeleteView(PermissionRequiredMixin, BaseDeleteView):
+class CentreDeleteView( BaseDeleteView):
     """
     Vue permettant de supprimer un centre de formation.
     
