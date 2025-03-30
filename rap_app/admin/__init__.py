@@ -8,7 +8,8 @@ from .statuts_admin import StatutAdmin
 from .types_offre_admin import TypeOffreAdmin
 from .formations_admin import FormationAdmin
 from .commentaires_admin import CommentaireAdmin
-from .partenaires_admin import PartenaireAdmin  # Nouveau
-from .evenements_admin import EvenementAdmin    # Nouveau
-from .documents_admin import DocumentAdmin      # Nouveau
+from .partenaires_admin import PartenaireAdmin
+from .evenements_admin import EvenementAdmin
+from .documents_admin import DocumentAdmin
 from .prospection_admin import ProspectionAdmin, HistoriqueProspection
+from .prepa_admin import SemaineAdmin, PrepaCompGlobalAdmin  

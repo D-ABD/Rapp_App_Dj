@@ -29,6 +29,17 @@ NOMS_ATELIERS = {
     "AT_Autre": "Autre atelier"
 }
 
+NUM_DEPARTEMENTS = {
+    "75": "75",
+    "77": "77",
+    "78": "78",
+    "91": "91",
+    "92": "92",
+    "93": "93",
+    "94": "94",
+    "95": "95"
+
+}
 
 class Semaine(models.Model):
     """Centres et périodes"""

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Tableau de bord VAE & Jurys</h2>
+
+  <form method="get" class="mb-3">
+    <label for="annee">Année :</label>
+    <select name="annee" class="form-select w-auto d-inline-block" onchange="this.form.submit()">
+      {% for a in annees %}
+      <option value="{{ a }}" {% if annee_selectionnee == a %}selected{% endif %}>{{ a }}</option>
+      {% endfor %}
+    </select>
+  </form>
+
+  <h4 class="mt-4">Jurys par mois</h4>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>Mois</th>
+        <th>Objectif</th>
+        <th>Réalisés</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in jurys_par_mois %}
+      <tr>
+        <td>{{ row.mois }}</td>
+        <td>{{ row.objectifs|default:"0" }}</td>
+        <td>{{ row.realises|default:"0" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4 class="mt-5">VAE par statut</h4>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>Statut</th>
+        <th>Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in vae_par_statut %}
+      <tr>
+        <td>{{ s.statut }}</td>
+        <td>{{ s.total }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h4 class="mt-5">VAE par mois</h4>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>Mois</th>
+        <th>Nombre</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in vae_par_mois.values %}
+      <tr>
+        <td>{{ row.mois }}</td>
+        <td>{{ row.count }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

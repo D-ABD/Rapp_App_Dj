@@ -33,69 +33,44 @@
                             </div>
                         </div>
 
-                        <!-- Candidats -->
-                        <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-info text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-secondary p-3">
-                                    <i class="fas fa-users fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h3 class="fw-bold mb-0">{{ total_candidats }}</h3>
-                                    <p class="mb-1">Total Candidats</p>
-                                </div>
-                            </div>
-                        </div>
-<!-- Entretiens -->
+<!-- Candidats / Entretiens / Inscriptions fusionnés -->
 <div class="col-xl-3 col-lg-6 col-md-6">
-    <div class="stat-card bg-info text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-        <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-warning p-3">
-            <i class="fas fa-handshake fa-2x"></i>
+    <div class="stat-card bg-info text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-start">
+      <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-secondary p-3">
+        <i class="fas fa-users fa-2x"></i>
+      </div>
+      <div class="w-100">
+        <h3 class="fw-bold mb-0">{{ total_candidats }}</h3>
+        <p class="mb-1">Total Candidats</p>
+        <div class="d-flex flex-wrap gap-2 mt-2">
+          <span class="badge bg-light text-dark"><i class="fas fa-handshake me-1"></i> Entretiens : {{ total_entretiens }}</span>
+          <span class="badge bg-light text-dark"><i class="fas fa-user-check me-1"></i> Inscriptions : {{ total_inscrits }}</span>
         </div>
-        <div>
-            <h3 class="fw-bold mb-0">{{ total_entretiens }}</h3>
-            <p class="mb-1">Total Entretiens</p>
-        </div>
+      </div>
     </div>
-</div>
-                        <!-- Inscrits -->
-                        <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-success text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-success p-3">
-                                    <i class="fas fa-user-check fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h3 class="fw-bold mb-0">{{ total_inscrits }}</h3>
-                                    <p class="mb-1">Total Inscriptions</p>
-                                </div>
-                            </div>
-                        </div>
+  </div>
+  
 
-                        <!-- Places prévues -->
-                        <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-primary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-info p-3">
-                                    <i class="fas fa-calendar-alt fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h3 class="fw-bold mb-0">{{ total_places_prevues }}</h3>
-                                    <p class="mb-1">Places prévues</p>
-                                </div>
-                            </div>
-                        </div>
+<!-- Places prévues / restantes fusionnées -->
+<div class="col-xl-3 col-lg-6 col-md-6">
+    <div class="stat-card bg-primary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
+      <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-dark p-3">
+        <i class="fas fa-calendar-check fa-2x"></i>
+      </div>
+      <div>
+        <h3 class="fw-bold mb-0">
+          {{ total_places_prevues }} 
+          <span class="text-white-50">/</span> 
+          {{ total_places_restantes }}
+        </h3>
+        <p class="mb-1"> Places Prévues / Restantes</p>
+      </div>
+    </div>
+  </div>
 
-                        <!-- Places restantes -->
-                        <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-primary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-danger p-3">
-                                    <i class="fas fa-calendar-times fa-2x"></i>
-                                </div>
-                                <div>
-                                    <h3 class="fw-bold mb-0">{{ total_places_restantes }}</h3>
-                                    <p class="mb-1">Places restantes</p>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Prospections -->
+
+  
+                          <!-- Prospections -->
                         <div class="col-xl-3 col-lg-6 col-md-6">
                             <div class="stat-card bg-secondary text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
                                 <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-secondary p-3">
@@ -128,58 +103,87 @@
                             </div>
                         </div>
 
-                        <!-- Taux de transformation candidats -->
-                        <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-warning text-black shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
-                                    <i class="fas fa-chart-line fa-2x"></i>
-                                </div>
-                                <div class="w-100">
-                                    <h3 class="fw-bold mb-0">{{ taux_transformation_moyen|floatformat:1 }}%</h3>
-                                    <p class="mb-1">Taux de transformation Candidats</p>
-                                    <div class="progress mt-1" style="height: 6px;">
-                                        <div class="progress-bar bg-light" role="progressbar" 
-                                            style="width: {{ taux_transformation_moyen }}%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
 
-                        <!-- Taux de saturation formations-->
-                        <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-warning text-black shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-indigo p-3">
-                                    <i class="fas fa-tachometer-alt fa-2x"></i>
-                                </div>
-                                <div class="w-100">
-                                    <h3 class="fw-bold mb-0">{{ taux_saturation_moyen|floatformat:1 }}%</h3>
-                                    <p class="mb-1">Taux de saturation des formations</p>
-                                    <div class="progress mt-1" style="height: 6px;">
-                                        <div class="progress-bar bg-light" role="progressbar" 
-                                            style="width: {{ taux_saturation_moyen }}%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
+  
 
+
+                        
+                    </div> <!-- Fin du row -->
+                    <div class="row g-3 mb-3">
+                        <!-- Taux de transformation Candidats -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                          <div class="stat-card bg-warning text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
+                            <div class="d-flex align-items-center mb-2">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
+                                <i class="fas fa-chart-line fa-2x"></i>
+                              </div>
+                              <div>
+                                <h4 class="fw-bold mb-0">{{ taux_transformation_moyen|floatformat:1 }}%</h4>
+                                <p class="mb-0 small">Transformation Candidats</p>
+                              </div>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                              <div class="progress-bar bg-dark" role="progressbar" style="width: {{ taux_transformation_moyen }}%"></div>
+                            </div>
+                          </div>
+                        </div>
+                      
+                        <!-- Taux de saturation Formations -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                          <div class="stat-card bg-warning text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
+                            <div class="d-flex align-items-center mb-2">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-indigo p-3">
+                                <i class="fas fa-tachometer-alt fa-2x"></i>
+                              </div>
+                              <div>
+                                <h4 class="fw-bold mb-0">{{ taux_saturation_moyen|floatformat:1 }}%</h4>
+                                <p class="mb-0 small">Saturation Formations</p>
+                              </div>
+                            </div>
+                            <div class="progress" style="height: 6px;">
+                              <div class="progress-bar bg-dark" role="progressbar" style="width: {{ taux_saturation_moyen }}%"></div>
+                            </div>
+                          </div>
+                        </div>
+                      
                         <!-- Taux de transformation Prospections -->
                         <div class="col-xl-3 col-lg-6 col-md-6">
-                            <div class="stat-card bg-warning text-black shadow-lg rounded-4 p-3 h-100 d-flex align-items-center">
-                                <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
-                                    <i class="fas fa-chart-line fa-2x"></i>
-                                </div>
-                                <div class="w-100">
-                                    <h3 class="fw-bold mb-0">{{ taux_transformation_prospections|floatformat:1 }}%</h3>
-                                    <p class="mb-1">Taux de transformation Prospections</p>
-                                    <div class="progress mt-1" style="height: 6px;">
-                                        <div class="progress-bar bg-light" role="progressbar" 
-                                            style="width: {{ taux_transformation_prospections}}%"></div>
-                                    </div>
-                                </div>
+                          <div class="stat-card bg-warning text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
+                            <div class="d-flex align-items-center mb-2">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
+                                <i class="fas fa-user-plus fa-2x"></i>
+                              </div>
+                              <div>
+                                <h4 class="fw-bold mb-0">{{ taux_transformation_prospections|floatformat:1 }}%</h4>
+                                <p class="mb-0 small">Transformation Prospections</p>
+                              </div>
                             </div>
+                            <div class="progress" style="height: 6px;">
+                              <div class="progress-bar bg-dark" role="progressbar" style="width: {{ taux_transformation_prospections }}%"></div>
+                            </div>
+                          </div>
                         </div>
-                    </div> <!-- Fin du row -->
+                      
+                        <!-- Objectif Prépa Comp -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                          <div class="stat-card bg-light text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
+                            <div class="d-flex align-items-center mb-2">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3">
+                                <i class="fas fa-bullseye fa-2x"></i>
+                              </div>
+                              <div>
+                                <h4 class="fw-bold mb-0">{{ taux_objectif_prepa|floatformat:1 }}%</h4>
+                                <p class="mb-0 small">Objectif Prépa Comp</p>
+                              </div>
+                            </div>
+                            <div class="progress mb-1" style="height: 6px;">
+                              <div class="progress-bar bg-primary" role="progressbar" style="width: {{ taux_objectif_prepa }}%"></div>
+                            </div>
+                            <small class="text-muted text-end">Réalisé : {{ adhesions_globales_prepa }} / {{ objectif_annuel_prepa }}</small>
+                          </div>
+                        </div>
+                      </div>
+                      
                 </div>
             </div>
         </div>

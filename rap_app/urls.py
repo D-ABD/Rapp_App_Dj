@@ -1,5 +1,9 @@
 from django.urls import path
 
+from .views.vae_jury_views import (HistoriqueStatutCreateView, SuiviJuryCreateView, SuiviJuryDeleteView, SuiviJuryDetailView, 
+                                   SuiviJuryListView, SuiviJuryUpdateView, VAECreateView, VAEDeleteView, 
+                                   VAEDetailView, VAEListView, VAEUpdateView, vae_jury_dashboard, vae_jury_home)
+
 from .views.prepa_views import (PrepaGlobalCreateView, PrepaGlobalDetailView, PrepaGlobalListView, 
                                 PrepaHomeView, PrepaObjectifsView,  
                                 PrepaSemaineCreateView, PrepaSemaineDeleteView, PrepaSemaineDetailView, 
@@ -169,4 +173,25 @@ urlpatterns = [
     path('prepa/global/<int:pk>/', PrepaGlobalDetailView.as_view(), name='prepa_global_detail'),
     path('prepa/global/ajouter/', PrepaGlobalCreateView.as_view(), name='prepa_global_create'),
 
+    path('vae-jury/', vae_jury_home, name='vae-jury-home'),
+    path('vae-jury/dashboard/', vae_jury_dashboard, name='vae-jury-dashboard'),
+
+    # Suivis des jurys
+    path('jurys/', SuiviJuryListView.as_view(), name='jury-list'),
+    path('jurys/<int:pk>/', SuiviJuryDetailView.as_view(), name='jury-detail'),
+    path('jurys/nouveau/', SuiviJuryCreateView.as_view(), name='jury-create'),
+    path('jurys/<int:pk>/modifier/', SuiviJuryUpdateView.as_view(), name='jury-update'),
+    path('jurys/<int:pk>/supprimer/', SuiviJuryDeleteView.as_view(), name='jury-delete'),
+    
+    # VAE
+    path('vae/', VAEListView.as_view(), name='vae-list'),
+    path('vae/<int:pk>/', VAEDetailView.as_view(), name='vae-detail'),
+    path('vae/nouvelle/', VAECreateView.as_view(), name='vae-create'),
+    path('vae/<int:pk>/modifier/', VAEUpdateView.as_view(), name='vae-update'),
+    path('vae/<int:pk>/supprimer/', VAEDeleteView.as_view(), name='vae-delete'),
+    
+    # Historique des statuts VAE
+    path('vae/<int:vae_id>/statut/', HistoriqueStatutCreateView.as_view(), name='historique-create'),   
+    
+    
     ]

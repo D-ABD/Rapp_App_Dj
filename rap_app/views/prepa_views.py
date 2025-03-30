@@ -34,44 +34,47 @@ class PrepaHomeView(CustomLoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         annee = timezone.now().year
-        context['annee_courante'] = annee  # Ajout de l'année courante au contexte
-        
+        context['annee_courante'] = annee
+
         centre = Centre.objects.first()
         objectif_global = PrepaCompGlobal.objectif_annuel_global()
-        adhesions_globales = PrepaCompGlobal.objects.filter(
-            annee=annee
-        ).aggregate(total=Sum('adhesions'))['total'] or 0
 
         try:
             context['semaine_courante'] = Semaine.creer_semaine_courante(centre)
-            
-            # Récupérer ou créer le bilan global pour l'année en cours
-            try:
-                bilan_global = PrepaCompGlobal.objects.get(annee=annee, centre=centre)
-            except PrepaCompGlobal.DoesNotExist:
-                # Créer un bilan global par défaut s'il n'existe pas
-                bilan_global = PrepaCompGlobal(
-                    annee=annee,
-                    centre=centre,
-                    total_candidats=0,
-                    total_prescriptions=0,
-                    adhesions=0,
-                    total_presents=0,
-                    total_places_ouvertes=0
-                )
-                bilan_global.save()
-                logger.info(f"Création automatique d'un bilan global pour {annee} et le centre {centre}")
-            
+
+            # Récupération ou création du bilan global par défaut
+            bilan_global, _ = PrepaCompGlobal.objects.get_or_create(
+                annee=annee,
+                centre=centre,
+                defaults={
+                    'total_candidats': 0,
+                    'total_prescriptions': 0,
+                    'adhesions': 0,
+                    'total_presents': 0,
+                    'total_places_ouvertes': 0
+                }
+            )
             context['bilan_global'] = bilan_global
+
+            # Agrégation dynamique des adhésions depuis Semaine (TOUS CENTRES)
+            adhesions_globales = Semaine.objects.filter(
+                annee=annee
+            ).aggregate(total=Sum('nombre_adhesions'))['total'] or 0
+            context['adhesions_globales'] = adhesions_globales
+
+            # Alias clairs pour les blocs du dashboard
+            context['objectif_annuel_prepa'] = objectif_global
+            context['adhesions_globales_prepa'] = adhesions_globales
+            context['taux_objectif_prepa'] = round(
+                (adhesions_globales / objectif_global) * 100, 1
+            ) if objectif_global else 0
+
             context['mois_annee'] = PrepaCompGlobal.stats_par_mois(annee, centre)
             context['objectif_annuel_global'] = objectif_global
             context['objectif_hebdo_global'] = PrepaCompGlobal.objectif_hebdo_global(annee)
-            context['adhesions_globales'] = adhesions_globales
             context['stats_ateliers'] = Semaine.stats_globales_par_atelier(annee)
 
-            context['taux_objectif_global'] = round(
-                (adhesions_globales / objectif_global) * 100, 1
-            ) if objectif_global else 0
+            context['taux_objectif_global'] = context['taux_objectif_prepa']
 
             context['objectifs_par_centre'] = [
                 {
@@ -86,15 +89,17 @@ class PrepaHomeView(CustomLoginRequiredMixin, TemplateView):
         except Exception as e:
             logger.error(f"Erreur chargement PrepaHomeView : {e}")
             messages.error(self.request, f"Erreur lors du chargement du tableau de bord : {e}")
-            
-            # Valeurs par défaut pour éviter les erreurs dans le template
+
             context['semaine_courante'] = None
             context['bilan_global'] = None
             context['mois_annee'] = []
             context['objectif_annuel_global'] = 0
             context['objectif_hebdo_global'] = 0
             context['adhesions_globales'] = 0
+            context['adhesions_globales_prepa'] = 0
+            context['objectif_annuel_prepa'] = 0
             context['taux_objectif_global'] = 0
+            context['taux_objectif_prepa'] = 0
             context['objectifs_par_centre'] = []
             context['stats_ateliers'] = []
 
@@ -302,27 +307,32 @@ class PrepaSemaineUpdateView(BaseUpdateView):
     context_object_name = 'semaine'
     success_url = reverse_lazy('prepa_semaine_list')
 
-    # Retirer les champs JSON du formulaire
     fields = [
         'centre', 'objectif_annuel_prepa', 'objectif_mensuel_prepa', 'objectif_hebdo_prepa',
         'nombre_places_ouvertes', 'nombre_prescriptions', 'nombre_adhesions',
         'nombre_presents_ic'
-        # Retirez 'departements' et 'nombre_par_atelier'
     ]
-    
+
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
-        
+        semaine = self.get_object()
+
+        # Cacher les champs d'objectifs
         # Cacher les champs d'objectifs
         form.fields['objectif_annuel_prepa'].widget = forms.HiddenInput()
         form.fields['objectif_mensuel_prepa'].widget = forms.HiddenInput()
         form.fields['objectif_hebdo_prepa'].widget = forms.HiddenInput()
-        
+
+        # Empêcher la validation obligatoire
+        form.fields['objectif_annuel_prepa'].required = False
+        form.fields['objectif_mensuel_prepa'].required = False
+        form.fields['objectif_hebdo_prepa'].required = False
+
+
         # Ajouter des champs pour les départements
         DEPARTEMENTS_IDF = ['75', '77', '78', '91', '92', '93', '94', '95']
-        semaine = self.get_object()
         departements_data = semaine.departements or {}
-        
+
         for dept in DEPARTEMENTS_IDF:
             field_name = f'dept_{dept}'
             form.fields[field_name] = forms.IntegerField(
@@ -332,7 +342,7 @@ class PrepaSemaineUpdateView(BaseUpdateView):
                 initial=departements_data.get(dept, 0),
                 widget=forms.NumberInput(attrs={'class': 'form-control'})
             )
-        
+
         # Ajouter des champs pour les ateliers
         ateliers_data = semaine.nombre_par_atelier or {}
         for code, nom in NOMS_ATELIERS.items():
@@ -344,79 +354,55 @@ class PrepaSemaineUpdateView(BaseUpdateView):
                 initial=ateliers_data.get(code, 0),
                 widget=forms.NumberInput(attrs={'class': 'form-control'})
             )
-            
+
         return form
-    
+
     def form_valid(self, form):
-        # Traiter les données du formulaire normalement
         result = super().form_valid(form)
-        
+
         # Collecter les données des départements
         DEPARTEMENTS_IDF = ['75', '77', '78', '91', '92', '93', '94', '95']
         departements_data = {}
         for dept in DEPARTEMENTS_IDF:
-            field_name = f'dept_{dept}'
-            value = self.request.POST.get(field_name)
+            value = self.request.POST.get(f'dept_{dept}')
             if value and int(value) > 0:
                 departements_data[dept] = int(value)
-        
+
         # Collecter les données des ateliers
         ateliers_data = {}
-        for code in NOMS_ATELIERS.keys():
-            field_name = f'atelier_{code}'
-            value = self.request.POST.get(field_name)
+        for code in NOMS_ATELIERS:
+            value = self.request.POST.get(f'atelier_{code}')
             if value and int(value) > 0:
                 ateliers_data[code] = int(value)
-        
-        # Mettre à jour l'instance avec les données JSON
+
+        # Mettre à jour l'objet
         self.object.departements = departements_data
         self.object.nombre_par_atelier = ateliers_data
         self.object.save()
-        
+
         return result
 
-class PrepaSemaineUpdateView(BaseUpdateView):
-    model = Semaine
-    template_name = 'prepa/prepa_semaine_form.html'
-    context_object_name = 'semaine'
-    success_url = reverse_lazy('prepa_semaine_list')
-
-    fields = [
-        'centre', 'objectif_annuel_prepa', 'objectif_mensuel_prepa', 'objectif_hebdo_prepa',
-        'nombre_places_ouvertes', 'nombre_prescriptions', 'nombre_adhesions',
-        'nombre_presents_ic', 'departements', 'nombre_par_atelier'
-    ]
-    
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        
-        # Cacher les champs d'objectifs
-        form.fields['objectif_annuel_prepa'].widget = forms.HiddenInput()
-        form.fields['objectif_mensuel_prepa'].widget = forms.HiddenInput()
-        form.fields['objectif_hebdo_prepa'].widget = forms.HiddenInput()
-        
-        return form
-    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         annee = now().year
         context['objectif_annuel_global'] = PrepaCompGlobal.objectif_annuel_global()
         context['objectif_hebdo_global'] = PrepaCompGlobal.objectif_hebdo_global(annee)
-        
-        # Obtenir et enrichir les objectifs par centre
+
         objectifs_par_centre = PrepaCompGlobal.objectifs_par_centre(annee)
-        
-        # Calculer le total des objectifs
-        total_objectif_annuel = sum(o['objectif_annuel_defini'] for o in objectifs_par_centre)
-        total_objectif_hebdo = sum(o['objectif_hebdo'] for o in objectifs_par_centre)
-        total_objectif_mensuel = total_objectif_hebdo * 4
-        
         context['objectifs_par_centre'] = objectifs_par_centre
-        context['total_objectif_annuel'] = total_objectif_annuel
-        context['total_objectif_hebdo'] = total_objectif_hebdo
-        context['total_objectif_mensuel'] = total_objectif_mensuel
-        
+        context['total_objectif_annuel'] = sum(o['objectif_annuel_defini'] for o in objectifs_par_centre)
+        context['total_objectif_hebdo'] = sum(o['objectif_hebdo'] for o in objectifs_par_centre)
+        context['total_objectif_mensuel'] = context['total_objectif_hebdo'] * 4
+
         return context
+    
+    def get_initial(self):
+        initial = super().get_initial()
+        centre = self.object.centre
+        initial['objectif_annuel_prepa'] = centre.objectif_annuel_prepa or 0
+        initial['objectif_hebdo_prepa'] = centre.objectif_hebdomadaire_prepa or 0
+        initial['objectif_mensuel_prepa'] = (centre.objectif_hebdomadaire_prepa or 0) * 4
+        return initial
     
 
 class PrepaSemaineDeleteView(BaseDeleteView):
@@ -429,6 +415,9 @@ class PrepaSemaineDeleteView(BaseDeleteView):
 # ---- Bilan Global ----
 from django.db.models import F, IntegerField, ExpressionWrapper
 
+from rap_app.models.prepacomp import Semaine
+from django.db.models import Sum
+
 class PrepaGlobalListView(BaseListView):
     model = PrepaCompGlobal
     template_name = 'prepa/prepacompglobal_list.html'
@@ -436,21 +425,40 @@ class PrepaGlobalListView(BaseListView):
     ordering = ['-annee']
 
     def get_queryset(self):
-        # On ajoute un accès direct au centre lié
         qs = super().get_queryset().select_related("centre")
-        
-        # On annote avec :
-        # - objectif_annuel : récupéré depuis Centre
-        # - ecart : différence entre objectif et adhésions
-        return qs.annotate(
-            objectif_annuel=F("centre__objectif_annuel_prepa"),
-            ecart=ExpressionWrapper(
-                F("centre__objectif_annuel_prepa") - F("adhesions"),
-                output_field=IntegerField()
+
+        for bilan in qs:
+            centre = bilan.centre
+            annee = bilan.annee
+
+            # Agrégation dynamique à partir de Semaine
+            semaines = Semaine.objects.filter(annee=annee, centre=centre)
+            bilan.total_adhesions = semaines.aggregate(Sum('nombre_adhesions'))['nombre_adhesions__sum'] or 0
+            bilan.total_prescriptions = semaines.aggregate(Sum('nombre_prescriptions'))['nombre_prescriptions__sum'] or 0
+            bilan.total_presents = semaines.aggregate(Sum('nombre_presents_ic'))['nombre_presents_ic__sum'] or 0
+            bilan.total_places_ouvertes = semaines.aggregate(Sum('nombre_places_ouvertes'))['nombre_places_ouvertes__sum'] or 0
+
+            # Calculs
+            objectif = getattr(centre, 'objectif_annuel_prepa', 0)
+            bilan.objectif_annuel = objectif
+            bilan.ecart = objectif - bilan.total_adhesions if objectif else None
+
+            bilan.taux_transformation = (
+                (bilan.total_adhesions / bilan.total_presents) * 100
+                if bilan.total_presents else 0
             )
-        )
+            bilan.taux_objectif_annee = (
+                (bilan.total_adhesions / objectif) * 100
+                if objectif else 0
+            )
+
+        return qs
 
 
+
+
+
+from rap_app.models.prepacomp import Semaine  # ajout nécessaire si pas déjà importé
 
 class PrepaGlobalDetailView(BaseDetailView):
     model = PrepaCompGlobal
@@ -468,13 +476,25 @@ class PrepaGlobalDetailView(BaseDetailView):
         context['objectif_hebdo_global'] = PrepaCompGlobal.objectif_hebdo_global(annee)
         context['objectif_annuel_centre'] = getattr(centre, 'objectif_annuel_prepa', 0)
 
-        # Données mensuelles déjà enrichies avec 'mois_nom'
+        # Données mensuelles enrichies avec 'mois_nom'
         context['mois'] = PrepaCompGlobal.stats_par_mois(annee=annee, centre=centre)
 
-        # Synthèse annuelle pour ce centre
-        context['total_adhesions'] = bilan.adhesions
-        context['taux_objectif'] = bilan.taux_objectif_annee
-        context['taux_transformation'] = bilan.taux_transformation
+        # 💡 Remplace l'accès direct à bilan.adhesions par une agrégation dynamique :
+        total_adhesions = Semaine.objects.filter(annee=annee, centre=centre).aggregate(
+            total=Sum('nombre_adhesions')
+        )['total'] or 0
+
+        context['total_adhesions'] = total_adhesions
+
+        objectif = context['objectif_annuel_centre']
+        context['taux_objectif'] = round((total_adhesions / objectif) * 100, 1) if objectif else 0
+
+        # Taux transformation (optionnel - à adapter si besoin)
+        total_presents = Semaine.objects.filter(annee=annee, centre=centre).aggregate(
+            total=Sum('nombre_presents_ic')
+        )['total'] or 0
+
+        context['taux_transformation'] = round((total_adhesions / total_presents) * 100, 1) if total_presents else 0
 
         # Objectifs par centre (utile pour comparaison ou affichage)
         context['objectifs_par_centre'] = PrepaCompGlobal.objectifs_par_centre(annee)

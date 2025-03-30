@@ -12,6 +12,8 @@ from django.views import View
 from django.db.models.functions import Coalesce, TruncMonth
 from django.db import transaction
 
+from ..models.prepacomp import PrepaCompGlobal, Semaine
+
 # Import des modèles
 from ..models.company import Company
 from ..models.prospection import PROSPECTION_STATUS_CHOICES, Prospection
@@ -101,6 +103,9 @@ class DashboardView(BaseListView):
             
             # ===== CARTES DE STATISTIQUES =====
             self._add_stats_cards(context)
+
+            self._add_prepa_stats(context)  # ✅ AJOUT ICI
+
             
             logger.info("Génération des statistiques du dashboard réussie")
             
@@ -109,7 +114,26 @@ class DashboardView(BaseListView):
             # En cas d'erreur, nous continuons avec les données partielles disponibles
             context['dashboard_error'] = True
             context['error_message'] = "Une erreur est survenue lors du chargement de certaines statistiques."
+        return context
+       
+    def _add_prepa_stats(self, context):
+        annee = timezone.now().year
+        objectif = PrepaCompGlobal.objectif_annuel_global()
         
+        # ✅ Nouvelle agrégation dynamique via Semaine (plus fiable)
+        adhesions = Semaine.objects.filter(annee=annee).aggregate(
+            total=Sum('nombre_adhesions')
+        )['total'] or 0
+
+        taux = round((adhesions / objectif) * 100, 1) if objectif else 0
+
+        context['objectif_annuel_prepa'] = objectif
+        context['adhesions_globales_prepa'] = adhesions
+        context['taux_objectif_prepa'] = taux
+        return context
+       
+       
+       
         return context
     
     def _add_basic_formation_stats(self, context):

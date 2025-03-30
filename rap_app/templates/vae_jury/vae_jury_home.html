@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Accueil VAE / Jury</h2>
+
+  <div class="row text-center my-4">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total VAE</h5>
+          <p class="display-6">{{ total_vae }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">VAE en cours</h5>
+          <p class="display-6 text-warning">{{ total_en_cours }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Jurys réalisés</h5>
+          <p class="display-6 text-success">{{ total_jurys }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h5>Dernières VAE</h5>
+      <ul class="list-group">
+        {% for vae in derniers_vae %}
+        <li class="list-group-item">
+          {{ vae.date_creation|date:"d/m/Y" }} – {{ vae.get_statut_display }} ({{ vae.centre.nom }})
+        </li>
+        {% empty %}
+        <li class="list-group-item text-muted">Aucune VAE récente</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h5>Derniers suivis jury</h5>
+      <ul class="list-group">
+        {% for suivi in derniers_jurys %}
+        <li class="list-group-item">
+          {{ suivi.get_mois_display }} {{ suivi.annee }} – {{ suivi.centre.nom }} : {{ suivi.jurys_realises }}
+        </li>
+        {% empty %}
+        <li class="list-group-item text-muted">Aucun jury récent</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

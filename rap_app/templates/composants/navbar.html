@@ -61,6 +61,23 @@
         </ul>
       </li>
 
+      <!-- Menu VAE / Jury -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="vaeJuryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fas fa-user-check me-1"></i> VAE / Jury
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="vaeJuryDropdown">
+          <li><a class="dropdown-item" href="{% url 'vae-jury-home' %}"><i class="fas fa-home me-2"></i> Accueil VAE/Jury</a></li>
+          <li><a class="dropdown-item" href="{% url 'vae-jury-dashboard' %}"><i class="fas fa-chart-pie me-2"></i> Tableau de bord</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'vae-list' %}"><i class="fas fa-users me-2"></i> Liste des VAE</a></li>
+          <li><a class="dropdown-item" href="{% url 'vae-create' %}"><i class="fas fa-plus me-2"></i> Nouvelle VAE</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="{% url 'jury-list' %}"><i class="fas fa-gavel me-2"></i> Suivis des jurys</a></li>
+          <li><a class="dropdown-item" href="{% url 'jury-create' %}"><i class="fas fa-calendar-plus me-2"></i> Nouveau suivi jury</a></li>
+        </ul>
+      </li>
+
 
         <li class="nav-item"><a class="nav-link" href="{% url 'parametres' %}"><i class="fas fa-cog me-1"></i> Paramètres</a></li>
       </ul>
