@@ -31,9 +31,20 @@ def get_dates_from_week(annee, semaine):
 class PrepaHomeView(CustomLoginRequiredMixin, TemplateView):
     template_name = 'prepa/prepa_home.html'
 
+    def get_stats_par_departement(self, annee):
+        stats = {}
+        DEPARTEMENTS = ['75', '77', '78', '91', '92', '93', '94', '95']
+        semaines = Semaine.objects.filter(annee=annee)
+        for semaine in semaines:
+            departements_data = semaine.departements or {}
+            for code in DEPARTEMENTS:
+                stats[code] = stats.get(code, 0) + departements_data.get(code, 0)
+        return [{"code": code, "valeur": stats.get(code, 0)} for code in DEPARTEMENTS]
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         annee = timezone.now().year
+        mois_actuel = timezone.now().month
         context['annee_courante'] = annee
 
         centre = Centre.objects.first()
@@ -62,20 +73,28 @@ class PrepaHomeView(CustomLoginRequiredMixin, TemplateView):
             ).aggregate(total=Sum('nombre_adhesions'))['total'] or 0
             context['adhesions_globales'] = adhesions_globales
 
-            # Alias clairs pour les blocs du dashboard
+            # Objectifs globaux
             context['objectif_annuel_prepa'] = objectif_global
             context['adhesions_globales_prepa'] = adhesions_globales
             context['taux_objectif_prepa'] = round(
                 (adhesions_globales / objectif_global) * 100, 1
             ) if objectif_global else 0
-
-            context['mois_annee'] = PrepaCompGlobal.stats_par_mois(annee, centre)
             context['objectif_annuel_global'] = objectif_global
             context['objectif_hebdo_global'] = PrepaCompGlobal.objectif_hebdo_global(annee)
-            context['stats_ateliers'] = Semaine.stats_globales_par_atelier(annee)
-
             context['taux_objectif_global'] = context['taux_objectif_prepa']
 
+            # Statistiques mensuelles
+            mois_annee = PrepaCompGlobal.stats_par_mois(annee, centre)
+            context['mois_annee'] = mois_annee
+            context['mois_courant'] = next((m for m in mois_annee if m['mois_num'] == mois_actuel), None)
+
+            # Stats ateliers
+            context['stats_ateliers'] = Semaine.stats_globales_par_atelier(annee)
+
+            # Stats par département ✅
+            context['stats_par_departement'] = self.get_stats_par_departement(annee)
+
+            # Objectifs par centre
             context['objectifs_par_centre'] = [
                 {
                     **o,
@@ -93,6 +112,7 @@ class PrepaHomeView(CustomLoginRequiredMixin, TemplateView):
             context['semaine_courante'] = None
             context['bilan_global'] = None
             context['mois_annee'] = []
+            context['mois_courant'] = None
             context['objectif_annuel_global'] = 0
             context['objectif_hebdo_global'] = 0
             context['adhesions_globales'] = 0
@@ -102,9 +122,11 @@ class PrepaHomeView(CustomLoginRequiredMixin, TemplateView):
             context['taux_objectif_prepa'] = 0
             context['objectifs_par_centre'] = []
             context['stats_ateliers'] = []
+            context['stats_par_departement'] = []
 
         return context
     
+        
 # ---- Semaines ----
 class PrepaSemaineListView(BaseListView):
     model = Semaine

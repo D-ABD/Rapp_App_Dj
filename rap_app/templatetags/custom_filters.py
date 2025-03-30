@@ -1,5 +1,7 @@
+from datetime import timezone
 from django import template
 from django.utils.http import urlencode
+from django.utils.timezone import now
 
 register = template.Library()
 
@@ -64,3 +66,33 @@ def abs(value):
         return abs(value)
     except (TypeError, ValueError):
         return value    
+
+@register.filter
+def get_current_month(mois_annee):
+    """Retourne les stats du mois en cours depuis une liste de mois."""
+    mois_courant = now().month
+    for m in mois_annee:
+        if getattr(m, 'mois', None) == mois_courant:
+            return m
+    return None
+
+@register.filter
+def get_current_month(mois_annee):
+    """
+    Retourne le dictionnaire du mois courant dans la liste mois_annee.
+    """
+    try:
+        current_month = timezone.now().month
+        return next((mois for mois in mois_annee if mois['mois_num'] == current_month), None)
+    except Exception:
+        return None
+
+@register.filter
+def sum_valeurs(liste):
+    """
+    Additionne les champs 'valeur' d'une liste de dictionnaires.
+    """
+    try:
+        return sum(item.get("valeur", 0) for item in liste if isinstance(item, dict))
+    except:
+        return 0

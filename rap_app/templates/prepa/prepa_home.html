@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load form_filters %}
+{% load custom_filters %}
 
 {% block content %}
 <div class="container my-4">
@@ -75,15 +76,16 @@
       {% endif %}
     </div>
 
+
+
     <!-- Colonne mois -->
     <div class="col-md-4">
-      {% with mois=mois_annee|last %}
+      {% with mois=mois_courant %}
       <div class="card border-info h-100">
         <div class="card-body">
-          <h5 class="card-title">📆 Mois actuel</h5>
+          <h5 class="card-title">📆 Mois actuel — {{ mois.mois_nom }} {{ annee_courante }}</h5>
           {% if mois %}
             <p class="card-text">
-              <strong>{{ mois.mois_nom }}</strong><br>
               Places ouvertes : {{ mois.places|default:0 }}<br>
               Prescriptions : {{ mois.prescriptions|default:0 }}<br>
               Présents : {{ mois.presents|default:0 }}<br>
@@ -97,7 +99,7 @@
       </div>
       {% endwith %}
     </div>
-
+    
     <!-- Colonne actions -->
     <div class="col-md-4">
       <div class="card border-warning h-100">
@@ -130,6 +132,16 @@
     <hr class="my-4">
     {% include "prepa/components/stats_ateliers.html" with ateliers=stats_ateliers annee=bilan_global.annee|default:annee_courante %}
   {% endif %}
+  
+  <!-- Stats départements -->
+  {% if stats_par_departement %}
+  <hr class="my-4">
+  {% include "prepa/components/stats_departement.html" with stats=stats_par_departement annee=annee_courante %}
+{% endif %}
+
+
+
+
 
   <!-- Historique mensuel -->
   {% if mois_annee and objectifs_par_centre %}
