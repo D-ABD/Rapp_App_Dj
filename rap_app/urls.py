@@ -1,8 +1,8 @@
 from django.urls import path
 
-from .views.vae_jury_views import (HistoriqueStatutCreateView, SuiviJuryCreateView, SuiviJuryDeleteView, SuiviJuryDetailView, 
+from .views.vae_jury_views import (HistoriqueStatutCreateView, ObjectifCentreUpdateView, SuiviJuryCreateView, SuiviJuryDeleteView, SuiviJuryDetailView, 
                                    SuiviJuryListView, SuiviJuryUpdateView, VAECreateView, VAEDeleteView, 
-                                   VAEDetailView, VAEListView, VAEUpdateView, vae_jury_dashboard, vae_jury_home)
+                                   VAEDetailView, VAEListView, VAEUpdateView, api_jurys_data, api_vae_data, modifier_objectifs_tous_centres, vae_jury_dashboard, vae_jury_home)
 
 from .views.prepa_views import (PrepaGlobalCreateView, PrepaGlobalDetailView, PrepaGlobalListView, 
                                 PrepaHomeView, PrepaObjectifsView,  
@@ -175,7 +175,11 @@ urlpatterns = [
 
     path('vae-jury/', vae_jury_home, name='vae-jury-home'),
     path('vae-jury/dashboard/', vae_jury_dashboard, name='vae-jury-dashboard'),
+    path('vae-jury/<int:pk>/objectifs/', ObjectifCentreUpdateView.as_view(), name='centre-objectifs'),
 
+    path('vae-jury/objectifs-centres/', modifier_objectifs_tous_centres, name='objectifs-centres'),
+    path('vae/<int:vae_id>/historique/ajouter/', HistoriqueStatutCreateView.as_view(), name='vae-historique-create'),
+    
     # Suivis des jurys
     path('jurys/', SuiviJuryListView.as_view(), name='jury-list'),
     path('jurys/<int:pk>/', SuiviJuryDetailView.as_view(), name='jury-detail'),
@@ -190,6 +194,10 @@ urlpatterns = [
     path('vae/<int:pk>/modifier/', VAEUpdateView.as_view(), name='vae-update'),
     path('vae/<int:pk>/supprimer/', VAEDeleteView.as_view(), name='vae-delete'),
     
+
+    path('api/jurys-data/', api_jurys_data, name='api-jurys-data'),
+    path('api/vae-data/', api_vae_data, name='api-vae-data'),
+        
     # Historique des statuts VAE
     path('vae/<int:vae_id>/statut/', HistoriqueStatutCreateView.as_view(), name='historique-create'),   
     

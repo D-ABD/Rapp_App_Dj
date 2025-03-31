@@ -1,6 +1,8 @@
 # forms.py
 from django import forms
 from django.utils import timezone
+
+from ..models.centres import Centre
 from ..models.vae_jury import SuiviJury, VAE, HistoriqueStatutVAE
 
 class SuiviJuryForm(forms.ModelForm):
@@ -28,3 +30,7 @@ class HistoriqueStatutVAEForm(forms.ModelForm):
             'date_changement_effectif': forms.DateInput(attrs={'type': 'date'}),
             'commentaire': forms.Textarea(attrs={'rows': 4}),
         }
+class ObjectifCentreForm(forms.ModelForm):
+    class Meta:
+        model = Centre
+        fields = ['objectif_annuel_jury', 'objectif_mensuel_jury']        

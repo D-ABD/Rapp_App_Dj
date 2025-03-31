@@ -104,8 +104,40 @@
                         </div>
 
 
-  
+                        <!-- Statistiques VAE -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                          <div class="stat-card bg-dark text-white shadow-lg rounded-4 p-3 h-100 d-flex align-items-start">
+                            <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-dark p-3">
+                              <i class="fas fa-file-alt fa-2x"></i>
+                            </div>
+                            <div>
+                              <h3 class="fw-bold mb-0">{{ vae_total }}</h3>
+                              <p class="mb-1">Total VAE</p>
+                              <span class="badge bg-light text-dark">⏳ En cours : {{ vae_en_cours }}</span>
+                            </div>
+                          </div>
+                        </div>
 
+                        <!-- Statistiques Jury -->
+                        <div class="col-xl-3 col-lg-6 col-md-6">
+                          <div class="stat-card bg-dark text-white shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
+                            <div class="d-flex align-items-start">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-dark p-3">
+                                <i class="fas fa-balance-scale fa-2x"></i>
+                              </div>
+                              <div>
+                                <h3 class="fw-bold mb-0">{{ total_jurys }}</h3>
+                                <p class="mb-1">Jurys réalisés (total)</p>
+                                <span class="badge bg-light text-dark mb-1">📅 Cette année : {{ jurys_realises_annee }}</span><br>
+                                <span class="badge bg-light text-dark">🎯 Objectif : {{ objectif_annuel_jury }} — {{ taux_objectif_jury }}%</span>
+                              </div>
+                            </div>
+                            <div class="progress mt-3" style="height: 6px;">
+                              <div class="progress-bar bg-success" role="progressbar" style="width: {{ taux_objectif_jury }}%"></div>
+                            </div>
+                          </div>
+                        </div>                        
+                      </div>      
 
                         
                     </div> <!-- Fin du row -->
@@ -114,7 +146,7 @@
                         <div class="col-xl-3 col-lg-6 col-md-6">
                           <div class="stat-card bg-warning text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
                             <div class="d-flex align-items-center mb-2">
-                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-primary text-purple p-3">
                                 <i class="fas fa-chart-line fa-2x"></i>
                               </div>
                               <div>
@@ -132,7 +164,7 @@
                         <div class="col-xl-3 col-lg-6 col-md-6">
                           <div class="stat-card bg-warning text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
                             <div class="d-flex align-items-center mb-2">
-                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-indigo p-3">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-primary text-indigo p-3">
                                 <i class="fas fa-tachometer-alt fa-2x"></i>
                               </div>
                               <div>
@@ -150,7 +182,7 @@
                         <div class="col-xl-3 col-lg-6 col-md-6">
                           <div class="stat-card bg-warning text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
                             <div class="d-flex align-items-center mb-2">
-                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-light text-purple p-3">
+                              <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-primary text-purple p-3">
                                 <i class="fas fa-user-plus fa-2x"></i>
                               </div>
                               <div>
@@ -166,7 +198,7 @@
                       
                         <!-- Objectif Prépa Comp -->
                         <div class="col-xl-3 col-lg-6 col-md-6">
-                          <div class="stat-card bg-light text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
+                          <div class="stat-card bg-warning text-dark shadow-lg rounded-4 p-3 h-100 d-flex flex-column justify-content-between">
                             <div class="d-flex align-items-center mb-2">
                               <div class="stat-icon me-3 d-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3">
                                 <i class="fas fa-bullseye fa-2x"></i>
@@ -183,11 +215,7 @@
                           </div>
                         </div>
 
-
-
-                        
-                      </div>
-                      
+             
                 </div>
             </div>
         </div>

@@ -210,3 +210,73 @@ class ViewTestsComplementaires(TestCase):
         response = self.client.post(url)
         self.assertRedirects(response, reverse("historique-formation-list"))
         self.assertFalse(HistoriqueFormation.objects.filter(pk=historique.pk).exists())
+
+from django.test import TestCase, Client
+from django.urls import reverse
+from django.contrib.auth.models import User
+from datetime import date
+from ..models.vae_jury import Centre, SuiviJury, VAE
+
+
+class VaeJuryViewsTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')
+
+        self.centre = Centre.objects.create(nom="Test Centre", code_postal="75000", objectif_annuel_jury=100, objectif_mensuel_jury=10)
+        self.suivi = SuiviJury.objects.create(centre=self.centre, annee=2024, mois=3, objectif_jury=10, jurys_realises=5)
+        self.vae = VAE.objects.create(centre=self.centre, date_creation=date.today(), statut='dossier')
+
+    def test_vae_jury_home_view(self):
+        response = self.client.get(reverse('vae-jury-home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'vae_jury/vae_jury_home.html')
+
+    def test_jury_list_view(self):
+        response = self.client.get(reverse('jury-list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('suivis', response.context)
+
+    def test_vae_list_view(self):
+        response = self.client.get(reverse('vae-list'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('vaes', response.context)
+
+    def test_jury_detail_view(self):
+        response = self.client.get(reverse('jury-detail', kwargs={'pk': self.suivi.pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_vae_detail_view(self):
+        response = self.client.get(reverse('vae-detail', kwargs={'pk': self.vae.pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_jury_create_view(self):
+        response = self.client.get(reverse('jury-create'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_vae_create_view(self):
+        response = self.client.get(reverse('vae-create'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_jury_update_view(self):
+        response = self.client.get(reverse('jury-update', kwargs={'pk': self.suivi.pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_vae_update_view(self):
+        response = self.client.get(reverse('vae-update', kwargs={'pk': self.vae.pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_vae_jury_dashboard_view(self):
+        response = self.client.get(reverse('vae-jury-dashboard'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_api_jurys_data(self):
+        response = self.client.get(reverse('api-jurys-data'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.json(), list)
+
+    def test_api_vae_data(self):
+        response = self.client.get(reverse('api-vae-data'))
+        self.assertEqual(response.status_code, 200)
+        self.assertIsInstance(response.json(), dict)

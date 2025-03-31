@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 
 from ..models.vae_jury import SuiviJury, VAE, HistoriqueStatutVAE, Centre
-from ..forms.vae_jury_form import SuiviJuryForm, VAEForm, HistoriqueStatutVAEForm
+from ..forms.vae_jury_form import ObjectifCentreForm, SuiviJuryForm, VAEForm, HistoriqueStatutVAEForm
 
 
 # VAE / Jury Home – Vue d’accueil synthétique
@@ -38,45 +38,48 @@ class SuiviJuryListView(LoginRequiredMixin, ListView):
     model = SuiviJury
     template_name = 'vae_jury/jury_list.html'
     context_object_name = 'suivis'
-    
+
     def get_queryset(self):
         queryset = SuiviJury.objects.all()
-        
+
         # Filtrage par centre
         centre_id = self.request.GET.get('centre')
         if centre_id:
             queryset = queryset.filter(centre_id=centre_id)
-            
+
         # Filtrage par année
         annee = self.request.GET.get('annee')
         if annee:
             queryset = queryset.filter(annee=annee)
-            
+
         # Filtrage par mois
         mois = self.request.GET.get('mois')
         if mois:
             queryset = queryset.filter(mois=mois)
-            
+
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        queryset = self.get_queryset()
         context['centres'] = Centre.objects.all()
-        
+
         # Années disponibles
         context['annees'] = SuiviJury.objects.values_list('annee', flat=True).distinct().order_by('-annee')
-        
-        # Calcul des totaux
-        queryset = self.get_queryset()
-        context['total_objectif'] = queryset.aggregate(Sum('objectif_jury'))['objectif_jury__sum'] or 0
-        context['total_realises'] = queryset.aggregate(Sum('jurys_realises'))['jurys_realises__sum'] or 0
-        
-        if context['total_objectif'] > 0:
-            context['pourcentage_global'] = round((context['total_realises'] / context['total_objectif']) * 100, 2)
-        else:
-            context['pourcentage_global'] = 0
-            
+
+        # ✅ Calcul automatique du total objectif avec fallback sur l'objectif du centre
+        total_objectif = 0
+        for suivi in queryset:
+            total_objectif += suivi.get_objectif_auto()  # méthode définie dans ton modèle
+
+        total_realises = queryset.aggregate(Sum('jurys_realises'))['jurys_realises__sum'] or 0
+
+        context['total_objectif'] = total_objectif
+        context['total_realises'] = total_realises
+        context['pourcentage_global'] = round((total_realises / total_objectif) * 100, 2) if total_objectif > 0 else 0
+
         return context
+
 
 class SuiviJuryDetailView(LoginRequiredMixin, DetailView):
     model = SuiviJury
@@ -89,6 +92,23 @@ class SuiviJuryCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'vae_jury/jury_form.html'
     success_url = reverse_lazy('jury-list')
     success_message = "Le suivi des jurys a été créé avec succès."
+
+    def get_initial(self):
+        initial = super().get_initial()
+        
+        centre_id = self.request.GET.get('centre')
+        if centre_id:
+            try:
+                centre = Centre.objects.get(pk=centre_id)
+                initial['centre'] = centre
+                initial['annee'] = timezone.now().year
+                initial['mois'] = timezone.now().month
+                initial['objectif_jury'] = centre.objectif_mensuel_jury or 0
+            except Centre.DoesNotExist:
+                pass
+
+        return initial
+
 
 class SuiviJuryUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = SuiviJury
@@ -227,44 +247,55 @@ class HistoriqueStatutCreateView(LoginRequiredMixin, SuccessMessageMixin, Create
 
 # Vues pour le tableau de bord
 def vae_jury_dashboard(request):
-    # Année courante par défaut
-    annee = request.GET.get('annee', timezone.now().year)
-    
-    # Statistiques des jurys par mois
+    annee = int(request.GET.get('annee', timezone.now().year))
+
     jurys_par_mois = SuiviJury.objects.filter(annee=annee).values('mois').annotate(
         objectifs=Sum('objectif_jury'),
         realises=Sum('jurys_realises')
     ).order_by('mois')
-    
-    # Statistiques des VAE par statut
+
     vae_par_statut = VAE.objects.filter(date_creation__year=annee).values('statut').annotate(
         total=Count('id')
     )
-    
-    # VAE par mois et par statut
+
     vae_par_mois = {}
     for mois in range(1, 13):
         vae_par_mois[mois] = VAE.objects.filter(
             date_creation__year=annee,
             date_creation__month=mois
         ).values('statut').annotate(total=Count('id'))
-    
-    # Liste des années disponibles
+
+    centres = Centre.objects.all()
+    objectif_annuel_global = sum(c.objectif_annuel_jury or 0 for c in centres)
+    objectif_mensuel_global = sum(c.objectif_mensuel_jury or 0 for c in centres)
+    total_realises = SuiviJury.objects.filter(annee=annee).aggregate(total=Sum('jurys_realises'))['total'] or 0
+    taux_realisation_global = round((total_realises / objectif_annuel_global) * 100, 1) if objectif_annuel_global else 0
+
+    # 👉 Nouveau : statistiques globales VAE
+    total_vae = VAE.objects.filter(date_creation__year=annee).count()
+    vae_en_cours = VAE.objects.filter(date_creation__year=annee).exclude(statut__in=['terminee', 'abandonnee']).count()
+
     annees_jurys = SuiviJury.objects.values_list('annee', flat=True).distinct().order_by('-annee')
     annees_vae = VAE.objects.dates('date_creation', 'year', order='DESC')
-    
-    # Fusionner et dédupliquer les années
     annees = sorted(set([a.year for a in annees_vae] + list(annees_jurys)), reverse=True)
-    
+
     context = {
-        'annee_selectionnee': int(annee),
+        'annee_selectionnee': annee,
         'annees': annees,
         'jurys_par_mois': jurys_par_mois,
         'vae_par_statut': vae_par_statut,
         'vae_par_mois': vae_par_mois,
+        'objectif_annuel_global': objectif_annuel_global,
+        'objectif_mensuel_global': objectif_mensuel_global,
+        'total_realises': total_realises,
+        'taux_realisation_global': taux_realisation_global,
+        'objectifs_par_centre': centres,
+        'total_vae': total_vae,
+        'total_vae_en_cours': vae_en_cours,
     }
-    
+
     return render(request, 'vae_jury/vae_jury_dashboard.html', context)
+
 
 # API pour les graphiques
 def api_jurys_data(request):
@@ -323,3 +354,42 @@ def api_vae_data(request):
     }
     
     return JsonResponse(data)
+
+
+
+
+
+
+class ObjectifCentreUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Centre
+    form_class = ObjectifCentreForm
+    template_name = 'vae_jury/centre_objectif_form.html'
+    success_message = "Objectifs mis à jour avec succès"
+
+    def get_success_url(self):
+        return reverse('jury-list')  # ou autre redirection
+    
+
+
+
+
+
+def modifier_objectifs_tous_centres(request):
+    centres = Centre.objects.all()
+
+    if request.method == 'POST':
+        try:
+            for centre in centres:
+                prefix = f'centre_{centre.id}'
+                objectif_annuel = request.POST.get(f'{prefix}_objectif_annuel')
+                objectif_mensuel = request.POST.get(f'{prefix}_objectif_mensuel')
+
+                centre.objectif_annuel_jury = int(objectif_annuel or 0)
+                centre.objectif_mensuel_jury = int(objectif_mensuel or 0)
+                centre.save()
+            messages.success(request, "Objectifs mis à jour avec succès.")
+            return redirect('vae-jury-dashboard')
+        except Exception as e:
+            messages.error(request, f"Erreur lors de la mise à jour : {e}")
+
+    return render(request, 'vae_jury/objectifs_centres_form.html', {'centres': centres})

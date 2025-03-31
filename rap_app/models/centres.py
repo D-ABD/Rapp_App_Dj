@@ -53,11 +53,11 @@ class Centre(BaseModel):
         ]
     )
 
-    """Champs pour le model prepa."""
+    """Champs pour le model prepa et vae_jury"""
     objectif_annuel_prepa = models.PositiveIntegerField(null=True, blank=True)
     objectif_hebdomadaire_prepa = models.PositiveIntegerField(default=0, blank=True, null=True)
-
-
+    objectif_annuel_jury = models.PositiveIntegerField(default=0)
+    objectif_mensuel_jury = models.PositiveIntegerField(default=0)
     def __str__(self):
         """Retourne le nom du centre pour une meilleure lisibilité."""
         return self.nom

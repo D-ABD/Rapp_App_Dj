@@ -51,9 +51,20 @@
           <td>{{ suivi.centre.nom }}</td>
           <td>{{ suivi.annee }}</td>
           <td>{{ suivi.get_mois_display }}</td>
-          <td>{{ suivi.objectif_jury }}</td>
+          <td>{{ suivi.get_objectif_auto }}</td>
           <td>{{ suivi.jurys_realises }}</td>
-          <td>{{ suivi.pourcentage_atteinte }}%</td>
+          <td>
+            {% if suivi.get_objectif_auto > 0 %}
+              {% if suivi.get_pourcentage_atteinte >= 100 %}
+                <span class="badge bg-success">{{ suivi.get_pourcentage_atteinte }}%</span>
+              {% else %}
+                <span class="badge bg-warning text-dark">{{ suivi.get_pourcentage_atteinte }}%</span>
+              {% endif %}
+            {% else %}
+              <span class="text-muted">—</span>
+            {% endif %}
+          </td>
+          
           <td>
             <a href="{% url 'jury-detail' suivi.pk %}" class="btn btn-sm btn-outline-primary">Détail</a>
             <a href="{% url 'jury-update' suivi.pk %}" class="btn btn-sm btn-outline-warning">Modifier</a>
@@ -67,12 +78,22 @@
     </table>
   </div>
 
-  <div class="mt-3">
-    <strong>Total objectif :</strong> {{ total_objectif }}<br>
-    <strong>Total réalisés :</strong> {{ total_realises }}<br>
-    <strong>Taux global :</strong> {{ pourcentage_global }}%
-  </div>
 
-  <a href="{% url 'jury-create' %}" class="btn btn-success mt-3">Ajouter un suivi jury</a>
-</div>
+
+  <div class="mt-4 d-flex flex-wrap gap-2">
+    <a href="{% url 'jury-create' %}" class="btn btn-success">
+      ➕ Ajouter un suivi jury
+    </a>
+  
+    {% if request.GET.centre %}
+      <a href="{% url 'jury-create' %}?centre={{ request.GET.centre }}" class="btn btn-outline-primary">
+        🎯 Ajouter un suivi pour ce centre
+      </a>
+    {% endif %}
+  
+    <a href="{% url 'vae-jury-dashboard' %}" class="btn btn-outline-secondary">
+      📊 Retour au tableau de bord
+    </a>
+  </div>
+  
 {% endblock %}

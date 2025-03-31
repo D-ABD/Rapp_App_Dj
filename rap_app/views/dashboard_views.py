@@ -12,6 +12,8 @@ from django.views import View
 from django.db.models.functions import Coalesce, TruncMonth
 from django.db import transaction
 
+from ..models.vae_jury import VAE, SuiviJury
+
 from ..models.prepacomp import PrepaCompGlobal, Semaine
 
 # Import des modèles
@@ -104,7 +106,10 @@ class DashboardView(BaseListView):
             # ===== CARTES DE STATISTIQUES =====
             self._add_stats_cards(context)
 
-            self._add_prepa_stats(context)  # ✅ AJOUT ICI
+            self._add_prepa_stats(context) 
+            
+            self._add_vae_jury_stats(context)
+
 
             
             logger.info("Génération des statistiques du dashboard réussie")
@@ -393,6 +398,37 @@ class DashboardView(BaseListView):
         context['derniers_commentaires'] = Commentaire.objects.select_related(
             'formation', 'utilisateur'
         ).order_by('-created_at')[:5]
+
+    def _add_vae_jury_stats(self, context):
+        """
+        Ajoute les statistiques globales sur les VAE et les Jurys.
+
+        Args:
+            context: Dictionnaire de contexte à enrichir
+        """
+        annee = timezone.now().year
+
+        # VAE
+        context['total_vae'] = VAE.objects.count()
+        context['vae_en_cours'] = VAE.objects.exclude(statut__in=['terminee', 'abandonnee']).count()
+
+        # Jurys réalisés cette année
+        context['total_jurys'] = SuiviJury.objects.aggregate(
+            total=Sum('jurys_realises')
+        )['total'] or 0
+
+        context['jurys_realises_annee'] = SuiviJury.objects.filter(annee=annee).aggregate(
+            total=Sum('jurys_realises')
+        )['total'] or 0
+
+        # Objectif annuel global via les centres
+        objectif = sum(c.objectif_annuel_jury or 0 for c in Centre.objects.all())
+        context['objectif_annuel_jury'] = objectif
+
+        if objectif > 0:
+            context['taux_objectif_jury'] = round((context['jurys_realises_annee'] / objectif) * 100, 1)
+        else:
+            context['taux_objectif_jury'] = 0
     
     def _add_stats_cards(self, context):
         """
@@ -409,6 +445,8 @@ class DashboardView(BaseListView):
             (context['total_places_prevues'], "Places prévues", "info", "fa-calendar-alt"),
             (context['total_places_restantes'], "Places restantes", "danger", "fa-calendar-times"),
         ]
+
+        
 
 
 class StatsAPIView(View):

@@ -57,6 +57,17 @@ class SuiviJury(PeriodeMixin):
         verbose_name=_("Pourcentage mensuel")
     )
 
+    def get_objectif_auto(self):
+        if self.objectif_jury and self.objectif_jury > 0:
+            return self.objectif_jury
+        return self.centre.objectif_mensuel_jury or 0
+
+    def get_pourcentage_atteinte(self):
+        objectif = self.get_objectif_auto()
+        if objectif > 0:
+            return round((self.jurys_realises or 0) / objectif * 100, 1)
+        return 0
+
     class Meta(PeriodeMixin.Meta):
         unique_together = ('centre', 'annee', 'mois')
         verbose_name = _("Suivi des jurys")
@@ -99,6 +110,8 @@ class VAE(models.Model):
         ('terminee', _("VAE terminée")),
         ('abandonnee', _("VAE abandonnée")),
     ]
+
+    
     
     centre = models.ForeignKey(
         Centre, 

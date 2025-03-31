@@ -96,3 +96,11 @@ def sum_valeurs(liste):
         return sum(item.get("valeur", 0) for item in liste if isinstance(item, dict))
     except:
         return 0
+@register.filter
+def dividedby(value, arg):
+    try:
+        value = float(value)
+        arg = float(arg)
+        return (value / arg) * 100 if arg != 0 else 0
+    except (ValueError, ZeroDivisionError):
+        return 0

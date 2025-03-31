@@ -269,3 +269,117 @@ class PrepaViewsTestCase(TestCase):
         self.centre.refresh_from_db()
         self.assertEqual(self.centre.objectif_annuel_prepa, 120)
         self.assertEqual(self.centre.objectif_hebdomadaire_prepa, 15)
+
+from django.test import TestCase
+from ..models.vae_jury import SuiviJury, Centre
+from datetime import date
+
+class SuiviJuryModelTest(TestCase):
+    def setUp(self):
+        self.centre = Centre.objects.create(nom="Centre Jury", code_postal="75000")
+
+    def test_creation_et_calcul_pourcentage(self):
+        suivi = SuiviJury.objects.create(
+            centre=self.centre,
+            annee=2024,
+            mois=3,
+            objectif_jury=10,
+            jurys_realises=7
+        )
+        self.assertEqual(suivi.pourcentage_atteinte, 70.0)
+        self.assertEqual(suivi.ecart(), -3)
+
+    def test_objectif_auto_centre_si_non_renseigné(self):
+        self.centre.objectif_mensuel_jury = 12
+        self.centre.save()
+        suivi = SuiviJury.objects.create(
+            centre=self.centre,
+            annee=2024,
+            mois=4,
+            objectif_jury=0,
+            jurys_realises=6
+        )
+        self.assertEqual(suivi.get_objectif_auto(), 12)
+        self.assertEqual(suivi.get_pourcentage_atteinte(), 50.0)
+
+    def test_str_affichage(self):
+        suivi = SuiviJury.objects.create(
+            centre=self.centre,
+            annee=2024,
+            mois=3,
+            objectif_jury=5,
+            jurys_realises=5
+        )
+        self.assertIn("Mars 2024", str(suivi))
+
+    def test_pourcentage_zero_si_objectif_zero(self):
+        suivi = SuiviJury.objects.create(
+            centre=self.centre,
+            annee=2024,
+            mois=2,
+            objectif_jury=0,
+            jurys_realises=10
+        )
+        self.assertEqual(suivi.pourcentage_atteinte, 0)
+
+from django.test import TestCase
+from ..models.vae_jury import VAE, Centre, HistoriqueStatutVAE
+from datetime import date
+
+class VAEModelTest(TestCase):
+    def setUp(self):
+        self.centre = Centre.objects.create(nom="Centre VAE", code_postal="34000")
+
+    def test_creation_vae_et_statut_par_defaut(self):
+        vae = VAE.objects.create(
+            centre=self.centre,
+            date_creation=date(2024, 3, 30),
+            statut='dossier'
+        )
+        self.assertEqual(vae.statut, 'dossier')
+        self.assertTrue("dossier" in vae.__str__().lower())
+        self.assertIsNotNone(vae.reference)
+        self.assertEqual(vae.annee_creation, 2024)
+        self.assertEqual(vae.mois_creation, 3)
+
+    def test_save_auto_reference(self):
+        vae = VAE.objects.create(
+            centre=self.centre,
+            date_creation=date.today(),
+            statut='accompagnement'
+        )
+        self.assertTrue(vae.reference.startswith("VAE-"))
+        self.assertEqual(vae.statut, 'accompagnement')
+
+    def test_get_count_by_statut(self):
+        VAE.objects.create(centre=self.centre, date_creation=date(2024, 3, 1), statut='dossier')
+        VAE.objects.create(centre=self.centre, date_creation=date(2024, 3, 15), statut='jury')
+        VAE.objects.create(centre=self.centre, date_creation=date(2024, 3, 20), statut='abandonnee')
+
+        stats = VAE.get_count_by_statut(centre=self.centre, annee=2024, mois=3)
+        self.assertEqual(stats['total'], 3)
+        self.assertEqual(stats['dossier'], 1)
+        self.assertEqual(stats['jury'], 1)
+        self.assertEqual(stats['abandonnee'], 1)
+        self.assertEqual(stats['en_cours'], 2)  # exclude 'terminee' and 'abandonnee'
+
+    def test_historique_creation_on_save(self):
+        vae = VAE.objects.create(
+            centre=self.centre,
+            date_creation=date.today(),
+            statut='info'
+        )
+        historique = HistoriqueStatutVAE.objects.filter(vae=vae)
+        self.assertEqual(historique.count(), 1)
+        self.assertEqual(historique.first().statut, 'info')
+
+    def test_historique_ajoute_si_statut_change(self):
+        vae = VAE.objects.create(centre=self.centre, date_creation=date.today(), statut='info')
+        vae.statut = 'accompagnement'
+        vae.save()
+
+        # 🔁 Recharge l'historique depuis la base
+        historiques = HistoriqueStatutVAE.objects.filter(vae=vae).order_by('date_saisie')
+
+        self.assertEqual(historiques.count(), 2)
+        self.assertEqual(historiques.last().statut, 'accompagnement')
