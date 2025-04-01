@@ -27,7 +27,7 @@ class CommentaireListView(BaseListView):
     model = Commentaire
     context_object_name = 'commentaires'
     template_name = 'commentaires/commentaire_list.html'
-    paginate_by = 20
+    paginate_by = 5
 
     def get_queryset(self):
         """

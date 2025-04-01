@@ -201,3 +201,4 @@ def handle_commentaire_delete(sender, instance, **kwargs):
             f"Dernier commentaire de la formation #{instance.formation.id} mis à jour "
             f"après suppression d'un commentaire"
         )
+

@@ -266,6 +266,15 @@ class Formation(BaseModel):
         return self.commentaires.select_related("utilisateur").all()  # ✅ Optimisation SQL
 
 
+    def get_saturation_moyenne_commentaires(self):
+        """
+        Calcule la moyenne de saturation des commentaires (si présente).
+        """
+        saturations = self.commentaires.exclude(saturation__isnull=True).values_list('saturation', flat=True)
+        if saturations:
+            return round(sum(saturations) / len(saturations), 2)
+        return None
+
     def get_evenements(self):
         """Retourne tous les événements associés à cette formation."""
         return self.evenements.all()

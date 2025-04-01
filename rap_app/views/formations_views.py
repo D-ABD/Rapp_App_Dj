@@ -7,6 +7,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from django.utils import timezone
 from django.db import transaction
@@ -185,47 +186,39 @@ class FormationDetailView(BaseDetailView):
     context_object_name = 'formation'
     template_name = 'formations/formation_detail.html'
 
+
     def get_context_data(self, **kwargs):
-        """Ajoute les commentaires, evenements et autres données au contexte"""
-        context = super().get_context_data(**kwargs)
-        formation = self.object
+            context = super().get_context_data(**kwargs)
+            formation = self.object
 
-    # Récupération du dernier commentaire avec toutes ses infos
-        dernier_commentaire = formation.get_commentaires().order_by('-created_at').first()
+            # Commentaires paginés
+            commentaires = formation.get_commentaires().order_by('-created_at')
+            paginator = Paginator(commentaires, 5)  # 5 commentaires par page
+            page = self.request.GET.get("page")
+            context["commentaires_page"] = paginator.get_page(page)
 
-    # ✅ Partenaires associées
-        context['partenaires'] = formation.partenaires.all()
+            # Dernier commentaire
+            context['dernier_commentaire'] = commentaires.first()
 
-        # ✅ Partenaires disponibles (celles qui ne sont pas encore associées)
-        context['partenaires_disponibles'] = Partenaire.objects.exclude(id__in=formation.partenaires.values_list('id', flat=True))
+            # Autres données contextuelles
+            context['evenements'] = formation.get_evenements().order_by('-event_date')
+            context['documents'] = formation.documents.all().order_by('-created_at')
+            context['partenaires'] = formation.get_partenaires()
+            context['partenaires_disponibles'] = Partenaire.objects.exclude(id__in=formation.partenaires.values_list('id', flat=True))
+            context['historique'] = formation.historiques.order_by('-date_modification')[:10]
+            context['places_restantes_crif'] = formation.get_places_restantes_crif()
+            context['places_restantes_mp'] = formation.get_places_restantes_mp()
+            context['taux_saturation'] = formation.get_taux_saturation()
 
+            context['prospections'] = formation.prospections.select_related('company', 'responsable')
+            context['entreprises'] = Company.objects.filter(prospections__formation=formation).distinct()
 
-        context['dernier_commentaire'] = dernier_commentaire  # ✅ Ajout du dernier commentaire complet
-        context['commentaires'] = formation.get_commentaires().order_by('-created_at')
-        context['derniers_commentaires'] = ( Commentaire.objects.select_related('formation', 'utilisateur').order_by('-created_at')[:5])
-        context['evenements'] = formation.get_evenements().order_by('-event_date')
-        context['documents'] = formation.documents.all().order_by('-created_at')
-        context['partenaires'] = formation.get_partenaires()
-        context['historique'] = formation.historiques.order_by('-date_modification')[:10]
+            from ..forms.company_form import CompanyForm
+            from ..forms.ProspectionForm import ProspectionForm
+            context['company_form'] = CompanyForm()
+            context['prospection_form'] = ProspectionForm(initial={'formation': formation})
 
-        # ✅ Ajout des valeurs calculées pour affichage
-        context['places_restantes_crif'] = formation.get_places_restantes_crif()
-        context['places_restantes_mp'] = formation.get_places_restantes_mp()
-        context['taux_saturation'] = formation.get_taux_saturation()
-
-    # Récupérer toutes les prospections liées à cette formation
-        context['prospections'] = formation.prospections.select_related('company', 'responsable')
-
-        # Afficher les entreprises (distinctes) liées par prospection
-        context['entreprises'] = Company.objects.filter(prospections__formation=formation).distinct()
-
-        # Formulaires vides pour création rapide
-        from ..forms.company_form import CompanyForm
-        from ..forms.ProspectionForm import ProspectionForm
-        context['company_form'] = CompanyForm()
-        context['prospection_form'] = ProspectionForm(initial={'formation': formation})
-
-        return context    
+            return context
     def post(self, request, *args, **kwargs):
             """
             Gère l'ajout de commentaires, événements, documents et partenaires via POST.

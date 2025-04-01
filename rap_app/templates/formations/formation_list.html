@@ -26,9 +26,15 @@
     </div>
 
     <!-- 📋 Liste des formations -->
-    <div>
+    <div class="mb-4">
         {% include 'formations/includes/formations_table.html' %}
     </div>
 
+   <div class="mb-4">
+    <!-- Ajout de la pagination via include -->
+    {% include "composants/pagination.html" %}      
+    </div>
+    
 </div>
+
 {% endblock %}

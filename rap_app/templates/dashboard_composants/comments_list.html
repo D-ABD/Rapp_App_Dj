@@ -6,10 +6,10 @@
         </button>
     </div>
     
-    <div class="collapse show" id="collapseCommentaires">
+    <div class="collapse " id="collapseCommentaires">
         <div class="card-body p-0">
             <div class="list-group list-group-flush">
-                {% for commentaire in derniers_commentaires %}
+                {% for commentaire in page_obj %}
                     <div class="list-group-item py-2">
                         <div class="d-flex align-items-center">
                             <!-- Avatar -->
@@ -43,6 +43,80 @@
                     <div class="list-group-item text-muted text-center py-3">Aucun commentaire récent</div>
                 {% endfor %}
             </div>
+            
+            <!-- Pagination intégrée -->
+            {% if page_obj.has_other_pages %}
+            <div class="pt-2 pb-2 px-3 border-top">
+                <nav aria-label="Navigation des commentaires">
+                    <ul class="pagination pagination-sm m-0 justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="Première">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Précédente">
+                                    <i class="fas fa-angle-left"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i class="fas fa-angle-double-left"></i>
+                                </span>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i class="fas fa-angle-left"></i>
+                                </span>
+                            </li>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <li class="page-item active" aria-current="page">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > page_obj.number|add:"-3" and num < page_obj.number|add:"3" %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Suivante">
+                                    <i class="fas fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Dernière">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i class="fas fa-angle-right"></i>
+                                </span>
+                            </li>
+                            <li class="page-item disabled">
+                                <span class="page-link">
+                                    <i class="fas fa-angle-double-right"></i>
+                                </span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+            {% endif %}
         </div>
+        <div class="mb-4">
+            <!-- Ajout de la pagination via include -->
+            {% include "composants/pagination.html" %}      
+            </div>
     </div>
+    
 </div>
