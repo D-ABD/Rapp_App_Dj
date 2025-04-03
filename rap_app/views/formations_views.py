@@ -46,15 +46,17 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+from django.db.models import Case, When, Value
+from django.db.models.functions import NullIf  # ✅ pour éviter division par zéro SQL
+
 class FormationListView(BaseListView):
     """Vue listant toutes les formations avec options de filtrage et indicateurs dynamiques."""
     model = Formation
     context_object_name = 'formations'
     template_name = 'formations/formation_list.html'
-    paginate_by = 10  # ✅ Ajout de la pagination
+    paginate_by = 10
 
     def get_queryset(self):
-        """Récupère la liste des formations avec options de filtrage et recherche par mots-clés."""
         today = timezone.now().date()
 
         queryset = Formation.objects.select_related('centre', 'type_offre', 'statut').annotate(
@@ -70,17 +72,26 @@ class FormationListView(BaseListView):
             places_restantes_mp=ExpressionWrapper(
                 F('prevus_mp') - F('inscrits_mp'), output_field=IntegerField()
             ),
-            taux_saturation=ExpressionWrapper(
-                100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
-                (F('prevus_crif') + F('prevus_mp')), output_field=FloatField()
+            taux_saturation=Case(
+                When(prevus_crif=0, prevus_mp=0, then=Value(0.0)),
+                default=ExpressionWrapper(
+                    100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
+                    NullIf(F('prevus_crif') + F('prevus_mp'), 0),
+                    output_field=FloatField()
+                ),
+                output_field=FloatField()
             ),
-            taux_transformation=ExpressionWrapper(
-                100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
-                (F('nombre_candidats') + 0.0001), output_field=FloatField()
+            taux_transformation=Case(
+                When(nombre_candidats=0, then=Value(0.0)),
+                default=ExpressionWrapper(
+                    100.0 * (F('inscrits_crif') + F('inscrits_mp')) / 
+                    NullIf(F('nombre_candidats'), 0),
+                    output_field=FloatField()
+                ),
+                output_field=FloatField()
             ),
         )
 
-        # 🔍 Recherche et filtres
         mot_cle = self.request.GET.get('q', '').strip()
         if mot_cle:
             queryset = queryset.filter(
@@ -113,26 +124,19 @@ class FormationListView(BaseListView):
                 queryset = queryset.filter(total_places__gt=F('total_inscrits'))
 
         return queryset
-    
-    
 
     def get_context_data(self, **kwargs):
-        """Ajoute les statistiques, les centres, types d'offres et statuts au contexte pour le template."""
         context = super().get_context_data(**kwargs)
-
         context['stats'] = [
             (Formation.objects.count(), "Total formations", "primary", "fa-graduation-cap"),
             (Formation.objects.formations_actives().count(), "Formations Actives", "success", "fa-check-circle"),
             (Formation.objects.formations_a_venir().count(), "Formations À venir", "info", "fa-clock"),
             (Formation.objects.formations_terminees().count(), "Formations Terminées", "secondary", "fa-times-circle"),
             (Formation.objects.formations_a_recruter().count(), "Formations À recruter", "danger", "fa-users"),
-
         ]
-
         context['centres'] = Centre.objects.all()
         context['types_offre'] = TypeOffre.objects.all()
         context['statuts'] = Statut.objects.all()
-
         context['filters'] = {
             'centre': self.request.GET.get('centre', ''),
             'type_offre': self.request.GET.get('type_offre', ''),
@@ -140,44 +144,44 @@ class FormationListView(BaseListView):
             'periode': self.request.GET.get('periode', ''),
             'q': self.request.GET.get('q', ''),
         }
-
         return context
-        
-def post(self, request, *args, **kwargs):
-    formation = self.get_object()
-    action = request.POST.get("action")
 
-    if action == "add_company":
-        return self.add_company(request, formation)
-    elif action == "add_prospection":
-        return self.add_prospection(request, formation)
+    def post(self, request, *args, **kwargs):
+        formation = self.get_object()
+        action = request.POST.get("action")
 
-    return super().post(request, *args, **kwargs)
+        if action == "add_company":
+            return self.add_company(request, formation)
+        elif action == "add_prospection":
+            return self.add_prospection(request, formation)
 
-def add_company(self, request, formation):
-    from ..forms.company_form import CompanyForm
-    form = CompanyForm(request.POST)
-    if form.is_valid():
-        company = form.save(commit=False)
-        company.created_by = request.user
-        company.save()
-        messages.success(request, "✅ Entreprise ajoutée avec succès.")
-    else:
-        messages.error(request, "❌ Erreur lors de l'ajout de l'entreprise.")
-    return redirect(request.path)
+        return super().post(request, *args, **kwargs)
 
-def add_prospection(self, request, formation):
-    from ..forms.ProspectionForm import ProspectionForm
-    form = ProspectionForm(request.POST)
-    if form.is_valid():
-        prospection = form.save(commit=False)
-        prospection.formation = formation
-        prospection.responsable = request.user
-        prospection.save()
-        messages.success(request, "✅ Prospection ajoutée avec succès.")
-    else:
-        messages.error(request, "❌ Erreur lors de l'ajout de la prospection.")
-    return redirect(request.path)
+    def add_company(self, request, formation):
+        from ..forms.company_form import CompanyForm
+        form = CompanyForm(request.POST)
+        if form.is_valid():
+            company = form.save(commit=False)
+            company.created_by = request.user
+            company.save()
+            messages.success(request, "✅ Entreprise ajoutée avec succès.")
+        else:
+            messages.error(request, "❌ Erreur lors de l'ajout de l'entreprise.")
+        return redirect(request.path)
+
+    def add_prospection(self, request, formation):
+        from ..forms.ProspectionForm import ProspectionForm
+        form = ProspectionForm(request.POST)
+        if form.is_valid():
+            prospection = form.save(commit=False)
+            prospection.formation = formation
+            prospection.responsable = request.user
+            prospection.save()
+            messages.success(request, "✅ Prospection ajoutée avec succès.")
+        else:
+            messages.error(request, "❌ Erreur lors de l'ajout de la prospection.")
+        return redirect(request.path)
+
 
 
 class FormationDetailView(BaseDetailView):

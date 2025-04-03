@@ -11,6 +11,7 @@ from django.http import JsonResponse, HttpRequest
 from django.views import View
 from django.db.models.functions import Coalesce, TruncMonth
 from django.db import transaction
+from django.db.models import ExpressionWrapper
 
 from ..models.vae_jury import VAE, SuiviJury
 
@@ -74,72 +75,90 @@ class DashboardView(BaseListView):
         Returns:
             dict: Contexte enrichi avec toutes les statistiques
         """
-        # Début de la construction du contexte
         logger.debug("Génération des statistiques du dashboard")
         context = super().get_context_data(**kwargs)
-        
+
+        # Chaque bloc est isolé pour éviter qu'une erreur n'empêche les autres stats de s'afficher
         try:
-            # ===== STATISTIQUES DE BASE SUR LES FORMATIONS =====
             self._add_basic_formation_stats(context)
-            
-            # ===== STATISTIQUES PAR CENTRE =====
-            self._add_centre_stats(context)
-            
-            # ===== STATISTIQUES PAR TYPE D'OFFRE ET STATUT =====
-            self._add_type_and_status_stats(context)
-            
-            # ===== STATISTIQUES DE RECRUTEMENT =====
-            self._add_recruitment_stats(context)
-            
-            # ===== STATISTIQUES DE PARTENAIRES =====
-            self._add_partner_stats(context)
-            
-            # ===== STATISTIQUES DE PROSPECTION =====
-            self._add_prospection_stats(context)
-            
-            # ===== STATISTIQUES D'ÉVÉNEMENTS =====
-            self._add_event_stats(context)
-            
-            # ===== ACTIVITÉ RÉCENTE =====
-            self._add_recent_activity(context)
-            
-            # ===== CARTES DE STATISTIQUES =====
-            self._add_stats_cards(context)
-
-            self._add_prepa_stats(context) 
-            
-            self._add_vae_jury_stats(context)
-
-
-            
-            logger.info("Génération des statistiques du dashboard réussie")
-            
         except Exception as e:
-            logger.error(f"Erreur lors de la génération des statistiques du dashboard: {str(e)}", exc_info=True)
-            # En cas d'erreur, nous continuons avec les données partielles disponibles
-            context['dashboard_error'] = True
-            context['error_message'] = "Une erreur est survenue lors du chargement de certaines statistiques."
+            logger.error(f"Erreur dans _add_basic_formation_stats: {e}", exc_info=True)
+
+        try:
+            self._add_centre_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_centre_stats: {e}", exc_info=True)
+
+        try:
+            self._add_type_and_status_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_type_and_status_stats: {e}", exc_info=True)
+
+        try:
+            self._add_recruitment_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_recruitment_stats: {e}", exc_info=True)
+
+        try:
+            self._add_partner_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_partner_stats: {e}", exc_info=True)
+
+        try:
+            self._add_prospection_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_prospection_stats: {e}", exc_info=True)
+
+        try:
+            self._add_event_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_event_stats: {e}", exc_info=True)
+
+        try:
+            self._add_recent_activity(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_recent_activity: {e}", exc_info=True)
+
+        try:
+            self._add_stats_cards(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_stats_cards: {e}", exc_info=True)
+
+        try:
+            self._add_prepa_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_prepa_stats: {e}", exc_info=True)
+
+        try:
+            self._add_vae_jury_stats(context)
+        except Exception as e:
+            logger.error(f"Erreur dans _add_vae_jury_stats: {e}", exc_info=True)
+
+        logger.info("Génération du dashboard terminée.")
         return context
+
+
        
     def _add_prepa_stats(self, context):
         annee = timezone.now().year
-        objectif = PrepaCompGlobal.objectif_annuel_global()
-        
-        # ✅ Nouvelle agrégation dynamique via Semaine (plus fiable)
+        objectif = PrepaCompGlobal.objectif_annuel_global() or 0  # ⚠️ éviter None
+
         adhesions = Semaine.objects.filter(annee=annee).aggregate(
             total=Sum('nombre_adhesions')
         )['total'] or 0
 
-        taux = round((adhesions / objectif) * 100, 1) if objectif else 0
+        taux = 0
+        if objectif > 0:
+            try:
+                taux = round((adhesions / objectif) * 100, 1)
+            except ZeroDivisionError:
+                taux = 0
 
-        context['objectif_annuel_prepa'] = objectif
-        context['adhesions_globales_prepa'] = adhesions
-        context['taux_objectif_prepa'] = taux
-        return context
-       
-       
-       
-        return context
+            context['objectif_annuel_prepa'] = objectif
+            context['adhesions_globales_prepa'] = adhesions
+            context['taux_objectif_prepa'] = taux
+
+            return context
     
     def _add_basic_formation_stats(self, context):
         """
@@ -155,26 +174,42 @@ class DashboardView(BaseListView):
         context['formations_a_recruter'] = Formation.objects.formations_a_recruter().count()
         
         # Places prévues et disponibles
+        # On fait les agrégations simples uniquement
         places_stats = Formation.objects.aggregate(
-            total_places_prevues=Sum(F('prevus_crif') + F('prevus_mp')),
-            total_places_prevues_crif=Sum('prevus_crif'),
-            total_places_prevues_mp=Sum('prevus_mp'),
-            total_places_restantes=Sum(F('prevus_crif') + F('prevus_mp') - F('inscrits_crif') - F('inscrits_mp')),
-            total_places_restantes_crif=Sum(F('prevus_crif') - F('inscrits_crif')),
-            total_places_restantes_mp=Sum(F('prevus_mp') - F('inscrits_mp')),
-            total_inscrits=Sum(F('inscrits_crif') + F('inscrits_mp')),
+            total_prevus_crif=Sum('prevus_crif'),
+            total_prevus_mp=Sum('prevus_mp'),
             total_inscrits_crif=Sum('inscrits_crif'),
             total_inscrits_mp=Sum('inscrits_mp')
         )
-        
-        # Sécurisation contre les valeurs None
-        for key, value in places_stats.items():
-            context[key] = value or 0
+
+        # On sécurise les None
+        prevus_crif = places_stats['total_prevus_crif'] or 0
+        prevus_mp = places_stats['total_prevus_mp'] or 0
+        inscrits_crif = places_stats['total_inscrits_crif'] or 0
+        inscrits_mp = places_stats['total_inscrits_mp'] or 0
+
+        # Calculs en Python
+        total_places_prevues = prevus_crif + prevus_mp
+        total_inscrits = inscrits_crif + inscrits_mp
+        total_places_restantes = total_places_prevues - total_inscrits
+
+        context['total_places_prevues'] = total_places_prevues
+        context['total_places_prevues_crif'] = prevus_crif
+        context['total_places_prevues_mp'] = prevus_mp
+
+        context['total_inscrits'] = total_inscrits
+        context['total_inscrits_crif'] = inscrits_crif
+        context['total_inscrits_mp'] = inscrits_mp
+
+        context['total_places_restantes'] = total_places_restantes
+        context['total_places_restantes_crif'] = prevus_crif - inscrits_crif
+        context['total_places_restantes_mp'] = prevus_mp - inscrits_mp
     
+
     def _add_centre_stats(self, context):
         """
         Ajoute les statistiques regroupées par centre.
-        
+
         Args:
             context: Dictionnaire de contexte à enrichir
         """
@@ -182,7 +217,7 @@ class DashboardView(BaseListView):
         context['formations_par_centre'] = Centre.objects.annotate(
             total_formations=Count('formations')
         ).order_by('-total_formations')
-        
+
         # Candidats et entretiens par centre
         context['candidats_par_centre'] = Centre.objects.annotate(
             total_candidats=Sum('formations__nombre_candidats'),
@@ -190,11 +225,21 @@ class DashboardView(BaseListView):
         ).filter(
             Q(total_candidats__gt=0) | Q(total_entretiens__gt=0)
         ).order_by('-total_candidats')
-        
+
+        # Calcul sécurisé avec ExpressionWrapper pour les F() + F()
+        total_places_expr = ExpressionWrapper(
+            F('formations__prevus_crif') + F('formations__prevus_mp'),
+            output_field=IntegerField()
+        )
+        total_inscrits_expr = ExpressionWrapper(
+            F('formations__inscrits_crif') + F('formations__inscrits_mp'),
+            output_field=IntegerField()
+        )
+
         # Places prévues et inscrits par centre
         context['places_par_centre'] = Centre.objects.annotate(
-            total_places_prevues=Sum(F('formations__prevus_crif') + F('formations__prevus_mp')),
-            total_inscrits=Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')),
+            total_places_prevues=Sum(total_places_expr),
+            total_inscrits=Sum(total_inscrits_expr),
             places_prevues_crif=Sum('formations__prevus_crif'),
             places_prevues_mp=Sum('formations__prevus_mp'),
             inscrits_crif=Sum('formations__inscrits_crif'),
@@ -202,28 +247,28 @@ class DashboardView(BaseListView):
         ).filter(
             total_places_prevues__gt=0
         ).order_by('-total_places_prevues')
-        
+
         # Taux de transformation et saturation par centre
         context['taux_par_centre'] = Centre.objects.annotate(
             total_formations=Count('formations'),
             total_candidats=Sum('formations__nombre_candidats'),
-            total_entretiens=Sum('formations__nombre_entretiens'), 
+            total_entretiens=Sum('formations__nombre_entretiens'),
             places_prevues_crif=Sum('formations__prevus_crif'),
             inscrits_crif=Sum('formations__inscrits_crif'),
             places_prevues_mp=Sum('formations__prevus_mp'),
             inscrits_mp=Sum('formations__inscrits_mp'),
-            total_inscrits=Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')),
-            total_places_prevues=Sum(F('formations__prevus_crif') + F('formations__prevus_mp')),
+            total_inscrits=Sum(total_inscrits_expr),
+            total_places_prevues=Sum(total_places_expr),
             taux_transformation=Case(
-                When(total_candidats__gt=0, 
-                    then=100.0 * Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')) / 
-                         Coalesce(Sum('formations__nombre_candidats'), Value(1))),
+                When(total_candidats__gt=0,
+                    then=100.0 * Sum(total_inscrits_expr) /
+                        Coalesce(Sum('formations__nombre_candidats'), Value(1))),
                 default=Value(0.0)
             ),
             taux_saturation=Case(
-                When(total_places_prevues__gt=0, 
-                    then=100.0 * Sum(F('formations__inscrits_crif') + F('formations__inscrits_mp')) / 
-                         Coalesce(Sum(F('formations__prevus_crif') + F('formations__prevus_mp')), Value(1))),
+                When(total_places_prevues__gt=0,
+                    then=100.0 * Sum(total_inscrits_expr) /
+                        Coalesce(Sum(total_places_expr), Value(1))),
                 default=Value(0.0)
             )
         ).filter(

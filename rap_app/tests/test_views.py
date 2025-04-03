@@ -35,7 +35,9 @@ class ViewTests(TestCase):
     
     def test_dashboard_access(self):
         response = self.client.get(reverse("dashboard"))
+        print(response.content.decode())  # TEMPORAIRE : voir l'erreur exacte HTML
         self.assertEqual(response.status_code, 200)
+
 
     def test_formation_list_view(self):
         response = self.client.get(reverse("formation-list"))
