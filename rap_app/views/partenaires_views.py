@@ -33,6 +33,8 @@ class PartenaireListView(BaseListView):
     context_object_name = 'partenaires'
     template_name = 'partenaires/partenaire_list.html'
     paginate_by = 20  # Pagination pour améliorer les performances
+    # Ajout d'un ordre explicite pour éviter les avertissements de pagination
+    ordering = ['nom']
     
     def get_queryset(self):
         """
@@ -56,7 +58,7 @@ class PartenaireListView(BaseListView):
         # Logging après filtrage
         logger.debug(f"PartenaireListView: Après filtrage, {queryset.count()} partenaires correspondent")
         
-        return queryset
+        return super().get_queryset().order_by('nom')
     
     def _apply_filters(self, queryset):
         """

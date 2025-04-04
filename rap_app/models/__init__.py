@@ -13,6 +13,7 @@ from .prospection import Prospection
 
 # ✅ Import des nouveaux modèles pour la prépa comp
 from .prepacomp import  Semaine
+from .vae_jury import VAE, SuiviJury, HistoriqueStatutVAE
 
 __all__ = [
     'BaseModel',
@@ -28,6 +29,11 @@ __all__ = [
     'Document',
     'Rapport',
     'Prospection',
+    'HistoriqueProspection',
     'Company',
     'Semaine',
+    'PrepaCompGlobal',
+    'VAE',
+    'SuiviJury',
+    'HistoriqueStatutVAE',
 ]

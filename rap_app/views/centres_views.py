@@ -25,7 +25,9 @@ class CentreListView(BaseListView):
     model = Centre
     context_object_name = 'centres'
     template_name = 'centres/centre_list.html'
-    
+    # Ajout d'un ordre explicite pour éviter les avertissements de pagination
+    ordering = ['nom']
+        
     def get_queryset(self):
         """
         Récupère la liste des centres de formation en annotant des statistiques :
@@ -352,7 +354,9 @@ class CentreUpdateView( BaseUpdateView):
         return context
 
 
-class CentreDeleteView( BaseDeleteView):
+# Fichier: rap_app/views/centre_views.py
+
+class CentreDeleteView(BaseDeleteView):
     """
     Vue permettant de supprimer un centre de formation.
     
@@ -392,11 +396,11 @@ class CentreDeleteView( BaseDeleteView):
         
         return context
     
-    def delete(self, request, *args, **kwargs):
+    def form_valid(self, form):
         """
-        Surcharge de la méthode delete pour ajouter des vérifications et logs supplémentaires.
+        Validation du formulaire avec vérification des dépendances.
+        Méthode appelée lors de la soumission du formulaire de suppression.
         """
-        self.object = self.get_object()
         centre = self.object
         
         # Vérification des dépendances
@@ -405,20 +409,22 @@ class CentreDeleteView( BaseDeleteView):
         if formations_count > 0:
             logger.warning(
                 f"Tentative de suppression du centre #{centre.pk} '{centre.nom}' "
-                f"par {request.user} bloquée: {formations_count} formations associées"
+                f"par {self.request.user} bloquée: {formations_count} formations associées"
             )
             messages.error(
-                request, 
+                self.request, 
                 f"Impossible de supprimer le centre '{centre.nom}' car il possède {formations_count} formations. "
                 f"Veuillez d'abord supprimer ou réassigner ces formations."
             )
             return redirect('centre-detail', pk=centre.pk)
         
         # Log avant suppression
-        logger.info(f"Suppression du centre #{centre.pk} '{centre.nom}' par {request.user}")
+        logger.info(f"Suppression du centre #{centre.pk} '{centre.nom}' par {self.request.user}")
         
         # Message de succès personnalisé
-        messages.success(request, f"Centre '{centre.nom}' supprimé avec succès.")
+        messages.success(self.request, f"Centre '{centre.nom}' supprimé avec succès.")
         
-        # Suppression effective
-        return super().delete(request, *args, **kwargs)
+        # Continuer avec la suppression standard
+        return super().form_valid(form)
+    
+    # Suppression de la méthode delete() qui est maintenant gérée par form_valid()

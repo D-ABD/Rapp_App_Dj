@@ -78,67 +78,43 @@ class DashboardView(BaseListView):
         logger.debug("Génération des statistiques du dashboard")
         context = super().get_context_data(**kwargs)
 
-        # Chaque bloc est isolé pour éviter qu'une erreur n'empêche les autres stats de s'afficher
-        try:
-            self._add_basic_formation_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_basic_formation_stats: {e}", exc_info=True)
-
-        try:
-            self._add_centre_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_centre_stats: {e}", exc_info=True)
-
-        try:
-            self._add_type_and_status_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_type_and_status_stats: {e}", exc_info=True)
-
-        try:
-            self._add_recruitment_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_recruitment_stats: {e}", exc_info=True)
-
-        try:
-            self._add_partner_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_partner_stats: {e}", exc_info=True)
-
-        try:
-            self._add_prospection_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_prospection_stats: {e}", exc_info=True)
-
-        try:
-            self._add_event_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_event_stats: {e}", exc_info=True)
-
-        try:
-            self._add_recent_activity(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_recent_activity: {e}", exc_info=True)
-
-        try:
-            self._add_stats_cards(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_stats_cards: {e}", exc_info=True)
-
-        try:
-            self._add_prepa_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_prepa_stats: {e}", exc_info=True)
-
-        try:
-            self._add_vae_jury_stats(context)
-        except Exception as e:
-            logger.error(f"Erreur dans _add_vae_jury_stats: {e}", exc_info=True)
+        # Utilisation d'une transaction atomique pour chaque bloc de statistiques
+        # Si une erreur se produit, la transaction est annulée et on continue
+        self._safely_add_stats(self._add_basic_formation_stats, context, "basic_formation_stats")
+        self._safely_add_stats(self._add_centre_stats, context, "centre_stats")
+        self._safely_add_stats(self._add_type_and_status_stats, context, "type_and_status_stats")
+        self._safely_add_stats(self._add_recruitment_stats, context, "recruitment_stats")
+        self._safely_add_stats(self._add_partner_stats, context, "partner_stats")
+        self._safely_add_stats(self._add_prospection_stats, context, "prospection_stats")
+        self._safely_add_stats(self._add_event_stats, context, "event_stats")
+        self._safely_add_stats(self._add_recent_activity, context, "recent_activity")
+        self._safely_add_stats(self._add_stats_cards, context, "stats_cards")
+        self._safely_add_stats(self._add_prepa_stats, context, "prepa_stats")
+        self._safely_add_stats(self._add_vae_jury_stats, context, "vae_jury_stats")
 
         logger.info("Génération du dashboard terminée.")
         return context
 
-
-       
+    def _safely_add_stats(self, stats_method, context, stats_name):
+        """
+        Exécute une méthode de statistiques dans une transaction atomique.
+        Si une erreur se produit, la transaction est annulée et on continue.
+        
+        Args:
+            stats_method: Méthode à exécuter
+            context: Contexte à enrichir
+            stats_name: Nom des statistiques pour le log
+        """
+        try:
+            # Exécution dans une transaction séparée
+            with transaction.atomic():
+                stats_method(context)
+        except Exception as e:
+            # En cas d'erreur, on annule la transaction et on log l'erreur
+            logger.error(f"Erreur dans {stats_name}: {e}", exc_info=True)
+            # On ajoute une entrée dans le contexte pour indiquer que ces statistiques sont manquantes
+            context[f"{stats_name}_error"] = str(e)
+                   
     def _add_prepa_stats(self, context):
         annee = timezone.now().year
         objectif = PrepaCompGlobal.objectif_annuel_global() or 0  # ⚠️ éviter None
